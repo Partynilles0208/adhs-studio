@@ -5182,7 +5182,7 @@
         🎲 Zufälliges Spiel
       </button>
       <div style="font-size:11px; font-weight:800; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.5); color:#f472b6; padding:4px 10px; border-radius:12px;">
-        ⚡ 2.000+ Games Live
+        ⚡ 2.100+ Games (GameMonetize & GamePix)
       </div>
     </div>
   </div>
@@ -5193,7 +5193,7 @@
       <div>
         <div class="games-hero-title">
           <span>🔥</span> DIE ULTIMATIVE GAMING-ZONE
-          <span style="font-size:11px; font-weight:900; background:#ec4899; color:#fff; padding:3px 8px; border-radius:8px;">2.000+ GAMES</span>
+          <span style="font-size:11px; font-weight:900; background:linear-gradient(135deg,#ec4899,#8b5cf6); color:#fff; padding:3px 8px; border-radius:8px;">2.100+ GAMES LIVE</span>
         </div>
         <p class="games-hero-sub">
           2.000+ kostenlose HTML5 Games direkt im Browser zocken. Mit 1-Klick Vollbildmodus, flüssigem Sound und sofortigen XP-Belohnungen für jedes Spiel!
@@ -5210,13 +5210,15 @@
 
     <!-- Category Pills Bar -->
     <div class="games-category-bar" id="games-category-bar">
-      <button class="game-cat-pill active" data-cat="all">🔥 Alle Trends (Top)</button>
+      <button class="game-cat-pill active" data-cat="all">🔥 Alle Trends (2.100+)</button>
+      <button class="game-cat-pill" data-cat="GamePix" style="background:rgba(168,85,247,0.2); border-color:rgba(168,85,247,0.5); color:#d8b4fe;">👾 GamePix Hits</button>
       <button class="game-cat-pill" data-cat="Racing">🚗 Racing & Autos</button>
       <button class="game-cat-pill" data-cat="Action">⚔️ Action & Kämpfe</button>
-      <button class="game-cat-pill" data-cat="Arcade">🏃 Arcade & Obbys</button>
+      <button class="game-cat-pill" data-cat="Arcade">🏃 Arcade & Skill</button>
       <button class="game-cat-pill" data-cat="Shooting">🎯 Shooter & Sniper</button>
       <button class="game-cat-pill" data-cat="Adventure">🗺️ Adventure & 3D</button>
       <button class="game-cat-pill" data-cat="Puzzle">🧩 Puzzle & Logik</button>
+      <button class="game-cat-pill" data-cat="match-3">💎 Match-3</button>
       <button class="game-cat-pill" data-cat="Hypercasual">🕹️ Hypercasual</button>
       <button class="game-cat-pill" data-cat="Sports">⚽ Sport & Fußball</button>
     </div>
@@ -13316,7 +13318,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
 class NeuroArcadeEngine {
   constructor() {
-    this.feedUrl = 'https://gamemonetize.com/feed.php?format=0&page=1';
+    this.feedGameMonetizeUrl = 'https://gamemonetize.com/feed.php?format=0&page=1';
+    this.feedGamePixUrl = 'https://feeds.gamepix.com/v2/json?page=1&pagination=96';
     this.allGames = [];
     this.displayedGames = [];
     this.currentCat = 'all';
@@ -13350,7 +13353,7 @@ class NeuroArcadeEngine {
   }
 
   bindEvents() {
-    // Nav sidebar button (Bulletproof navigation)
+    // Nav sidebar button
     const navBtn = document.getElementById('btn-open-games-hub');
     if (navBtn) {
       navBtn.addEventListener('click', (e) => {
@@ -13420,30 +13423,73 @@ class NeuroArcadeEngine {
   }
 
   async fetchGamesFeed() {
+    const pGamePix = fetch(this.feedGamePixUrl)
+      .then(res => res.json())
+      .then(data => {
+        const items = data && data.items ? data.items : [];
+        return items.map(g => ({
+          id: g.id || 'gp_' + Math.random().toString(36).substr(2, 7),
+          title: g.title,
+          category: g.category || 'Arcade',
+          thumb: g.banner_image || g.image || (g.thumbnail ? g.thumbnail : ''),
+          url: g.url,
+          description: g.description || '',
+          source: 'GamePix'
+        }));
+      })
+      .catch(err => {
+        console.warn('GamePix feed fetch warning:', err.message);
+        return [];
+      });
+
+    const pGameMonetize = fetch(this.feedGameMonetizeUrl)
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          return data.map(g => ({
+            id: g.id || 'gm_' + Math.random().toString(36).substr(2, 7),
+            title: g.title,
+            category: g.category || 'Arcade',
+            thumb: g.thumb,
+            url: g.url,
+            description: g.description || '',
+            source: 'GameMonetize'
+          }));
+        }
+        return [];
+      })
+      .catch(err => {
+        console.warn('GameMonetize feed fetch warning:', err.message);
+        return [];
+      });
+
     try {
-      const res = await fetch(this.feedUrl);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        this.allGames = data;
-        localStorage.setItem('neuro_cached_games_count', data.length.toString());
+      const [gpGames, gmGames] = await Promise.all([pGamePix, pGameMonetize]);
+      // Interleave GamePix games into front, followed by the GameMonetize library
+      const combined = [...gpGames, ...gmGames];
+
+      if (combined.length > 0) {
+        this.allGames = combined;
+        localStorage.setItem('neuro_cached_games_count', combined.length.toString());
         this.filterAndRender();
-        console.log('GameMonetize: Loaded ' + data.length + ' live games.');
+        console.log(`Loaded ${combined.length} total games (${gpGames.length} GamePix + ${gmGames.length} GameMonetize).`);
+      } else {
+        this.loadFallbackGames();
       }
     } catch(err) {
-      console.warn('GameMonetize live feed warning, loading fallback games:', err.message);
+      console.warn('Feeds error, using fallback:', err.message);
       this.loadFallbackGames();
     }
   }
 
   loadFallbackGames() {
     this.allGames = [
-      { title: 'Villadash Hero Rescue', category: 'Adventure', thumb: 'https://img.gamemonetize.com/901eh9sn07eefyfjkfotl4zv432wgvud/512x384.jpg', url: 'https://html5.gamemonetize.co/901eh9sn07eefyfjkfotl4zv432wgvud/', description: 'Rette dein Dorf in diesem epischen Action-Adventure!' },
-      { title: 'Steal Car Duel', category: 'Action', thumb: 'https://img.gamemonetize.com/ue3nhk2f20r984onh9u9nst268a9yh5r/512x384.jpg', url: 'https://html5.gamemonetize.co/ue3nhk2f20r984onh9u9nst268a9yh5r/', description: 'Rennsport, Verfolgungsjagd und rasante Drifts im Vollbild!' },
-      { title: 'Simulator GT Motorsport', category: 'Racing', thumb: 'https://img.gamemonetize.com/f6nitbpjolxwjywr1u78jybbvj0wnzkt/512x384.jpg', url: 'https://html5.gamemonetize.co/f6nitbpjolxwjywr1u78jybbvj0wnzkt/', description: 'Echtes Rennwagen-Feeling mit ultra-schnellem Gameplay.' },
-      { title: 'Block Drop Escape Puzzle', category: 'Puzzle', thumb: 'https://img.gamemonetize.com/zef4dbx833cpmmgfswkva8eaj811jfym/512x384.jpg', url: 'https://html5.gamemonetize.co/zef4dbx833cpmmgfswkva8eaj811jfym/', description: 'Knifflige Block-Rätsel zur perfekten Fokussierung.' },
-      { title: 'Mud Truck Simulator Game', category: 'Racing', thumb: 'https://img.gamemonetize.com/spxackbi5osov27qpzzmtogq2lj0ag4d/512x384.jpg', url: 'https://html5.gamemonetize.co/spxackbi5osov27qpzzmtogq2lj0ag4d/', description: 'Offroad-Action durch extremen Schlamm und Hindernisse.' },
-      { title: 'Void Rescue', category: 'Hypercasual', thumb: 'https://img.gamemonetize.com/bgf1ck5e398663kzfqn1ogx3avjkxg11/512x384.jpg', url: 'https://html5.gamemonetize.co/bgf1ck5e398663kzfqn1ogx3avjkxg11/', description: 'Schnelle Reflexe und unendlicher Dopamin-Highscore!' }
+      { title: 'Prism Match 3D', category: 'Match-3', thumb: 'https://img.gamepix.com/games/prism-match-3d/cover/prism-match-3d.png?w=320', url: 'https://play.gamepix.com/prism-match-3d/embed?sid=1', description: '3D Prisma-Rätsel mit sofortigem Dopamin-Feedback!', source: 'GamePix' },
+      { title: 'Villadash Hero Rescue', category: 'Adventure', thumb: 'https://img.gamemonetize.com/901eh9sn07eefyfjkfotl4zv432wgvud/512x384.jpg', url: 'https://html5.gamemonetize.co/901eh9sn07eefyfjkfotl4zv432wgvud/', description: 'Rette dein Dorf in diesem epischen Action-Adventure!', source: 'GameMonetize' },
+      { title: 'Steal Car Duel', category: 'Action', thumb: 'https://img.gamemonetize.com/ue3nhk2f20r984onh9u9nst268a9yh5r/512x384.jpg', url: 'https://html5.gamemonetize.co/ue3nhk2f20r984onh9u9nst268a9yh5r/', description: 'Rennsport, Verfolgungsjagd und rasante Drifts im Vollbild!', source: 'GameMonetize' },
+      { title: 'Simulator GT Motorsport', category: 'Racing', thumb: 'https://img.gamemonetize.com/f6nitbpjolxwjywr1u78jybbvj0wnzkt/512x384.jpg', url: 'https://html5.gamemonetize.co/f6nitbpjolxwjywr1u78jybbvj0wnzkt/', description: 'Echtes Rennwagen-Feeling mit ultra-schnellem Gameplay.', source: 'GameMonetize' },
+      { title: 'Block Drop Escape Puzzle', category: 'Puzzle', thumb: 'https://img.gamemonetize.com/zef4dbx833cpmmgfswkva8eaj811jfym/512x384.jpg', url: 'https://html5.gamemonetize.co/zef4dbx833cpmmgfswkva8eaj811jfym/', description: 'Knifflige Block-Rätsel zur perfekten Fokussierung.', source: 'GameMonetize' },
+      { title: 'Mud Truck Simulator Game', category: 'Racing', thumb: 'https://img.gamemonetize.com/spxackbi5osov27qpzzmtogq2lj0ag4d/512x384.jpg', url: 'https://html5.gamemonetize.co/spxackbi5osov27qpzzmtogq2lj0ag4d/', description: 'Offroad-Action durch extremen Schlamm und Hindernisse.', source: 'GameMonetize' }
     ];
     this.filterAndRender();
   }
@@ -13453,14 +13499,18 @@ class NeuroArcadeEngine {
 
     if (this.currentCat !== 'all') {
       const c = this.currentCat.toLowerCase();
-      filtered = filtered.filter(g => (g.category || '').toLowerCase().includes(c));
+      filtered = filtered.filter(g => 
+        (g.category || '').toLowerCase().includes(c) ||
+        (g.source || '').toLowerCase().includes(c)
+      );
     }
 
     if (this.searchQuery) {
       filtered = filtered.filter(g => 
         (g.title || '').toLowerCase().includes(this.searchQuery) ||
         (g.category || '').toLowerCase().includes(this.searchQuery) ||
-        (g.description || '').toLowerCase().includes(this.searchQuery)
+        (g.description || '').toLowerCase().includes(this.searchQuery) ||
+        (g.source || '').toLowerCase().includes(this.searchQuery)
       );
     }
 
@@ -13492,12 +13542,16 @@ class NeuroArcadeEngine {
       const card = document.createElement('div');
       card.className = 'game-portal-card';
       const rating = (4.7 + Math.random() * 0.29).toFixed(1);
+      const isGamePix = game.source === 'GamePix';
 
       card.innerHTML = `
         <div class="game-card-thumb-wrap">
           <img src="${game.thumb}" alt="${this.escape(game.title)}" class="game-card-thumb-img" loading="lazy">
           <div class="game-card-top-pill">${this.escape(game.category || 'Arcade')}</div>
           <div class="game-card-rating-pill">⭐ ${rating}</div>
+          <div style="position:absolute; bottom:6px; left:6px; font-size:9.5px; font-weight:900; padding:2px 6px; border-radius:6px; background:rgba(0,0,0,0.75); color:${isGamePix ? '#c084fc' : '#38bdf8'}; border:1px solid ${isGamePix ? 'rgba(192,132,252,0.4)' : 'rgba(56,189,248,0.4)'};">
+            ${isGamePix ? '👾 GamePix' : '⚡ GM'}
+          </div>
         </div>
         <div class="game-card-info-wrap">
           <div class="game-card-title">${this.escape(game.title)}</div>
@@ -13524,7 +13578,7 @@ class NeuroArcadeEngine {
     if (!this.playerModal || !this.playerFrame) return;
 
     if (this.playerTitle) this.playerTitle.textContent = game.title;
-    if (this.playerCat) this.playerCat.textContent = (game.category || 'ARCADE').toUpperCase();
+    if (this.playerCat) this.playerCat.textContent = (game.category || (game.source ? game.source.toUpperCase() : 'GAME')).toUpperCase();
     this.playerFrame.src = game.url;
     this.playerModal.classList.add('active');
 
@@ -13555,7 +13609,6 @@ class NeuroArcadeEngine {
     this.activeGame = null;
     clearInterval(this.gamingXpInterval);
 
-    // Exit fullscreen if active
     if (document.fullscreenElement) {
       try { document.exitFullscreen(); } catch(e) {}
     }
@@ -13586,10 +13639,7 @@ class NeuroArcadeEngine {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  window.arcadeEngine = new NeuroArcadeEngine();
-});
+window.arcadeEngine = new NeuroArcadeEngine();
 </script>
 
 </body>
