@@ -4660,6 +4660,117 @@
     color: #34d399;
   }
 
+
+
+  /* ============================================================== */
+  /* UNLOCKED REWARD THEMES & INVENTORY STYLING                     */
+  /* ============================================================== */
+  body.theme-cyberpunk {
+    --bg-dark: #070914 !important;
+    --bg-card: rgba(15, 23, 48, 0.92) !important;
+    --accent: #00f0ff !important;
+    --accent-glow: rgba(0, 240, 255, 0.45) !important;
+    --accent-pink: #ec4899 !important;
+    border-top: 3px solid #00f0ff;
+  }
+  body.theme-matrix {
+    --bg-dark: #030d06 !important;
+    --bg-card: rgba(8, 28, 14, 0.92) !important;
+    --accent: #10b981 !important;
+    --accent-glow: rgba(16, 185, 129, 0.45) !important;
+    --accent-cyan: #34d399 !important;
+    border-top: 3px solid #10b981;
+  }
+  body.theme-sunset {
+    --bg-dark: #120905 !important;
+    --bg-card: rgba(34, 18, 12, 0.92) !important;
+    --accent: #f59e0b !important;
+    --accent-glow: rgba(245, 158, 11, 0.45) !important;
+    --accent-pink: #fb923c !important;
+    border-top: 3px solid #f59e0b;
+  }
+  body.theme-nebula {
+    --bg-dark: #0c071a !important;
+    --bg-card: rgba(26, 16, 48, 0.92) !important;
+    --accent: #c084fc !important;
+    --accent-glow: rgba(192, 132, 252, 0.45) !important;
+    --accent-cyan: #a855f7 !important;
+    border-top: 3px solid #c084fc;
+  }
+
+  .reward-action-trigger-btn {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    border: none;
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(236, 72, 153, 0.4);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .reward-action-trigger-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.6);
+  }
+  .reward-action-trigger-btn.activated {
+    background: linear-gradient(135deg, #10b981, #06b6d4) !important;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4) !important;
+  }
+
+  .vault-inventory-wrap {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+  }
+  .vault-inventory-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .vault-inventory-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 100px;
+    overflow-y: auto;
+  }
+  .inv-chip {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .inv-chip:hover {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: #38bdf8;
+    color: #fff;
+  }
+  .inv-chip.active {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(56, 189, 248, 0.3));
+    border-color: #34d399;
+    color: #34d399;
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
@@ -13653,6 +13764,17 @@ bindEvents() {
       <button id="btn-unlock-vault-action" style="margin-top:18px; width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #f59e0b, #ef4444); border:none; color:#fff; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 0 25px rgba(245, 158, 11, 0.4);" onclick="window.dopamineEngine.openChest();">
         ✨ KISTE JETZT ÖFFNEN
       </button>
+
+      <!-- Inventory Area: Shows actually unlocked useful things -->
+      <div class="vault-inventory-wrap" id="vault-inventory-section">
+        <div class="vault-inventory-header">
+          <span>📦 Meine freigeschalteten Boni & Themes:</span>
+          <span id="vault-inventory-count" style="color:#38bdf8; font-weight:800;">0 aktivierbar</span>
+        </div>
+        <div class="vault-inventory-chips" id="vault-inventory-chips">
+          <span style="font-size:11.5px; color:#64748b;">Noch keine Drops. Öffne deine erste Kiste!</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -13731,29 +13853,182 @@ class DopamineVaultEngine {
     this.comboTimer = null;
     this.overdriveUntil = parseInt(localStorage.getItem('neuro_overdrive_until') || '0', 10);
     
+    // Unlocked Loot Inventory
+    this.unlockedLoot = this.loadUnlockedLoot();
+    this.activeTheme = localStorage.getItem('neuro_active_theme') || '';
+    this.equippedTitle = localStorage.getItem('neuro_user_title') || '';
+
     // Sprint state
     this.sprintActive = false;
     this.sprintTimeLeft = 60;
     this.sprintScore = 0;
     this.sprintTimer = null;
 
-    // Scientific Knowledge Drops (from user paper)
-    this.knowledgePool = [
-      { rarity: 'legendary', title: '🧬 Volkow-PET-Entdeckung (JAMA 2009)', text: 'Nora Volkow bewies: Die D2/D3-Rezeptoren im Nucleus accumbens sind bei ADHS um signifikante Mengen reduziert (2.68 vs 2.85). Deine Dopamin-Suche ist kein Charakterfehler, sondern zerebrale Homöostase!' },
-      { rarity: 'epic', title: '⏳ Barkley-Zeitblindheit (Formel)', text: 'Delay Discounting Formel: V = A / (1 + kD). Da k bei ADHS extrem hoch ist, verliert jede Belohnung in der Zukunft ihren Wert. Nur das JETZT zählt!' },
-      { rarity: 'epic', title: '🍔 Food Noise & Binge-Eating', text: 'Zucker & Fast-Food lösen instantane Dopamin-Stöße aus. 21% der Patienten nutzen Essen unbewusst als Selbstmedikation für den chronisch niedrigen Basaltonus.' },
-      { rarity: 'rare', title: '🚨 DMN-Inhibition Versagen', text: 'Das Default Mode Network (DMN) schaltet bei Aufgabenstart nicht ab. 10-Sekunden Mikro-Tasks erzwingen das Hochfahren des Kontrollnetzwerks (FPN)!' },
-      { rarity: 'legendary', title: '👑 Rang-Titel: Dopamin-Alchemist', text: 'Du hast die Biochemie deines Gehirns gemeistert. Verwandle Unterstimulation in puren kreativen Hyperfokus!' }
+    // USEFUL, VALUABLE LOOT DROPS (NOT BORING TEXT, BUT TANGIBLE PERKS!)
+    this.lootTable = [
+      {
+        id: 'theme_cyberpunk',
+        rarity: 'epic',
+        icon: '🎨',
+        title: 'Cyberpunk Neon Theme',
+        badge: 'UI-DESIGN FREIGESCHALTET',
+        text: 'Schaltet das leuchtende Cyan- & Neon-Design für das gesamte Studio frei.',
+        actionText: '✨ Dieses Theme sofort aktivieren',
+        type: 'theme',
+        themeClass: 'theme-cyberpunk'
+      },
+      {
+        id: 'theme_matrix',
+        rarity: 'rare',
+        icon: '🌿',
+        title: 'Matrix Terminal Theme',
+        badge: 'UI-DESIGN FREIGESCHALTET',
+        text: 'Verwandelt das Studio in ein stylisches, tief fokussiertes Matrix-Grün.',
+        actionText: '🌿 Matrix-Look aktivieren',
+        type: 'theme',
+        themeClass: 'theme-matrix'
+      },
+      {
+        id: 'theme_sunset',
+        rarity: 'epic',
+        icon: '🌅',
+        title: 'Sunset Gold Theme',
+        badge: 'UI-DESIGN FREIGESCHALTET',
+        text: 'Warme Bernstein- & Goldtöne für entspanntes Arbeiten am Abend.',
+        actionText: '🌅 Sunset Gold aktivieren',
+        type: 'theme',
+        themeClass: 'theme-sunset'
+      },
+      {
+        id: 'theme_nebula',
+        rarity: 'legendary',
+        icon: '🟣',
+        title: 'Deep Nebula Theme',
+        badge: 'LEGENDÄRES DESIGN',
+        text: 'Tiefes Kosmos-Violett mit schwebendem Sternen-Glow auf allen Karten.',
+        actionText: '🟣 Deep Nebula aktivieren',
+        type: 'theme',
+        themeClass: 'theme-nebula'
+      },
+      {
+        id: 'boost_3x_xp',
+        rarity: 'legendary',
+        icon: '⚡',
+        title: '3x XP Hyper-Booster (15 Min)',
+        badge: 'POWER-UP AKTIVIERBAR',
+        text: 'Verdreifacht 15 Minuten lang alle verdienten XP im gesamten Studio!',
+        actionText: '🚀 3x XP Booster jetzt zünden',
+        type: 'booster',
+        durationSec: 900
+      },
+      {
+        id: 'title_reflex',
+        rarity: 'rare',
+        icon: '⚡',
+        title: 'Titel: Blitz-Meister',
+        badge: 'PROFIL-TITEL',
+        text: 'Rüstet diesen schnellen Titel dauerhaft auf deinem Profil-Pass & der Seitenleiste aus.',
+        actionText: '👑 Titel im Profil ausrüsten',
+        type: 'title',
+        titleName: '⚡ Blitz-Meister'
+      },
+      {
+        id: 'title_cosmic',
+        rarity: 'legendary',
+        icon: '🌌',
+        title: 'Titel: Kosmischer Architekt',
+        badge: 'VIP-PROFIL-TITEL',
+        text: 'Exklusiver VIP-Titel für Power-User mit goldenem Glanz-Badge.',
+        actionText: '👑 Titel im Profil ausrüsten',
+        type: 'title',
+        titleName: '🌌 Kosmischer Architekt'
+      },
+      {
+        id: 'title_arcade',
+        rarity: 'rare',
+        icon: '🎮',
+        title: 'Titel: Arcade-Legende',
+        badge: 'GAMING-TITEL',
+        text: 'Zeige allen deine Leidenschaft für Games und Highscores.',
+        actionText: '👑 Titel im Profil ausrüsten',
+        type: 'title',
+        titleName: '🎮 Arcade-Legende'
+      },
+      {
+        id: 'vip_ambient_lofi',
+        rarity: 'rare',
+        icon: '🎧',
+        title: 'VIP Ambient: Cyberpunk Regen',
+        badge: 'AUDIO-PERK',
+        text: 'Startet beruhigenden Regen mit warmen Synthesizer-Resonanzen direkt im Hintergrund.',
+        actionText: '🎧 Ambient jetzt starten',
+        type: 'ambient',
+        ambientType: 'rain'
+      },
+      {
+        id: 'res_xp_cache',
+        rarity: 'epic',
+        icon: '💎',
+        title: 'XP-Schatztruhe (+250 XP)',
+        badge: 'SOFORTIGER LEVEL-SCHUB',
+        text: 'Gibt dir sofort +250 XP für schnellere Level-Aufstiege und Relikte.',
+        actionText: '✨ +250 XP jetzt einsammeln',
+        type: 'xp',
+        amount: 250
+      },
+      {
+        id: 'res_extra_key',
+        rarity: 'rare',
+        icon: '🗝️',
+        title: 'Meister-Schlüssel & 100 Funken',
+        badge: 'SCHLÜSSEL-DROP',
+        text: 'Schmiedet sofort einen weiteren Kisten-Schlüssel für die nächste Belohnung!',
+        actionText: '🎁 Nächste Kiste freischalten',
+        type: 'key',
+        amount: 1
+      }
     ];
 
     this.init();
   }
 
+  loadUnlockedLoot() {
+    try {
+      const data = localStorage.getItem('neuro_unlocked_rewards');
+      return data ? JSON.parse(data) : {};
+    } catch(e) {
+      return {};
+    }
+  }
+
+  saveUnlockedLoot() {
+    try {
+      localStorage.setItem('neuro_unlocked_rewards', JSON.stringify(this.unlockedLoot));
+    } catch(e) {}
+  }
+
   init() {
     this.checkOverdrive();
+    this.applySavedTheme();
+    this.applySavedTitle();
     this.updateUI();
+    this.renderInventory();
     this.bindGlobalActions();
     this.bindDockButtons();
+  }
+
+  applySavedTheme() {
+    if (this.activeTheme) {
+      document.body.classList.remove('theme-cyberpunk', 'theme-matrix', 'theme-sunset', 'theme-nebula');
+      document.body.classList.add(this.activeTheme);
+    }
+  }
+
+  applySavedTitle() {
+    if (this.equippedTitle) {
+      const crown = document.querySelector('.user-crown-badge');
+      if (crown) crown.textContent = '👑 ' + this.equippedTitle;
+    }
   }
 
   bindDockButtons() {
@@ -13782,32 +14057,24 @@ class DopamineVaultEngine {
       window.audio.playComboSound(this.combo);
     }
 
-    const sparkGain = this.isOverdriveActive() ? 4 : 2;
+    const sparkGain = this.isOverdriveActive() ? 5 : 2;
     this.addSparks(sparkGain);
-
-    if (this.sprintActive) {
-      this.sprintScore++;
-      const scoreEl = document.getElementById('sprint-score-counter');
-      const multEl = document.getElementById('sprint-mult-counter');
-      if (scoreEl) scoreEl.textContent = this.sprintScore;
-      if (multEl) multEl.textContent = 'x' + (1 + (this.combo * 0.1)).toFixed(1);
-    }
-
-    this.updateComboHud();
 
     this.comboTimer = setTimeout(() => {
       this.combo = 0;
       this.hideComboHud();
-    }, 4500);
+    }, 3200);
+
+    this.updateComboHud();
   }
 
   updateComboHud() {
     const hud = document.getElementById('neuro-combo-hud');
-    const num = document.getElementById('combo-hud-number');
-    const mult = document.getElementById('combo-hud-mult');
-    if (!hud || !num || !mult) return;
+    const val = document.getElementById('combo-counter-val');
+    const mult = document.getElementById('combo-multiplier-val');
+    if (!hud || !val || !mult) return;
 
-    num.textContent = this.combo;
+    val.textContent = this.combo;
     const factor = (1 + (this.combo * 0.15)).toFixed(1);
     mult.textContent = 'x' + factor + ' XP';
 
@@ -13835,10 +14102,10 @@ class DopamineVaultEngine {
 
   triggerKeyFoundCelebration() {
     if (window.audio && typeof window.audio.playCoinSound === 'function') {
-      window.audio.playCoinSound();
+      try { window.audio.playCoinSound(); } catch(e) {}
     }
     if (window.masteryEngine) {
-      window.masteryEngine.showXpToast('🗝️ DOPAMIN-SCHLÜSSEL GEFUNDEN!');
+      try { window.masteryEngine.showXpToast('🗝️ KISTEN-SCHLÜSSEL GESCHMIEDET!'); } catch(e) {}
     }
   }
 
@@ -13853,6 +14120,7 @@ class DopamineVaultEngine {
     const chestIcon = document.getElementById('vault-chest-icon');
     if (chestIcon) chestIcon.textContent = '🎁';
     this.updateUI();
+    this.renderInventory();
   }
 
   closeVault() {
@@ -13862,7 +14130,7 @@ class DopamineVaultEngine {
 
   openChest() {
     if (this.keys <= 0) {
-      alert('Sammle noch etwas mehr Funken durch Interaktionen, um den nächsten Schlüssel zu schmieden!');
+      alert('Sammle noch etwas mehr Funken durch Interaktionen (oder spiele eine Runde), um den nächsten Schlüssel zu schmieden!');
       return;
     }
 
@@ -13882,49 +14150,125 @@ class DopamineVaultEngine {
       chestBox.classList.remove('shaking');
       if (chestIcon) chestIcon.textContent = '✨';
 
-      const roll = Math.random();
-      let drop;
+      // Pick a random reward from loot table
+      const randIdx = Math.floor(Math.random() * this.lootTable.length);
+      const drop = this.lootTable[randIdx];
 
-      if (roll < 0.25) {
-        drop = this.knowledgePool[0];
-        this.activateOverdrive(180);
-        if (window.masteryEngine) window.masteryEngine.addXp(200, '👑 LEGENDÄR');
-        if (window.audio) window.audio.playLootDropSound(true);
-      } else if (roll < 0.55) {
-        drop = this.knowledgePool[1];
-        if (window.masteryEngine) window.masteryEngine.addXp(120, '⚡ EPISCH');
-        if (window.audio) window.audio.playLootDropSound(false);
-      } else if (roll < 0.8) {
-        drop = this.knowledgePool[2];
-        if (window.masteryEngine) window.masteryEngine.addXp(75, '🔵 SELTEN');
-        if (window.audio) window.audio.playCoinSound();
-      } else {
-        drop = this.knowledgePool[3];
-        if (window.masteryEngine) window.masteryEngine.addXp(40, '⚪ BONUS');
-        if (window.audio) window.audio.playCoinSound();
+      // Mark unlocked in inventory
+      this.unlockedLoot[drop.id] = {
+        id: drop.id,
+        title: drop.title,
+        icon: drop.icon,
+        type: drop.type,
+        unlockedAt: new Date().toISOString()
+      };
+      this.saveUnlockedLoot();
+
+      // Sound & Celebration
+      if (window.audio) {
+        try {
+          if (drop.rarity === 'legendary') window.audio.playLootDropSound(true);
+          else window.audio.playLootDropSound(false);
+        } catch(e) {}
       }
 
       if (window.confetti) {
-        try { window.confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } }); } catch(e) {}
+        try { window.confetti({ particleCount: 90, spread: 80, origin: { y: 0.6 } }); } catch(e) {}
       }
 
+      // Render Drop with INSTANT ACTION TRIGGER
       rewardBox.innerHTML = `
-        <div class="reward-reveal-card">
-          <div class="reward-rarity-pill ${drop.rarity}">${drop.rarity.toUpperCase()} REWARD</div>
-          <h3 style="color:#fff; font-size:17px; margin:4px 0 6px;">${drop.title}</h3>
-          <p style="color:#cbd5e1; font-size:12.5px; line-height:1.5; margin:0;">${drop.text}</p>
+        <div class="reward-reveal-card" style="border:1.5px solid rgba(251,191,36,0.4); background:radial-gradient(circle at 50% 0%, rgba(35, 25, 65, 0.96), rgba(12, 16, 32, 0.99)); border-radius:20px; padding:20px; text-align:center; margin:14px 0; box-shadow:0 10px 30px rgba(0,0,0,0.7), 0 0 30px rgba(236,72,153,0.25);">
+          <div style="font-size:42px; margin-bottom:6px;">${drop.icon}</div>
+          <div class="reward-rarity-pill ${drop.rarity}" style="font-size:10px; font-weight:900; letter-spacing:0.8px; margin-bottom:6px;">${drop.rarity.toUpperCase()} • ${drop.badge}</div>
+          <h3 style="color:#ffffff; font-size:18px; font-weight:900; margin:4px 0 6px;">${drop.title}</h3>
+          <p style="color:#cbd5e1; font-size:13px; line-height:1.45; margin:0 0 14px;">${drop.text}</p>
+          <button class="reward-action-trigger-btn" id="btn-trigger-loot-action" onclick="window.dopamineEngine.executeRewardAction('${drop.id}')">
+            ${drop.actionText}
+          </button>
         </div>
       `;
       rewardBox.style.display = 'block';
 
-    }, 800);
+      this.renderInventory();
+    }, 700);
+  }
+
+  executeRewardAction(dropId) {
+    const drop = this.lootTable.find(d => d.id === dropId);
+    if (!drop) return;
+
+    const btn = document.getElementById('btn-trigger-loot-action');
+
+    if (drop.type === 'theme') {
+      this.applyTheme(drop.themeClass);
+      if (btn) {
+        btn.classList.add('activated');
+        btn.innerHTML = '✅ Theme aktiv!';
+      }
+    } else if (drop.type === 'title') {
+      this.equipTitle(drop.titleName);
+      if (btn) {
+        btn.classList.add('activated');
+        btn.innerHTML = '✅ Titel ausgerüstet!';
+      }
+    } else if (drop.type === 'booster') {
+      this.activateOverdrive(drop.durationSec || 900);
+      if (btn) {
+        btn.classList.add('activated');
+        btn.innerHTML = '🚀 3x XP Boost aktiv!';
+      }
+    } else if (drop.type === 'xp') {
+      if (window.masteryEngine) {
+        try {
+          if (window.masteryEngine.addXp) window.masteryEngine.addXp(drop.amount || 250, '💎 BELOHNUNGS-SCHATZ');
+          else if (window.masteryEngine.addXP) window.masteryEngine.addXP(drop.amount || 250, '💎 BELOHNUNGS-SCHATZ');
+        } catch(e) {}
+      }
+      if (btn) {
+        btn.classList.add('activated');
+        btn.innerHTML = '✅ +250 XP gutgeschrieben!';
+      }
+    } else if (drop.type === 'key') {
+      this.keys += 1;
+      this.sparks = 100;
+      localStorage.setItem('neuro_vault_keys', this.keys.toString());
+      this.updateUI();
+      if (btn) {
+        btn.classList.add('activated');
+        btn.innerHTML = '✅ +1 Schlüssel erhalten!';
+      }
+    } else if (drop.type === 'ambient') {
+      if (window.switchView) window.switchView('view-soundscape');
+      this.closeVault();
+    }
+  }
+
+  applyTheme(themeClass) {
+    document.body.classList.remove('theme-cyberpunk', 'theme-matrix', 'theme-sunset', 'theme-nebula');
+    document.body.classList.add(themeClass);
+    this.activeTheme = themeClass;
+    localStorage.setItem('neuro_active_theme', themeClass);
+    this.renderInventory();
+    this.playSoftNote(620);
+  }
+
+  equipTitle(titleName) {
+    this.equippedTitle = titleName;
+    localStorage.setItem('neuro_user_title', titleName);
+    this.applySavedTitle();
+    this.renderInventory();
+    this.playSoftNote(660);
   }
 
   activateOverdrive(seconds) {
     this.overdriveUntil = Date.now() + (seconds * 1000);
     localStorage.setItem('neuro_overdrive_until', this.overdriveUntil.toString());
     document.body.classList.add('hyperfocus-overdrive-active');
-    if (window.masteryEngine) window.masteryEngine.showXpToast('⚡ 3X HYPERFOKUS-OVERDRIVE AKTIVIERT!');
+    if (window.masteryEngine) {
+      try { window.masteryEngine.showXpToast('⚡ 3X HYPERFOKUS-OVERDRIVE AKTIVIERT!'); } catch(e) {}
+    }
+    this.playSoftNote(740);
   }
 
   isOverdriveActive() {
@@ -13937,6 +14281,71 @@ class DopamineVaultEngine {
     } else {
       document.body.classList.remove('hyperfocus-overdrive-active');
     }
+  }
+
+  renderInventory() {
+    const list = document.getElementById('vault-inventory-chips');
+    const countEl = document.getElementById('vault-inventory-count');
+    if (!list) return;
+
+    const keys = Object.keys(this.unlockedLoot);
+    if (countEl) countEl.textContent = keys.length + ' Boni';
+
+    if (keys.length === 0) {
+      list.innerHTML = '<span style="font-size:11.5px; color:#64748b;">Noch keine Drops. Öffne deine erste Kiste!</span>';
+      return;
+    }
+
+    list.innerHTML = '';
+    keys.forEach(k => {
+      const drop = this.lootTable.find(d => d.id === k);
+      if (!drop) return;
+
+      const chip = document.createElement('div');
+      chip.className = 'inv-chip';
+
+      let isActive = false;
+      if (drop.type === 'theme' && this.activeTheme === drop.themeClass) isActive = true;
+      if (drop.type === 'title' && this.equippedTitle === drop.titleName) isActive = true;
+
+      if (isActive) chip.classList.add('active');
+
+      chip.innerHTML = drop.icon + ' ' + drop.title + (isActive ? ' ✓' : '');
+      chip.title = drop.text + ' (Klicken zum Verwenden)';
+
+      chip.addEventListener('click', () => {
+        if (drop.type === 'theme') {
+          this.applyTheme(drop.themeClass);
+        } else if (drop.type === 'title') {
+          this.equipTitle(drop.titleName);
+        } else if (drop.type === 'booster') {
+          this.activateOverdrive(drop.durationSec || 900);
+        } else if (drop.type === 'ambient') {
+          if (window.switchView) window.switchView('view-soundscape');
+          this.closeVault();
+        }
+      });
+
+      list.appendChild(chip);
+    });
+  }
+
+  playSoftNote(freq) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.28);
+    } catch(e) {}
   }
 
   openSprintModal() {
@@ -13992,11 +14401,18 @@ class DopamineVaultEngine {
     const finalScore = this.sprintScore;
     const bonusXp = Math.min(250, finalScore * 4);
 
-    if (msg) msg.innerHTML = `🏆 <b>GESCHAFFT!</b> Rang S+ mit ${finalScore} Aktionen! (+1 Schlüssel & +${bonusXp} XP)`;
+    if (msg) msg.innerHTML = '🏆 <b>GESCHAFFT!</b> Rang S+ mit ' + finalScore + ' Aktionen! (+1 Schlüssel & +' + bonusXp + ' XP)';
     this.keys += 1;
     localStorage.setItem('neuro_vault_keys', this.keys.toString());
-    if (window.masteryEngine) window.masteryEngine.addXp(bonusXp, '⚡ SPRINT-MEISTER');
-    if (window.audio) window.audio.playLootDropSound(true);
+    if (window.masteryEngine) {
+      try {
+        if (window.masteryEngine.addXp) window.masteryEngine.addXp(bonusXp, '⚡ SPRINT-MEISTER');
+        else if (window.masteryEngine.addXP) window.masteryEngine.addXP(bonusXp, '⚡ SPRINT-MEISTER');
+      } catch(e) {}
+    }
+    if (window.audio && typeof window.audio.playLootDropSound === 'function') {
+      try { window.audio.playLootDropSound(true); } catch(e) {}
+    }
     if (window.confetti) {
       try { window.confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } }); } catch(e) {}
     }
@@ -14010,13 +14426,13 @@ class DopamineVaultEngine {
       '💧 Trinke einen Schluck Wasser und schüttle deine Schultern aus!',
       '🌬️ Atme 3x langsam durch die Nase ein und doppelt so lang durch den Mund aus.',
       '👀 Schau vom Bildschirm weg und zähle 3 grüne Gegenstände im Raum.',
-      '✍️ Öffne den KI-Chat und tippe nur ein einziges Wort ein.',
+      '✍️ Öffne das Notiz- oder Zeichenfeld und kritzle 5 Sekunden frei drauflos.',
       '🫧 Lass 5 Seifenblasen im Seifenblasen-Labor platzen!'
     ];
     const taskEl = document.getElementById('dmn-random-microtask');
     if (taskEl) taskEl.textContent = tasks[Math.floor(Math.random() * tasks.length)];
     if (window.audio && typeof window.audio.playDmnShatterSound === 'function') {
-      window.audio.playDmnShatterSound();
+      try { window.audio.playDmnShatterSound(); } catch(e) {}
     }
   }
 
@@ -14027,8 +14443,15 @@ class DopamineVaultEngine {
 
   completeDmnTask() {
     this.closeDmn();
-    if (window.masteryEngine) window.masteryEngine.addXp(50, '🚨 DMN-BEFREIT');
-    if (window.audio) window.audio.playLevelUpChime();
+    if (window.masteryEngine) {
+      try {
+        if (window.masteryEngine.addXp) window.masteryEngine.addXp(50, '🌱 MIKRO-IMPULS');
+        else if (window.masteryEngine.addXP) window.masteryEngine.addXP(50, '🌱 MIKRO-IMPULS');
+      } catch(e) {}
+    }
+    if (window.audio && typeof window.audio.playLevelUpChime === 'function') {
+      try { window.audio.playLevelUpChime(); } catch(e) {}
+    }
     if (window.confetti) {
       try { window.confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } }); } catch(e) {}
     }
@@ -14044,6 +14467,7 @@ class DopamineVaultEngine {
     if (modalSparks) modalSparks.textContent = this.sparks;
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   window.dopamineEngine = new DopamineVaultEngine();
