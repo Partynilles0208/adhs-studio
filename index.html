@@ -4701,8 +4701,8 @@
     </div>
 
     <!-- Friendly Helper / Code Mention -->
-    <div style="font-size:11.5px; color:#94a3b8; margin-bottom:14px;" id="site-gate-msg">
-      💡 Einlass-Code: <b style="color:#fbbf24; font-family:'JetBrains Mono',monospace;">020818</b> • Einmalig eingeben, danach dauerhaft frei
+    <div style="font-size:12px; color:#94a3b8; margin-bottom:14px;" id="site-gate-msg">
+      🔒 Gib deinen privaten Zugangscode ein, um den Raum zu betreten.
     </div>
 
     <button id="btn-unlock-site-gate" class="site-gate-btn" style="background:linear-gradient(135deg, #10b981, #0284c7); font-size:15px;">
@@ -11181,6 +11181,10 @@ class MasteryRelicEngine {
     return `Lv. ${level} ${titles[Math.min(titles.length - 1, level - 1)] || 'Meister'}`;
   }
 
+  addXP(amount, reason = '') {
+    return this.addXp(amount, reason);
+  }
+
   addXp(amount, reason = '') {
     // Combo multiplier bonus (1.0x up to 2.5x)
     const mult = 1.0 + Math.min(1.5, (this.comboCount * 0.1));
@@ -11188,7 +11192,11 @@ class MasteryRelicEngine {
     this.state.xp += finalAmount;
 
     this.showXpToast(`+${finalAmount} XP ${reason}`);
-    audio.playCoinSound();
+    try {
+      if (typeof audio !== 'undefined' && audio && audio.playCoinSound) {
+        audio.playCoinSound();
+      }
+    } catch(e) {}
 
     let xpNeeded = this.getXpNeeded(this.state.level);
     while (this.state.xp >= xpNeeded) {
@@ -14061,7 +14069,7 @@ class NeuroArcadeEngine {
     this.gamingStartTime = 0;
     this.gamingXpInterval = null;
 
-    // Load Favorites from localStorage
+    // Load Favorites from localStorage as a clean Object
     this.favorites = this.loadFavorites();
 
     this.grid = document.getElementById('games-portal-grid');
@@ -14091,8 +14099,17 @@ class NeuroArcadeEngine {
 
   loadFavorites() {
     try {
-      const data = localStorage.getItem('neuro_favorite_games');
-      return data ? JSON.parse(data) : {};
+      const raw = localStorage.getItem('neuro_favorite_games');
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        const dict = {};
+        parsed.forEach(item => {
+          if (item && item.id) dict[String(item.id)] = item;
+        });
+        return dict;
+      }
+      return typeof parsed === 'object' && parsed !== null ? parsed : {};
     } catch(e) {
       return {};
     }
@@ -14106,13 +14123,15 @@ class NeuroArcadeEngine {
 
   isFavorite(id) {
     if (!id) return false;
-    return Boolean(this.favorites && this.favorites[id]);
+    return Boolean(this.favorites && this.favorites[String(id)]);
   }
 
   toggleFavorite(game, event) {
     if (event) {
-      event.preventDefault();
-      event.stopPropagation();
+      try {
+        event.preventDefault();
+        event.stopPropagation();
+      } catch(e) {}
     }
     if (!game || !game.id) return;
 
@@ -14121,7 +14140,7 @@ class NeuroArcadeEngine {
 
     if (wasFav) {
       delete this.favorites[gameId];
-      this.showToast('🤍 "' + game.title + '" aus Favoriten entfernt');
+      this.showToast('🤍 "' + (game.title || 'Spiel') + '" aus Favoriten entfernt');
       this.playSoftNote(340);
     } else {
       this.favorites[gameId] = {
@@ -14133,10 +14152,18 @@ class NeuroArcadeEngine {
         description: game.description || '',
         source: game.source || 'Game'
       };
-      if (window.masteryEngine) {
-        window.masteryEngine.addXP(15, '❤️ SPIEL FAVORISIERT');
-      }
-      this.showToast('❤️ "' + game.title + '" zu Favoriten hinzugefügt! (+15 XP)');
+
+      try {
+        if (window.masteryEngine) {
+          if (typeof window.masteryEngine.addXp === 'function') {
+            window.masteryEngine.addXp(15, '❤️ SPIEL FAVORISIERT');
+          } else if (typeof window.masteryEngine.addXP === 'function') {
+            window.masteryEngine.addXP(15, '❤️ SPIEL FAVORISIERT');
+          }
+        }
+      } catch(err) {}
+
+      this.showToast('❤️ "' + (game.title || 'Spiel') + '" zu Favoriten hinzugefügt! (+15 XP)');
       this.playSoftNote(580);
     }
 
@@ -14144,22 +14171,26 @@ class NeuroArcadeEngine {
     this.updateFavCountPill();
     this.updatePlayerFavBtn();
 
-    // Update heart icon on any rendered card
-    const cardFavBtn = document.querySelector('.game-card-fav-btn[data-game-id="' + gameId + '"]');
-    if (cardFavBtn) {
-      const isFavNow = !wasFav;
-      if (isFavNow) {
-        cardFavBtn.classList.add('is-favorite');
-        cardFavBtn.innerHTML = '❤️';
-        cardFavBtn.title = 'Aus Favoriten entfernen';
-      } else {
-        cardFavBtn.classList.remove('is-favorite');
-        cardFavBtn.innerHTML = '🤍';
-        cardFavBtn.title = 'Zu Favoriten hinzufügen';
-      }
-    }
+    // Update heart buttons on visible cards safely
+    try {
+      const allFavBtns = document.querySelectorAll('.game-card-fav-btn');
+      allFavBtns.forEach(btn => {
+        if (btn.getAttribute('data-game-id') === gameId) {
+          const isFavNow = !wasFav;
+          if (isFavNow) {
+            btn.classList.add('is-favorite');
+            btn.innerHTML = '❤️';
+            btn.title = 'Aus Favoriten entfernen';
+          } else {
+            btn.classList.remove('is-favorite');
+            btn.innerHTML = '🤍';
+            btn.title = 'Zu Favoriten hinzufügen';
+          }
+        }
+      });
+    } catch(err) {}
 
-    // If currently viewing favorites category, re-filter & render instantly
+    // If currently viewing favorites category, re-render immediately
     if (this.currentCat === 'favorites') {
       this.filterAndRender();
     }
@@ -14465,21 +14496,30 @@ class NeuroArcadeEngine {
         <div class="game-card-info-wrap">
           <div class="game-card-title">${this.escape(game.title)}</div>
           <div class="game-card-desc">${this.escape(game.description || 'Spiele jetzt direkt im Vollbildmodus!')}</div>
-          <button class="game-card-play-btn">
+          <button class="game-card-play-btn" type="button">
             <span>🎮</span> JETZT SPIELEN
           </button>
         </div>
       `;
 
-      // Heart button handler (stops propagation so game is not launched)
+      // Heart button handler
       const favBtn = card.querySelector('.game-card-fav-btn');
       if (favBtn) {
         favBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           this.toggleFavorite(game, e);
         });
       }
 
-      card.addEventListener('click', () => this.launchGame(game));
+      // Card click launches game, BUT ONLY if NOT clicking the favorite heart button!
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.game-card-fav-btn')) {
+          return;
+        }
+        this.launchGame(game);
+      });
+
       fragment.appendChild(card);
     });
 
@@ -14503,14 +14543,23 @@ class NeuroArcadeEngine {
 
     // Reward XP & audio
     this.playSoftNote(580);
-    if (window.masteryEngine) window.masteryEngine.addXP(35, '🎮 GAMING-START');
-    if (window.dopamineEngine) window.dopamineEngine.addSparks(25);
+    try {
+      if (window.masteryEngine) {
+        if (window.masteryEngine.addXp) window.masteryEngine.addXp(35, '🎮 GAMING-START');
+        else if (window.masteryEngine.addXP) window.masteryEngine.addXP(35, '🎮 GAMING-START');
+      }
+    } catch(e) {}
 
     // Track play time rewards (Every 90s awards +20 XP!)
     clearInterval(this.gamingXpInterval);
     this.gamingXpInterval = setInterval(() => {
       if (this.playerModal.classList.contains('active')) {
-        if (window.masteryEngine) window.masteryEngine.addXP(20, '🔥 GAMING-STREAK');
+        try {
+          if (window.masteryEngine) {
+            if (window.masteryEngine.addXp) window.masteryEngine.addXp(20, '🔥 GAMING-STREAK');
+            else if (window.masteryEngine.addXP) window.masteryEngine.addXP(20, '🔥 GAMING-STREAK');
+          }
+        } catch(e) {}
       }
     }, 90000);
   }
@@ -14592,7 +14641,7 @@ class SiteAccessGateController {
       this.input.addEventListener('input', () => {
         this.input.classList.remove('error');
         if (this.msg) {
-          this.msg.textContent = 'Code eingeben & bestätigen';
+          this.msg.textContent = 'Zugangscode eingeben & bestätigen';
           this.msg.style.color = '#94a3b8';
         }
       });
