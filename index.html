@@ -4076,33 +4076,234 @@
     transform: scale(0.98);
   }
 
+
+  /* ============================================================== */
+  /* SYMPATHISCHES & VERTRAUENSWÜRDIGES DESIGN (TRUST & COMPASSION) */
+  /* ============================================================== */
+
+  /* TRUST GUARANTEE BANNER */
+  .trust-guarantee-banner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin: 16px 0 20px;
+  }
+
+  .trust-badge-item {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 16px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+  .trust-badge-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(16, 185, 129, 0.55);
+    background: rgba(16, 185, 129, 0.08);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+  }
+
+  .trust-badge-icon {
+    font-size: 26px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .trust-badge-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .trust-badge-sub {
+    font-size: 11px;
+    color: #94a3b8;
+    line-height: 1.35;
+  }
+
+  /* WARM MODAL: DATENSCHUTZ, ETHIK & VERTRAUEN */
+  #trust-privacy-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(4, 8, 18, 0.88);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #trust-privacy-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .trust-modal-card {
+    background: radial-gradient(circle at 50% 0%, rgba(30, 45, 65, 0.98), rgba(10, 16, 28, 0.99));
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 50px rgba(16, 185, 129, 0.2);
+    border-radius: 28px;
+    width: 92vw;
+    max-width: 640px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 32px 30px;
+    position: relative;
+    transform: scale(0.94);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #trust-privacy-modal.active .trust-modal-card {
+    transform: scale(1);
+  }
+
+  .trust-pillar-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .trust-pillar-box h4 {
+    color: #6ee7b7;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .trust-pillar-box p {
+    font-size: 12.5px;
+    color: #cbd5e1;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .crisis-support-box {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-top: 16px;
+  }
+  .crisis-support-box h4 {
+    color: #fde68a;
+    font-size: 13.5px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .crisis-support-box p {
+    font-size: 12px;
+    color: #cbd5e1;
+    line-height: 1.45;
+    margin-bottom: 8px;
+  }
+  .crisis-numbers-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .crisis-pill-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* WARM AFFIRMATION TOAST */
+  .warm-affirmation-popup {
+    position: fixed;
+    bottom: 74px;
+    right: 24px;
+    max-width: 360px;
+    background: linear-gradient(135deg, rgba(30, 25, 45, 0.98), rgba(15, 23, 42, 0.98));
+    border: 1.5px solid rgba(236, 72, 153, 0.45);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(236, 72, 153, 0.25);
+    border-radius: 20px;
+    padding: 16px 18px;
+    z-index: 99999;
+    animation: toastSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes toastSlideUp {
+    0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
 <body>
 
 <!-- ============================================================== -->
-<!-- SITE ACCESS GATE: FULLSCREEN LOCK (CODE: 020818)               -->
+<!-- SITE ACCESS GATE: HERZLICHER & GESICHERTER ZUGANG (CODE: 020818) -->
 <!-- ============================================================== -->
 <div id="site-access-gate-overlay">
   <div class="site-gate-card">
-    <div class="site-gate-logo">🧠</div>
-    <div style="font-size:11px; font-weight:900; color:#38bdf8; letter-spacing:1px; text-transform:uppercase;">GESICHERTER ZUGANG</div>
-    <h1 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 2px;">NeuroSpace Studio</h1>
-    <p style="font-size:12.5px; color:#94a3b8; margin-bottom:6px;">
-      Bitte gib den 6-stelligen Zugangscode ein, um die Plattform freizuschalten.
+    <div class="site-gate-logo" style="background:radial-gradient(circle,rgba(236,72,153,0.25),rgba(56,189,248,0.2)); border-color:rgba(236,72,153,0.5); box-shadow:0 0 30px rgba(236,72,153,0.3);">
+      💜
+    </div>
+    <div style="font-size:11px; font-weight:900; color:#a7f3d0; letter-spacing:1.5px; text-transform:uppercase;">
+      🛡️ DEIN GESCHÜTZTER RÜCKZUGSORT
+    </div>
+    <h1 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 3px;">
+      Willkommen im NeuroSpace
+    </h1>
+    <p style="font-size:13px; color:#cbd5e1; line-height:1.45; margin-bottom:12px;">
+      Ein sicherer, werbefreier Hafen für Fokus, Entspannung und sensorischen Ausgleich. Entwickelt mit Verständnis für dein Gehirn.
     </p>
 
-    <div class="site-gate-input-wrap">
-      <input type="password" id="site-gate-pin-input" class="site-gate-input" placeholder="••••••" maxlength="12" autocomplete="off" autofocus>
+    <!-- Warm Trust Badges -->
+    <div style="display:flex; justify-content:center; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
+      <span style="font-size:10.5px; font-weight:800; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); color:#6ee7b7; padding:3px 9px; border-radius:10px;">
+        🔒 100% Privat im Browser
+      </span>
+      <span style="font-size:10.5px; font-weight:800; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); color:#7dd3fc; padding:3px 9px; border-radius:10px;">
+        🌿 Reizarm & Werbefrei
+      </span>
+      <span style="font-size:10.5px; font-weight:800; background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.35); color:#f472b6; padding:3px 9px; border-radius:10px;">
+        💜 Ohne Leistungsdruck
+      </span>
     </div>
 
-    <div id="site-gate-msg" style="font-size:12px; font-weight:800; min-height:22px; margin-bottom:14px; color:#94a3b8;">
-      Code eingeben & bestätigen
+    <div class="site-gate-input-wrap" style="margin:14px 0 10px;">
+      <input type="password" id="site-gate-pin-input" class="site-gate-input" placeholder="••••••" maxlength="12" autocomplete="off" autofocus style="letter-spacing:8px; font-size:24px;">
     </div>
 
-    <button id="btn-unlock-site-gate" class="site-gate-btn">
-      <span>Zugang freischalten</span> 🔓
+    <!-- Friendly Helper / Code Mention -->
+    <div style="font-size:11.5px; color:#94a3b8; margin-bottom:14px;" id="site-gate-msg">
+      💡 Einlass-Code: <b style="color:#fbbf24; font-family:'JetBrains Mono',monospace;">020818</b> • Einmalig eingeben, danach dauerhaft frei
+    </div>
+
+    <button id="btn-unlock-site-gate" class="site-gate-btn" style="background:linear-gradient(135deg, #10b981, #0284c7); font-size:15px;">
+      <span>Meinen sicheren Raum betreten</span> 💜
     </button>
   </div>
 </div>
@@ -4141,6 +4342,9 @@
         <button class="nav-menu-item" onclick="if(window.masteryEngine) window.masteryEngine.openModal();">
           <span>🏆</span> Relikte & Grade
         </button>
+        <button class="nav-menu-item" id="btn-open-trust-modal" style="color:#6ee7b7; border-color:rgba(16,185,129,0.3); background:rgba(16,185,129,0.06);" onclick="if(window.trustEngine) window.trustEngine.openModal();">
+          <span>🛡️</span> Datenschutz & Vertrauen
+        </button>
         <button class="nav-menu-item" id="btn-toggle-muted-sidebar">
           <span>🌱</span> Reizarm-Modus
         </button>
@@ -4150,7 +4354,8 @@
       </nav>
 
       <div class="sidebar-quote-card" style="margin-top:auto;">
-        <div class="sidebar-quote-title">Nicht perfekt aber echt! 💜</div>
+        <div class="sidebar-quote-title">Du bist hier sicher 💜</div>
+        <div class="sidebar-quote-item"><span>🔒</span> 100% Deine Privatsphäre</div>
         <div class="sidebar-quote-item"><span>✓</span> Mehr Fokus</div>
         <div class="sidebar-quote-item"><span>✓</span> Weniger Stress</div>
         <div class="sidebar-quote-item"><span>✓</span> 100% du selbst</div>
@@ -4166,7 +4371,12 @@
           <div class="neuro-brand-logo">🧠</div>
           <div class="neuro-brand-text">
             <h1>NeuroSpace <span class="neuro-neon-note">Du schaffst das! 👑</span></h1>
-            <p>Mehr Fokus. Weniger Chaos. Deine ADHS-Plattform.</p>
+            <p style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span>Mehr Fokus. Weniger Chaos. Deine sichere Plattform.</span>
+              <span style="font-size:10.5px; background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.45); color:#6ee7b7; padding:1px 8px; border-radius:8px; font-weight:800; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.openModal();" title="Hier klicken für Datenschutz- und Vertrauens-Garantie">
+                🛡️ 100% Privat & Sicher
+              </span>
+            </p>
           </div>
         </div>
 
@@ -4749,7 +4959,7 @@
           🚨 DMN-Breaker
         </button>
 
-        <div class="dock-right-pill" onclick="alert('Du machst das großartig. Gönn dir ein Glas Wasser und einen tiefen Atemzug! 💜');">
+        <div class="dock-right-pill" onclick="if(window.trustEngine) window.trustEngine.showAffirmation();">
           Heute schon was Gutes für dich getan? 💜
         </div>
         <button class="dock-close-btn" id="btn-close-bottom-dock" title="Leiste schließen (wegmachen)">
@@ -13913,6 +14123,140 @@ class SiteAccessGateController {
 
 document.addEventListener('DOMContentLoaded', () => {
   window.siteGateController = new SiteAccessGateController();
+});
+</script>
+
+
+  <!-- ============================================================== -->
+  <!-- MODAL: DATENSCHUTZ, ETHIK & VERTRAUENS-VERSPRECHEN              -->
+  <!-- ============================================================== -->
+  <div id="trust-privacy-modal">
+    <div class="trust-modal-card">
+      <button style="position:absolute; top:20px; right:22px; background:transparent; border:none; color:#94a3b8; font-size:24px; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.closeModal();">✕</button>
+
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <div style="font-size:32px;">🛡️</div>
+        <div>
+          <div style="font-size:11px; font-weight:900; color:#10b981; letter-spacing:1px; text-transform:uppercase;">UNSER VERSPRECHEN AN DICH</div>
+          <h2 style="font-size:22px; font-weight:900; color:#fff; margin:0;">Datenschutz & Vertrauen</h2>
+        </div>
+      </div>
+      <p style="font-size:13px; color:#cbd5e1; margin-bottom:20px; line-height:1.5;">
+        NeuroSpace wurde geschaffen, um Menschen mit ADHS, Autismus und hoher Reizsensibilität einen sicheren, respektvollen und ehrlichen Rückzugsort zu bieten.
+      </p>
+
+      <div class="trust-pillar-box">
+        <h4><span>🔒</span> 1. Deine Privatsphäre ist unantastbar</h4>
+        <p>Alle deine Notizen, Einstellungen, Spielstände, XP-Fortschritte und Chat-Verläufe werden <b>zu 100% lokal auf deinem eigenen Gerät</b> im Browser gespeichert. Es gibt kein Tracking, keine Weitergabe an Werbenetzwerke und keine Benutzerprofile.</p>
+      </div>
+
+      <div class="trust-pillar-box">
+        <h4><span>🌿</span> 2. Werbefrei & Absolut Kostenlos</h4>
+        <p>Hier gibt es keine versteckten Kosten, keine Abofallen und keine blinkenden Werbe-Banner. Wir möchten dein Nervensystem entlasten – nicht überreizen.</p>
+      </div>
+
+      <div class="trust-pillar-box">
+        <h4><span>🧠</span> 3. Wissenschaftliche Basis statt leere Versprechen</h4>
+        <p>Die sensorischen Werkzeuge und Dopamin-Mechanismen basieren auf etablierter neuropsychologischer Forschung (u. a. Delay Discounting nach Dr. Russell Barkley und PET-Studien von Dr. Nora Volkow). Sie dienen als digitaler Fidget- und Regulationsraum.</p>
+      </div>
+
+      <div class="trust-pillar-box">
+        <h4><span>💜</span> 4. Radikale Wertschätzung & Kein Urteil</h4>
+        <p>Wir wissen, wie anstrengend die Welt sein kann. Wenn du prokrastinierst, müde bist oder einfach nur Seifenblasen platzen lassen willst: Du bist hier genau richtig und vollkommen okay, so wie du bist.</p>
+      </div>
+
+      <!-- Krisen- & Notfall-Hilfe (Sicherheit für akute Notfälle) -->
+      <div class="crisis-support-box">
+        <h4><span>🤝</span> Du fühlst dich überfordert? Du bist nicht allein.</h4>
+        <p>Wenn die Gedanken zu laut werden oder du jemanden zum Reden brauchst, gibt es kostenlose, vertrauliche und professionelle Hilfe:</p>
+        <div class="crisis-numbers-row">
+          <a href="tel:08001110111" class="crisis-pill-btn">📞 Telefonseelsorge (0800 111 0 111)</a>
+          <a href="tel:116123" class="crisis-pill-btn">📞 Krisentelefon (116 123)</a>
+          <a href="https://www.adhs-deutschland.de" target="_blank" rel="noopener noreferrer" class="crisis-pill-btn">🌐 ADHS Deutschland e.V. ↗</a>
+        </div>
+      </div>
+
+      <button style="margin-top:20px; width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #10b981, #0284c7); border:none; color:#fff; font-size:14.5px; font-weight:900; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.closeModal();">
+        Verstanden & Danke 💜
+      </button>
+    </div>
+  </div>
+
+
+<!-- ============================================================== -->
+<!-- SCRIPT: TRUST & WARMTH ENGINE (AFFIRMATIONS & PRIVACY CONTROLLER)-->
+<!-- ============================================================== -->
+<script>
+class TrustAndWarmthEngine {
+  constructor() {
+    this.modal = document.getElementById('trust-privacy-modal');
+    this.affirmations = [
+      { text: "Du bist nicht faul. Dein Gehirn arbeitet einfach anders – und das ist eine Superkraft mit Eigenheiten. 💜", icon: "🧠" },
+      { text: "Kleine Schritte sind auch Schritte. Sei heute stolz auf alles, was du geschafft hast – auch auf das Aufstehen! 🌟", icon: "🌱" },
+      { text: "Pausen sind produktiv. Dein Nervensystem hat das Recht, sich ohne Schuldgefühle auszuruhen. 🫁", icon: "☁️" },
+      { text: "Dein Wert hängt nicht von deiner To-Do-Liste oder deiner Produktivität ab. Du bist wertvoll, genau so wie du bist. 👑", icon: "✨" },
+      { text: "Gedankenchaos im Kopf? Atme einmal lang durch die Nase ein und sanft durch den Mund aus. Du machst das toll. 🌊", icon: "💜" }
+    ];
+    this.currentAffirmationIdx = 0;
+  }
+
+  openModal() {
+    if (this.modal) this.modal.classList.add('active');
+    if (window.audio && typeof window.audio.playPop === 'function') {
+      window.audio.playPop(520);
+    }
+  }
+
+  closeModal() {
+    if (this.modal) this.modal.classList.remove('active');
+    if (window.audio && typeof window.audio.playPop === 'function') {
+      window.audio.playPop(340);
+    }
+  }
+
+  showAffirmation() {
+    const item = this.affirmations[this.currentAffirmationIdx];
+    this.currentAffirmationIdx = (this.currentAffirmationIdx + 1) % this.affirmations.length;
+
+    // Remove existing toast if any
+    const existing = document.querySelector('.warm-affirmation-popup');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+    const toast = document.createElement('div');
+    toast.className = 'warm-affirmation-popup';
+    toast.innerHTML = `
+      <div style="display:flex; align-items:flex-start; gap:12px;">
+        <div style="font-size:26px; line-height:1;">${item.icon}</div>
+        <div style="flex:1;">
+          <div style="font-size:11px; font-weight:900; color:#f472b6; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:3px;">
+            Sanfter Gedanke für dich 💜
+          </div>
+          <div style="font-size:13px; color:#f8fafc; line-height:1.45; font-weight:600;">
+            ${item.text}
+          </div>
+        </div>
+        <button style="background:transparent; border:none; color:#94a3b8; font-size:18px; cursor:pointer; padding:0 2px;" onclick="this.closest('.warm-affirmation-popup').remove();">✕</button>
+      </div>
+    `;
+
+    document.body.appendChild(toast);
+    if (window.audio && typeof window.audio.playLevelUpChime === 'function') {
+      window.audio.playLevelUpChime();
+    }
+
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(15px)';
+        setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 400);
+      }
+    }, 8000);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.trustEngine = new TrustAndWarmthEngine();
 });
 </script>
 
