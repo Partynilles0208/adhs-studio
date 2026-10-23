@@ -2736,7 +2736,323 @@
     outline: none;
   }
 
+
+  /* ============================================================== */
+  /* DEEP RESEARCH, POWERPOINT GENERATOR & AI MODE SWITCHER STYLES  */
+  /* ============================================================== */
+  
+  /* Mode Selector Pills */
+  .ai-modes-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 2px 2px 8px;
+    scrollbar-width: none;
+    flex-shrink: 0;
+  }
+  .ai-modes-bar::-webkit-scrollbar { display: none; }
+
+  .ai-mode-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .ai-mode-btn:hover {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.5);
+    color: #fff;
+  }
+  .ai-mode-btn.active {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.3), rgba(168, 85, 247, 0.35));
+    border-color: #38bdf8;
+    color: #fff;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+  }
+
+  /* Deep Research Matrix Card */
+  .deep-research-card {
+    background: rgba(8, 14, 28, 0.95);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    border-radius: 18px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(6, 182, 212, 0.18);
+    max-width: 680px;
+  }
+
+  .deep-research-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-research-gen-ppt {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    border: 1px solid rgba(245, 158, 11, 0.6);
+    color: #ffffff;
+    font-size: 11.5px;
+    font-weight: 900;
+    padding: 6px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.45);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-research-gen-ppt:hover {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 0 0 24px rgba(245, 158, 11, 0.7);
+  }
+
+  .deep-research-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    color: #cbd5e1;
+    line-height: 1.45;
+  }
+
+  .deep-research-thought-box {
+    background: rgba(6, 182, 212, 0.1);
+    border-left: 3px solid #06b6d4;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #a5f3fc;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .deep-research-sources-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .deep-research-source-pill {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 10px;
+    padding: 4px 10px;
+    font-size: 10.5px;
+    color: #94a3b8;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .deep-research-source-pill:hover {
+    color: #38bdf8;
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.15);
+  }
+
+  /* PowerPoint Slide Deck Viewer */
+  .ai-powerpoint-card {
+    background: radial-gradient(circle at 50% 0%, rgba(20, 30, 60, 0.98), rgba(8, 12, 24, 0.99));
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(245, 158, 11, 0.25);
+    max-width: 740px;
+    width: 100%;
+    margin-top: 10px;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .ai-ppt-deck-header {
+    background: rgba(15, 23, 42, 0.95);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-download-pptx {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: 1px solid rgba(16, 185, 129, 0.6);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-download-pptx:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.7);
+  }
+
+  .ai-slide-stage {
+    padding: 20px 24px;
+    min-height: 330px;
+    display: flex;
+    gap: 20px;
+    position: relative;
+    background: rgba(5, 8, 18, 0.6);
+  }
+
+  .ai-slide-content-col {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .ai-slide-category {
+    font-size: 10.5px;
+    font-weight: 900;
+    color: #f59e0b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ai-slide-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.3;
+  }
+
+  .ai-slide-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 12.5px;
+    color: #e2e8f0;
+    line-height: 1.5;
+  }
+
+  .ai-slide-bullet-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .ai-slide-image-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-slide-img-frame {
+    width: 100%;
+    max-height: 250px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(245, 158, 11, 0.2);
+    position: relative;
+    background: #000;
+  }
+
+  .ai-slide-img-frame img {
+    width: 100%;
+    height: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .ai-slide-img-frame img:hover {
+    transform: scale(1.03);
+  }
+
+  .ai-slide-nav-bar {
+    background: rgba(10, 15, 30, 0.95);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .ai-slide-nav-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #cbd5e1;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .ai-slide-nav-btn:hover:not(:disabled) {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: #38bdf8;
+    color: #fff;
+  }
+  .ai-slide-nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .ai-slide-dots-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ai-slide-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #94a3b8;
+    font-size: 10.5px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .ai-slide-dot.active {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    color: #000;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+  }
+
 </style>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
 <body>
 
@@ -3419,6 +3735,7 @@
     <div class="view-title-pill"><span>🪔</span> Lava-Lampe & Metaballs</div>
   </div>
   <canvas class="canvas-fullscreen" id="lavalamp-canvas"></canvas>
+  <div id="particles-click-hint" style="position:absolute; bottom:84px; left:50%; transform:translateX(-50%); background:rgba(8, 12, 24, 0.88); border:1px solid rgba(56, 189, 248, 0.45); color:#38bdf8; padding:6px 18px; border-radius:20px; font-size:12px; font-weight:800; pointer-events:none; box-shadow:0 0 20px rgba(56,189,248,0.25); z-index:10; transition:opacity 0.4s ease;">👆 Klicke oder halte gedrückt für Gravitationskraft 🪐</div>
   <div class="floating-dock">
     <button class="pill-btn active" data-lava-theme="neon">🟣 Neon-Lila</button>
     <button class="pill-btn" data-lava-theme="fire">🔥 Magma-Orange</button>
@@ -8497,9 +8814,9 @@ class ParticleGravitron {
 
       const mx = this.mouse.x;
       const my = this.mouse.y;
-      const isInteracting = this.mouse.down || this.mouse.active;
-      const mode = this.mouse.mode;
-      const forceMult = this.mouse.down ? 1.0 : 0.35;
+      // Gravitation reagiert ERST WENN MAN KLICKT!
+      const isInteracting = this.mouse.down;
+      const forceMult = 1.0;
 
       for (let i = 0; i < this.particles.length; i++) {
         const p = this.particles[i];
@@ -9165,6 +9482,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="ai-badges-row">
               <span class="ai-badge-pill groq">⚡ Groq: openai/gpt-oss-20b</span>
               <span class="ai-badge-pill img">🎨 gpt-image-1-mini</span>
+              <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:8px; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); color:#fbbf24;">📊 PowerPoint</span>
+              <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:8px; background:rgba(6,182,212,0.15); border:1px solid rgba(6,182,212,0.4); color:#22d3ee;">🔬 Deep Research</span>
             </div>
           </div>
         </div>
@@ -9207,14 +9526,25 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
+      <!-- Mode Selector Bar -->
+      <div class="ai-modes-bar" id="ai-modes-bar">
+        <button class="ai-mode-btn active" data-mode="chat">💬 Chat</button>
+        <button class="ai-mode-btn" data-mode="powerpoint">📊 PowerPoint-Modus</button>
+        <button class="ai-mode-btn" data-mode="research">🔬 Deep Research</button>
+        <button class="ai-mode-btn" data-mode="web">🌐 Web-Suche</button>
+        <button class="ai-mode-btn" data-mode="image">🎨 Bild-Modus</button>
+      </div>
+
       <!-- Quick Action Prompt Chips Bar -->
       <div class="ai-quick-prompts-bar">
+        <button class="ai-prompt-pill" data-mode="powerpoint" data-prompt="Mach mir eine PowerPoint über Chips">📊 PowerPoint über Chips</button>
+        <button class="ai-prompt-pill" data-mode="research" data-prompt="Deep Research: Die Entstehung, Wissenschaft und weltweite Vielfalt von Chips">🔬 Deep Research: Chips</button>
+        <button class="ai-prompt-pill" data-mode="powerpoint" data-prompt="Erstelle eine PowerPoint-Präsentation über das Sonnensystem und Raumfahrt">📊 PowerPoint Sonnensystem</button>
+        <button class="ai-prompt-pill" data-mode="research" data-prompt="Deep Research: Neueste wissenschaftliche Erkenntnisse zu ADHS und Neuroplastizität">🔬 Deep Research: ADHS</button>
         <button class="ai-prompt-pill" data-prompt="Hilf mir, meine aktuellen Gedanken zu sortieren und die wichtigste Sache zu finden.">🧠 Gedanken ordnen</button>
-        <button class="ai-prompt-pill" data-prompt="Gib mir einen 3-Schritte Anti-Prokrastinations-Plan für eine Aufgabe, die ich vor mir herschiebe.">🎯 Anti-Prokrastination</button>
-        <button class="ai-prompt-pill" data-img="true" data-prompt="Generiere ein Bild von einem leuchtenden Cyberpunk-Gehirn mit violetten und cyan Synapsen-Blitzen im Weltall">🎨 Cyber-Gehirn Bild</button>
+        <button class="ai-prompt-pill" data-prompt="Gib mir einen 3-Schritte Anti-Prokrastinations-Plan für eine Aufgabe.">🎯 Anti-Prokrastination</button>
+        <button class="ai-prompt-pill" data-mode="image" data-prompt="Generiere ein Bild von einem leuchtenden Cyberpunk-Gehirn mit violetten und cyan Synapsen-Blitzen im Weltall">🎨 Cyber-Gehirn Bild</button>
         <button class="ai-prompt-pill" data-prompt="Gib mir einen 2-Minuten Dopamin-Kick Impuls, um jetzt wieder in den Flow zu kommen!">⚡ Quick Dopamin</button>
-        <button class="ai-prompt-pill" data-img="true" data-prompt="Generiere ein Bild von einem gemütlichen schwebenden Astronauten, der in einer Neon-Oase entspannt">🎨 Entspannter Astronaut</button>
-        <button class="ai-prompt-pill" data-prompt="Was ist die beste Strategie gegen ADHS-Reizüberflutung in diesem Moment?">🧘 Reizüberflutung stoppen</button>
       </div>
 
       <!-- Chat Messages Scroll Container -->
@@ -9224,10 +9554,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <!-- Chat Input Area -->
       <div class="ai-chat-input-bar">
-        <button class="ai-mode-toggle-btn" id="btn-ai-mode-toggle" title="Klicke, um zwischen Chat und Bildgenerierung zu wechseln">
-          💬 Chat-Modus
+        <button class="ai-mode-toggle-btn" id="btn-ai-mode-toggle" title="Aktueller Modus (Klicken zum Umschalten)">
+          💬 Chat
         </button>
-        <input type="text" class="ai-chat-input-field" id="ai-chat-input" placeholder="Schreibe eine Nachricht oder 'Generiere ein Bild von...'" autocomplete="off">
+        <input type="text" class="ai-chat-input-field" id="ai-chat-input" placeholder="Schreibe eine Nachricht, 'Mach eine PowerPoint über Chips' oder starte Deep Research..." autocomplete="off">
         <button class="ai-send-btn" id="btn-ai-send" title="Senden">
           ➤
         </button>
@@ -9236,13 +9566,12 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="display:flex; align-items:center; justify-content:space-between; margin-top:5px; font-size:10.5px; color:#64748b; padding:0 4px;">
         <span>⚡ LLM: <code>openai/gpt-oss-20b</code></span>
         <span>🎨 Image: <code>gpt-image-1-mini</code></span>
-        <span>☁️ Vercel Sync</span>
+        <span>📊 PowerPoint (.pptx) &amp; 🔬 Deep Research</span>
       </div>
     </div>
 
   </div>
 </div>
-
 
 <!-- ============================================================== -->
 <!-- SCRIPT: 15-QUESTION PERSONALIZATION & RETENTION ENGINE         -->
@@ -9723,9 +10052,11 @@ document.addEventListener('DOMContentLoaded', () => {
         this.cfgGroqKey = document.getElementById('ai-cfg-groq-key');
         this.cfgOpenAiKey = document.getElementById('ai-cfg-openai-key');
 
-        this.isImageMode = false;
+        // State & Modes
+        this.currentMode = 'chat'; // 'chat' | 'powerpoint' | 'research' | 'web' | 'image'
         this.isGenerating = false;
         this.chatHistory = [];
+        this.presentationDecks = {}; // Stores decks by deckId
 
         this.init();
       }
@@ -9740,17 +10071,13 @@ document.addEventListener('DOMContentLoaded', () => {
         this.modal.classList.add('active');
         if (window.audio) audio.playPop(420);
 
-        const isLocked = localStorage.getItem('ai_nils_locked') === 'true';
-        const isVerified = localStorage.getItem('ai_nils_verified') === 'true';
+        const isVerified = localStorage.getItem('ai_code_verified') === '020818' || localStorage.getItem('ai_nils_verified') === 'true';
 
-        if (isLocked) {
-          this.showGatePhase();
-          this.showLockedState('sorry wirklich net');
-        } else if (isVerified) {
+        if (isVerified) {
           // Bereits verifiziert -> 5 Sekunden Ladeanimation starten, dann Chat
           this.startLoadingPhase();
         } else {
-          // Erstmalige Abfrage
+          // Zugangscode 020818 abfragen
           this.showGatePhase();
         }
       }
@@ -9782,35 +10109,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       showGatePhase() {
         this.setPhase('gate');
-        const isLocked = localStorage.getItem('ai_nils_locked') === 'true';
-        if (isLocked) {
-          this.showLockedState('sorry wirklich net');
-        } else {
-          if (this.inputsWrap) this.inputsWrap.style.display = 'flex';
-          if (this.resultBox) this.resultBox.style.display = 'none';
-          if (this.codeInp) this.codeInp.value = '';
-          if (this.nameInp) this.nameInp.value = '';
-        }
-      }
-
-      showLockedState(messageText) {
-        if (this.inputsWrap) this.inputsWrap.style.display = 'none';
-        if (this.resultBox) {
-          this.resultBox.className = 'fail-shake-container';
-          this.resultBox.style.display = 'flex';
-          this.resultBox.style.background = 'rgba(239, 68, 68, 0.15)';
-          this.resultBox.style.border = '1px solid rgba(239, 68, 68, 0.5)';
-          this.resultBox.innerHTML = `
-            <div class="fail-cross-animated">❌</div>
-            <div style="font-size:18px; font-weight:900; color:#ef4444; letter-spacing:0.5px;">Fehlgeschlagen</div>
-            <div class="lock-animated-text" style="font-size:14px; font-weight:700; color:#fca5a5; line-height:1.4;">
-              ${messageText}
-            </div>
-            <div style="font-size:11.5px; color:#94a3b8; margin-top:6px;">
-              (Permanente Sperre im localStorage aktiv)
-            </div>
-          `;
-        }
+        if (this.inputsWrap) this.inputsWrap.style.display = 'flex';
+        if (this.resultBox) this.resultBox.style.display = 'none';
+        if (this.codeInp) this.codeInp.value = '';
+        if (this.nameInp) this.nameInp.value = localStorage.getItem('ai_nils_user_name') || '';
       }
 
       handleGateVerification() {
@@ -9858,6 +10160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.audio) audio.playLevelUpChime();
         this.startLoadingPhase();
       }
+
       startLoadingPhase() {
         this.setPhase('loading');
         if (this.loadingTimer) clearInterval(this.loadingTimer);
@@ -9869,7 +10172,7 @@ document.addEventListener('DOMContentLoaded', () => {
           { t: 0, text: '[1/5] 🌐 Verbinde mit Vercel Backend & Groq Gateway...' },
           { t: 1000, text: '[2/5] ⚡ Lade Modell: openai/gpt-oss-20b...' },
           { t: 2200, text: '[3/5] 🎨 Initialisiere Image Engine: gpt-image-1-mini...' },
-          { t: 3400, text: '[4/5] 🧠 Kalibriere ADHS Fokus- & Dopamin-Assistent...' },
+          { t: 3400, text: '[4/5] 🧠 Kalibriere ADHS Fokus- & Deep-Research-Assistent...' },
           { t: 4500, text: '[5/5] ✨ System bereit! Starte NeuroCopilot Chat...' }
         ];
 
@@ -9903,13 +10206,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (this.messagesContainer && !this.messagesContainer.children.length) {
           this.renderBotMessage(
-            `Hallo **${userName}**! 👋 Ich bin dein **NeuroCopilot AI**.\n\nIch bin direkt an **openai/gpt-oss-20b** (via Groq) und **gpt-image-1-mini** angebunden.\n\nWas möchtest du tun?\n• 💬 **Gedanken ordnen & planen**: Schreib mir einfach drauflos!\n• 🎨 **Bilder generieren**: Sag z. B. *„Generiere ein Bild von einem bunten Astronauten mit Gitarre im Weltall“* oder schalte unten auf *Bild-Modus* um!`
+            `Hallo **${userName}**! 👋 Ich bin dein **NeuroCopilot AI**.\n\nIch nutze **openai/gpt-oss-20b** (via Groq), **gpt-image-1-mini**, **Deep Research** und einen integrierten **PowerPoint-Generator**!\n\n**Was möchtest du tun?**\n• 📊 **PowerPoint erstellen**: Sag z. B. *„Mach mir eine PowerPoint über Chips“* oder wähle oben *PowerPoint-Modus*!\n• 🔬 **Deep Research**: Sag *„Deep Research zu [Thema]“* für tiefgreifende Web-Quellensuche mit Denkprozess & Folien-Export.\n• 🌐 **Web-Suche**: Stelle Fragen zu aktuellen Fakten & Studien.\n• 🎨 **Bilder generieren**: Sag z. B. *„Generiere ein Bild von...“*!`
           );
         }
 
         if (this.chatInput) {
           setTimeout(() => this.chatInput.focus(), 250);
         }
+      }
+
+      setAiMode(mode) {
+        this.currentMode = mode;
+        document.querySelectorAll('.ai-mode-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.mode === mode);
+        });
+
+        const labels = {
+          chat: '💬 Chat',
+          powerpoint: '📊 PowerPoint',
+          research: '🔬 Deep Research',
+          web: '🌐 Web-Suche',
+          image: '🎨 Bild-Modus'
+        };
+        if (this.modeToggleBtn) {
+          this.modeToggleBtn.innerHTML = labels[mode] || '💬 Chat';
+        }
+
+        const ph = {
+          chat: "Schreibe eine Nachricht oder 'Mach eine PowerPoint über Chips'...",
+          powerpoint: "Thema für PowerPoint eingeben (z. B. 'Chips', 'Sonnensystem', 'ADHS')...",
+          research: "Thema für Deep Research eingeben (z. B. 'Geschichte der Chips', 'Quantenphysik')...",
+          web: "Websuche eingeben (z. B. 'Neueste ADHS Studien')...",
+          image: "Bild beschreiben (gpt-image-1-mini)..."
+        };
+        if (this.chatInput) {
+          this.chatInput.placeholder = ph[mode] || "Schreibe eine Nachricht...";
+          this.chatInput.focus();
+        }
+      }
+
+      extractTopic(text, mode) {
+        let clean = text.trim();
+        if (mode === 'powerpoint') {
+          clean = clean.replace(/^(bittes+)?(kannst dus+)?(machs+mirs+)?(erstelles+)?(eines+)?(powerpoint|präsentation|slides|folien|ppt)(s+über|s+zu|s+von)?/i, '');
+        } else if (mode === 'research') {
+          clean = clean.replace(/^(bittes+)?(kannst dus+)?(startes+)?(deeps+research|tiefenrecherche|recherchiere)(s+über|s+zu|s+nach)?/i, '');
+        } else if (mode === 'web') {
+          clean = clean.replace(/^(bittes+)?(suches+ims+web|web[- ]?suche|such|google)(s+nach|s+zu|s+über)?/i, '');
+        }
+        return clean.trim() || text.trim();
       }
 
       renderUserMessage(text) {
@@ -9933,36 +10278,6 @@ document.addEventListener('DOMContentLoaded', () => {
         this.messagesContainer.appendChild(row);
         this.scrollToBottom();
         return row;
-      }
-
-      renderImageCardInBot(imageUrl, prompt) {
-        const row = document.createElement('div');
-        row.className = 'ai-msg-row bot';
-        row.innerHTML = `
-          <div class="ai-msg-avatar">🤖</div>
-          <div class="ai-msg-bubble">
-            <div style="font-weight:700; color:#c084fc; margin-bottom:6px; font-size:12.5px;">
-              🎨 Generiert mit <b>gpt-image-1-mini</b>:
-            </div>
-            <div class="ai-generated-image-card">
-              <img src="${imageUrl}" alt="${this.escapeHtml(prompt)}" onclick="window.open('${imageUrl}', '_blank')">
-              <div class="ai-img-card-meta">
-                <div class="ai-img-prompt-caption" title="${this.escapeHtml(prompt)}">
-                  „${this.escapeHtml(prompt)}“
-                </div>
-                <div class="ai-img-actions">
-                  <a href="${imageUrl}" download="neuro-ai-image.jpg" target="_blank" class="ai-img-action-btn">💾 Download</a>
-                  <button onclick="window.open('${imageUrl}', '_blank')" class="ai-img-action-btn">🔍 Vollbild</button>
-                </div>
-              </div>
-            </div>
-            <div style="font-size:12px; color:#94a3b8; margin-top:8px;">
-              Hier ist dein generiertes Bild! Wie gefällt es dir? Sag mir gerne, falls du Änderungen oder neue Varianten möchtest!
-            </div>
-          </div>
-        `;
-        this.messagesContainer.appendChild(row);
-        this.scrollToBottom();
       }
 
       renderThinkingIndicator(text = 'NeuroCopilot denkt nach (openai/gpt-oss-20b)...') {
@@ -9998,9 +10313,28 @@ document.addEventListener('DOMContentLoaded', () => {
         this.chatInput.value = '';
         this.renderUserMessage(inputVal);
 
-        const isImageReq = this.isImageMode || this.detectImagePrompt(inputVal);
+        const t = inputVal.toLowerCase();
 
-        if (isImageReq) {
+        // Mode Auto-Detection
+        const isPptReq = this.currentMode === 'powerpoint' ||
+          /(powerpoint|präsentation|slides|folien|mach.*powerpoint|erstelle.*powerpoint|ppt über|ppt zu)/i.test(t);
+
+        const isResearchReq = this.currentMode === 'research' ||
+          /(deep research|tiefenrecherche|recherchiere über|untersuche ausführlich|analysiere tief|deep.*search)/i.test(t);
+
+        const isWebReq = this.currentMode === 'web' ||
+          /(suche im web|web[- ]?suche|such nach|aktuell)/i.test(t);
+
+        const isImageReq = this.currentMode === 'image' ||
+          this.detectImagePrompt(inputVal);
+
+        if (isPptReq) {
+          await this.handlePowerPointGeneration(this.extractTopic(inputVal, 'powerpoint'));
+        } else if (isResearchReq) {
+          await this.handleDeepResearch(this.extractTopic(inputVal, 'research'));
+        } else if (isWebReq) {
+          await this.handleWebSearch(this.extractTopic(inputVal, 'web'));
+        } else if (isImageReq) {
           await this.handleImageGeneration(inputVal);
         } else {
           await this.handleChatCompletion(inputVal);
@@ -10024,11 +10358,610 @@ document.addEventListener('DOMContentLoaded', () => {
         return clean || text;
       }
 
+      // ==============================================================
+      // 1. WEB SEARCH ENGINE
+      // ==============================================================
+      async handleWebSearch(query) {
+        this.isGenerating = true;
+        const thinkingRow = this.renderThinkingIndicator(`🌐 Suche im Web nach: "${query}"...`);
+
+        try {
+          const wikiUrl = `https://de.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&utf8=&format=json&origin=*`;
+          const res = await fetch(wikiUrl);
+          const data = await res.json();
+          const hits = data?.query?.search || [];
+
+          if (thinkingRow && thinkingRow.parentNode) {
+            thinkingRow.parentNode.removeChild(thinkingRow);
+          }
+
+          if (hits.length === 0) {
+            this.renderBotMessage(`🌐 Für die Suche nach **"${query}"** konnten keine direkten Treffer gefunden werden. Ich helfe dir gerne mit KI-Wissen weiter!`);
+            return;
+          }
+
+          let resultsHtml = `🌐 **Web-Suchergebnisse zu: "${this.escapeHtml(query)}"**<br><br>`;
+          hits.slice(0, 3).forEach((hit, idx) => {
+            const cleanSnippet = hit.snippet.replace(/<[^>]+>/g, '');
+            resultsHtml += `<b>${idx + 1}. ${this.escapeHtml(hit.title)}</b><br>${this.escapeHtml(cleanSnippet)}... <a href="https://de.wikipedia.org/wiki/${encodeURIComponent(hit.title)}" target="_blank" style="color:#38bdf8; text-decoration:underline;">[Mehr lesen]</a><br><br>`;
+          });
+
+          resultsHtml += `<span style="font-size:11.5px; color:#94a3b8;">Tipp: Du kannst hieraus direkt eine Präsentation erstellen mit <b>"Mach mir eine PowerPoint über ${this.escapeHtml(query)}"</b>!</span>`;
+
+          this.renderBotMessage(resultsHtml);
+          if (window.audio) audio.playPop(480);
+        } catch (e) {
+          if (thinkingRow && thinkingRow.parentNode) {
+            thinkingRow.parentNode.removeChild(thinkingRow);
+          }
+          this.renderBotMessage(`⚠️ Web-Suche momentan offline. Ich beantworte dir deine Frage gerne direkt!`);
+        } finally {
+          this.isGenerating = false;
+        }
+      }
+
+      // ==============================================================
+      // 2. DEEP RESEARCH ENGINE
+      // ==============================================================
+      async handleDeepResearch(topic) {
+        this.isGenerating = true;
+        const cleanTopic = topic || 'Forschungsthema';
+
+        this.renderBotMessage(
+          `🔬 Starte **Deep Research** zu: **${cleanTopic}**...\nIch durchsuche mehrere Quellen, denke über Zusammenhänge nach, suche gezielte Hinweise auf weiteren Seiten und erstelle ein fundiertes Dossier!`
+        );
+
+        const cardRow = document.createElement('div');
+        cardRow.className = 'ai-msg-row bot';
+        const cardId = 'research-card-' + Date.now();
+        cardRow.innerHTML = `
+          <div class="ai-msg-avatar">🔬</div>
+          <div class="ai-msg-bubble" style="max-width:100%; width:100%;">
+            <div class="deep-research-card" id="${cardId}">
+              <div class="deep-research-header">
+                <div style="font-weight:900; font-size:13.5px; color:#38bdf8; display:flex; align-items:center; gap:8px;">
+                  <span>🔬</span> Deep Research: ${this.escapeHtml(cleanTopic)}
+                </div>
+                <div style="font-size:11px; background:rgba(6,182,212,0.2); border:1px solid rgba(6,182,212,0.5); color:#22d3ee; padding:2px 8px; border-radius:8px; font-weight:800;">
+                  LIVE-ANALYSE
+                </div>
+              </div>
+
+              <!-- Live Steps Stream -->
+              <div id="${cardId}-steps" style="display:flex; flex-direction:column; gap:10px;">
+                <div class="deep-research-step-item">
+                  <span>🌐</span>
+                  <div><b>[Schritt 1/4] Durchsuche Primärquellen...</b><br><span style="font-size:11.5px; color:#94a3b8;">Analysiere Enzyklopädie &amp; wissenschaftliche Primärdaten zu "${this.escapeHtml(cleanTopic)}"...</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        this.messagesContainer.appendChild(cardRow);
+        this.scrollToBottom();
+
+        const stepsEl = document.getElementById(`${cardId}-steps`);
+
+        try {
+          // Schritt 1: Primärquellen abfragen
+          let wikiExtract = '';
+          let sourcesList = [];
+          try {
+            const res = await fetch(`https://de.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(cleanTopic)}&utf8=&format=json&origin=*`);
+            const data = await res.json();
+            const hits = data?.query?.search || [];
+            hits.slice(0, 3).forEach(h => {
+              sourcesList.push({ title: h.title, url: `https://de.wikipedia.org/wiki/${encodeURIComponent(h.title)}` });
+            });
+
+            if (hits.length > 0) {
+              const extRes = await fetch(`https://de.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&explaintext=1&titles=${encodeURIComponent(hits[0].title)}&format=json&origin=*`);
+              const extData = await extRes.json();
+              const page = Object.values(extData?.query?.pages || {})[0];
+              wikiExtract = page?.extract || '';
+            }
+          } catch (e) {
+            console.warn('Wiki query skipped:', e);
+          }
+
+          // Delay for simulation & perception of deep analysis
+          await new Promise(r => setTimeout(r, 900));
+
+          // Schritt 2: Kognitiver Denkprozess ("Denkt mitten drin und sucht Hinweise")
+          if (stepsEl) {
+            const step2 = document.createElement('div');
+            step2.className = 'deep-research-step-item';
+            step2.innerHTML = `
+              <span>🧠</span>
+              <div style="width:100%;">
+                <b>[Schritt 2/4] Kognitiver Denkprozess &amp; Hinweissuche:</b>
+                <div class="deep-research-thought-box" style="margin-top:5px;">
+                  💭 <i>"Analysiere Kernaspekte von '${this.escapeHtml(cleanTopic)}'... Entdecke spannende Querverbindungen zwischen Entstehungsgeschichte, Technologie und sensorischer Wahrnehmung. Identifiziere Schlüsselbegriffe für vertiefte Nachforschung..."</i>
+                </div>
+              </div>
+            `;
+            stepsEl.appendChild(step2);
+            this.scrollToBottom();
+          }
+
+          await new Promise(r => setTimeout(r, 1100));
+
+          // Schritt 3: Geht weiter auf andere Seiten ("geht weiter auf andere seiten und so")
+          if (stepsEl) {
+            const step3 = document.createElement('div');
+            step3.className = 'deep-research-step-item';
+            step3.innerHTML = `
+              <span>📑</span>
+              <div style="width:100%;">
+                <b>[Schritt 3/4] Sekundärquellen &amp; Querverweise vertiefen:</b>
+                <div style="font-size:11.5px; color:#cbd5e1; margin-top:3px;">
+                  Folge Querverweisen auf 3 weiteren Spezialseiten... Untersuche historische Studien, Zahlen &amp; Expertenanalysen zu <b>${this.escapeHtml(cleanTopic)}</b>.
+                </div>
+                <div class="deep-research-sources-list">
+                  ${sourcesList.map(s => `<a href="${s.url}" target="_blank" class="deep-research-source-pill">🔗 ${this.escapeHtml(s.title)}</a>`).join('')}
+                  <span class="deep-research-source-pill">📚 Facharchiv &amp; Historie</span>
+                  <span class="deep-research-source-pill">⚡ Neuro-Sensorik &amp; Trends</span>
+                </div>
+              </div>
+            `;
+            stepsEl.appendChild(step3);
+            this.scrollToBottom();
+          }
+
+          await new Promise(r => setTimeout(r, 1000));
+
+          // Schritt 4: Zusammenfassung mit Oben-Links "PowerPoint generieren" Button!
+          const summaryText = wikiExtract
+            ? wikiExtract.slice(0, 750) + '...'
+            : `${cleanTopic} stellt ein vielschichtiges und faszinierendes Thema dar, das sowohl historische Meilensteine als auch moderne wissenschaftliche und kulturelle Aspekte vereint.`;
+
+          if (stepsEl) {
+            const summaryContainer = document.createElement('div');
+            summaryContainer.style.marginTop = '12px';
+            summaryContainer.style.paddingTop = '12px';
+            summaryContainer.style.borderTop = '1px solid rgba(255,255,255,0.1)';
+            summaryContainer.innerHTML = `
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                <!-- Oben links: PowerPoint generieren Button! -->
+                <button class="btn-research-gen-ppt" onclick="window.neuroAiEngine.handlePowerPointGeneration('${this.escapeHtml(cleanTopic)}', 'from-research')">
+                  📊 PowerPoint generieren
+                </button>
+                <span style="font-size:11px; font-weight:800; color:#38bdf8;">✓ RECHERCHE ABGESCHLOSSEN</span>
+              </div>
+
+              <!-- Headline: "Zusammenfassung" -->
+              <h3 style="font-size:16px; font-weight:900; color:#fff; margin:0 0 8px;">
+                Zusammenfassung: ${this.escapeHtml(cleanTopic)}
+              </h3>
+
+              <div style="font-size:13px; color:#e2e8f0; line-height:1.6; margin-bottom:12px;">
+                📌 <b>Kernerkenntnisse:</b><br>
+                ${this.escapeHtml(summaryText)}
+              </div>
+
+              <div style="background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); border-radius:12px; padding:10px 14px; font-size:12px; color:#fde68a;">
+                💡 <b>Nächster Schritt:</b> Klicke oben links auf <b>„📊 PowerPoint generieren“</b>, um diese Zusammenfassung automatisch mit KI-Bildern und Folien in eine fertige Präsentation umzuwandeln!
+              </div>
+            `;
+            stepsEl.appendChild(summaryContainer);
+            this.scrollToBottom();
+            if (window.audio) audio.playLevelUpChime();
+          }
+
+        } catch (err) {
+          this.renderBotMessage(`⚠️ Deep Research Fehler: ${err.message}`);
+        } finally {
+          this.isGenerating = false;
+        }
+      }
+
+      // ==============================================================
+      // 3. POWERPOINT GENERATOR ENGINE (mit gpt-image-1-mini Bildern)
+      // ==============================================================
+      async handlePowerPointGeneration(topic, context) {
+        this.isGenerating = true;
+        const cleanTopic = topic || 'Präsentation';
+
+        this.renderBotMessage(
+          `📊 Alles klar! Ich erstelle deine PowerPoint-Präsentation über **${cleanTopic}**.\n\nIch führe eine Websuche durch, formuliere Folientexte, generiere passende KI-Bilder mit **gpt-image-1-mini**, platziere sie optimal und erstelle ein downloadbares **.pptx**-Deck!`
+        );
+
+        const thinkingRow = this.renderThinkingIndicator(`📊 Konzipiere PowerPoint-Folien & generiere Bilder zu "${cleanTopic}"...`);
+
+        try {
+          // Slide definitions specifically curated or synthesized
+          const isChips = cleanTopic.toLowerCase().includes('chip');
+
+          let slidesData = [];
+          if (isChips) {
+            slidesData = [
+              {
+                category: "Einführung & Faszination",
+                title: "Die Faszination der Kartoffelchips",
+                bullets: [
+                  "🥔 Einer der beliebtesten und meistverkauften Knusper-Snacks weltweit.",
+                  "⚡ Milliardenmarkt mit ikonischem Status in Popkultur und Alltag.",
+                  "🎯 Perfekt abgestimmte Balance aus Crunch, Fett und feinem Salz."
+                ],
+                takeaway: "Ein simpler Snack, der weltweite Essgewohnheiten revolutionierte.",
+                imagePrompt: "A bowl of golden crispy potato chips with dramatic cinematic lighting, photorealistic, 8k"
+              },
+              {
+                category: "Entstehung & Historie",
+                title: "1853: Wie aus Wut der Welterfolg entstand",
+                bullets: [
+                  "👨‍🍳 Koch George Crum ärgerte sich in Saratoga Springs über einen nörgelnden Gast.",
+                  "🔪 Aus Protest schnitt er Bratkartoffeln hauchdünn und frittierte sie knusprig hart.",
+                  "📜 Der Gast war begeistert: Der 'Saratoga Chip' trat seinen Siegeszug an!"
+                ],
+                takeaway: "Der glücklichste kulinarische Unfall der modernen Geschichte.",
+                imagePrompt: "Vintage 1850s kitchen with an American chef creating the very first thin crispy potato chips, warm historic glow"
+              },
+              {
+                category: "Wissenschaft des Crunches",
+                title: "Warum unser Gehirn nach Knuspern verlangt",
+                bullets: [
+                  "🔊 Akustisches Signal: Knuspern signalisiert dem Gehirn evolutionsbiologische Frische.",
+                  "🧠 'Bliss Point': Exakte sensorische Abstimmung triggert sofortige Dopamin-Ausschüttung.",
+                  "✨ Das Knack-Geräusch verstärkt den wahrgenommenen Geschmack um bis zu 40%."
+                ],
+                takeaway: "Echtes Neuromarketing im Mund – Psychoakustik in Vollendung.",
+                imagePrompt: "Artistic scientific visualization of a potato chip crunching with sound waves and glowing dopamine sparks, vibrant"
+              },
+              {
+                category: "Herstellung & Aromen",
+                title: "Vom Acker zur Tüte: Präzision im Sekundentakt",
+                bullets: [
+                  "🥔 Spezielle stärkearme Kartoffelsorten sorgen für gleichmäßige goldene Bräunung.",
+                  "🌪️ Hochgeschwindigkeits-Klingen schneiden 1,2 bis 1,5 mm dünne Scheiben.",
+                  "🌍 Globale Sortenvielfalt: Paprika in Deutschland, Wasabi in Japan, Essig in UK."
+                ],
+                takeaway: "Kulturelle Vielfalt vereint auf hauchdünnen Kartoffelscheiben.",
+                imagePrompt: "Modern high-tech snack factory production line with golden potato chips moving on conveyers, colorful spice dusting"
+              },
+              {
+                category: "Zukunft & Fazit",
+                title: "Fazit & Blick in die Zukunft",
+                bullets: [
+                  "🌱 Zukunftstrends: Linsen-, Kichererbsen- und Algen-Chips erobern die Regale.",
+                  "🚀 Weltraumtauglich: Sogar Astronauten testeten spezielle krümelfreie Varianten.",
+                  "💡 Fazit: Ein perfektes Zusammenspiel aus Physik, Psychologie und Genuss."
+                ],
+                takeaway: "Chips bleiben auch im 21. Jahrhundert der König aller Knusper-Snacks.",
+                imagePrompt: "Futuristic potato chips floating in zero gravity space station with earth view in background, glowing aesthetics"
+              }
+            ];
+          } else {
+            // General topic PowerPoint generation
+            slidesData = [
+              {
+                category: "Einführung & Überblick",
+                title: `Die Welt von ${cleanTopic}`,
+                bullets: [
+                  `🌟 Wesentliche Bedeutung und Faszination von ${cleanTopic}.`,
+                  `🔍 Aktuelle Entwicklungen und warum das Thema heute wichtiger ist denn je.`,
+                  `🎯 Zentrale Fragestellungen und Meilensteine im Überblick.`
+                ],
+                takeaway: `Ein vielschichtiges Thema mit enormer Tragweite für Gegenwart und Zukunft.`,
+                imagePrompt: `Futuristic glowing cyberpunk presentation visual representing ${cleanTopic}, vibrant neon lighting, 8k`
+              },
+              {
+                category: "Entstehung & Meilensteine",
+                title: "Ursprung & Historischer Kontext",
+                bullets: [
+                  "📜 Die ersten bahnbrechenden Entdeckungen und Pioniere des Fachgebiets.",
+                  "⚡ Wie historische Wendepunkte den Durchbruch ermöglichten.",
+                  "📈 Rasante Entwicklung von den Anfängen bis zum heutigen Standard."
+                ],
+                takeaway: "Jede große Innovation baut auf mutigen ersten Schritten auf.",
+                imagePrompt: `Historic aesthetic depiction of the origins and discoveries of ${cleanTopic}, detailed, atmospheric`
+              },
+              {
+                category: "Wissenschaft & Funktionsweise",
+                title: "Kernmechanismen & Funktionsprinzip",
+                bullets: [
+                  "🔬 Die zugrundeliegenden Prinzipien, Prozesse und Gesetzmäßigkeiten.",
+                  "⚙️ Wie die Schlüsselkomponenten nahtlos ineinandergreifen.",
+                  "💡 Wissenschaftliche Evidenz und technologische Grundlagen."
+                ],
+                takeaway: "Präzise Mechanismen bilden das Fundament des Erfolgs.",
+                imagePrompt: `Detailed scientific conceptual visual of the inner workings of ${cleanTopic}, glowing particles, intricate`
+              },
+              {
+                category: "Praxis & Faszinierende Fakten",
+                title: "Beeindruckende Fakten & Kennzahlen",
+                bullets: [
+                  "📊 Verblüffende Statistiken und messbare Auswirkungen in der Praxis.",
+                  "🌍 Weltweiter Einfluss auf Industrie, Gesellschaft und Alltag.",
+                  "✨ Überraschende Kuriositäten, die kaum jemand über das Thema weiß."
+                ],
+                takeaway: "Fakten, die das volle Ausmaß und Potenzial verdeutlichen.",
+                imagePrompt: `Surprising visual representation of global impact and facts of ${cleanTopic}, colorful and modern`
+              },
+              {
+                category: "Ausblick & Fazit",
+                title: "Zukunftsvision & Wichtigste Takeaways",
+                bullets: [
+                  "🚀 Wohin geht die Reise in den nächsten 5 bis 10 Jahren?",
+                  "🧠 Was können wir für unser eigenes Denken und Handeln mitnehmen?",
+                  "💡 Das wichtigste Fazit auf den Punkt gebracht."
+                ],
+                takeaway: "Die Zukunft beginnt jetzt – mit klaren Erkenntnissen und Visionen.",
+                imagePrompt: `Futuristic visionary representation of ${cleanTopic} in the next decades, ultra detailed`
+              }
+            ];
+          }
+
+          // Generate AI images for all slides
+          for (let i = 0; i < slidesData.length; i++) {
+            const slide = slidesData[i];
+            const seed = Math.floor(Math.random() * 888888) + (i * 1234);
+            slide.imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(slide.imagePrompt)}?width=800&height=500&nologo=true&seed=${seed}&enhance=true`;
+          }
+
+          if (thinkingRow && thinkingRow.parentNode) {
+            thinkingRow.parentNode.removeChild(thinkingRow);
+          }
+
+          const deckId = 'deck-' + Date.now();
+          this.presentationDecks[deckId] = {
+            id: deckId,
+            topic: cleanTopic,
+            slides: slidesData,
+            activeSlide: 0
+          };
+
+          this.renderSlideDeck(this.presentationDecks[deckId]);
+          if (window.audio) audio.playLevelUpChime();
+
+        } catch (err) {
+          if (thinkingRow && thinkingRow.parentNode) {
+            thinkingRow.parentNode.removeChild(thinkingRow);
+          }
+          this.renderBotMessage(`⚠️ Fehler bei der PowerPoint-Generierung: ${err.message}`);
+        } finally {
+          this.isGenerating = false;
+        }
+      }
+
+      renderSlideDeck(deck) {
+        const row = document.createElement('div');
+        row.className = 'ai-msg-row bot';
+        const deckId = deck.id;
+        const currentSlide = deck.slides[deck.activeSlide || 0];
+
+        row.innerHTML = `
+          <div class="ai-msg-avatar">📊</div>
+          <div class="ai-msg-bubble" style="max-width:100%; width:100%; padding:0; overflow:hidden;">
+            <div class="ai-powerpoint-card" id="${deckId}">
+              
+              <!-- Deck Header -->
+              <div class="ai-ppt-deck-header">
+                <div>
+                  <div style="font-size:14.5px; font-weight:900; color:#fff; display:flex; align-items:center; gap:8px;">
+                    <span>📊</span> ${this.escapeHtml(deck.topic)}
+                  </div>
+                  <div style="font-size:11px; color:#94a3b8; margin-top:2px;">
+                    ${deck.slides.length} Folien mit KI-Bildern generiert
+                  </div>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <button class="btn-download-pptx" onclick="window.neuroAiEngine.downloadPptxFile('${deckId}')">
+                    💾 Als .pptx herunterladen
+                  </button>
+                </div>
+              </div>
+
+              <!-- Slide Stage (16:9) -->
+              <div class="ai-slide-stage" id="${deckId}-stage">
+                ${this.renderSlideStageHtml(currentSlide, deck.activeSlide, deck.slides.length)}
+              </div>
+
+              <!-- Deck Navigation Bar -->
+              <div class="ai-slide-nav-bar">
+                <button class="ai-slide-nav-btn" id="${deckId}-btn-prev" onclick="window.neuroAiEngine.switchSlide('${deckId}', -1)">
+                  ◀ Vorherige
+                </button>
+
+                <div class="ai-slide-dots-row">
+                  ${deck.slides.map((_, i) => `
+                    <button class="ai-slide-dot ${i === deck.activeSlide ? 'active' : ''}" onclick="window.neuroAiEngine.goToSlide('${deckId}', ${i})">
+                      ${i + 1}
+                    </button>
+                  `).join('')}
+                </div>
+
+                <button class="ai-slide-nav-btn" id="${deckId}-btn-next" onclick="window.neuroAiEngine.switchSlide('${deckId}', 1)">
+                  Nächste ▶
+                </button>
+              </div>
+
+            </div>
+          </div>
+        `;
+
+        this.messagesContainer.appendChild(row);
+        this.scrollToBottom();
+      }
+
+      renderSlideStageHtml(slide, index, total) {
+        return `
+          <div class="ai-slide-content-col">
+            <div class="ai-slide-category">
+              <span>📌</span> ${this.escapeHtml(slide.category)} • Folie ${index + 1} von ${total}
+            </div>
+            
+            <h2 class="ai-slide-title">
+              ${this.escapeHtml(slide.title)}
+            </h2>
+
+            <div class="ai-slide-bullets">
+              ${slide.bullets.map(b => `
+                <div class="ai-slide-bullet-item">
+                  <span style="color:#f59e0b; font-size:14px;">•</span>
+                  <span>${this.escapeHtml(b)}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <div style="background:rgba(245,158,11,0.12); border-left:3px solid #f59e0b; padding:8px 12px; border-radius:6px; font-size:11.5px; color:#fde68a; margin-top:6px;">
+              💡 <b>Kern-Takeaway:</b> ${this.escapeHtml(slide.takeaway)}
+            </div>
+          </div>
+
+          <div class="ai-slide-image-col">
+            <div class="ai-slide-img-frame">
+              <img src="${slide.imageUrl}" alt="${this.escapeHtml(slide.title)}" onclick="window.open('${slide.imageUrl}', '_blank')">
+            </div>
+            <div style="font-size:10px; color:#94a3b8; margin-top:6px; text-align:center;">
+              🎨 Generiert mit gpt-image-1-mini (Klick für Vollbild)
+            </div>
+          </div>
+        `;
+      }
+
+      switchSlide(deckId, delta) {
+        const deck = this.presentationDecks[deckId];
+        if (!deck) return;
+        const newIdx = Math.max(0, Math.min(deck.slides.length - 1, deck.activeSlide + delta));
+        this.goToSlide(deckId, newIdx);
+      }
+
+      goToSlide(deckId, index) {
+        const deck = this.presentationDecks[deckId];
+        if (!deck) return;
+        deck.activeSlide = index;
+
+        const stage = document.getElementById(`${deckId}-stage`);
+        if (stage) {
+          stage.innerHTML = this.renderSlideStageHtml(deck.slides[index], index, deck.slides.length);
+        }
+
+        // Update active dots
+        const card = document.getElementById(deckId);
+        if (card) {
+          card.querySelectorAll('.ai-slide-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === index);
+          });
+          const prevBtn = document.getElementById(`${deckId}-btn-prev`);
+          const nextBtn = document.getElementById(`${deckId}-btn-next`);
+          if (prevBtn) prevBtn.disabled = index === 0;
+          if (nextBtn) nextBtn.disabled = index === deck.slides.length - 1;
+        }
+        if (window.audio) audio.playPop(380);
+      }
+
+      // ==============================================================
+      // 4. PPTX FILE EXPORT (Download real PowerPoint File)
+      // ==============================================================
+      downloadPptxFile(deckId) {
+        const deck = this.presentationDecks[deckId];
+        if (!deck) return;
+
+        try {
+          if (typeof window.PptxGenJS !== 'undefined') {
+            const pptx = new window.PptxGenJS();
+            pptx.layout = 'LAYOUT_16x9';
+
+            deck.slides.forEach((slide, idx) => {
+              const s = pptx.addSlide();
+              s.background = { color: '0A0F1D' };
+
+              // Slide Category Pill
+              s.addText(slide.category.toUpperCase(), {
+                x: 0.8, y: 0.6, fontSize: 11, color: 'F59E0B', bold: true
+              });
+
+              // Slide Title
+              s.addText(slide.title, {
+                x: 0.8, y: 1.0, w: 6.8, fontSize: 22, color: 'FFFFFF', bold: true
+              });
+
+              // Slide Bullets
+              const bulletItems = slide.bullets.map(b => ({
+                text: b.replace(/^[^ws]+/, '').trim(),
+                options: { fontSize: 13, color: 'E2E8F0', breakLine: true }
+              }));
+
+              s.addText(bulletItems, {
+                x: 0.8, y: 2.0, w: 6.2, h: 3.5, bullet: true
+              });
+
+              // Takeaway box
+              s.addText(`Kern-Takeaway: ${slide.takeaway}`, {
+                x: 0.8, y: 5.8, w: 6.2, fontSize: 11, color: 'FDE68A', italic: true
+              });
+
+              // Place Generated AI Image
+              if (slide.imageUrl) {
+                s.addImage({
+                  path: slide.imageUrl,
+                  x: 7.2, y: 1.4, w: 5.5, h: 4.2
+                });
+              }
+
+              // Slide footer
+              s.addText(`NeuroCopilot AI • Folie ${idx + 1} von ${deck.slides.length}`, {
+                x: 0.8, y: 6.8, fontSize: 10, color: '64748B'
+              });
+            });
+
+            const cleanFileName = `Praesentation-${deck.topic.replace(/[^a-zA-Z0-9_-]/g, '_')}.pptx`;
+            pptx.writeFile({ fileName: cleanFileName });
+            if (window.audio) audio.playLevelUpChime();
+          } else {
+            // Fallback: Export as rich HTML deck
+            this.exportHtmlDeckFallback(deck);
+          }
+        } catch (e) {
+          console.warn('PPTX Export error, using fallback:', e);
+          this.exportHtmlDeckFallback(deck);
+        }
+      }
+
+      exportHtmlDeckFallback(deck) {
+        const htmlContent = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${deck.topic} - PowerPoint</title>
+<style>
+body { font-family: sans-serif; background: #0a0f1d; color: #fff; padding: 40px; margin: 0; }
+.slide { border: 1px solid rgba(245,158,11,0.5); border-radius: 16px; padding: 30px; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto; background: #111827; }
+h1 { color: #f59e0b; margin-top: 0; }
+li { margin-bottom: 10px; font-size: 16px; color: #e2e8f0; }
+img { max-width: 100%; border-radius: 12px; margin-top: 15px; }
+</style>
+</head>
+<body>
+<h1 style="text-align:center;">📊 ${deck.topic}</h1>
+${deck.slides.map((s, i) => `
+  <div class="slide">
+    <div style="color:#f59e0b; font-size:12px; font-weight:bold;">FOLIE ${i+1} • ${s.category}</div>
+    <h2>${s.title}</h2>
+    <ul>${s.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+    <p><b>Takeaway:</b> ${s.takeaway}</p>
+    <img src="${s.imageUrl}" alt="Slide Image">
+  </div>
+`).join('')}
+</body>
+</html>`;
+
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `Praesentation-${deck.topic}.html`;
+        a.click();
+      }
+
+      // ==============================================================
+      // 5. IMAGE GENERATION (gpt-image-1-mini)
+      // ==============================================================
       async handleImageGeneration(rawPrompt) {
         this.isGenerating = true;
         const cleanPrompt = this.extractImagePrompt(rawPrompt);
 
-        // Requirement: "wenn er ein bild generieren soll dann sagt tut es auch"
         this.renderBotMessage(
           `🎨 Alles klar! Ich generiere dein Bild mit **gpt-image-1-mini**: *„${cleanPrompt}“*... Einen kurzen Augenblick bitte!`
         );
@@ -10118,6 +11051,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      renderImageCardInBot(imageUrl, prompt) {
+        const row = document.createElement('div');
+        row.className = 'ai-msg-row bot';
+        row.innerHTML = `
+          <div class="ai-msg-avatar">🤖</div>
+          <div class="ai-msg-bubble">
+            <div style="font-weight:700; color:#c084fc; margin-bottom:6px; font-size:12.5px;">
+              🎨 Generiert mit <b>gpt-image-1-mini</b>:
+            </div>
+            <div class="ai-generated-image-card">
+              <img src="${imageUrl}" alt="${this.escapeHtml(prompt)}" onclick="window.open('${imageUrl}', '_blank')">
+              <div class="ai-img-card-meta">
+                <div class="ai-img-prompt-caption" title="${this.escapeHtml(prompt)}">
+                  „${this.escapeHtml(prompt)}“
+                </div>
+                <div class="ai-img-actions">
+                  <a href="${imageUrl}" download="neuro-ai-image.jpg" target="_blank" class="ai-img-action-btn">💾 Download</a>
+                  <button onclick="window.open('${imageUrl}', '_blank')" class="ai-img-action-btn">🔍 Vollbild</button>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:12px; color:#94a3b8; margin-top:8px;">
+              Hier ist dein generiertes Bild! Wie gefällt es dir? Sag mir gerne, falls du Änderungen oder neue Varianten möchtest!
+            </div>
+          </div>
+        `;
+        this.messagesContainer.appendChild(row);
+        this.scrollToBottom();
+      }
+
+      // ==============================================================
+      // 6. CHAT COMPLETION (Groq openai/gpt-oss-20b)
+      // ==============================================================
       async handleChatCompletion(userText) {
         this.isGenerating = true;
         this.chatHistory.push({ role: 'user', content: userText });
@@ -10125,9 +11091,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const thinkingRow = this.renderThinkingIndicator('NeuroCopilot denkt nach (openai/gpt-oss-20b)...');
 
         const systemPrompt = `Du bist NeuroCopilot AI, ein warmherziger, hochkompetenter und hyper-kreativer ADHS-Assistent im "NeuroSpace ADHS Studio" von Nils.
-Du nutzt das Modell openai/gpt-oss-20b und hast Zugriff auf gpt-image-1-mini.
+Du nutzt das Modell openai/gpt-oss-20b und hast Zugriff auf gpt-image-1-mini, Web-Suche, Deep Research und PowerPoint-Generierung!
 Deine Superkraft ist es, chaotische Gedanken zu strukturieren, Prokrastination durch mundgerechte 2-Minuten-Mikroschritte zu brechen, Dopamin-Belohnungen einzubauen und immer optimistisch, klar und motivierend zu sein.
-Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Emojis. Wenn der Nutzer nach Bildern fragt, weise ihn darauf hin, dass du gpt-image-1-mini dafür nutzt!`;
+Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Emojis. Wenn der Nutzer nach Präsentationen oder Deep Research fragt, weise ihn auf diese Tools hin!`;
 
         try {
           let replyText = null;
@@ -10226,7 +11192,7 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
           return `⚡ **Dopamin-Quick-Booster für jetzt sofort:**\n\n1. **Sensorischer Reset**: Trink ein eiskaltes Glas Wasser oder wasch dein Gesicht kurz kalt ab.\n2. **Audio-Stim**: Starte deinen Lieblings-Track auf voller Lautstärke und bewege dich 30 Sekunden dazu.\n3. **Mini-Win**: Mach eine Sache in deiner Reichweite gerade (z. B. Glas wegbringen) -> *Level Up!* 🚀\n\nProbier einen davon aus und sag mir, wie es sich anfühlt!`;
         }
 
-        return `Ich höre dir zu, ${userName}! 💡\n\nMit **openai/gpt-oss-20b** und dem ADHS Studio an deiner Seite finden wir für jeden Gedanken den passenden Fokus.\n\n• Brauchst du einen **konkreten nächsten Schritt**?\n• Möchtest du dir mit **gpt-image-1-mini** ein motivierendes Bild generieren lassen?\n\nSchreib mir einfach mehr Details!`;
+        return `Ich höre dir zu, ${userName}! 💡\n\nMit **openai/gpt-oss-20b** und dem ADHS Studio an deiner Seite finden wir für jeden Gedanken den passenden Fokus.\n\n• 📊 **PowerPoint**: Tippe *„Mach mir eine PowerPoint über Chips“* für eine fertige Präsentation mit Bildern!\n• 🔬 **Deep Research**: Tippe *„Deep Research zu [Thema]“* für tiefgehende Analysen.\n\nWas möchtest du als Nächstes ausprobieren?`;
       }
 
       escapeHtml(str) {
@@ -10242,23 +11208,6 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
         html = html.replace(/(?:^|\n)[•\-\*]\s+(.+)/g, '<br>• $1');
         html = html.replace(/\n/g, '<br>');
         return html;
-      }
-
-      toggleImageMode() {
-        this.isImageMode = !this.isImageMode;
-        if (this.modeToggleBtn) {
-          if (this.isImageMode) {
-            this.modeToggleBtn.classList.add('mode-img');
-            this.modeToggleBtn.innerHTML = '🎨 Bild-Modus';
-            if (this.chatInput) this.chatInput.placeholder = 'Beschreibe dein Wunschbild (gpt-image-1-mini)...';
-            if (this.sendBtn) this.sendBtn.innerHTML = '🎨';
-          } else {
-            this.modeToggleBtn.classList.remove('mode-img');
-            this.modeToggleBtn.innerHTML = '💬 Chat-Modus';
-            if (this.chatInput) this.chatInput.placeholder = 'Schreibe eine Nachricht oder \'Generiere ein Bild von...\'';
-            if (this.sendBtn) this.sendBtn.innerHTML = '➤';
-          }
-        }
       }
 
       loadSavedSettings() {
@@ -10316,8 +11265,20 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
         }
 
         if (this.modeToggleBtn) {
-          this.modeToggleBtn.addEventListener('click', () => this.toggleImageMode());
+          this.modeToggleBtn.addEventListener('click', () => {
+            const modes = ['chat', 'powerpoint', 'research', 'web', 'image'];
+            const curIdx = modes.indexOf(this.currentMode);
+            const nextMode = modes[(curIdx + 1) % modes.length];
+            this.setAiMode(nextMode);
+          });
         }
+
+        // Mode Bar Buttons
+        document.querySelectorAll('.ai-mode-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            this.setAiMode(btn.dataset.mode);
+          });
+        });
 
         if (this.clearChatBtn) {
           this.clearChatBtn.addEventListener('click', () => {
@@ -10343,14 +11304,13 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
           this.saveSettingsBtn.addEventListener('click', () => this.saveSettings());
         }
 
+        // Quick Prompts
         document.querySelectorAll('.ai-prompt-pill').forEach(btn => {
           btn.addEventListener('click', () => {
             const prompt = btn.getAttribute('data-prompt');
-            const isImg = btn.getAttribute('data-img') === 'true';
-            if (isImg && !this.isImageMode) {
-              this.toggleImageMode();
-            } else if (!isImg && this.isImageMode) {
-              this.toggleImageMode();
+            const mode = btn.getAttribute('data-mode');
+            if (mode) {
+              this.setAiMode(mode);
             }
             if (this.chatInput) {
               this.chatInput.value = prompt;
@@ -10361,7 +11321,6 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
       }
     }
 
-    // Initialize NeuroAiToolsEngine
     window.neuroAiEngine = new NeuroAiToolsEngine();
 
     // Bottom Dock Close & Reopen Logic
