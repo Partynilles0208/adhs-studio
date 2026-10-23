@@ -4257,6 +4257,200 @@
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
+
+
+  /* ============================================================== */
+  /* SYMPATHETIC PROFILE & SANCTUARY MODAL STYLING                  */
+  /* ============================================================== */
+  .sympathetic-profile-modal-card {
+    max-width: 580px !important;
+    background: radial-gradient(circle at 50% 0%, rgba(32, 24, 68, 0.98), rgba(13, 16, 32, 0.99)) !important;
+    border: 1.5px solid rgba(236, 72, 153, 0.4) !important;
+    box-shadow: 0 25px 65px rgba(0,0,0,0.85), 0 0 50px rgba(236, 72, 153, 0.22) !important;
+    border-radius: 28px !important;
+    padding: 28px 32px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    position: relative !important;
+  }
+  .profile-modal-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #94a3b8;
+    font-size: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+  }
+  .profile-modal-close-btn:hover {
+    background: rgba(236, 72, 153, 0.25);
+    color: #ffffff;
+    border-color: rgba(236, 72, 153, 0.5);
+    transform: scale(1.08);
+  }
+  .profile-section-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 14px 16px;
+  }
+  .profile-section-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .avatar-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .avatar-select-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #cbd5e1;
+  }
+  .avatar-select-btn:hover {
+    background: rgba(236, 72, 153, 0.15);
+    border-color: rgba(236, 72, 153, 0.4);
+    transform: translateY(-2px);
+  }
+  .avatar-select-btn.selected {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.28), rgba(168, 85, 247, 0.28));
+    border-color: #f472b6;
+    box-shadow: 0 0 16px rgba(236, 72, 153, 0.35);
+    color: #ffffff;
+    font-weight: 800;
+    transform: scale(1.04);
+  }
+  .avatar-select-btn .avatar-emoji {
+    font-size: 26px;
+    line-height: 1;
+  }
+  .avatar-select-btn .avatar-label {
+    font-size: 11px;
+    letter-spacing: 0.2px;
+  }
+  .sympathetic-name-field {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1.5px solid rgba(236, 72, 153, 0.35);
+    border-radius: 14px;
+    padding: 12px 110px 12px 14px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  .sympathetic-name-field:focus {
+    border-color: #f472b6;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+    background: rgba(15, 23, 42, 0.98);
+  }
+  .sympathetic-input-badge {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    padding: 3px 8px;
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  .vibe-selection-row {
+    display: flex;
+    gap: 8px;
+  }
+  .vibe-pill-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 10px 8px;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .vibe-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+  .vibe-pill-btn.active {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(56, 189, 248, 0.2));
+    border-color: #34d399;
+    color: #34d399;
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+  }
+  .sympathetic-create-profile-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+    border: none;
+    border-radius: 16px;
+    padding: 15px 24px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4), 0 0 15px rgba(139, 92, 246, 0.3);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .sympathetic-create-profile-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(236, 72, 153, 0.55), 0 0 25px rgba(139, 92, 246, 0.45);
+  }
+  .sympathetic-create-profile-btn:active {
+    transform: translateY(1px) scale(0.99);
+  }
+  .user-profile-badge {
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .user-profile-badge:hover {
+    background: rgba(236, 72, 153, 0.12) !important;
+    border-color: rgba(236, 72, 153, 0.45) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.2);
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
@@ -4317,7 +4511,7 @@
 
     <!-- LEFT SIDEBAR -->
     <aside class="neuro-sidebar-left">
-      <div class="user-profile-badge">
+      <div class="user-profile-badge" id="sidebar-user-profile-btn" onclick="if(window.personalizationWizard) window.personalizationWizard.open();" title="Klicke hier, um dein Wohlfühl-Profil anzupassen">
         <div class="user-avatar-img">🧠</div>
         <div class="user-info-text">
           <span class="user-name-title">ADHS_Pro</span>
@@ -4336,8 +4530,8 @@
         <button class="nav-menu-item" id="btn-open-ai-tools" style="position:relative;">
           <span>🤖</span> AI Tools <span style="font-size:9px; background:linear-gradient(135deg,#10b981,#38bdf8); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(16,185,129,0.5);">LIVE ⚡</span>
         </button>
-        <button class="nav-menu-item" id="btn-open-onboarding-wizard">
-          <span>⚙️</span> Profil-Setup & Quiz
+        <button class="nav-menu-item" id="btn-open-onboarding-wizard" style="position:relative; background:rgba(236,72,153,0.08); border:1px solid rgba(236,72,153,0.25);" onclick="if(window.personalizationWizard) window.personalizationWizard.open();">
+          <span>💖</span> Mein Profil <span style="font-size:9.5px; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800; padding:1px 7px; border-radius:10px; margin-left:auto;">Wohlfühl-Raum</span>
         </button>
         <button class="nav-menu-item" onclick="if(window.masteryEngine) window.masteryEngine.openModal();">
           <span>🏆</span> Relikte & Grade
@@ -10981,37 +11175,111 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <!-- ============================================================== -->
-<!-- 15-QUESTION ONBOARDING & PERSONALIZATION WIZARD MODAL          -->
+<!-- WOHLFÜHL-PROFIL & PERSÖNLICHER RÜCKZUGSORT MODAL               -->
 <!-- ============================================================== -->
 <div class="onboarding-overlay" id="onboarding-wizard-modal">
-  <div class="onboarding-modal-card">
-    <!-- Progress Indicator -->
-    <div class="onboarding-progress-row">
-      <span id="onboarding-step-counter">Frage 1 von 15</span>
-      <span id="onboarding-percent-text">7%</span>
-    </div>
-    <div class="onboarding-progress-bar">
-      <div class="onboarding-progress-fill" id="onboarding-progress-fill"></div>
+  <div class="onboarding-modal-card sympathetic-profile-modal-card">
+    
+    <!-- Close button -->
+    <button class="profile-modal-close-btn" id="btn-close-sympathetic-profile" title="Schließen" onclick="if(window.personalizationWizard) window.personalizationWizard.close();">✕</button>
+
+    <!-- Header Area -->
+    <div class="onboarding-header-area" style="text-align:center;">
+      <div style="display:inline-flex; align-items:center; gap:8px; padding:4px 14px; border-radius:20px; background:rgba(236,72,153,0.12); border:1px solid rgba(236,72,153,0.35); color:#f472b6; font-size:12px; font-weight:800; margin-bottom:10px;">
+        <span>🌸</span> Dein persönlicher Wohlfühl-Raum • 100% Privat
+      </div>
+      <h2 style="font-size:24px; font-weight:900; color:#ffffff; margin:0 0 6px 0; letter-spacing:-0.3px;">
+        ✨ Gestalte dein Profil
+      </h2>
+      <p style="font-size:13.5px; color:#cbd5e1; margin:0; line-height:1.5; max-width:540px; margin-inline:auto;">
+        Kein Leistungsdruck, kein Quiz, keine Beurteilung. Wähle einfach deinen Lieblingsbegleiter und deinen Namen – ganz wie du dich wohlfühlst.
+      </p>
     </div>
 
-    <!-- Question Container -->
-    <div class="onboarding-header-area">
-      <div class="onboarding-badge-tag" id="onboarding-badge-tag">🧩 Neuro-Profil Setup</div>
-      <h2 class="onboarding-question-title" id="onboarding-q-title">Woher kennst du NeuroSpace?</h2>
-      <p class="onboarding-question-sub" id="onboarding-q-sub">Wähle die Antwort, die am besten zu dir passt</p>
+    <!-- Avatar Picker Section -->
+    <div class="profile-section-box">
+      <div class="profile-section-title">
+        <span>🎨</span> Wähle deinen Begleiter / Avatar:
+      </div>
+      <div class="avatar-selection-grid" id="profile-avatar-grid">
+        <button type="button" class="avatar-select-btn selected" data-avatar="🧠" title="Neugieriger Geist">
+          <span class="avatar-emoji">🧠</span>
+          <span class="avatar-label">Neugier</span>
+        </button>
+        <button type="button" class="avatar-select-btn" data-avatar="🦊" title="Fokus-Fuchs">
+          <span class="avatar-emoji">🦊</span>
+          <span class="avatar-label">Fuchs</span>
+        </button>
+        <button type="button" class="avatar-select-btn" data-avatar="🌸" title="Sanfte Seele">
+          <span class="avatar-emoji">🌸</span>
+          <span class="avatar-label">Sanft</span>
+        </button>
+        <button type="button" class="avatar-select-btn" data-avatar="⚡" title="Dopamin-Blitz">
+          <span class="avatar-emoji">⚡</span>
+          <span class="avatar-label">Blitz</span>
+        </button>
+        <button type="button" class="avatar-select-btn" data-avatar="🐱" title="Gemütliche Katze">
+          <span class="avatar-emoji">🐱</span>
+          <span class="avatar-label">Katze</span>
+        </button>
+        <button type="button" class="avatar-select-btn" data-avatar="🚀" title="Hyperfokus-Astronaut">
+          <span class="avatar-emoji">🚀</span>
+          <span class="avatar-label">Kosmos</span>
+        </button>
+        <button type="button" class="avatar-select-btn" data-avatar="🌿" title="Ruhepol Natur">
+          <span class="avatar-emoji">🌿</span>
+          <span class="avatar-label">Ruhepol</span>
+        </button>
+        <button type="button" class="avatar-select-btn" data-avatar="🎧" title="Sound-Lover">
+          <span class="avatar-emoji">🎧</span>
+          <span class="avatar-label">Lo-Fi</span>
+        </button>
+      </div>
     </div>
 
-    <!-- Options List / Input Field -->
-    <div class="onboarding-options-grid" id="onboarding-options-container">
-      <!-- Injected dynamically by JS -->
+    <!-- Name Input Section -->
+    <div class="profile-section-box">
+      <div class="profile-section-title">
+        <span>💖</span> Wie dürfen wir dich nennen?
+      </div>
+      <div style="position:relative;">
+        <input type="text" id="sympathetic-profile-name-input" class="sympathetic-name-field" placeholder="z. B. Alex, Fips, Wolke oder dein Spitzname" maxlength="30" autocomplete="off">
+        <span class="sympathetic-input-badge">🔒 100% Lokal</span>
+      </div>
+      <div style="font-size:12px; color:#94a3b8; margin-top:6px; display:flex; align-items:center; gap:6px;">
+        <span>💡</span> Dein Name wird nur in deinem Browser gespeichert. Du kannst ihn jederzeit anpassen.
+      </div>
     </div>
 
-    <!-- Navigation Buttons -->
-    <div class="onboarding-footer-btns">
-      <button class="onboarding-nav-btn secondary" id="btn-onboarding-prev" style="visibility:hidden;">← Zurück</button>
-      <button class="onboarding-nav-btn secondary" id="btn-onboarding-skip">Überspringen</button>
-      <button class="onboarding-nav-btn primary" id="btn-onboarding-next">Weiter →</button>
+    <!-- Vibe / Atmosphere Toggle -->
+    <div class="profile-section-box">
+      <div class="profile-section-title">
+        <span>🌿</span> Deine Wohlfühl-Atmosphäre:
+      </div>
+      <div class="vibe-selection-row" id="profile-vibe-selection">
+        <button type="button" class="vibe-pill-btn active" data-vibe="dynamic">
+          <span>✨</span> Lebendig & Bunt
+        </button>
+        <button type="button" class="vibe-pill-btn" data-vibe="calm">
+          <span>🌿</span> Reizarm & Sanft
+        </button>
+        <button type="button" class="vibe-pill-btn" data-vibe="sound">
+          <span>🎧</span> Fokus & Lo-Fi
+        </button>
+      </div>
     </div>
+
+    <!-- Action / Submit Button -->
+    <div style="display:flex; flex-direction:column; gap:10px; margin-top:6px;">
+      <button class="sympathetic-create-profile-btn" id="btn-profile-create-submit">
+        <span>✨</span> Profil erstellen & Wohlfühlen 💖
+      </button>
+      
+      <div style="text-align:center; font-size:11.5px; color:#64748b;">
+        Tipp: Drücke einfach Enter oder klicke auf den Button • Keine Pflichtfragen
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -11249,268 +11517,194 @@ document.addEventListener('DOMContentLoaded', () => {
 class NeuroPersonalizationWizard {
   constructor() {
     this.modal = document.getElementById('onboarding-wizard-modal');
-    this.qTitle = document.getElementById('onboarding-q-title');
-    this.qSub = document.getElementById('onboarding-q-sub');
-    this.badge = document.getElementById('onboarding-badge-tag');
-    this.optContainer = document.getElementById('onboarding-options-container');
-    this.stepCounter = document.getElementById('onboarding-step-counter');
-    this.percentText = document.getElementById('onboarding-percent-text');
-    this.progressFill = document.getElementById('onboarding-progress-fill');
-    this.prevBtn = document.getElementById('btn-onboarding-prev');
-    this.nextBtn = document.getElementById('btn-onboarding-next');
-    this.skipBtn = document.getElementById('btn-onboarding-skip');
+    this.nameInput = document.getElementById('sympathetic-profile-name-input');
+    this.submitBtn = document.getElementById('btn-profile-create-submit');
+    this.closeBtn = document.getElementById('btn-close-sympathetic-profile');
+    this.avatarGrid = document.getElementById('profile-avatar-grid');
+    this.vibeContainer = document.getElementById('profile-vibe-selection');
 
-    this.currentStep = 0;
-    this.answers = {};
+    this.selectedAvatar = '🧠';
+    this.selectedVibe = 'dynamic';
 
-    this.questions = [
-      {
-        badge: '🌐 Herkunft',
-        title: 'Woher kennst du NeuroSpace?',
-        sub: 'Hilft uns zu verstehen, wo sich unsere Community aufhält.',
-        options: [
-          { icon: '📱', text: 'TikTok / Instagram Reels' },
-          { icon: '🎬', text: 'YouTube Empfehlung' },
-          { icon: '👥', text: 'Von Freunden / Familie' },
-          { icon: '👾', text: 'ADHS-Community / Reddit / Discord' },
-          { icon: '🔍', text: 'Zufällig beim Suchen im Web' }
-        ]
-      },
-      {
-        badge: '🧠 Gehirn-Modus',
-        title: 'Was beschreibt deinen Gehirn-Zustand am besten?',
-        sub: 'Wie erlebst du deinen Alltag meistens?',
-        options: [
-          { icon: '⚡', text: 'Hyperfokus oder totale Blockade – selten ein Dazwischen' },
-          { icon: '📑', text: '1.000 Tabs gleichzeitig im Kopf offen' },
-          { icon: '🌊', text: 'Ständige Reizüberflutung durch Umwelt & Lärm' },
-          { icon: '⏳', text: 'Aufschieberitis & Executive Dysfunction' }
-        ]
-      },
-      {
-        badge: '🎯 Herausforderung',
-        title: 'Was fällt dir im Alltag am schwersten?',
-        sub: 'Hier setzen wir die passenden Entlastungs-Tools an.',
-        options: [
-          { icon: '🚀', text: 'Das Anfangen von Aufgaben (Startblockade)' },
-          { icon: '🧭', text: 'Bei einer Sache bleiben ohne Ablenkung' },
-          { icon: '🛡️', text: 'Reize & Hintergrundgeräusche ausblenden' },
-          { icon: '🌙', text: 'Am Abend den Kopf abschalten und einschlafen' }
-        ]
-      },
-      {
-        badge: '🫧 Sensorik',
-        title: 'Welche sensorische Stimulation beruhigt dich am meisten?',
-        sub: 'Wähle deinen primären sensorischen Anker.',
-        options: [
-          { icon: '🌊', text: 'Visuelle Strömungen & Fluid Simulationen' },
-          { icon: '🧪', text: 'Taktile Fidgets, Knete & Pop-Its' },
-          { icon: '🎐', text: '432 Hz Klänge, Windspiele & Brown Noise' },
-          { icon: '🏖️', text: 'Zen-Sand harken & geometrische Muster' }
-        ]
-      },
-      {
-        badge: '🎨 Farbstimmung',
-        title: 'Welche Farbwelt entspannt deine Augen?',
-        sub: 'NeuroSpace passt deine Wohlfühlatmosphäre an.',
-        options: [
-          { icon: '🌌', text: 'Cyber-Neon & Deep Cosmic Space' },
-          { icon: '🌿', text: 'Sanftes Nordlicht & Aurora-Grün' },
-          { icon: '🔥', text: 'Warme Glut & Kamin-Dämmerung' },
-          { icon: '⚪', text: 'Reizarmes, sanftes Monochrom' }
-        ]
-      },
-      {
-        badge: '🎧 Akustik',
-        title: 'Welche Geräuschkulisse brauchst du zum Fokussieren?',
-        sub: 'Dein individueller Hörfilter.',
-        options: [
-          { icon: '🤎', text: 'Braunes Rauschen (Brown Noise) oder Regen' },
-          { icon: '🤫', text: 'Absolute, ungestörte Stille' },
-          { icon: '🎵', text: 'Lo-Fi Beats & Instrumental ohne Gesang' },
-          { icon: '🌀', text: 'Binaurale Gehirnwellen (Alpha/Theta)' }
-        ]
-      },
-      {
-        badge: '⚡ Dopamin',
-        title: 'Hast du oft das Gefühl, dein Dopamin ist komplett leer?',
-        sub: 'Keine Sorge – das ist neurobiologisch völlig normal.',
-        options: [
-          { icon: '😩', text: 'Ja, fast jeden Nachmittag fällt die Energie ab' },
-          { icon: '📉', text: 'Oft Dauerzustand bei Routinen & Pflichten' },
-          { icon: '🎢', text: 'Nur wenn Aufgaben keinen direkten Reiz haben' },
-          { icon: '🔋', text: 'Geht eigentlich, ich brauche nur Pausen' }
-        ]
-      },
-      {
-        badge: '🧭 Entscheidung',
-        title: 'Was passiert bei zu vielen Optionen?',
-        sub: 'Hilft uns, Entscheidungsparalyse im Tool zu vermeiden.',
-        options: [
-          { icon: '🛑', text: 'Entscheidungsparalyse – ich tue gar nichts mehr' },
-          { icon: '🌪️', text: 'Ich fange alles an und beende nichts' },
-          { icon: '🎲', text: 'Ich brauche jemanden, der zufällig für mich entscheidet' },
-          { icon: '📑', text: 'Ich mache mir To-Do-Listen, die ich ignoriere' }
-        ]
-      },
-      {
-        badge: '🎁 Motivation',
-        title: 'Welcher Belohnungstyp spornt dich an?',
-        sub: 'So schalten wir deine Dopamin-Belohnungen frei.',
-        options: [
-          { icon: '✨', text: 'Sofortiges Audio- & Partikel-Feedback bei jedem Klick' },
-          { icon: '🔥', text: 'Streak-Tage & Multiplikator-Combos' },
-          { icon: '🏆', text: 'Geheime Relikte & Meistergrade sammeln' },
-          { icon: '🌱', text: 'Kein Druck – nur reizfreie Ruhe' }
-        ]
-      },
-      {
-        badge: '⏱️ Zeitgefühl',
-        title: 'Wie lang ist deine optimale Fokus-Einheit?',
-        sub: 'Damit dein Hyperfokus nicht in Erschöpfung umschlägt.',
-        options: [
-          { icon: '⚡', text: '10-15 Minuten (Mikro-Sprints)' },
-          { icon: '🍅', text: '25 Minuten (Klassisches Pomodoro)' },
-          { icon: '🚀', text: '45-60 Minuten (Tiefer Flow)' },
-          { icon: '🎲', text: 'Völlig unberechenbar je nach Tagesform' }
-        ]
-      },
-      {
-        badge: '🔥 Reizabbau',
-        title: 'Wie möchtest du mit Frust & Stress umgehen?',
-        sub: 'Emotional Regulation & mentaler Reset.',
-        options: [
-          { icon: '🔥', text: 'Gedanken aufschreiben und virtuell verbrennen' },
-          { icon: '🌬️', text: 'Geführte 4-4-4-4 Atemregulation' },
-          { icon: '🧪', text: 'Knete quetschen und Fidgets drücken' },
-          { icon: '🧘', text: 'Hypnotische Spiralen & Abschalten' }
-        ]
-      },
-      {
-        badge: '🖱️ Haptik',
-        title: 'Was hast du beim Nachdenken in der Hand?',
-        sub: 'Dein Stimming-Verhalten.',
-        options: [
-          { icon: '💫', text: 'Fidget Spinner oder Drehring' },
-          { icon: '🖊️', text: 'Kugelschreiber zum Dauerklicken' },
-          { icon: '📱', text: 'Smartphone zum Scrollen' },
-          { icon: '🧲', text: 'Magnete, Knete oder Steine' }
-        ]
-      },
-      {
-        badge: '⏰ Biorhythmus',
-        title: 'Zu welcher Uhrzeit brennt dein Gehirn am meisten?',
-        sub: 'Wann schlägt dein Hyperfokus zu?',
-        options: [
-          { icon: '🦉', text: 'Spät nachts (Night Owl Flow)' },
-          { icon: '🌅', text: 'Früh morgens direkt nach dem Aufstehen' },
-          { icon: '🌇', text: 'Später Nachmittag vor der Deadline' },
-          { icon: '🌌', text: 'Chaotisch zu völlig zufälligen Zeiten' }
-        ]
-      },
-      {
-        badge: '🔔 Erinnerung',
-        title: 'Möchtest du sanfte Hinweise gegen Hyperfokus-Übermüdung?',
-        sub: 'Erinnert dich an Wasser & Blinzeln.',
-        options: [
-          { icon: '🎐', text: 'Ja, sanftes 432 Hz Glockenspiel nach 45 Min' },
-          { icon: '✨', text: 'Ja, dezentes Bildschirm-Pulsieren' },
-          { icon: '🚫', text: 'Nein, lass mich ungestört im Tunnel' }
-        ]
-      },
-      {
-        badge: '👑 Personalisierung',
-        title: 'Und jetzt das Wichtigste: Wie lautet dein Name?',
-        sub: 'Gib deinen Namen oder dein Lieblings-Alias ein:',
-        isInput: true
-      }
-    ];
+    this.init();
+  }
 
+  init() {
+    this.loadSavedProfile();
     this.bindEvents();
-    this.checkAutoStart();
   }
 
-  checkAutoStart() {
-    const savedProfile = this.loadProfile();
-    if (savedProfile && savedProfile.name) {
-      this.applyUserName(savedProfile.name);
-      this.applyPersonalizedSettings(savedProfile);
-    }
-
-    // Beim ersten Start soll die Umfrage automatisch erscheinen!
-    const isCompleted = localStorage.getItem('neuro_onboarding_completed');
-    if (!isCompleted) {
-      setTimeout(() => {
-        this.open();
-      }, 700);
-    }
-  }
-
-  loadProfile() {
+  loadSavedProfile() {
     try {
-      const data = localStorage.getItem('neuro_user_profile');
-      return data ? JSON.parse(data) : null;
-    } catch (e) {
-      return null;
+      const savedName = localStorage.getItem('neuro_username') || '';
+      const savedAvatar = localStorage.getItem('neuro_user_avatar') || '🧠';
+      const savedVibe = localStorage.getItem('neuro_user_vibe') || 'dynamic';
+
+      this.selectedAvatar = savedAvatar;
+      this.selectedVibe = savedVibe;
+
+      if (savedName) {
+        this.applyUserName(savedName);
+        if (this.nameInput) this.nameInput.value = savedName;
+      }
+      this.applyAvatar(savedAvatar);
+      this.applyVibe(savedVibe);
+      this.updateModalSelection();
+
+      if (this.submitBtn && savedName) {
+        this.submitBtn.innerHTML = '<span>💖</span> Profil speichern & Wohlfühlen ✨';
+      }
+    } catch(e) {
+      console.warn('Error loading profile:', e);
     }
   }
 
-  saveProfile(name, answers) {
-    const profile = {
-      name: name,
-      completedAt: new Date().toISOString(),
-      answers: answers,
-      preferences: {
-        origin: this.questions[0]?.options[answers[0]]?.text || 'Unbekannt',
-        brainMode: this.questions[1]?.options[answers[1]]?.text || 'Standard',
-        primaryChallenge: this.questions[2]?.options[answers[2]]?.text || 'Fokus',
-        sensoryAnchor: this.questions[3]?.options[answers[3]]?.text || 'Visuell',
-        colorWorld: this.questions[4]?.options[answers[4]]?.text || 'Cyber-Neon',
-        acoustics: this.questions[5]?.options[answers[5]]?.text || 'Brown Noise',
-        dopamineType: this.questions[6]?.options[answers[6]]?.text || 'Standard',
-        decisionStyle: this.questions[7]?.options[answers[7]]?.text || 'Zufall',
-        rewardType: this.questions[8]?.options[answers[8]]?.text || 'Sofort-Feedback',
-        focusTime: this.questions[9]?.options[answers[9]]?.text || '25 Minuten',
-        stressReset: this.questions[10]?.options[answers[10]]?.text || 'Gedanken verbrennen',
-        fidgetStyle: this.questions[11]?.options[answers[11]]?.text || 'Spinner',
-        peakHour: this.questions[12]?.options[answers[12]]?.text || 'Nachteule',
-        reminders: this.questions[13]?.options[answers[13]]?.text || 'Ja'
-      }
-    };
+  updateModalSelection() {
+    if (this.avatarGrid) {
+      this.avatarGrid.querySelectorAll('.avatar-select-btn').forEach(btn => {
+        if (btn.getAttribute('data-avatar') === this.selectedAvatar) {
+          btn.classList.add('selected');
+        } else {
+          btn.classList.remove('selected');
+        }
+      });
+    }
 
-    localStorage.setItem('neuro_user_profile', JSON.stringify(profile));
-    localStorage.setItem('neuro_user_answers', JSON.stringify(answers));
-    localStorage.setItem('neuro_username', name);
-    localStorage.setItem('neuro_onboarding_completed', 'true');
-
-    this.applyPersonalizedSettings(profile);
-    return profile;
+    if (this.vibeContainer) {
+      this.vibeContainer.querySelectorAll('.vibe-pill-btn').forEach(btn => {
+        if (btn.getAttribute('data-vibe') === this.selectedVibe) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
   }
 
-  applyPersonalizedSettings(profile) {
-    if (!profile || !profile.preferences) return;
-    // Adapt color scheme if user preferred warm or calm
-    if (profile.preferences.colorWorld && profile.preferences.colorWorld.includes('Reizarm')) {
-      document.body.classList.add('muted-mode');
+  bindEvents() {
+    // Avatar selection
+    if (this.avatarGrid) {
+      this.avatarGrid.querySelectorAll('.avatar-select-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.selectedAvatar = btn.getAttribute('data-avatar') || '🧠';
+          this.updateModalSelection();
+          this.playSoftNote(520);
+        });
+      });
     }
-    // Set custom sensory category pill active if preferred
-    if (profile.preferences.sensoryAnchor) {
-      const anchor = profile.preferences.sensoryAnchor;
-      if (anchor.includes('Visuell')) {
-        const p = document.querySelector('[data-cat="fluid"]');
-        if (p) p.click();
-      } else if (anchor.includes('Taktil')) {
-        const p = document.querySelector('[data-cat="tactile"]');
-        if (p) p.click();
-      } else if (anchor.includes('Klänge')) {
-        const p = document.querySelector('[data-cat="audio"]');
-        if (p) p.click();
+
+    // Vibe selection
+    if (this.vibeContainer) {
+      this.vibeContainer.querySelectorAll('.vibe-pill-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.selectedVibe = btn.getAttribute('data-vibe') || 'dynamic';
+          this.updateModalSelection();
+          this.playSoftNote(440);
+        });
+      });
+    }
+
+    // THE PROFIL ERSTELLEN BUTTON - 100% RELIABLE
+    if (this.submitBtn) {
+      this.submitBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.finishAndSave();
+      });
+    }
+
+    // Enter key inside name input
+    if (this.nameInput) {
+      this.nameInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          this.finishAndSave();
+        }
+      });
+    }
+
+    // Close button
+    if (this.closeBtn) {
+      this.closeBtn.addEventListener('click', () => this.close());
+    }
+
+    // Backdrop click
+    if (this.modal) {
+      this.modal.addEventListener('click', (e) => {
+        if (e.target === this.modal) this.close();
+      });
+    }
+
+    // Sidebar button
+    const triggerBtn = document.getElementById('btn-open-onboarding-wizard');
+    if (triggerBtn) {
+      triggerBtn.addEventListener('click', () => this.open());
+    }
+
+    // AI Tools modal trigger fallback
+    const aiBtn = document.getElementById('btn-open-ai-tools');
+    if (aiBtn) {
+      aiBtn.addEventListener('click', () => {
+        if (window.neuroAiEngine) {
+          window.neuroAiEngine.open();
+        } else {
+          const m = document.getElementById('ai-tools-modal');
+          if (m) m.classList.add('active');
+        }
+      });
+    }
+  }
+
+  finishAndSave() {
+    const rawVal = this.nameInput ? this.nameInput.value.trim() : '';
+    const finalName = rawVal || 'Fokus-Freund';
+    const avatar = this.selectedAvatar || '🧠';
+    const vibe = this.selectedVibe || 'dynamic';
+
+    try {
+      // 1. Save to localStorage
+      localStorage.setItem('neuro_username', finalName);
+      localStorage.setItem('neuro_user_avatar', avatar);
+      localStorage.setItem('neuro_user_vibe', vibe);
+      localStorage.setItem('neuro_onboarding_completed', 'true');
+
+      const profile = {
+        name: finalName,
+        avatar: avatar,
+        vibe: vibe,
+        savedAt: new Date().toISOString()
+      };
+      localStorage.setItem('neuro_user_profile', JSON.stringify(profile));
+
+      // 2. Update UI instantly
+      this.applyUserName(finalName);
+      this.applyAvatar(avatar);
+      this.applyVibe(vibe);
+
+      // 3. Grant XP
+      if (window.masteryEngine) {
+        window.masteryEngine.addXP(100, '🌸 Wohlfühl-Profil gespeichert!');
       }
+
+      // 4. Update submit button
+      if (this.submitBtn) {
+        this.submitBtn.innerHTML = '<span>💖</span> Profil speichern & Wohlfühlen ✨';
+      }
+
+      // 5. Play gentle chime
+      this.playCelebrationMelody();
+
+      // 6. Close Modal
+      this.close();
+
+      // 7. Show warm, heartfelt toast
+      this.showWarmToast('🌸 Schön, dass du da bist, ' + finalName + '! Dein Wohlfühl-Profil wurde liebevoll gespeichert. Du bist hier sicher 💖');
+    } catch(err) {
+      console.error('Error saving profile:', err);
     }
   }
 
   applyUserName(name) {
-    const display = name.trim() || 'ADHS_Pro';
+    const display = (name || 'Fokus-Freund').trim();
     const heroName = document.getElementById('hero-user-name');
     if (heroName) heroName.innerText = display;
 
@@ -11518,163 +11712,91 @@ class NeuroPersonalizationWizard {
     profileTitles.forEach(el => el.innerText = display);
   }
 
+  applyAvatar(avatar) {
+    if (!avatar) return;
+    const avatars = document.querySelectorAll('.user-avatar-img');
+    avatars.forEach(el => el.innerText = avatar);
+  }
+
+  applyVibe(vibe) {
+    if (vibe === 'calm') {
+      document.body.classList.add('muted-mode');
+    } else {
+      document.body.classList.remove('muted-mode');
+    }
+  }
+
   open() {
-    this.currentStep = 0;
+    if (!this.modal) return;
+    this.loadSavedProfile();
     this.modal.classList.add('active');
-    this.renderQuestion();
-    if (window.audio) audio.playPop(520);
+    setTimeout(() => {
+      if (this.nameInput) this.nameInput.focus();
+    }, 120);
+    this.playSoftNote(440);
   }
 
   close() {
+    if (!this.modal) return;
     this.modal.classList.remove('active');
   }
 
-  renderQuestion() {
-    const q = this.questions[this.currentStep];
-    const total = this.questions.length;
-    const progress = Math.round(((this.currentStep + 1) / total) * 100);
+  showWarmToast(message) {
+    let toast = document.getElementById('warm-profile-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'warm-profile-toast';
+      toast.style.cssText = 'position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:linear-gradient(135deg, rgba(236, 72, 153, 0.95), rgba(139, 92, 246, 0.95)); border:1.5px solid rgba(255, 255, 255, 0.4); box-shadow:0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(236, 72, 153, 0.4); color:#ffffff; padding:14px 24px; border-radius:20px; font-size:14.5px; font-weight:800; z-index:100000; display:flex; align-items:center; gap:10px; transition:transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; opacity:0; pointer-events:none; text-align:center; max-width:90vw;';
+      document.body.appendChild(toast);
+    }
 
-    this.stepCounter.innerText = `Frage ${this.currentStep + 1} von ${total}`;
-    this.percentText.innerText = `${progress}%`;
-    this.progressFill.style.width = `${progress}%`;
+    toast.innerText = message;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
 
-    this.badge.innerText = q.badge;
-    this.qTitle.innerText = q.title;
-    this.qSub.innerText = q.sub;
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(100px)';
+    }, 4500);
+  }
 
-    this.prevBtn.style.visibility = this.currentStep > 0 ? 'visible' : 'hidden';
+  playSoftNote(freq) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.28);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } catch(e) {}
+  }
 
-    this.optContainer.innerHTML = '';
-
-    if (q.isInput) {
-      this.skipBtn.style.display = 'none';
-      this.nextBtn.innerText = 'Fertigstellen und Profil erstellen 🚀';
-      this.nextBtn.style.background = 'linear-gradient(135deg, #00e676, #38bdf8)';
-      this.nextBtn.style.boxShadow = '0 0 24px rgba(0, 230, 118, 0.6)';
-
-      const savedName = localStorage.getItem('neuro_username') || '';
-      const wrap = document.createElement('div');
-      wrap.className = 'onboarding-input-wrap';
-      wrap.innerHTML = `
-        <input type="text" id="wizard-name-input" class="onboarding-name-input" placeholder="z. B. Alex_Focus oder dein Vorname" value="${this.answers.userName || savedName}" autofocus>
-        <div style="font-size:12px; color:#38bdf8; display:flex; align-items:center; gap:6px;">
-          <span>💡</span> Tipp: Dieser Name wird auf deinem Dashboard & Profil-Pass hinterlegt (drücke Enter oder klicke auf den Button).
-        </div>
-      `;
-      this.optContainer.appendChild(wrap);
-
-      setTimeout(() => {
-        const inp = document.getElementById('wizard-name-input');
-        if (inp) {
-          inp.focus();
-          inp.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              this.finishAndSave();
-            }
-          });
-        }
-      }, 50);
-    } else {
-      this.skipBtn.style.display = 'block';
-      this.nextBtn.innerText = 'Weiter →';
-
-      q.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'onboarding-opt-btn';
-        if (this.answers[this.currentStep] === idx) btn.classList.add('selected');
-
-        btn.innerHTML = `
-          <div class="opt-icon-circle">${opt.icon}</div>
-          <span style="flex:1;">${opt.text}</span>
-        `;
-
-        btn.addEventListener('click', () => {
-          this.answers[this.currentStep] = idx;
-          if (window.audio) audio.playClick('sine');
-          // Auto advance to next question on option click for frictionless speed!
-          setTimeout(() => {
-            this.next();
-          }, 180);
-        });
-
-        this.optContainer.appendChild(btn);
+  playCelebrationMelody() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const notes = [523.25, 659.25, 783.99, 1046.5];
+      notes.forEach((f, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f, ctx.currentTime + (i * 0.08));
+        gain.gain.setValueAtTime(0.07, ctx.currentTime + (i * 0.08));
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + (i * 0.08) + 0.32);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + (i * 0.08));
+        osc.stop(ctx.currentTime + (i * 0.08) + 0.35);
       });
-    }
-  }
-
-  finishAndSave() {
-    const inp = document.getElementById('wizard-name-input');
-    const val = inp ? inp.value.trim() : '';
-    const finalName = val || 'ADHS_Pro';
-
-    // Alles was gelernt wurde als localStorage speichern!
-    const profile = this.saveProfile(finalName, this.answers);
-    this.applyUserName(finalName);
-
-    if (window.masteryEngine) {
-      window.masteryEngine.addXP(120, 'Profil personalisiert!');
-    }
-
-    this.close();
-    if (window.audio) {
-      audio.init();
-      audio.playLevelUpChime();
-    }
-
-    // Visuelles Feedback
-    const heroName = document.getElementById('hero-user-name');
-    if (heroName) {
-      heroName.innerText = finalName;
-    }
-
-    alert(`🎉 Willkommen bei NeuroSpace, ${finalName}!\n\nAlle 15 Einstellungen & deine Präferenzen wurden lokal gespeichert. +120 Fokus-XP wurden gutgeschrieben!`);
-  }
-
-  next() {
-    const q = this.questions[this.currentStep];
-    if (q.isInput) {
-      this.finishAndSave();
-      return;
-    }
-
-    if (this.currentStep < this.questions.length - 1) {
-      this.currentStep++;
-      this.renderQuestion();
-    }
-  }
-
-  prev() {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-      this.renderQuestion();
-      if (window.audio) audio.playPop(380);
-    }
-  }
-
-  bindEvents() {
-    this.prevBtn.addEventListener('click', () => this.prev());
-    this.nextBtn.addEventListener('click', () => this.next());
-    this.skipBtn.addEventListener('click', () => this.next());
-
-    // Sidebar trigger
-    const triggerBtn = document.getElementById('btn-open-onboarding-wizard');
-    if (triggerBtn) {
-      triggerBtn.addEventListener('click', () => this.open());
-    }
-
-    // AI Tools modal trigger
-    const aiBtn = document.getElementById('btn-open-ai-tools');
-    if (aiBtn) {
-      aiBtn.addEventListener('click', () => {
-        if (window.neuroAiEngine) {
-          window.neuroAiEngine.open();
-        } else {
-          document.getElementById('ai-tools-modal').classList.add('active');
-          if (window.audio) audio.playPop(420);
-        }
-      });
-    }
+    } catch(e) {}
   }
 }
 
