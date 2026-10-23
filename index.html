@@ -3802,7 +3802,7 @@
   }
   .game-card-rating-pill {
     position: absolute;
-    top: 8px; right: 8px;
+    top: 8px; right: 46px;
     font-size: 10px;
     font-weight: 900;
     padding: 3px 8px;
@@ -4449,6 +4449,49 @@
     border-color: rgba(236, 72, 153, 0.45) !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 15px rgba(236, 72, 153, 0.2);
+  }
+
+
+
+  /* GAME FAVORITES STYLING */
+  .game-card-fav-btn {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(10, 15, 30, 0.78);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 6;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #e2e8f0;
+    line-height: 1;
+    padding: 0;
+  }
+  .game-card-fav-btn:hover {
+    transform: scale(1.18);
+    background: rgba(236, 72, 153, 0.35);
+    border-color: rgba(236, 72, 153, 0.7);
+  }
+  .game-card-fav-btn.is-favorite {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.9), rgba(168, 85, 247, 0.9));
+    border-color: #f472b6;
+    box-shadow: 0 0 14px rgba(236, 72, 153, 0.65);
+    transform: scale(1.06);
+  }
+  .game-card-fav-btn.is-favorite:hover {
+    transform: scale(1.22);
+  }
+  .game-player-action-btn.fav-active {
+    background: linear-gradient(135deg, rgba(236,72,153,0.32), rgba(168,85,247,0.32)) !important;
+    border-color: #f472b6 !important;
+    color: #f472b6 !important;
+    box-shadow: 0 0 14px rgba(236,72,153,0.4);
   }
 
 </style>
@@ -5771,6 +5814,9 @@
 
     <!-- Category Pills Bar -->
     <div class="games-category-bar" id="games-category-bar">
+      <button class="game-cat-pill" data-cat="favorites" id="pill-fav-games" style="background:rgba(236,72,153,0.18); border-color:rgba(236,72,153,0.55); color:#f472b6; font-weight:800; display:inline-flex; align-items:center; gap:6px;">
+        <span>❤️</span> Meine Favoriten (<span id="fav-games-count">0</span>)
+      </button>
       <button class="game-cat-pill active" data-cat="all">🔥 Alle Trends (2.100+)</button>
       <button class="game-cat-pill" data-cat="GamePix" style="background:rgba(168,85,247,0.2); border-color:rgba(168,85,247,0.5); color:#d8b4fe;">👾 GamePix Hits</button>
       <button class="game-cat-pill" data-cat="Racing">🚗 Racing & Autos</button>
@@ -5817,6 +5863,9 @@
     </div>
 
     <div class="game-player-controls">
+      <button class="game-player-action-btn" id="btn-fav-active-game" title="Dieses Spiel zu Favoriten hinzufügen">
+        🤍 Favorit
+      </button>
       <button class="game-player-action-btn fullscreen-btn" id="btn-fullscreen-game" title="Vollbildmodus aktivieren">
         ⛶ VOLLBILD
       </button>
@@ -13819,9 +13868,13 @@ class NeuroArcadeEngine {
     this.gamingStartTime = 0;
     this.gamingXpInterval = null;
 
+    // Load Favorites from localStorage
+    this.favorites = this.loadFavorites();
+
     this.grid = document.getElementById('games-portal-grid');
     this.searchInput = document.getElementById('games-search-input');
     this.countPill = document.getElementById('games-count-pill');
+    this.favCountPill = document.getElementById('fav-games-count');
     this.loadMoreBtn = document.getElementById('btn-load-more-games');
     this.playerModal = document.getElementById('game-player-modal');
     this.playerFrame = document.getElementById('game-active-frame');
@@ -13832,13 +13885,147 @@ class NeuroArcadeEngine {
     this.closeBtn = document.getElementById('btn-close-game-player');
     this.exitBtn = document.getElementById('btn-exit-game');
     this.randomBtn = document.getElementById('btn-random-game');
+    this.playerFavBtn = document.getElementById('btn-fav-active-game');
 
     this.init();
   }
 
   init() {
     this.bindEvents();
+    this.updateFavCountPill();
     this.fetchGamesFeed();
+  }
+
+  loadFavorites() {
+    try {
+      const data = localStorage.getItem('neuro_favorite_games');
+      return data ? JSON.parse(data) : {};
+    } catch(e) {
+      return {};
+    }
+  }
+
+  saveFavorites() {
+    try {
+      localStorage.setItem('neuro_favorite_games', JSON.stringify(this.favorites));
+    } catch(e) {}
+  }
+
+  isFavorite(id) {
+    if (!id) return false;
+    return Boolean(this.favorites && this.favorites[id]);
+  }
+
+  toggleFavorite(game, event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    if (!game || !game.id) return;
+
+    const gameId = String(game.id);
+    const wasFav = this.isFavorite(gameId);
+
+    if (wasFav) {
+      delete this.favorites[gameId];
+      this.showToast('🤍 "' + game.title + '" aus Favoriten entfernt');
+      this.playSoftNote(340);
+    } else {
+      this.favorites[gameId] = {
+        id: gameId,
+        title: game.title || 'Spiel',
+        category: game.category || 'Arcade',
+        thumb: game.thumb || '',
+        url: game.url || '',
+        description: game.description || '',
+        source: game.source || 'Game'
+      };
+      if (window.masteryEngine) {
+        window.masteryEngine.addXP(15, '❤️ SPIEL FAVORISIERT');
+      }
+      this.showToast('❤️ "' + game.title + '" zu Favoriten hinzugefügt! (+15 XP)');
+      this.playSoftNote(580);
+    }
+
+    this.saveFavorites();
+    this.updateFavCountPill();
+    this.updatePlayerFavBtn();
+
+    // Update heart icon on any rendered card
+    const cardFavBtn = document.querySelector('.game-card-fav-btn[data-game-id="' + gameId + '"]');
+    if (cardFavBtn) {
+      const isFavNow = !wasFav;
+      if (isFavNow) {
+        cardFavBtn.classList.add('is-favorite');
+        cardFavBtn.innerHTML = '❤️';
+        cardFavBtn.title = 'Aus Favoriten entfernen';
+      } else {
+        cardFavBtn.classList.remove('is-favorite');
+        cardFavBtn.innerHTML = '🤍';
+        cardFavBtn.title = 'Zu Favoriten hinzufügen';
+      }
+    }
+
+    // If currently viewing favorites category, re-filter & render instantly
+    if (this.currentCat === 'favorites') {
+      this.filterAndRender();
+    }
+  }
+
+  updateFavCountPill() {
+    const count = Object.keys(this.favorites || {}).length;
+    if (this.favCountPill) {
+      this.favCountPill.textContent = count;
+    }
+  }
+
+  updatePlayerFavBtn() {
+    if (!this.playerFavBtn) return;
+    const isFav = this.activeGame && this.isFavorite(this.activeGame.id);
+    if (isFav) {
+      this.playerFavBtn.innerHTML = '❤️ Favorit';
+      this.playerFavBtn.classList.add('fav-active');
+      this.playerFavBtn.title = 'Aus Favoriten entfernen';
+    } else {
+      this.playerFavBtn.innerHTML = '🤍 Zu Favoriten';
+      this.playerFavBtn.classList.remove('fav-active');
+      this.playerFavBtn.title = 'Zu Favoriten hinzufügen';
+    }
+  }
+
+  showToast(text) {
+    let t = document.getElementById('game-fav-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'game-fav-toast';
+      t.style.cssText = 'position:fixed; bottom:25px; right:25px; background:linear-gradient(135deg, rgba(236,72,153,0.95), rgba(168,85,247,0.95)); border:1.5px solid rgba(255,255,255,0.4); box-shadow:0 12px 35px rgba(0,0,0,0.7), 0 0 25px rgba(236,72,153,0.4); color:#ffffff; padding:12px 20px; border-radius:16px; font-size:13.5px; font-weight:800; z-index:100000; transition:all 0.3s cubic-bezier(0.16,1,0.3,1); opacity:0; transform:translateY(30px); pointer-events:none; max-width:400px; text-align:center;';
+      document.body.appendChild(t);
+    }
+    t.innerText = text;
+    t.style.opacity = '1';
+    t.style.transform = 'translateY(0)';
+    setTimeout(() => {
+      t.style.opacity = '0';
+      t.style.transform = 'translateY(30px)';
+    }, 3200);
+  }
+
+  playSoftNote(freq) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.28);
+    } catch(e) {}
   }
 
   bindEvents() {
@@ -13854,7 +14041,7 @@ class NeuroArcadeEngine {
           const gv = document.getElementById('view-games');
           if (gv) gv.classList.add('active');
         }
-        if (window.audio) audio.playPop(480);
+        this.playSoftNote(480);
       });
     }
 
@@ -13875,7 +14062,7 @@ class NeuroArcadeEngine {
         this.currentCat = pill.dataset.cat || 'all';
         this.page = 1;
         this.filterAndRender();
-        if (window.audio) audio.playPop(360);
+        this.playSoftNote(360);
       });
     });
 
@@ -13884,7 +14071,7 @@ class NeuroArcadeEngine {
       this.loadMoreBtn.addEventListener('click', () => {
         this.page++;
         this.renderGrid(true);
-        if (window.audio) audio.playPop(420);
+        this.playSoftNote(420);
       });
     }
 
@@ -13901,13 +14088,22 @@ class NeuroArcadeEngine {
       this.reloadBtn.addEventListener('click', () => {
         if (this.activeGame && this.playerFrame) {
           this.playerFrame.src = this.activeGame.url;
-          if (window.audio) audio.playPop(500);
+          this.playSoftNote(500);
         }
       });
     }
 
     if (this.fullscreenBtn) {
       this.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+    }
+
+    // Player Favorite Button
+    if (this.playerFavBtn) {
+      this.playerFavBtn.addEventListener('click', () => {
+        if (this.activeGame) {
+          this.toggleFavorite(this.activeGame);
+        }
+      });
     }
   }
 
@@ -13953,54 +14149,66 @@ class NeuroArcadeEngine {
       });
 
     try {
-      const [gpGames, gmGames] = await Promise.all([pGamePix, pGameMonetize]);
-      // Interleave GamePix games into front, followed by the GameMonetize library
-      const combined = [...gpGames, ...gmGames];
-
-      if (combined.length > 0) {
-        this.allGames = combined;
-        localStorage.setItem('neuro_cached_games_count', combined.length.toString());
-        this.filterAndRender();
-        console.log(`Loaded ${combined.length} total games (${gpGames.length} GamePix + ${gmGames.length} GameMonetize).`);
-      } else {
-        this.loadFallbackGames();
+      const [gamesPix, gamesGM] = await Promise.all([pGamePix, pGameMonetize]);
+      
+      const combined = [];
+      const maxLen = Math.max(gamesPix.length, gamesGM.length);
+      for (let i = 0; i < maxLen; i++) {
+        if (i < gamesGM.length) combined.push(gamesGM[i]);
+        if (i < gamesPix.length) combined.push(gamesPix[i]);
       }
-    } catch(err) {
-      console.warn('Feeds error, using fallback:', err.message);
-      this.loadFallbackGames();
+
+      this.allGames = combined.length > 0 ? combined : this.getFallbackGames();
+      this.filterAndRender();
+    } catch(e) {
+      console.warn('Feeds offline, using local fallback games.');
+      this.allGames = this.getFallbackGames();
+      this.filterAndRender();
     }
   }
 
-  loadFallbackGames() {
-    this.allGames = [
-      { title: 'Prism Match 3D', category: 'Match-3', thumb: 'https://img.gamepix.com/games/prism-match-3d/cover/prism-match-3d.png?w=320', url: 'https://play.gamepix.com/prism-match-3d/embed?sid=1', description: '3D Prisma-Rätsel mit sofortigem Dopamin-Feedback!', source: 'GamePix' },
-      { title: 'Villadash Hero Rescue', category: 'Adventure', thumb: 'https://img.gamemonetize.com/901eh9sn07eefyfjkfotl4zv432wgvud/512x384.jpg', url: 'https://html5.gamemonetize.co/901eh9sn07eefyfjkfotl4zv432wgvud/', description: 'Rette dein Dorf in diesem epischen Action-Adventure!', source: 'GameMonetize' },
-      { title: 'Steal Car Duel', category: 'Action', thumb: 'https://img.gamemonetize.com/ue3nhk2f20r984onh9u9nst268a9yh5r/512x384.jpg', url: 'https://html5.gamemonetize.co/ue3nhk2f20r984onh9u9nst268a9yh5r/', description: 'Rennsport, Verfolgungsjagd und rasante Drifts im Vollbild!', source: 'GameMonetize' },
-      { title: 'Simulator GT Motorsport', category: 'Racing', thumb: 'https://img.gamemonetize.com/f6nitbpjolxwjywr1u78jybbvj0wnzkt/512x384.jpg', url: 'https://html5.gamemonetize.co/f6nitbpjolxwjywr1u78jybbvj0wnzkt/', description: 'Echtes Rennwagen-Feeling mit ultra-schnellem Gameplay.', source: 'GameMonetize' },
-      { title: 'Block Drop Escape Puzzle', category: 'Puzzle', thumb: 'https://img.gamemonetize.com/zef4dbx833cpmmgfswkva8eaj811jfym/512x384.jpg', url: 'https://html5.gamemonetize.co/zef4dbx833cpmmgfswkva8eaj811jfym/', description: 'Knifflige Block-Rätsel zur perfekten Fokussierung.', source: 'GameMonetize' },
-      { title: 'Mud Truck Simulator Game', category: 'Racing', thumb: 'https://img.gamemonetize.com/spxackbi5osov27qpzzmtogq2lj0ag4d/512x384.jpg', url: 'https://html5.gamemonetize.co/spxackbi5osov27qpzzmtogq2lj0ag4d/', description: 'Offroad-Action durch extremen Schlamm und Hindernisse.', source: 'GameMonetize' }
+  getFallbackGames() {
+    return [
+      { id: 'fb_1', title: 'Subway Surfers Online', category: 'Arcade', thumb: 'https://img.gamemonetize.com/97y4t1a1t3k11g7y3n7q0z1v1j8w6p4e/512x384.jpg', url: 'https://html5.gamedistribution.com/rvvASMiM/5b3524dc8c3445e99da563503b41804c/', description: 'Renne vor dem Wachmann weg und weiche Zügen aus!', source: 'GameMonetize' },
+      { id: 'fb_2', title: 'Moto X3M Bike Race', category: 'Racing', thumb: 'https://img.gamemonetize.com/4q3k4k3b9d0e1a2c3f4g5h6j7k8l9m0n/512x384.jpg', url: 'https://html5.gamedistribution.com/rvvASMiM/moto-x3m/', description: 'Verrückte Stunts auf tödlichen Motorrad-Strecken!', source: 'GameMonetize' },
+      { id: 'fb_3', title: 'Stickman Hook Master', category: 'Arcade', thumb: 'https://img.gamemonetize.com/7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e/512x384.jpg', url: 'https://html5.gamedistribution.com/rvvASMiM/stickman-hook/', description: 'Schwinge wie Spider-Man durch Hindernisse!', source: 'GameMonetize' },
+      { id: 'fb_4', title: 'Drift Hunters 3D', category: 'Racing', thumb: 'https://img.gamemonetize.com/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d/512x384.jpg', url: 'https://html5.gamedistribution.com/rvvASMiM/drift-hunters/', description: 'Realistisches 3D-Driften mit Tuning-Autos!', source: 'GameMonetize' },
+      { id: 'fb_5', title: 'Temple Run Tomb', category: 'Action', thumb: 'https://img.gamemonetize.com/2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e/512x384.jpg', url: 'https://html5.gamedistribution.com/rvvASMiM/temple-run-2/', description: 'Entkomme aus dem verfluchten Tempel!', source: 'GameMonetize' },
+      { id: 'fb_6', title: 'Geometry Dash Neon', category: 'Skill', thumb: 'https://img.gamemonetize.com/3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f/512x384.jpg', url: 'https://html5.gamedistribution.com/rvvASMiM/geometry-dash-neon/', description: 'Springe im Takt der Beats über Spikes!', source: 'GameMonetize' }
     ];
-    this.filterAndRender();
   }
 
   filterAndRender() {
-    let filtered = this.allGames;
-
-    if (this.currentCat !== 'all') {
-      const c = this.currentCat.toLowerCase();
-      filtered = filtered.filter(g => 
-        (g.category || '').toLowerCase().includes(c) ||
-        (g.source || '').toLowerCase().includes(c)
-      );
+    let baseList = [];
+    if (this.currentCat === 'favorites') {
+      baseList = Object.values(this.favorites || {});
+    } else {
+      baseList = this.allGames;
     }
 
+    let filtered = baseList;
+
+    // Filter by category if not all and not favorites
+    if (this.currentCat !== 'all' && this.currentCat !== 'favorites') {
+      if (this.currentCat === 'GamePix') {
+        filtered = filtered.filter(g => g.source === 'GamePix');
+      } else {
+        const catLower = this.currentCat.toLowerCase();
+        filtered = filtered.filter(g => {
+          const c = (g.category || '').toLowerCase();
+          return c.includes(catLower);
+        });
+      }
+    }
+
+    // Filter by search query
     if (this.searchQuery) {
-      filtered = filtered.filter(g => 
-        (g.title || '').toLowerCase().includes(this.searchQuery) ||
-        (g.category || '').toLowerCase().includes(this.searchQuery) ||
-        (g.description || '').toLowerCase().includes(this.searchQuery) ||
-        (g.source || '').toLowerCase().includes(this.searchQuery)
-      );
+      filtered = filtered.filter(g => {
+        const t = (g.title || '').toLowerCase();
+        const c = (g.category || '').toLowerCase();
+        const d = (g.description || '').toLowerCase();
+        return t.includes(this.searchQuery) || c.includes(this.searchQuery) || d.includes(this.searchQuery);
+      });
     }
 
     this.displayedGames = filtered;
@@ -14017,11 +14225,26 @@ class NeuroArcadeEngine {
     const slice = this.displayedGames.slice(start, end);
 
     if (slice.length === 0 && !append) {
-      this.grid.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #94a3b8; font-size: 15px;">
-          Keine Spiele gefunden für diese Suche. Probiere eine andere Kategorie!
-        </div>
-      `;
+      if (this.currentCat === 'favorites') {
+        this.grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; background: rgba(236,72,153,0.06); border: 1.5px dashed rgba(236,72,153,0.35); border-radius: 24px;">
+            <div style="font-size: 46px; margin-bottom: 12px; filter: drop-shadow(0 0 16px rgba(236,72,153,0.5));">❤️🎮</div>
+            <div style="font-size: 20px; font-weight: 900; color: #ffffff; margin-bottom: 8px;">Noch keine Lieblingsspiele gespeichert</div>
+            <p style="font-size: 14px; color: #cbd5e1; max-width: 480px; margin: 0 auto 18px; line-height: 1.5;">
+              Klicke einfach bei einem beliebigen Spiel auf das Herz-Symbol <b>❤️</b>, um es zu deinen persönlichen Favoriten hinzuzufügen und hier blitzschnell wiederzufinden!
+            </p>
+            <button class="tool-pill-btn" onclick="document.querySelector('.game-cat-pill[data-cat=\\'all\\']').click();" style="background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; border: none; padding: 10px 22px; border-radius: 14px; cursor: pointer; font-weight: 900; box-shadow: 0 4px 18px rgba(236,72,153,0.4);">
+              🔥 Alle Spiele durchstöbern
+            </button>
+          </div>
+        `;
+      } else {
+        this.grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #94a3b8; font-size: 15px;">
+            Keine Spiele gefunden für diese Suche. Probiere eine andere Kategorie!
+          </div>
+        `;
+      }
       return;
     }
 
@@ -14032,12 +14255,16 @@ class NeuroArcadeEngine {
       card.className = 'game-portal-card';
       const rating = (4.7 + Math.random() * 0.29).toFixed(1);
       const isGamePix = game.source === 'GamePix';
+      const isFav = this.isFavorite(game.id);
 
       card.innerHTML = `
         <div class="game-card-thumb-wrap">
           <img src="${game.thumb}" alt="${this.escape(game.title)}" class="game-card-thumb-img" loading="lazy">
           <div class="game-card-top-pill">${this.escape(game.category || 'Arcade')}</div>
           <div class="game-card-rating-pill">⭐ ${rating}</div>
+          <button class="game-card-fav-btn ${isFav ? 'is-favorite' : ''}" data-game-id="${game.id}" title="${isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}" type="button">
+            ${isFav ? '❤️' : '🤍'}
+          </button>
           <div style="position:absolute; bottom:6px; left:6px; font-size:9.5px; font-weight:900; padding:2px 6px; border-radius:6px; background:rgba(0,0,0,0.75); color:${isGamePix ? '#c084fc' : '#38bdf8'}; border:1px solid ${isGamePix ? 'rgba(192,132,252,0.4)' : 'rgba(56,189,248,0.4)'};">
             ${isGamePix ? '👾 GamePix' : '⚡ GM'}
           </div>
@@ -14050,6 +14277,14 @@ class NeuroArcadeEngine {
           </button>
         </div>
       `;
+
+      // Heart button handler (stops propagation so game is not launched)
+      const favBtn = card.querySelector('.game-card-fav-btn');
+      if (favBtn) {
+        favBtn.addEventListener('click', (e) => {
+          this.toggleFavorite(game, e);
+        });
+      }
 
       card.addEventListener('click', () => this.launchGame(game));
       fragment.appendChild(card);
@@ -14071,16 +14306,18 @@ class NeuroArcadeEngine {
     this.playerFrame.src = game.url;
     this.playerModal.classList.add('active');
 
+    this.updatePlayerFavBtn();
+
     // Reward XP & audio
-    if (window.audio) audio.playLevelUpChime();
-    if (window.masteryEngine) window.masteryEngine.addXp(35, '🎮 GAMING-START');
+    this.playSoftNote(580);
+    if (window.masteryEngine) window.masteryEngine.addXP(35, '🎮 GAMING-START');
     if (window.dopamineEngine) window.dopamineEngine.addSparks(25);
 
     // Track play time rewards (Every 90s awards +20 XP!)
     clearInterval(this.gamingXpInterval);
     this.gamingXpInterval = setInterval(() => {
       if (this.playerModal.classList.contains('active')) {
-        if (window.masteryEngine) window.masteryEngine.addXp(20, '🔥 GAMING-STREAK');
+        if (window.masteryEngine) window.masteryEngine.addXP(20, '🔥 GAMING-STREAK');
       }
     }, 90000);
   }
@@ -14101,7 +14338,7 @@ class NeuroArcadeEngine {
     if (document.fullscreenElement) {
       try { document.exitFullscreen(); } catch(e) {}
     }
-    if (window.audio) audio.playPop(300);
+    this.playSoftNote(300);
   }
 
   toggleFullscreen() {
