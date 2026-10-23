@@ -3611,7 +3611,7 @@
 
 
   /* ============================================================== */
-  /* NEUROARCADE - ROBLOX & GAMEMONETIZE ZONE CSS                   */
+  /* NEUROARCADE - GAMEMONETIZE ZONE CSS                            */
   /* ============================================================== */
 
   #view-games {
@@ -3741,7 +3741,7 @@
     gap: 18px;
   }
 
-  /* GAME CARD (ROBLOX STYLE) */
+  /* GAME CARD */
   .game-portal-card {
     background: rgba(15, 23, 42, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -3972,8 +3972,8 @@
           <span>🏠</span> Control Center
         </button>
         
-        <button class="nav-menu-item" id="btn-open-games-hub" style="position:relative; background:linear-gradient(135deg,rgba(236,72,153,0.18),rgba(168,85,247,0.18)); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800;">
-          <span>🎮</span> Spiele & Arcade <span style="font-size:9px; background:linear-gradient(135deg,#ec4899,#f59e0b); color:#fff; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(236,72,153,0.5);">ROBLOX 🔥</span>
+        <button class="nav-menu-item" id="btn-open-games-hub" style="position:relative; background:linear-gradient(135deg,rgba(236,72,153,0.18),rgba(168,85,247,0.18)); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800;" onclick="if(window.switchView){window.switchView('view-games');}else{document.querySelectorAll('.app-view').forEach(v=>v.classList.remove('active'));document.getElementById('view-games').classList.add('active');if(window.arcadeEngine)window.arcadeEngine.filterAndRender();}">
+          <span>🎮</span> Spiele <span style="font-size:9px; background:rgba(236,72,153,0.25); border:1px solid rgba(236,72,153,0.5); color:#f472b6; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto;">2.000+ ⚡</span>
         </button>
         <button class="nav-menu-item" id="btn-open-ai-tools" style="position:relative;">
           <span>🤖</span> AI Tools <span style="font-size:9px; background:linear-gradient(135deg,#10b981,#38bdf8); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(16,185,129,0.5);">LIVE ⚡</span>
@@ -4106,21 +4106,21 @@
       
       <section class="neuro-cards-grid" id="apps-grid">
 
-        <!-- 0. Spiele & Arcade (GameMonetize & Roblox-Zone) -->
-        <div class="neuro-card" data-target="view-games" data-category="focus" style="border-color: rgba(236,72,153,0.45); box-shadow: 0 0 25px rgba(236,72,153,0.22); background: radial-gradient(circle at 50% 0%, rgba(35, 15, 50, 0.95), rgba(15, 20, 32, 0.95));">
+        <!-- 0. Spiele & Arcade (GameMonetize Portal) -->
+        <div class="neuro-card" data-target="view-games" data-category="focus" onclick="if(window.switchView) window.switchView('view-games');" style="border-color: rgba(236,72,153,0.45); box-shadow: 0 0 25px rgba(236,72,153,0.22); background: radial-gradient(circle at 50% 0%, rgba(35, 15, 50, 0.95), rgba(15, 20, 32, 0.95));">
           <div class="card-hero-thumb" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
             <span class="card-hero-icon" style="font-size:38px;">🎮</span>
             <span class="card-neu-badge" style="background: linear-gradient(135deg,#ec4899,#f59e0b);">2.000+ GAMES</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
-              <span class="card-title-text" style="color: #f472b6; font-size:15px; font-weight:900;">Spiele & Arcade (Roblox-Zone)</span>
+              <span class="card-title-text" style="color: #f472b6; font-size:15px; font-weight:900;">Spiele & Arcade</span>
             </div>
             <p class="card-desc-text">2.000+ handverlesene Games live von GameMonetize. Sofort 1-Klick Vollbild, Action, 3D, Rennspiele & Obbys!</p>
             <div class="card-bottom-row">
               <div class="card-tags-wrap">
                 <span class="card-pill-tag" style="color:#f472b6; border-color:rgba(236,72,153,0.4);">🎮 Arcade</span>
-                <span class="card-pill-tag">🔥 Roblox-Style</span>
+                <span class="card-pill-tag">🔥 Top Spiele</span>
                 <span class="card-pill-tag">⛶ Vollbild</span>
               </div>
             </div>
@@ -5171,12 +5171,12 @@
 <!-- ============================================================== -->
 
 <!-- ============================================================== -->
-<!-- VIEW: NEUROARCADE - ROBLOX & GAMEMONETIZE HUB                  -->
+<!-- VIEW: NEUROARCADE - HTML5 & GAMEMONETIZE HUB                  -->
 <!-- ============================================================== -->
 <div class="app-view" id="view-games">
   <div class="view-nav">
-    <button class="nav-back-btn" data-back="view-hub">← Hauptmenü</button>
-    <div class="view-title-pill"><span>🎮</span> NeuroArcade - Roblox & HTML5 Zone</div>
+    <button class="nav-back-btn" data-back="view-hub" onclick="if(window.switchView) window.switchView('view-hub');">← Hauptmenü</button>
+    <div class="view-title-pill"><span>🎮</span> NeuroArcade - Spiele-Portal</div>
     <div style="margin-left:auto; display:flex; align-items:center; gap:10px;">
       <button class="tool-pill-btn" id="btn-random-game" style="background:linear-gradient(135deg,#f59e0b,#ef4444); color:#fff; border:none; box-shadow:0 0 12px rgba(245,158,11,0.4);">
         🎲 Zufälliges Spiel
@@ -5193,7 +5193,7 @@
       <div>
         <div class="games-hero-title">
           <span>🔥</span> DIE ULTIMATIVE ADHS GAMING-ZONE
-          <span style="font-size:11px; font-weight:900; background:#ec4899; color:#fff; padding:3px 8px; border-radius:8px;">ROBLOX VIBES</span>
+          <span style="font-size:11px; font-weight:900; background:#ec4899; color:#fff; padding:3px 8px; border-radius:8px;">2.000+ GAMES</span>
         </div>
         <p class="games-hero-sub">
           2.000+ kostenlose HTML5 Games direkt im Browser zocken. Mit 1-Klick Vollbildmodus, flüssigem Sound und sofortigen XP-Belohnungen für jedes Spiel!
@@ -5238,7 +5238,7 @@
 </div>
 
 <!-- ============================================================== -->
-<!-- MODAL: FULLSCREEN GAME PLAYER (ROBLOX STYLE)                   -->
+<!-- MODAL: FULLSCREEN GAME PLAYER                                  -->
 <!-- ============================================================== -->
 <div id="game-player-modal">
   <div class="game-player-topbar">
@@ -5808,11 +5808,14 @@ const audio = new SensoryAudioEngine();
 document.addEventListener('DOMContentLoaded', () => {
   const views = document.querySelectorAll('.app-view');
   function switchView(targetId) {
-    views.forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
     const target = document.getElementById(targetId);
     if (target) {
       target.classList.add('active');
       window.dispatchEvent(new Event('resize'));
+      if (targetId === 'view-games' && window.arcadeEngine) {
+        window.arcadeEngine.filterAndRender();
+      }
       if (targetId === 'view-draw' && window.drawStudio) {
         setTimeout(() => window.drawStudio.resize(), 50);
       }
@@ -5833,6 +5836,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
+  window.switchView = switchView;
 
   document.querySelectorAll('.app-card, .neuro-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -13307,7 +13311,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <!-- ============================================================== -->
-<!-- SCRIPT: NEUROARCADE - ROBLOX & GAMEMONETIZE PORTAL ENGINE       -->
+<!-- SCRIPT: NEUROARCADE - GAMEMONETIZE PORTAL ENGINE                -->
 <!-- ============================================================== -->
 <script>
 class NeuroArcadeEngine {
@@ -13346,14 +13350,19 @@ class NeuroArcadeEngine {
   }
 
   bindEvents() {
-    // Nav sidebar button
+    // Nav sidebar button (Bulletproof navigation)
     const navBtn = document.getElementById('btn-open-games-hub');
     if (navBtn) {
-      navBtn.addEventListener('click', () => {
-        if (typeof switchView === 'function') {
-          switchView('view-games');
-          if (window.audio) audio.playPop(480);
+      navBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (typeof window.switchView === 'function') {
+          window.switchView('view-games');
+        } else {
+          document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+          const gv = document.getElementById('view-games');
+          if (gv) gv.classList.add('active');
         }
+        if (window.audio) audio.playPop(480);
       });
     }
 
