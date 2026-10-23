@@ -3051,6 +3051,272 @@
     box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
   }
 
+
+  /* ============================================================== */
+  /* LUXURY CYBERPUNK 2.0: DOSSIER CARDS, DOPAMINE METER & FULLSCREEN */
+  /* ============================================================== */
+
+  .ai-modal-card.mode-chat {
+    max-width: 1140px !important;
+    width: 95vw !important;
+    height: 88vh !important;
+    max-height: 920px !important;
+    padding: 20px 24px !important;
+    background: radial-gradient(circle at 50% 0%, rgba(18, 28, 54, 0.98), rgba(6, 10, 22, 0.99)) !important;
+    border: 1px solid rgba(56, 189, 248, 0.4) !important;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 60px rgba(56, 189, 248, 0.22) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .ai-modal-card.is-fullscreen {
+    max-width: 100vw !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    padding: 16px 24px !important;
+    border: none !important;
+  }
+
+  /* DOPAMINE & XP METER IN HEADER */
+  .ai-dopamine-meter-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 4px 12px;
+    border-radius: 16px;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.15);
+  }
+
+  .ai-level-badge {
+    font-size: 11px;
+    font-weight: 900;
+    color: #fbbf24;
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    padding: 2px 7px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-xp-bar-track {
+    width: 80px;
+    height: 7px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .ai-xp-bar-fill {
+    height: 100%;
+    width: 35%;
+    background: linear-gradient(90deg, #38bdf8, #a855f7);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px #38bdf8;
+  }
+
+  .ai-xp-text {
+    font-size: 10.5px;
+    font-family: 'JetBrains Mono', monospace;
+    color: #94a3b8;
+    font-weight: 700;
+  }
+
+  .ai-streak-badge {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #f97316;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: rgba(249, 115, 22, 0.15);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+
+  .floating-xp-popup {
+    position: absolute;
+    color: #38bdf8;
+    font-size: 13.5px;
+    font-weight: 900;
+    font-family: 'JetBrains Mono', monospace;
+    pointer-events: none;
+    text-shadow: 0 0 14px rgba(56, 189, 248, 0.9);
+    animation: floatUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    z-index: 1000;
+  }
+
+  @keyframes floatUpFade {
+    0% { transform: translateY(0) scale(0.8); opacity: 0; }
+    20% { transform: translateY(-8px) scale(1.15); opacity: 1; }
+    80% { transform: translateY(-28px) scale(1); opacity: 1; }
+    100% { transform: translateY(-40px) scale(0.9); opacity: 0; }
+  }
+
+  /* WEB SEARCH DOSSIER CARD */
+  .web-search-dossier-card {
+    background: rgba(10, 16, 32, 0.96);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.18);
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .web-search-dossier-header {
+    background: rgba(15, 23, 42, 0.9);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .web-search-badge {
+    font-size: 10px;
+    font-weight: 900;
+    color: #38bdf8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .web-search-query-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 3px 0 0;
+  }
+
+  .web-search-count-pill {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #7dd3fc;
+  }
+
+  .web-search-items-list {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .web-search-result-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 12px 14px;
+    transition: all 0.22s ease;
+  }
+  .web-search-result-item:hover {
+    background: rgba(56, 189, 248, 0.07);
+    border-color: rgba(56, 189, 248, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .web-search-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+
+  .web-search-rank {
+    font-size: 11px;
+    font-weight: 900;
+    color: #38bdf8;
+  }
+
+  .web-search-domain {
+    font-size: 11px;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  .web-search-link-btn {
+    font-size: 11px;
+    font-weight: 800;
+    color: #38bdf8;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 8px;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    transition: all 0.2s ease;
+  }
+  .web-search-link-btn:hover {
+    background: rgba(56, 189, 248, 0.3);
+    color: #fff;
+  }
+
+  .web-search-item-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #f8fafc;
+    margin: 0 0 4px;
+  }
+
+  .web-search-item-snippet {
+    font-size: 12.5px;
+    color: #cbd5e1;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .web-search-actions-bar {
+    background: rgba(10, 15, 30, 0.9);
+    padding: 12px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .web-search-action-btn {
+    padding: 7px 15px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .web-search-action-btn.primary {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    border: 1px solid rgba(245, 158, 11, 0.6);
+    color: #fff;
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.35);
+  }
+  .web-search-action-btn.primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 22px rgba(245, 158, 11, 0.6);
+  }
+  .web-search-action-btn.secondary {
+    background: rgba(6, 182, 212, 0.15);
+    border: 1px solid rgba(6, 182, 212, 0.45);
+    color: #67e8f9;
+  }
+  .web-search-action-btn.secondary:hover {
+    background: rgba(6, 182, 212, 0.3);
+    color: #fff;
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
@@ -9468,27 +9734,38 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- ============================================== -->
     <div class="ai-phase" id="ai-phase-chat">
       <!-- Header -->
-      <div class="ai-chat-header">
+      <div class="ai-chat-header" style="position:relative;">
         <div class="ai-chat-title-group">
-          <div class="ai-avatar-core">
+          <div class="ai-avatar-core" style="width:46px; height:46px; border-radius:15px; font-size:26px;">
             🤖
-            <div class="ai-avatar-status-dot" title="Online"></div>
+            <div class="ai-avatar-status-dot" title="Online" style="box-shadow:0 0 10px #10b981;"></div>
           </div>
           <div>
             <div style="font-size:16px; font-weight:900; color:#fff; display:flex; align-items:center; gap:8px;">
               <span>NeuroCopilot AI</span>
-              <span style="font-size:10px; background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.5); color:#34d399; font-weight:800; padding:2px 6px; border-radius:6px;">LIVE</span>
+              <span style="font-size:10px; background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.5); color:#34d399; font-weight:800; padding:2px 7px; border-radius:6px;">LIVE ⚡</span>
             </div>
             <div class="ai-badges-row">
               <span class="ai-badge-pill groq">⚡ Groq: openai/gpt-oss-20b</span>
               <span class="ai-badge-pill img">🎨 gpt-image-1-mini</span>
-              <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:8px; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); color:#fbbf24;">📊 PowerPoint</span>
-              <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:8px; background:rgba(6,182,212,0.15); border:1px solid rgba(6,182,212,0.4); color:#22d3ee;">🔬 Deep Research</span>
             </div>
           </div>
         </div>
 
+        <!-- Live Dopamine & XP Level Meter -->
+        <div class="ai-dopamine-meter-box" id="ai-dopamine-meter">
+          <div class="ai-level-badge">⭐ LVL <span id="ai-user-level">1</span></div>
+          <div class="ai-xp-bar-track" title="XP Fortschritt">
+            <div class="ai-xp-bar-fill" id="ai-user-xp-fill" style="width:35%;"></div>
+          </div>
+          <div class="ai-xp-text"><span id="ai-user-xp">85</span>/120 XP</div>
+          <div class="ai-streak-badge" id="ai-streak-badge">🔥 1x Streak</div>
+        </div>
+
         <div class="ai-chat-controls">
+          <button class="ai-chip-btn" id="btn-ai-fullscreen" title="Vollbild / Standard">
+            ⛶
+          </button>
           <button class="ai-chip-btn" id="btn-ai-toggle-settings" title="API Keys & Vercel Konfiguration">
             ⚙️ <span>API Keys</span>
           </button>
@@ -9537,6 +9814,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <!-- Quick Action Prompt Chips Bar -->
       <div class="ai-quick-prompts-bar">
+        <button class="ai-prompt-pill" data-action="dopamine-roulette" style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(239,68,68,0.25)); border-color:rgba(245,158,11,0.6); color:#fde68a; font-weight:900;">🎲 Dopamin-Impuls</button>
         <button class="ai-prompt-pill" data-mode="powerpoint" data-prompt="Mach mir eine PowerPoint über Chips">📊 PowerPoint über Chips</button>
         <button class="ai-prompt-pill" data-mode="research" data-prompt="Deep Research: Die Entstehung, Wissenschaft und weltweite Vielfalt von Chips">🔬 Deep Research: Chips</button>
         <button class="ai-prompt-pill" data-mode="powerpoint" data-prompt="Erstelle eine PowerPoint-Präsentation über das Sonnensystem und Raumfahrt">📊 PowerPoint Sonnensystem</button>
@@ -10058,12 +10336,21 @@ document.addEventListener('DOMContentLoaded', () => {
         this.chatHistory = [];
         this.presentationDecks = {}; // Stores decks by deckId
 
+        this.fullscreenBtn = document.getElementById('btn-ai-fullscreen');
+
+        // Gamification & Dopamine System
+        this.xp = parseInt(localStorage.getItem('neuro_user_xp') || '85', 10);
+        this.level = parseInt(localStorage.getItem('neuro_user_level') || '1', 10);
+        this.streak = parseInt(localStorage.getItem('neuro_user_streak') || '1', 10);
+        this.lastActiveDay = localStorage.getItem('neuro_last_active_day') || '';
+
         this.init();
       }
 
       init() {
         this.bindEvents();
         this.loadSavedSettings();
+        this.initDopamineSystem();
       }
 
       open() {
@@ -10363,7 +10650,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // ==============================================================
       async handleWebSearch(query) {
         this.isGenerating = true;
-        const thinkingRow = this.renderThinkingIndicator(`🌐 Suche im Web nach: "${query}"...`);
+        const thinkingRow = this.renderThinkingIndicator(`🌐 Durchsuche das Web nach Dossier: "${query}"...`);
 
         try {
           const wikiUrl = `https://de.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&utf8=&format=json&origin=*`;
@@ -10380,24 +10667,105 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
           }
 
-          let resultsHtml = `🌐 **Web-Suchergebnisse zu: "${this.escapeHtml(query)}"**<br><br>`;
-          hits.slice(0, 3).forEach((hit, idx) => {
-            const cleanSnippet = hit.snippet.replace(/<[^>]+>/g, '');
-            resultsHtml += `<b>${idx + 1}. ${this.escapeHtml(hit.title)}</b><br>${this.escapeHtml(cleanSnippet)}... <a href="https://de.wikipedia.org/wiki/${encodeURIComponent(hit.title)}" target="_blank" style="color:#38bdf8; text-decoration:underline;">[Mehr lesen]</a><br><br>`;
-          });
-
-          resultsHtml += `<span style="font-size:11.5px; color:#94a3b8;">Tipp: Du kannst hieraus direkt eine Präsentation erstellen mit <b>"Mach mir eine PowerPoint über ${this.escapeHtml(query)}"</b>!</span>`;
-
-          this.renderBotMessage(resultsHtml);
-          if (window.audio) audio.playPop(480);
+          this.renderWebSearchCard(query, hits);
+          this.addXp(25, '🔍');
+          if (window.audio) audio.playPop(520);
         } catch (e) {
           if (thinkingRow && thinkingRow.parentNode) {
             thinkingRow.parentNode.removeChild(thinkingRow);
           }
-          this.renderBotMessage(`⚠️ Web-Suche momentan offline. Ich beantworte dir deine Frage gerne direkt!`);
+          this.renderBotMessage(`⚠️ Web-Suche momentan offline: ${this.escapeHtml(e.message)}. Ich beantworte dir deine Frage gerne direkt!`);
         } finally {
           this.isGenerating = false;
         }
+      }
+
+      renderWebSearchCard(query, hits) {
+        const row = document.createElement('div');
+        row.className = 'ai-msg-row bot';
+
+        const avatar = document.createElement('div');
+        avatar.className = 'ai-msg-avatar';
+        avatar.textContent = '🌐';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'ai-msg-bubble';
+        bubble.style.padding = '0';
+        bubble.style.background = 'transparent';
+        bubble.style.border = 'none';
+
+        const card = document.createElement('div');
+        card.className = 'web-search-dossier-card';
+
+        const topCount = Math.min(hits.length, 3);
+        let itemsHtml = '';
+        hits.slice(0, 3).forEach((hit, idx) => {
+          const cleanSnippet = (hit.snippet || '').replace(/<[^>]+>/g, '');
+          const articleUrl = `https://de.wikipedia.org/wiki/${encodeURIComponent(hit.title)}`;
+          itemsHtml += `
+            <div class="web-search-result-item">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+                <div class="web-search-item-title">${idx + 1}. ${this.escapeHtml(hit.title)}</div>
+                <a href="${articleUrl}" target="_blank" rel="noopener noreferrer" class="web-search-link-btn">
+                  <span>Artikel öffnen</span> ↗
+                </a>
+              </div>
+              <p class="web-search-item-snippet">${this.escapeHtml(cleanSnippet)}...</p>
+            </div>
+          `;
+        });
+
+        const cardId = 'dossier_' + Math.random().toString(36).substr(2, 9);
+        card.innerHTML = `
+          <div class="web-search-dossier-header">
+            <div>
+              <div class="web-search-badge">⚡ LIVE WEB INTELLIGENCE DOSSIER</div>
+              <div class="web-search-query-title">„${this.escapeHtml(query)}“</div>
+            </div>
+            <div class="web-search-count-pill">${topCount} Top-Quellen verifiziert</div>
+          </div>
+          <div class="web-search-items-list">
+            ${itemsHtml}
+          </div>
+          <div class="web-search-actions-bar">
+            <span style="font-size:11px; color:#94a3b8; margin-right:4px;">1-Click Aktionen:</span>
+            <button class="web-search-action-btn primary" id="btn-search-to-ppt-${cardId}">
+              📊 PowerPoint hierzu generieren
+            </button>
+            <button class="web-search-action-btn secondary" id="btn-search-to-res-${cardId}">
+              🔬 Mit Deep Research vertiefen
+            </button>
+          </div>
+        `;
+
+        const pptBtn = card.querySelector(`#btn-search-to-ppt-${cardId}`);
+        if (pptBtn) {
+          pptBtn.addEventListener('click', () => {
+            this.setAiMode('powerpoint');
+            if (this.chatInput) {
+              this.chatInput.value = `Mach mir eine professionelle PowerPoint über ${query}`;
+              this.handleSendMessage();
+            }
+          });
+        }
+
+        const resBtn = card.querySelector(`#btn-search-to-res-${cardId}`);
+        if (resBtn) {
+          resBtn.addEventListener('click', () => {
+            this.setAiMode('research');
+            if (this.chatInput) {
+              this.chatInput.value = `Deep Research zu ${query}`;
+              this.handleSendMessage();
+            }
+          });
+        }
+
+        bubble.appendChild(card);
+        row.appendChild(avatar);
+        row.appendChild(bubble);
+
+        this.messagesContainer.appendChild(row);
+        this.scrollToBottom();
       }
 
       // ==============================================================
@@ -11202,10 +11570,28 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
       }
 
       formatMarkdown(text) {
+        if (!text) return '';
         let html = this.escapeHtml(text);
+        
+        // Headers
+        html = html.replace(/^### (.*$)/gim, '<h4 style="color:#38bdf8; margin:10px 0 4px; font-size:14px; font-weight:800;">$1</h4>');
+        html = html.replace(/^## (.*$)/gim, '<h3 style="color:#ffffff; margin:12px 0 6px; font-size:16px; font-weight:900;">$1</h3>');
+        html = html.replace(/^# (.*$)/gim, '<h2 style="color:#ffffff; margin:14px 0 8px; font-size:18px; font-weight:900;">$1</h2>');
+
+        // Bold & Italic
         html = html.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-        html = html.replace(/\`([^\`]+)\`/g, '<code style="background:rgba(255,255,255,0.12); padding:1px 5px; border-radius:4px; font-size:12px; color:#38bdf8;">$1</code>');
-        html = html.replace(/(?:^|\n)[•\-\*]\s+(.+)/g, '<br>• $1');
+        html = html.replace(/\*(.*?)\*/g, '<i>$1</i>');
+
+        // Inline code
+        html = html.replace(/\x60([^\x60]+)\x60/g, '<code style="background:rgba(255,255,255,0.12); border:1px solid rgba(56,189,248,0.25); padding:2px 6px; border-radius:6px; font-size:12px; color:#38bdf8; font-family:\'JetBrains Mono\', monospace;">$1</code>');
+
+        // Bullet points
+        html = html.replace(/(?:^|\n)[•\-\*]\s+(.+)/g, '<br><span style="color:#38bdf8; margin-right:4px;">•</span>$1');
+
+        // Blockquotes
+        html = html.replace(/^>\s+(.+)/gim, '<blockquote style="border-left:3px solid #38bdf8; margin:8px 0; padding:6px 12px; background:rgba(56,189,248,0.08); border-radius:6px; color:#cbd5e1; font-style:italic;">$1</blockquote>');
+
+        // Line breaks
         html = html.replace(/\n/g, '<br>');
         return html;
       }
@@ -11230,7 +11616,105 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
         alert('✅ API Keys im Browser gespeichert!');
       }
 
-      bindEvents() {
+            // ==============================================================
+      // LUXURY FULLSCREEN & GAMIFICATION ENGINE (DOPAMINE XP SYSTEM)
+      // ==============================================================
+      toggleFullscreen() {
+        if (!this.card) return;
+        this.card.classList.toggle('is-fullscreen');
+        if (this.fullscreenBtn) {
+          this.fullscreenBtn.textContent = this.card.classList.contains('is-fullscreen') ? '🗗' : '⛶';
+        }
+        if (window.audio) audio.playPop(520);
+      }
+
+      initDopamineSystem() {
+        const today = new Date().toISOString().slice(0, 10);
+        if (this.lastActiveDay && this.lastActiveDay !== today) {
+          const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+          if (this.lastActiveDay === yesterday) {
+            this.streak += 1;
+          } else {
+            this.streak = 1;
+          }
+        }
+        this.lastActiveDay = today;
+        localStorage.setItem('neuro_last_active_day', this.lastActiveDay);
+        localStorage.setItem('neuro_user_streak', this.streak.toString());
+        this.updateXpDisplay();
+      }
+
+      addXp(amount, reason = '') {
+        this.xp += amount;
+        const maxXp = this.level * 100 + 50;
+        if (this.xp >= maxXp) {
+          this.xp -= maxXp;
+          this.level += 1;
+          this.triggerLevelUpCelebration();
+        }
+        localStorage.setItem('neuro_user_xp', this.xp.toString());
+        localStorage.setItem('neuro_user_level', this.level.toString());
+        this.updateXpDisplay();
+        this.spawnXpPopup(`+${amount} XP ${reason}`);
+        if (window.audio) audio.playPop(620);
+      }
+
+      updateXpDisplay() {
+        const lvlEl = document.getElementById('ai-user-level');
+        const xpEl = document.getElementById('ai-user-xp');
+        const fillEl = document.getElementById('ai-user-xp-fill');
+        const streakEl = document.getElementById('ai-streak-badge');
+        const maxXp = this.level * 100 + 50;
+
+        if (lvlEl) lvlEl.textContent = this.level;
+        if (xpEl) xpEl.textContent = `${this.xp}/${maxXp}`;
+        if (fillEl) {
+          const pct = Math.min(100, Math.max(8, (this.xp / maxXp) * 100));
+          fillEl.style.width = `${pct}%`;
+        }
+        if (streakEl) streakEl.innerHTML = `🔥 ${this.streak}x Streak`;
+      }
+
+      spawnXpPopup(text) {
+        const meter = document.getElementById('ai-dopamine-meter');
+        if (!meter) return;
+        const popup = document.createElement('div');
+        popup.className = 'floating-xp-popup';
+        popup.textContent = text;
+        popup.style.top = '-10px';
+        popup.style.right = '20px';
+        meter.parentElement.appendChild(popup);
+        setTimeout(() => {
+          if (popup.parentNode) popup.parentNode.removeChild(popup);
+        }, 1200);
+      }
+
+      triggerLevelUpCelebration() {
+        if (window.audio) {
+          audio.playSuccess();
+          setTimeout(() => audio.playCelebration(), 150);
+        }
+        if (window.confetti) {
+          try {
+            window.confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+          } catch (e) {}
+        }
+        this.renderBotMessage(`🎉 **LEVEL UP!** Du hast **Level ${this.level}** erreicht! Dein Dopamin-Pegel ist maximal fokussiert. 🚀⚡`);
+      }
+
+      triggerDopamineSurprise() {
+        const surprises = [
+          { title: '⚡ Hyperfokus-Boost!', xp: 35, text: '💡 **Fakt des Tages:** Hyperfokus bei ADHS ist eine neuronale Superkraft, wenn das Thema echtes Interesse weckt. Nutze diesen Schwung jetzt!' },
+          { title: '🧠 Dopamin-Glückstreffer!', xp: 50, text: '🎰 **JACKPOT!** Dein Belohnungszentrum hat gerade einen extra Kick bekommen (+50 XP). Was möchtest du heute Episches erschaffen?' },
+          { title: '🌟 Kreativitäts-Explosion!', xp: 40, text: '🎨 Wusstest du? Menschen mit neurodivergentem Denken finden über 300% mehr unkonventionelle Lösungswege! Erstelle eine PowerPoint oder ein Bild, um deine Vision festzuhalten.' },
+          { title: '🔥 Power-Streak Aktiviert!', xp: 30, text: '🚀 Du bist heute im Tunnel! 3 tiefe Atemzüge, Schluck Wasser – und weiter geht die Reise!' }
+        ];
+        const item = surprises[Math.floor(Math.random() * surprises.length)];
+        this.addXp(item.xp, '⚡');
+        this.renderBotMessage(`🎲 **DOPAMIN-IMPULS:** ${item.title}\n\n${item.text}`);
+      }
+
+bindEvents() {
         if (this.verifyBtn) {
           this.verifyBtn.addEventListener('click', () => this.handleGateVerification());
         }
@@ -11304,9 +11788,18 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
           this.saveSettingsBtn.addEventListener('click', () => this.saveSettings());
         }
 
-        // Quick Prompts
+        if (this.fullscreenBtn) {
+          this.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+        }
+
+        // Quick Prompts & Dopamine Action
         document.querySelectorAll('.ai-prompt-pill').forEach(btn => {
           btn.addEventListener('click', () => {
+            const action = btn.getAttribute('data-action');
+            if (action === 'dopamine-roulette') {
+              this.triggerDopamineSurprise();
+              return;
+            }
             const prompt = btn.getAttribute('data-prompt');
             const mode = btn.getAttribute('data-mode');
             if (mode) {
