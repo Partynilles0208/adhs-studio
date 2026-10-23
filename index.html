@@ -4494,6 +4494,172 @@
     box-shadow: 0 0 14px rgba(236,72,153,0.4);
   }
 
+
+
+  /* ============================================================== */
+  /* VARIETY & REACTION BENCHMARK STYLING                           */
+  /* ============================================================== */
+  .neuro-mood-action-bar {
+    margin: 14px 0 18px 0;
+  }
+  .mood-bar-inner {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .mood-bar-title {
+    font-size: 13px;
+    color: #e2e8f0;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .mood-pills-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .hub-action-chip {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 7px 14px;
+    color: #cbd5e1;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hub-action-chip:hover {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.4);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  .hub-action-chip.surprise {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(168, 85, 247, 0.15));
+    border-color: rgba(236, 72, 153, 0.4);
+    color: #f472b6;
+  }
+  .hub-action-chip.surprise:hover {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.28), rgba(168, 85, 247, 0.28));
+    color: #fff;
+  }
+
+  /* Reaction Benchmark Modal */
+  .reaction-modal-card {
+    width: 100%;
+    max-width: 560px !important;
+    background: radial-gradient(circle at 50% 0%, rgba(20, 25, 55, 0.98), rgba(10, 13, 26, 0.99)) !important;
+    border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 50px rgba(56, 189, 248, 0.2) !important;
+    border-radius: 26px !important;
+    padding: 26px 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    position: relative !important;
+  }
+  .reaction-test-arena {
+    width: 100%;
+    height: 220px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s ease, transform 0.1s ease;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .reaction-test-arena.idle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+  }
+  .reaction-test-arena.waiting {
+    background: radial-gradient(circle, #dc2626, #991b1b);
+    border: 2px solid #ef4444;
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.4);
+    animation: pulseSlow 1.5s infinite;
+  }
+  .reaction-test-arena.ready {
+    background: radial-gradient(circle, #10b981, #047857);
+    border: 2px solid #34d399;
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+  }
+  .reaction-test-arena.early {
+    background: radial-gradient(circle, #d97706, #92400e);
+    border: 2px solid #f59e0b;
+  }
+  .reaction-test-arena.result {
+    background: radial-gradient(circle, #2563eb, #1e3a8a);
+    border: 2px solid #3b82f6;
+    box-shadow: 0 0 35px rgba(37, 99, 235, 0.4);
+  }
+  .dock-reaction-btn {
+    padding: 6px 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.2));
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #38bdf8;
+    font-size: 11.5px;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .dock-reaction-btn:hover {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(168, 85, 247, 0.35));
+    transform: translateY(-2px);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+  }
+
+  /* Daily Quests Styling */
+  .daily-quests-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 12px 16px;
+    margin-top: 10px;
+  }
+  .daily-quest-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 12px;
+    color: #cbd5e1;
+  }
+  .daily-quest-item:last-child {
+    border-bottom: none;
+  }
+  .daily-quest-check {
+    font-size: 14px;
+    width: 20px;
+    text-align: center;
+  }
+  .daily-quest-item.done {
+    color: #34d399;
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
@@ -4607,9 +4773,9 @@
         <div class="neuro-brand-col">
           <div class="neuro-brand-logo">🧠</div>
           <div class="neuro-brand-text">
-            <h1>NeuroSpace <span class="neuro-neon-note">Du schaffst das! 👑</span></h1>
+            <h1>NeuroSpace <span class="neuro-neon-note" style="font-weight:700; opacity:0.9;">Studio Suite</span></h1>
             <p style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-              <span>Mehr Fokus. Weniger Chaos. Deine sichere Plattform.</span>
+              <span>Fokus, Entspannung und Spiele – alles an einem Ort.</span>
               <span style="font-size:10.5px; background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.45); color:#6ee7b7; padding:1px 8px; border-radius:8px; font-weight:800; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.openModal();" title="Hier klicken für Datenschutz- und Vertrauens-Garantie">
                 🛡️ 100% Privat & Sicher
               </span>
@@ -4631,7 +4797,7 @@
             </div>
           </div>
           <button class="header-pill-btn gold" id="btn-dopamin-boost" onclick="if(window.masteryEngine) window.masteryEngine.addXP(25, 'Dopamin Boost!');">
-            <span>⚡</span> Dopamin Boost
+            <span>⚡</span> Quick Boost
           </button>
           <button class="header-pill-btn primary" id="btn-surprise-me">
             <span>🎁</span> Überrasch mich!
@@ -4654,26 +4820,26 @@
             <div class="brain-banner-art" style="font-size:52px;">🧠</div>
             <div>
               <div style="font-size:12px; font-weight:800; color:#38bdf8; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">
-                NeuroSpace Personalisiert
+                DEIN DASHBOARD
               </div>
               <div style="font-size:18px; font-weight:800; color:#fff;">
                 Willkommen zurück, <span id="hero-user-name" style="background:linear-gradient(135deg, #38bdf8, #ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">ADHS_Pro</span>! 🚀
               </div>
               <div style="font-size:12px; color:#94a3b8; margin-top:2px;">
-                Hyperfokus-Multiplikator aktiv: <span id="hero-combo-mult" style="color:#fbbf24; font-weight:900;">x1.5</span> (Jede Aktion belohnt dich)
+                Hyperfokus-Multiplikator aktiv: <span id="hero-combo-mult" style="color:#fbbf24; font-weight:800;">Aktiv</span> • 27 Tools & 2.000+ Games
               </div>
             </div>
           </div>
           <div class="brain-banner-quote" style="font-size:18px;">
-            Kleine Schritte<br>
-            Große Fortschritte 💜
+            Klarer Kopf.<br>
+            Voller Fokus ✨
           </div>
         </div>
 
         <!-- Panel 2: Dopamin-Level Meter & Sucht-Trigger -->
         <div class="hero-panel-box dopamin-level-box" style="padding:16px 20px;">
           <div class="dopamin-level-header">
-            <div class="dopamin-level-title"><span>⚡</span> Dopamin-Speicher</div>
+            <div class="dopamin-level-title"><span>⚡</span> Tages-Aktivität</div>
             <div class="dopamin-level-percent" id="dopamin-level-val">82%</div>
           </div>
           <div class="dopamin-bar-track" style="height:12px;">
@@ -4684,7 +4850,31 @@
               <span>🔥</span> <span id="dopamin-streak-sub">1 Tag Streak</span>
             </div>
             <button class="header-pill-btn gold" id="btn-hero-dopamine-claim" style="padding:4px 10px; font-size:11px;" onclick="if(window.masteryEngine) window.masteryEngine.addXP(35, 'Dopamin Kick!');">
-              ⚡ Aufladen (+35 XP)
+              ✨ Bonus abholen (+35 XP)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE MOOD & ACTIVITY ACTION BAR -->
+      <section class="neuro-mood-action-bar">
+        <div class="mood-bar-inner">
+          <div class="mood-bar-title"><span>🎯</span> <b>Was möchtest du tun?</b></div>
+          <div class="mood-pills-row">
+            <button class="hub-action-chip" onclick="if(window.neuroInteractiveHub) window.neuroInteractiveHub.openReactionTest();">
+              <span>⚡</span> Reaktions-Test (Reflexe messen)
+            </button>
+            <button class="hub-action-chip" onclick="if(window.switchView) window.switchView('view-games');">
+              <span>🎮</span> Spiele zocken (2.000+)
+            </button>
+            <button class="hub-action-chip" onclick="if(window.neuroInteractiveHub) window.neuroInteractiveHub.triggerMood('focus');">
+              <span>🧠</span> Fokus & Atem-Flow
+            </button>
+            <button class="hub-action-chip" onclick="if(window.neuroInteractiveHub) window.neuroInteractiveHub.triggerMood('calm');">
+              <span>🌿</span> Kopf entspannen (Zen-Sand & Fluid)
+            </button>
+            <button class="hub-action-chip surprise" onclick="if(window.neuroInteractiveHub) window.neuroInteractiveHub.triggerMood('random');">
+              <span>🎲</span> Zufalls-Impuls
             </button>
           </div>
         </div>
@@ -4736,7 +4926,7 @@
         <div class="neuro-card" data-target="view-breathing" data-category="focus">
           <div class="card-hero-thumb thumb-fluid">
             <span class="card-hero-icon">🧠</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">ARCADE</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4758,7 +4948,7 @@
         <div class="neuro-card" data-target="view-thisissand" data-category="tactile">
           <div class="card-hero-thumb thumb-thisissand">
             <span class="card-hero-icon">⏳</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">FOCUS</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4780,7 +4970,7 @@
         <div class="neuro-card" data-target="view-lavalamp" data-category="fluid">
           <div class="card-hero-thumb thumb-lavalamp">
             <span class="card-hero-icon">🪔</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">TACTILE</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4802,7 +4992,7 @@
         <div class="neuro-card" data-target="view-zensand" data-category="tactile">
           <div class="card-hero-thumb thumb-zensand">
             <span class="card-hero-icon">🏖️</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">SIMULATION</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4824,7 +5014,7 @@
         <div class="neuro-card" data-target="view-bubbles" data-category="fluid">
           <div class="card-hero-thumb thumb-bubbles">
             <span class="card-hero-icon">🫧</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">AUDIO</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4846,7 +5036,7 @@
         <div class="neuro-card" data-target="view-windchimes" data-category="audio">
           <div class="card-hero-thumb thumb-windchimes">
             <span class="card-hero-icon">🎐</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">3D</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4868,7 +5058,7 @@
         <div class="neuro-card" data-target="view-hypnotunnel" data-category="fluid">
           <div class="card-hero-thumb thumb-hypnotunnel">
             <span class="card-hero-icon">🌀</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">MINIGAME</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4890,7 +5080,7 @@
         <div class="neuro-card" data-target="view-tonguedrum" data-category="audio">
           <div class="card-hero-thumb thumb-tonguedrum">
             <span class="card-hero-icon">🥁</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">ASMR</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4912,7 +5102,7 @@
         <div class="neuro-card" data-target="view-slime" data-category="tactile">
           <div class="card-hero-thumb thumb-slime">
             <span class="card-hero-icon">🧪</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">PHYSIK</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4934,7 +5124,7 @@
         <div class="neuro-card" data-target="view-spinner" data-category="tactile">
           <div class="card-hero-thumb thumb-spinner">
             <span class="card-hero-icon">💫</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">RELAX</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4956,7 +5146,7 @@
         <div class="neuro-card" data-target="view-plasma" data-category="fluid">
           <div class="card-hero-thumb thumb-plasma">
             <span class="card-hero-icon">🔮</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">KREATIV</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -4978,7 +5168,7 @@
         <div class="neuro-card" data-target="view-switches" data-category="tactile">
           <div class="card-hero-thumb thumb-switches">
             <span class="card-hero-icon">⌨️</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">SOUND</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -5022,7 +5212,7 @@
         <div class="neuro-card" data-target="view-worryshredder" data-category="focus">
           <div class="card-hero-thumb thumb-lavalamp">
             <span class="card-hero-icon">🔥</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">ARCADE</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -5044,7 +5234,7 @@
         <div class="neuro-card" data-target="view-draw" data-category="focus">
           <div class="card-hero-thumb thumb-bubbles">
             <span class="card-hero-icon">🎨</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">FOCUS</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -5066,7 +5256,7 @@
         <div class="neuro-card" data-target="view-popit" data-category="tactile">
           <div class="card-hero-thumb thumb-switches">
             <span class="card-hero-icon">🫧</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">TACTILE</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -5088,7 +5278,7 @@
         <div class="neuro-card" data-target="view-particles" data-category="fluid">
           <div class="card-hero-thumb thumb-hypnotunnel">
             <span class="card-hero-icon">🪐</span>
-            <span class="card-neu-badge">NEU</span>
+            <span class="card-neu-badge" style="letter-spacing:0.4px;">SIMULATION</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
@@ -5185,15 +5375,18 @@
       <div style="display:flex; align-items:center; gap:8px;">
         
         <!-- Dopamin-Matrix 3.0 Dock Controls -->
+        <button class="dock-reaction-btn" id="btn-dock-open-reaction" title="Reaktionszeit testen" onclick="if(window.neuroInteractiveHub) window.neuroInteractiveHub.openReactionTest();">
+          <span>⚡</span> Reaktionstest
+        </button>
         <button class="dock-dopamine-btn pulse" id="btn-dock-open-vault" title="Dopamin-Tresor öffnen (Lootbox)">
-          🎰 <span id="dock-vault-label">Dopamin-Tresor</span>
+          🎰 <span id="dock-vault-label">Belohnung</span>
           <span style="font-size:10px; background:rgba(255,255,255,0.25); padding:1px 5px; border-radius:8px;" id="dock-vault-keys-count">1</span>
         </button>
         <button class="dock-sprint-btn" id="btn-dock-open-sprint" title="60 Sekunden Hyperfokus Sprint">
-          ⚡ 60s Sprint
+          ⏱️ 60s Challenge
         </button>
         <button class="dock-dmn-btn" id="btn-dock-open-dmn" title="Anti-Prokrastinations DMN-Breaker">
-          🚨 DMN-Breaker
+          🌱 10s Reset
         </button>
 
         <div class="dock-right-pill" onclick="if(window.trustEngine) window.trustEngine.showAffirmation();">
@@ -5796,11 +5989,11 @@
     <div class="games-hero-banner">
       <div>
         <div class="games-hero-title">
-          <span>🔥</span> DIE ULTIMATIVE GAMING-ZONE
-          <span style="font-size:11px; font-weight:900; background:linear-gradient(135deg,#ec4899,#8b5cf6); color:#fff; padding:3px 8px; border-radius:8px;">2.100+ GAMES LIVE</span>
+          <span>🎮</span> ARCADE & SPIELE-PORTAL
+          <span style="font-size:11px; font-weight:800; background:linear-gradient(135deg,#ec4899,#8b5cf6); color:#fff; padding:3px 8px; border-radius:8px;">2.000+ GAMES</span>
         </div>
         <p class="games-hero-sub">
-          2.000+ kostenlose HTML5 Games direkt im Browser zocken. Mit 1-Klick Vollbildmodus, flüssigem Sound und sofortigen XP-Belohnungen für jedes Spiel!
+          Über 2.000 kostenlose Browsergames zum Abschalten, für eine kurze Pause oder für schnelle Runden zwischendurch. Direkt im Vollbild spielbar.
         </p>
       </div>
 
@@ -13430,9 +13623,9 @@ bindEvents() {
     <div class="dopamine-modal-card">
       <button style="position:absolute; top:18px; right:20px; background:transparent; border:none; color:#94a3b8; font-size:22px; cursor:pointer;" onclick="window.dopamineEngine.closeVault();">✕</button>
       
-      <div style="font-size:11px; font-weight:900; color:#fbbf24; letter-spacing:1px; text-transform:uppercase;">⚡ MESOLIMBISCHES BELOHNUNGSSYSTEM</div>
-      <h2 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 2px;">🎰 Der Neuro-Dopamin-Tresor</h2>
-      <p style="font-size:13px; color:#94a3b8; margin-bottom:12px;">Unberechenbare Belohnung für dein Gehirn. Öffne den Tresor für sofortige Dopamin-Spikes!</p>
+      <div style="font-size:11px; font-weight:900; color:#fbbf24; letter-spacing:1px; text-transform:uppercase;">✨ TÄGLICHE BELOHNUNG</div>
+      <h2 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 2px;">🎁 Die Belohnungs-Kiste</h2>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:12px;">Öffne deine tägliche Kiste für Bonus-XP, neue Relikte und freischaltbare Stufen.</p>
 
       <div class="vault-chest-wrapper" id="vault-chest-box" onclick="window.dopamineEngine.openChest();">
         <div class="vault-chest-icon" id="vault-chest-icon">🎁</div>
@@ -13450,7 +13643,7 @@ bindEvents() {
       </div>
 
       <button id="btn-unlock-vault-action" style="margin-top:18px; width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #f59e0b, #ef4444); border:none; color:#fff; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 0 25px rgba(245, 158, 11, 0.4);" onclick="window.dopamineEngine.openChest();">
-        ✨ TRESOR JETZT ÖFFNEN!
+        ✨ KISTE JETZT ÖFFNEN
       </button>
     </div>
   </div>
@@ -13462,9 +13655,9 @@ bindEvents() {
     <div class="dopamine-modal-card" style="max-width:480px;">
       <button style="position:absolute; top:18px; right:20px; background:transparent; border:none; color:#94a3b8; font-size:22px; cursor:pointer;" onclick="window.dopamineEngine.closeSprint();">✕</button>
       
-      <div style="font-size:11px; font-weight:900; color:#38bdf8; letter-spacing:1px; text-transform:uppercase;">⏱️ FOKUS-TURBO GEGEN ZEITBLINDHEIT</div>
-      <h2 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 4px;">⚡ 60s Dopamin-Sprint</h2>
-      <p style="font-size:13px; color:#94a3b8; margin-bottom:14px;">Aktiviere dein frontoparietales Netzwerk! Sammle so viele Klicks, Fidgets & Aktionen wie möglich!</p>
+      <div style="font-size:11px; font-weight:900; color:#38bdf8; letter-spacing:1px; text-transform:uppercase;">⏱️ SPEED-CHALLENGE</div>
+      <h2 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 4px;">⚡ 60s Speed-Sprint</h2>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:14px;">Wie viele Aktionen, Klicks und Fidgets schaffst du in 60 Sekunden? Teste dein Tempo!</p>
 
       <div class="sprint-timer-circle">
         <svg class="sprint-timer-svg" width="130" height="130">
@@ -13500,9 +13693,9 @@ bindEvents() {
     <div class="dopamine-modal-card" style="max-width:460px;">
       <button style="position:absolute; top:18px; right:20px; background:transparent; border:none; color:#94a3b8; font-size:22px; cursor:pointer;" onclick="window.dopamineEngine.closeDmn();">✕</button>
       
-      <div style="font-size:11px; font-weight:900; color:#34d399; letter-spacing:1px; text-transform:uppercase;">🚨 NEURONALER RESET (DMN-STOPP)</div>
+      <div style="font-size:11px; font-weight:900; color:#34d399; letter-spacing:1px; text-transform:uppercase;">🌱 10-SEKUNDEN IMPULS</div>
       <h2 style="font-size:22px; font-weight:900; color:#fff; margin:6px 0 4px;">Du hängst fest? Keine Panik!</h2>
-      <p style="font-size:13px; color:#94a3b8; margin-bottom:16px;">Dein Gehirn ist nicht faul. Das Default Mode Network weigert sich nur abzuschalten. Lass uns die Hürde in 10 Sekunden einreißen!</p>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:16px;">Manchmal braucht es nur einen winzigen, leichten Schritt, um eine Blockade sanft zu lösen:</p>
 
       <div style="background:rgba(16, 185, 129, 0.1); border:1px solid rgba(16, 185, 129, 0.35); border-radius:20px; padding:18px; margin-bottom:18px;">
         <div style="font-size:12px; color:#6ee7b7; font-weight:800; margin-bottom:6px;">DEINE 10-SEKUNDEN MIKRO-AUFGABE:</div>
@@ -13512,7 +13705,7 @@ bindEvents() {
       </div>
 
       <button style="width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #10b981, #06b6d4); border:none; color:#fff; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 0 25px rgba(16, 185, 129, 0.4);" onclick="window.dopamineEngine.completeDmnTask();">
-        ✅ ERLEDIGT! (+50 XP & Dopamin-Kick)
+        ✅ Erledigt (+50 XP)
       </button>
     </div>
   </div>
@@ -14617,6 +14810,231 @@ class TrustAndWarmthEngine {
 document.addEventListener('DOMContentLoaded', () => {
   window.trustEngine = new TrustAndWarmthEngine();
 });
+</script>
+
+
+
+<!-- ============================================================== -->
+<!-- MODAL: REACTION BENCHMARK CHALLENGE                            -->
+<!-- ============================================================== -->
+<div class="onboarding-overlay" id="reaction-test-modal" style="display:none;">
+  <div class="onboarding-modal-card reaction-modal-card">
+    <button class="profile-modal-close-btn" onclick="if(window.neuroInteractiveHub) window.neuroInteractiveHub.closeReactionTest();" title="Schließen">✕</button>
+
+    <div style="text-align:center;">
+      <div style="display:inline-flex; align-items:center; gap:6px; padding:3px 12px; border-radius:16px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.4); color:#38bdf8; font-size:11px; font-weight:800; text-transform:uppercase; margin-bottom:6px;">
+        ⚡ Reflex-Benchmark
+      </div>
+      <h2 style="font-size:22px; font-weight:900; color:#fff; margin:0 0 4px 0;">Reaktionszeit-Test</h2>
+      <p style="font-size:12.5px; color:#94a3b8; margin:0; line-height:1.4;">
+        Klicke auf das Feld, sobald es von <b>Rot</b> auf <b>Grün</b> springt.
+      </p>
+    </div>
+
+    <!-- Arena Area -->
+    <div class="reaction-test-arena idle" id="reaction-arena">
+      <div id="reaction-arena-icon" style="font-size:42px; margin-bottom:8px;">⚡</div>
+      <div id="reaction-arena-main" style="font-size:19px; font-weight:900; color:#fff;">Klicke hier zum Starten</div>
+      <div id="reaction-arena-sub" style="font-size:12.5px; color:#cbd5e1; margin-top:4px;">Sobald Rot zu Grün wird, sofort klicken!</div>
+    </div>
+
+    <!-- Stats & Record Footer -->
+    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:10px 16px;">
+      <div style="font-size:12px; color:#94a3b8;">
+        🏆 Deine Bestzeit: <b style="color:#fbbf24; font-size:13.5px;" id="reaction-best-display">--</b>
+      </div>
+      <div style="font-size:12px; color:#94a3b8;">
+        Versuche: <b style="color:#38bdf8; font-size:13.5px;" id="reaction-attempts-display">0</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ============================================================== -->
+<!-- SCRIPT: NEURO INTERACTIVE HUB & REACTION BENCHMARK ENGINE      -->
+<!-- ============================================================== -->
+<script>
+class NeuroInteractiveHubEngine {
+  constructor() {
+    this.modal = document.getElementById('reaction-test-modal');
+    this.arena = document.getElementById('reaction-arena');
+    this.iconEl = document.getElementById('reaction-arena-icon');
+    this.mainEl = document.getElementById('reaction-arena-main');
+    this.subEl = document.getElementById('reaction-arena-sub');
+    this.bestEl = document.getElementById('reaction-best-display');
+    this.attemptsEl = document.getElementById('reaction-attempts-display');
+
+    this.state = 'idle'; // idle | waiting | ready | result | early
+    this.timer = null;
+    this.startTime = 0;
+    this.attempts = 0;
+    this.bestMs = parseInt(localStorage.getItem('neuro_best_reaction_ms') || '0', 10);
+
+    this.init();
+  }
+
+  init() {
+    this.updateStatsDisplay();
+    if (this.arena) {
+      this.arena.addEventListener('click', () => this.handleArenaClick());
+    }
+    // Also bind backdrop click
+    if (this.modal) {
+      this.modal.addEventListener('click', (e) => {
+        if (e.target === this.modal) this.closeReactionTest();
+      });
+    }
+  }
+
+  updateStatsDisplay() {
+    if (this.bestEl) {
+      this.bestEl.textContent = this.bestMs > 0 ? (this.bestMs + ' ms') : '--';
+    }
+    if (this.attemptsEl) {
+      this.attemptsEl.textContent = this.attempts;
+    }
+  }
+
+  openReactionTest() {
+    if (!this.modal) return;
+    this.modal.style.display = 'flex';
+    this.modal.classList.add('active');
+    this.setIdleState();
+  }
+
+  closeReactionTest() {
+    if (!this.modal) return;
+    clearTimeout(this.timer);
+    this.modal.classList.remove('active');
+    this.modal.style.display = 'none';
+    this.setIdleState();
+  }
+
+  setIdleState() {
+    this.state = 'idle';
+    if (!this.arena) return;
+    this.arena.className = 'reaction-test-arena idle';
+    this.iconEl.textContent = '⚡';
+    this.mainEl.textContent = 'Klicke hier zum Starten';
+    this.subEl.textContent = 'Sobald Rot zu Grün wird, blitzschnell klicken!';
+  }
+
+  startRound() {
+    this.state = 'waiting';
+    this.arena.className = 'reaction-test-arena waiting';
+    this.iconEl.textContent = '🔴';
+    this.mainEl.textContent = 'Warte auf GRÜN...';
+    this.subEl.textContent = 'Bereit machen, aber noch nicht klicken!';
+
+    // Random delay between 1.4s and 4.2s
+    const delay = 1400 + Math.random() * 2800;
+    this.timer = setTimeout(() => {
+      this.triggerGreenSignal();
+    }, delay);
+  }
+
+  triggerGreenSignal() {
+    this.state = 'ready';
+    this.startTime = performance.now();
+    this.arena.className = 'reaction-test-arena ready';
+    this.iconEl.textContent = '🟢';
+    this.mainEl.textContent = 'JETZT KLICKEN!';
+    this.subEl.textContent = 'Klick so schnell du kannst!';
+    this.playSoftBeep(880);
+  }
+
+  handleArenaClick() {
+    if (this.state === 'idle') {
+      this.startRound();
+    } else if (this.state === 'waiting') {
+      // Clicked too early!
+      clearTimeout(this.timer);
+      this.state = 'early';
+      this.arena.className = 'reaction-test-arena early';
+      this.iconEl.textContent = '⚠️';
+      this.mainEl.textContent = 'Zu früh geklickt!';
+      this.subEl.textContent = 'Warte auf das grüne Signal. Klicke um es erneut zu versuchen.';
+      this.playSoftBeep(260);
+    } else if (this.state === 'ready') {
+      // Success! Calculate elapsed time
+      const elapsed = Math.round(performance.now() - this.startTime);
+      this.attempts++;
+      this.state = 'result';
+      this.arena.className = 'reaction-test-arena result';
+
+      let rating = '👍 Solide Reflexe!';
+      if (elapsed < 200) rating = '⚡ Weltklasse-Reflexe! (Top 1%)';
+      else if (elapsed < 250) rating = '🔥 Blitzschnell!';
+      else if (elapsed < 320) rating = '👌 Guter Schnitt';
+      else rating = '☕ Weiter üben!';
+
+      let recordNote = '';
+      if (this.bestMs === 0 || elapsed < this.bestMs) {
+        this.bestMs = elapsed;
+        localStorage.setItem('neuro_best_reaction_ms', this.bestMs.toString());
+        recordNote = ' 🎉 NEUER PERSÖNLICHER REKORD!';
+        if (window.masteryEngine) window.masteryEngine.addXP(40, '⚡ Neuer Reflex-Rekord!');
+      } else {
+        if (window.masteryEngine) window.masteryEngine.addXP(15, '⚡ Reflex-Test absolviert');
+      }
+
+      this.iconEl.textContent = '🎯';
+      this.mainEl.innerHTML = elapsed + ' <span style="font-size:16px;">ms</span>' + (recordNote ? '<span style="display:block; font-size:12px; color:#fde047; margin-top:4px;">' + recordNote + '</span>' : '');
+      this.subEl.textContent = rating + ' • Klicke für nächsten Versuch 🔄';
+
+      this.updateStatsDisplay();
+      this.playSoftBeep(640);
+    } else if (this.state === 'result' || this.state === 'early') {
+      this.startRound();
+    }
+  }
+
+  playSoftBeep(freq) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.22);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.25);
+    } catch(e) {}
+  }
+
+  triggerMood(mood) {
+    if (mood === 'focus') {
+      // Find Breathing or Focus Soundscape
+      if (window.switchView) window.switchView('view-breathing');
+    } else if (mood === 'calm') {
+      // Find Zen sand or Fluid
+      if (window.switchView) window.switchView('view-zensand');
+    } else if (mood === 'random') {
+      // Pick random card from hub
+      const cards = document.querySelectorAll('.neuro-card');
+      if (cards.length > 0) {
+        const randCard = cards[Math.floor(Math.random() * cards.length)];
+        randCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        randCard.style.outline = '3px solid #38bdf8';
+        randCard.style.boxShadow = '0 0 35px rgba(56, 189, 248, 0.8)';
+        setTimeout(() => {
+          randCard.style.outline = '';
+          randCard.style.boxShadow = '';
+        }, 2200);
+        this.playSoftBeep(520);
+      }
+    }
+  }
+}
+
+window.neuroInteractiveHub = new NeuroInteractiveHubEngine();
 </script>
 
 </body>
