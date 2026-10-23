@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script>
+  (function() {
+    try {
+      if (localStorage.getItem('neurospace_site_access_granted') === '020818') {
+        document.documentElement.classList.add('site-access-granted');
+      }
+    } catch(e) {}
+  })();
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>NeuroSpace - ADHS & Autismus Sensory Hub</title>
@@ -3946,10 +3956,157 @@
     transition: opacity 0.2s ease;
   }
 
+
+  /* ============================================================== */
+  /* SITE ACCESS GATE OVERLAY (ZUGANGSCODE: 020818)                 */
+  /* ============================================================== */
+  html.site-access-granted #site-access-gate-overlay {
+    display: none !important;
+  }
+
+  #site-access-gate-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at 50% 30%, #0f172a, #030712 90%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s ease;
+    backdrop-filter: blur(25px);
+  }
+  #site-access-gate-overlay.is-unlocked {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+
+  .site-gate-card {
+    background: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.99));
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(56, 189, 248, 0.25);
+    border-radius: 28px;
+    width: 90vw;
+    max-width: 440px;
+    padding: 36px 30px;
+    text-align: center;
+    position: relative;
+    animation: gateCardPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes gateCardPop {
+    0% { opacity: 0; transform: scale(0.9) translateY(15px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .site-gate-logo {
+    width: 76px; height: 76px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(16, 185, 129, 0.2));
+    border: 1.5px solid rgba(56, 189, 248, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 16px;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
+  }
+
+  .site-gate-input-wrap {
+    margin: 22px 0 16px;
+    position: relative;
+  }
+
+  .site-gate-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(4, 7, 16, 0.85);
+    border: 2px solid rgba(56, 189, 248, 0.3);
+    border-radius: 16px;
+    color: #fff;
+    font-size: 26px;
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    letter-spacing: 10px;
+    outline: none;
+    transition: all 0.25s ease;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7);
+  }
+  .site-gate-input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.5), inset 0 2px 8px rgba(0, 0, 0, 0.7);
+  }
+  .site-gate-input.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+    animation: gateShake 0.4s ease;
+  }
+  .site-gate-input.success {
+    border-color: #10b981;
+    box-shadow: 0 0 35px rgba(16, 185, 129, 0.7);
+  }
+
+  @keyframes gateShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+  }
+
+  .site-gate-btn {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #0284c7, #10b981);
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(2, 132, 199, 0.4);
+    transition: all 0.22s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .site-gate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(16, 185, 129, 0.6);
+  }
+  .site-gate-btn:active {
+    transform: scale(0.98);
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
 <body>
+
+<!-- ============================================================== -->
+<!-- SITE ACCESS GATE: FULLSCREEN LOCK (CODE: 020818)               -->
+<!-- ============================================================== -->
+<div id="site-access-gate-overlay">
+  <div class="site-gate-card">
+    <div class="site-gate-logo">🧠</div>
+    <div style="font-size:11px; font-weight:900; color:#38bdf8; letter-spacing:1px; text-transform:uppercase;">GESICHERTER ZUGANG</div>
+    <h1 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 2px;">NeuroSpace Studio</h1>
+    <p style="font-size:12.5px; color:#94a3b8; margin-bottom:6px;">
+      Bitte gib den 6-stelligen Zugangscode ein, um die Plattform freizuschalten.
+    </p>
+
+    <div class="site-gate-input-wrap">
+      <input type="password" id="site-gate-pin-input" class="site-gate-input" placeholder="••••••" maxlength="12" autocomplete="off" autofocus>
+    </div>
+
+    <div id="site-gate-msg" style="font-size:12px; font-weight:800; min-height:22px; margin-bottom:14px; color:#94a3b8;">
+      Code eingeben & bestätigen
+    </div>
+
+    <button id="btn-unlock-site-gate" class="site-gate-btn">
+      <span>Zugang freischalten</span> 🔓
+    </button>
+  </div>
+</div>
+
 
 <!-- ============================================================== -->
 <!-- 1. MAIN HUB / DASHBOARD (27 SENSORY APPS)                      -->
@@ -13640,6 +13797,123 @@ class NeuroArcadeEngine {
   }
 }
 window.arcadeEngine = new NeuroArcadeEngine();
+</script>
+
+
+<!-- ============================================================== -->
+<!-- SCRIPT: SITE ACCESS GATE CONTROLLER (CODE: 020818)             -->
+<!-- ============================================================== -->
+<script>
+class SiteAccessGateController {
+  constructor() {
+    this.storageKey = 'neurospace_site_access_granted';
+    this.correctCode = '020818';
+    this.overlay = document.getElementById('site-access-gate-overlay');
+    this.input = document.getElementById('site-gate-pin-input');
+    this.btn = document.getElementById('btn-unlock-site-gate');
+    this.msg = document.getElementById('site-gate-msg');
+
+    this.init();
+  }
+
+  init() {
+    if (this.isAccessGranted()) {
+      this.unlockImmediately();
+      return;
+    }
+
+    if (this.input) {
+      setTimeout(() => this.input.focus(), 250);
+      this.input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') this.verify();
+      });
+      this.input.addEventListener('input', () => {
+        this.input.classList.remove('error');
+        if (this.msg) {
+          this.msg.textContent = 'Code eingeben & bestätigen';
+          this.msg.style.color = '#94a3b8';
+        }
+      });
+    }
+
+    if (this.btn) {
+      this.btn.addEventListener('click', () => this.verify());
+    }
+  }
+
+  isAccessGranted() {
+    try {
+      return localStorage.getItem(this.storageKey) === this.correctCode;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  unlockImmediately() {
+    document.documentElement.classList.add('site-access-granted');
+    if (this.overlay) {
+      this.overlay.style.display = 'none';
+    }
+  }
+
+  verify() {
+    const val = (this.input ? this.input.value : '').trim();
+
+    if (val === this.correctCode) {
+      // Success!
+      try {
+        localStorage.setItem(this.storageKey, this.correctCode);
+      } catch(e) {}
+      document.documentElement.classList.add('site-access-granted');
+
+      if (this.input) {
+        this.input.classList.remove('error');
+        this.input.classList.add('success');
+      }
+
+      if (this.msg) {
+        this.msg.innerHTML = '<span style="color:#10b981;">✅ Zugang erfolgreich gewährt! Willkommen.</span>';
+      }
+
+      if (window.audio) {
+        try { audio.playLevelUpChime(); } catch(e) {}
+      }
+
+      if (window.confetti) {
+        try { window.confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 } }); } catch(e) {}
+      }
+
+      setTimeout(() => {
+        if (this.overlay) {
+          this.overlay.classList.add('is-unlocked');
+          setTimeout(() => {
+            this.overlay.style.display = 'none';
+          }, 500);
+        }
+      }, 700);
+
+    } else {
+      // Error!
+      if (this.input) {
+        this.input.classList.add('error');
+        this.input.value = '';
+        this.input.focus();
+      }
+
+      if (this.msg) {
+        this.msg.innerHTML = '<span style="color:#ef4444;">❌ Falscher Zugangscode! Bitte erneut versuchen.</span>';
+      }
+
+      if (window.audio) {
+        try { audio.playPop(180); } catch(e) {}
+      }
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.siteGateController = new SiteAccessGateController();
+});
 </script>
 
 </body>
