@@ -3317,6 +3317,298 @@
     color: #fff;
   }
 
+
+  /* ============================================================== */
+  /* DOPAMIN-MATRIX 3.0: NEUROBIOLOGISCHES BELOHNUNGSSYSTEM        */
+  /* ============================================================== */
+
+  /* FLOATING LIVE COMBO HUD */
+  #neuro-combo-hud {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: rgba(15, 23, 42, 0.95);
+    border: 2px solid rgba(245, 158, 11, 0.6);
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.4), inset 0 0 15px rgba(245, 158, 11, 0.2);
+    border-radius: 30px;
+    padding: 6px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(12px);
+  }
+  #neuro-combo-hud.active {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  #neuro-combo-hud.hyperfocus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 35px rgba(56, 189, 248, 0.7), inset 0 0 20px rgba(56, 189, 248, 0.4);
+    animation: pulseHyper 0.6s infinite alternate;
+  }
+  #neuro-combo-hud.overdrive {
+    border-color: #ec4899;
+    background: linear-gradient(135deg, rgba(30, 10, 40, 0.95), rgba(15, 23, 42, 0.95));
+    box-shadow: 0 0 45px rgba(236, 72, 153, 0.8), inset 0 0 25px rgba(236, 72, 153, 0.5);
+    animation: pulseOverdrive 0.4s infinite alternate;
+  }
+
+  @keyframes pulseHyper {
+    0% { transform: translateX(-50%) scale(1); }
+    100% { transform: translateX(-50%) scale(1.08); }
+  }
+  @keyframes pulseOverdrive {
+    0% { transform: translateX(-50%) scale(1.03); }
+    100% { transform: translateX(-50%) scale(1.14); }
+  }
+
+  .combo-flame-icon {
+    font-size: 20px;
+    animation: flameWobble 0.8s ease-in-out infinite;
+  }
+  @keyframes flameWobble {
+    0%, 100% { transform: scale(1) rotate(-3deg); }
+    50% { transform: scale(1.2) rotate(4deg); }
+  }
+  .combo-count-text {
+    font-size: 16px;
+    font-weight: 900;
+    color: #fbbf24;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .combo-multiplier-pill {
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+
+  /* RAINBOW OVERDRIVE SCREEN BORDER */
+  body.hyperfocus-overdrive-active::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 4px solid transparent;
+    border-image: linear-gradient(45deg, #ff007f, #38bdf8, #00e676, #fbbf24, #ff007f) 1;
+    pointer-events: none;
+    z-index: 99999;
+    animation: borderRainbowGlow 3s linear infinite;
+  }
+  @keyframes borderRainbowGlow {
+    0% { filter: hue-rotate(0deg) drop-shadow(0 0 10px #38bdf8); }
+    100% { filter: hue-rotate(360deg) drop-shadow(0 0 20px #ff007f); }
+  }
+
+  /* DOCK DOPAMINE BUTTONS */
+  .dock-dopamine-btn {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(239, 68, 68, 0.2));
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    color: #fde68a;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+  }
+  .dock-dopamine-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.4), rgba(239, 68, 68, 0.35));
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+    border-color: #fbbf24;
+  }
+  .dock-dopamine-btn.pulse {
+    animation: dockBtnPulse 1.8s infinite;
+  }
+  @keyframes dockBtnPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+    50% { box-shadow: 0 0 22px rgba(245, 158, 11, 0.8); border-color: #fff; }
+  }
+
+  .dock-sprint-btn {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.2));
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    color: #7dd3fc;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+  }
+  .dock-sprint-btn:hover {
+    transform: translateY(-2px) scale(1.04);
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(168, 85, 247, 0.35));
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.5);
+  }
+
+  .dock-dmn-btn {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+    border: 1px solid rgba(16, 185, 129, 0.45);
+    color: #6ee7b7;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+  }
+  .dock-dmn-btn:hover {
+    transform: translateY(-2px) scale(1.04);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(6, 182, 212, 0.35));
+    box-shadow: 0 0 18px rgba(16, 185, 129, 0.5);
+  }
+
+  /* MODALS: DOPAMINE VAULT (LOOTBOX) */
+  .dopamine-modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(4, 8, 18, 0.88);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .dopamine-modal-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .dopamine-modal-card {
+    background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.98), rgba(10, 15, 30, 0.99));
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 60px rgba(245, 158, 11, 0.25);
+    border-radius: 28px;
+    width: 90vw;
+    max-width: 520px;
+    padding: 32px 28px;
+    text-align: center;
+    position: relative;
+    transform: scale(0.92);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dopamine-modal-backdrop.active .dopamine-modal-card {
+    transform: scale(1);
+  }
+
+  /* VAULT 3D CHEST */
+  .vault-chest-wrapper {
+    margin: 20px auto;
+    width: 140px;
+    height: 140px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .vault-chest-icon {
+    font-size: 84px;
+    filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.7));
+    transition: transform 0.2s ease;
+  }
+  .vault-chest-wrapper:hover .vault-chest-icon {
+    transform: scale(1.1) rotate(2deg);
+  }
+  .vault-chest-wrapper.shaking .vault-chest-icon {
+    animation: chestRumble 0.5s infinite;
+  }
+  @keyframes chestRumble {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(-6px, 4px) rotate(-6deg); }
+    40% { transform: translate(6px, -4px) rotate(6deg); }
+    60% { transform: translate(-4px, -2px) rotate(-4deg); }
+    80% { transform: translate(4px, 2px) rotate(4deg); }
+  }
+
+  /* REWARD REVEAL CARD */
+  .reward-reveal-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid #fbbf24;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 16px 0;
+    box-shadow: 0 0 35px rgba(245, 158, 11, 0.35);
+    animation: rewardPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes rewardPop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .reward-rarity-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+  .reward-rarity-pill.legendary {
+    background: linear-gradient(135deg, #f59e0b, #ec4899);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+  }
+  .reward-rarity-pill.epic {
+    background: linear-gradient(135deg, #a855f7, #38bdf8);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+  }
+  .reward-rarity-pill.rare {
+    background: rgba(56, 189, 248, 0.25);
+    border: 1px solid #38bdf8;
+    color: #7dd3fc;
+  }
+  .reward-rarity-pill.common {
+    background: rgba(148, 163, 184, 0.2);
+    border: 1px solid #94a3b8;
+    color: #cbd5e1;
+  }
+
+  /* SPRINT CIRCULAR PROGRESS */
+  .sprint-timer-circle {
+    width: 140px;
+    height: 140px;
+    margin: 10px auto 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sprint-timer-svg {
+    transform: rotate(-90deg);
+  }
+  .sprint-timer-val {
+    position: absolute;
+    font-size: 38px;
+    font-weight: 900;
+    font-family: 'JetBrains Mono', monospace;
+    color: #38bdf8;
+    text-shadow: 0 0 15px #38bdf8;
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
@@ -3923,6 +4215,19 @@
       </div>
 
       <div style="display:flex; align-items:center; gap:8px;">
+        
+        <!-- Dopamin-Matrix 3.0 Dock Controls -->
+        <button class="dock-dopamine-btn pulse" id="btn-dock-open-vault" title="Dopamin-Tresor öffnen (Lootbox)">
+          🎰 <span id="dock-vault-label">Dopamin-Tresor</span>
+          <span style="font-size:10px; background:rgba(255,255,255,0.25); padding:1px 5px; border-radius:8px;" id="dock-vault-keys-count">1</span>
+        </button>
+        <button class="dock-sprint-btn" id="btn-dock-open-sprint" title="60 Sekunden Hyperfokus Sprint">
+          ⚡ 60s Sprint
+        </button>
+        <button class="dock-dmn-btn" id="btn-dock-open-dmn" title="Anti-Prokrastinations DMN-Breaker">
+          🚨 DMN-Breaker
+        </button>
+
         <div class="dock-right-pill" onclick="alert('Du machst das großartig. Gönn dir ein Glas Wasser und einen tiefen Atemzug! 💜');">
           Heute schon was Gutes für dich getan? 💜
         </div>
@@ -4573,6 +4878,67 @@
 <!-- ============================================================== -->
 <script>
 class SensoryAudioEngine {
+
+  playLootDropSound(isLegendary = false) {
+    if (!this.ctx) this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const notes = isLegendary ? [261.63, 329.63, 392.00, 493.88, 523.25, 659.25, 783.99, 1046.50] : [261.63, 329.63, 392.00, 523.25, 659.25];
+      notes.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = isLegendary ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+        gain.gain.setValueAtTime(0.25, now + idx * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.45);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + idx * 0.08);
+        osc.stop(now + idx * 0.08 + 0.5);
+      });
+    } catch(e) {}
+  }
+
+  playComboSound(combo) {
+    if (!this.ctx) this.init();
+    if (!this.ctx) return;
+    try {
+      const scale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99];
+      const freq = scale[Math.min(scale.length - 1, combo % scale.length)];
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.26);
+    } catch(e) {}
+  }
+
+  playDmnShatterSound() {
+    if (!this.ctx) this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(150, now);
+      osc.frequency.exponentialRampToValueAtTime(45, now + 0.4);
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.46);
+    } catch(e) {}
+  }
+
   constructor() {
     this.ctx = null;
     this.nodes = {};
@@ -9814,6 +10180,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <!-- Quick Action Prompt Chips Bar -->
       <div class="ai-quick-prompts-bar">
+        <button class="ai-prompt-pill" data-prompt="Erkläre mir die Volkow-Studie (JAMA 2009): Warum liebt mein ADHS-Gehirn Dopamin?" style="background:rgba(245,158,11,0.2); border-color:rgba(245,158,11,0.5); color:#fde68a;">🧠 Volkow-Studie & Belohnung</button>
+        <button class="ai-prompt-pill" data-prompt="Warum habe ich ständiges Food Noise und Binge-Eating Drang bei ADHS?" style="background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.5); color:#fca5a5;">🍔 Food Noise & Binge-Eating</button>
+        <button class="ai-prompt-pill" data-prompt="Erkläre die Formel für Zeitblindheit: V = A / (1 + kD) bei ADHS" style="background:rgba(56,189,248,0.2); border-color:rgba(56,189,248,0.5); color:#7dd3fc;">⏳ Zeitblindheit (Formel)</button>
         <button class="ai-prompt-pill" data-action="dopamine-roulette" style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(239,68,68,0.25)); border-color:rgba(245,158,11,0.6); color:#fde68a; font-weight:900;">🎲 Dopamin-Impuls</button>
         <button class="ai-prompt-pill" data-mode="powerpoint" data-prompt="Mach mir eine PowerPoint über Chips">📊 PowerPoint über Chips</button>
         <button class="ai-prompt-pill" data-mode="research" data-prompt="Deep Research: Die Entstehung, Wissenschaft und weltweite Vielfalt von Chips">🔬 Deep Research: Chips</button>
@@ -11545,8 +11914,19 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
       }
 
       generateOfflineAdhdResponse(input) {
-        const t = input.toLowerCase();
-        const userName = localStorage.getItem('ai_nils_user_name') || 'mein Freund';
+        c
+
+        if (t.includes('volkow') || t.includes('belohnung') || (t.includes('warum') && t.includes('dopamin'))) {
+          return `🧠 **Die Neurobiologie deines Belohnungssystems (Volkow et al., JAMA 2009):**\n\n${userName}, deine Dopamin-Suche ist **kein Charakterfehler**, sondern fest in deinen Synapsen verdrahtet!\n\nDie berühmte PET-Studie von Nora Volkow zeigte quantitativ:\n• **Nucleus accumbens D2/D3-Rezeptoren:** Reduziert auf **2,68** (Kontrollgruppe: 2,85, p=0,004)\n• **Mittelhirn (VTA) DAT-Transporter:** Reduziert auf **0,09** (Kontrollgruppe: 0,16, p<0,001)\n\n**Was bedeutet das für dich?**\nDein Gehirn hat einen chronisch niedrigen basalen hedonischen Tonus (**Reward Deficiency Syndrome**). Alltägliche, langweilige Aufgaben erzeugen nicht genug Dopamin für das Arbeitsgedächtnis. Dein Gehirn **muss** nach intensiven, neuartigen Reizen suchen, um überhaupt kognitive Wachheit zu erreichen. Du bist ein evolutionärer Jäger in einer Welt voller Formulare! 🚀⚡`;
+        }
+
+        if (t.includes('food noise') || t.includes('essen') || t.includes('binge') || t.includes('hunger')) {
+          return `🍔 **Warum Food Noise & Heißhunger bei ADHS auftreten:**\n\nStudien belegen ein **3,8-fach erhöhtes Risiko** für Essanfälle (Binge-Eating) bei ADHS. Der Grund ist rein neurobiologisch:\n\n1. **Schneller Dopamin-Spike:** Zucker und Fett resorbieren rasant und überfluten den Nucleus accumbens mit Dopamin.\n2. **Kompensation von Erschöpfung:** Wenn das Gehirn unterstimuliert ist oder unter emotionalem Stress leidet, nutzt es Essen als schnell verfügbares Schmerzmittel.\n3. **Delay Discounting:** Der Sofort-Kick schlägt in der Amygdala jede langfristige Konsequenz.\n\n💡 **Neuro-Tipp:** Wenn der Food-Noise-Drang kommt, frage dich: *„Habe ich wirklich Magenhunger – oder schreit mein Gehirn gerade nach Dopamin?“* Öffne den Dopamin-Tresor, lausche einem binauralen Beat oder bewege dich für 60 Sekunden!`;
+        }
+
+        if (t.includes('zeitblind') || t.includes('formel') || t.includes('v = a') || t.includes('delay discounting')) {
+          return `⏳ **Die Mathematik deiner Zeitblindheit (Barkley & Delay Discounting):**\n\nWarum kannst du nicht für Deadlines in 3 Wochen arbeiten? Wegen der **hyperbolischen Diskontierungsgleichung**:\n\n$\\Large V = \\frac{A}{1 + kD}$\n\n• **V:** Subjektiver Wert der Belohnung im Hier und Jetzt\n• **A:** Absolute Größe der Belohnung (z.B. gute Note, gespartes Geld)\n• **D:** Zeitliche Verzögerung (Delay)\n• **k:** Diskontierungsrate\n\nBei neurotypischen Menschen ist *k* klein. Bei ADHS ist ***k* gigantisch groß!**\nDas Gehirn kennt nur zwei Zeitzonen: **„JETZT“** und **„NICHT-JETZT“**! Eine Belohnung in 2 Wochen fühlt sich neurologisch wie Null an. Deshalb funktionieren nur Micro-Deadlines und der 60s-Sprint!`;
+        }
 
         if (t.includes('prokrastin') || t.includes('aufschieb') || t.includes('kein bock') || t.includes('anfangen')) {
           return `Das kenne ich nur zu gut, ${userName}! Bei ADHS streikt hier gerade das Belohnungszentrum. 🧠\n\nLass uns den **„2-Minuten-Trick“** machen:\n1. **Mikro-Schritt**: Öffne nur das Dokument / lege nur ein einziges Werkzeug bereit.\n2. **Timer**: Stell dir 3 Minuten ein. Danach darfst du sofort aufhören, wenn du willst.\n3. **Dopamin-Belohnung**: Sobald du angefangen hast, hol dir ein kühles Getränk oder mach einen Beat an!\n\nSoll ich dich bei einem bestimmten Schritt anleiten?`;
@@ -11846,6 +12226,433 @@ bindEvents() {
     }
 
     window.personalizationWizard = new NeuroPersonalizationWizard();
+});
+</script>
+
+
+  <!-- ============================================================== -->
+  <!-- MODAL: DOPAMIN-TRESOR (VARIABLE RATIO REINFORCEMENT LOOTBOX)   -->
+  <!-- ============================================================== -->
+  <div class="dopamine-modal-backdrop" id="dopamine-vault-modal">
+    <div class="dopamine-modal-card">
+      <button style="position:absolute; top:18px; right:20px; background:transparent; border:none; color:#94a3b8; font-size:22px; cursor:pointer;" onclick="window.dopamineEngine.closeVault();">✕</button>
+      
+      <div style="font-size:11px; font-weight:900; color:#fbbf24; letter-spacing:1px; text-transform:uppercase;">⚡ MESOLIMBISCHES BELOHNUNGSSYSTEM</div>
+      <h2 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 2px;">🎰 Der Neuro-Dopamin-Tresor</h2>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:12px;">Unberechenbare Belohnung für dein Gehirn. Öffne den Tresor für sofortige Dopamin-Spikes!</p>
+
+      <div class="vault-chest-wrapper" id="vault-chest-box" onclick="window.dopamineEngine.openChest();">
+        <div class="vault-chest-icon" id="vault-chest-icon">🎁</div>
+      </div>
+
+      <div id="vault-reward-container" style="display:none;"></div>
+
+      <div style="display:flex; justify-content:center; gap:12px; align-items:center; margin-top:14px;">
+        <div style="font-size:12px; color:#cbd5e1; font-weight:700;">
+          🗝️ Verfügbare Schlüssel: <b style="color:#fbbf24; font-size:14px;" id="vault-keys-count-modal">1</b>
+        </div>
+        <div style="font-size:12px; color:#cbd5e1; font-weight:700;">
+          ✨ Funken: <b style="color:#38bdf8; font-size:14px;" id="vault-sparks-count-modal">85</b>/100
+        </div>
+      </div>
+
+      <button id="btn-unlock-vault-action" style="margin-top:18px; width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #f59e0b, #ef4444); border:none; color:#fff; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 0 25px rgba(245, 158, 11, 0.4);" onclick="window.dopamineEngine.openChest();">
+        ✨ TRESOR JETZT ÖFFNEN!
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: 60-SEKUNDEN DOPAMIN-SPRINT (DMN DEACTIVATION RUSH)      -->
+  <!-- ============================================================== -->
+  <div class="dopamine-modal-backdrop" id="dopamine-sprint-modal">
+    <div class="dopamine-modal-card" style="max-width:480px;">
+      <button style="position:absolute; top:18px; right:20px; background:transparent; border:none; color:#94a3b8; font-size:22px; cursor:pointer;" onclick="window.dopamineEngine.closeSprint();">✕</button>
+      
+      <div style="font-size:11px; font-weight:900; color:#38bdf8; letter-spacing:1px; text-transform:uppercase;">⏱️ FOKUS-TURBO GEGEN ZEITBLINDHEIT</div>
+      <h2 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 4px;">⚡ 60s Dopamin-Sprint</h2>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:14px;">Aktiviere dein frontoparietales Netzwerk! Sammle so viele Klicks, Fidgets & Aktionen wie möglich!</p>
+
+      <div class="sprint-timer-circle">
+        <svg class="sprint-timer-svg" width="130" height="130">
+          <circle cx="65" cy="65" r="56" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="none" />
+          <circle id="sprint-progress-circle" cx="65" cy="65" r="56" stroke="#38bdf8" stroke-width="8" fill="none" stroke-dasharray="351.8" stroke-dashoffset="0" stroke-linecap="round" />
+        </svg>
+        <div class="sprint-timer-val" id="sprint-timer-display">60</div>
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:20px; margin-bottom:16px;">
+        <div style="background:rgba(255,255,255,0.06); padding:8px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.1);">
+          <div style="font-size:11px; color:#94a3b8; font-weight:700;">AKTIONEN</div>
+          <div style="font-size:20px; font-weight:900; color:#38bdf8;" id="sprint-score-counter">0</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06); padding:8px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.1);">
+          <div style="font-size:11px; color:#94a3b8; font-weight:700;">MULTIPLIKATOR</div>
+          <div style="font-size:20px; font-weight:900; color:#fbbf24;" id="sprint-mult-counter">x1.0</div>
+        </div>
+      </div>
+
+      <div id="sprint-status-msg" style="font-size:13px; font-weight:800; color:#cbd5e1; min-height:24px;">Bereit machen...</div>
+
+      <button id="btn-start-sprint" style="margin-top:14px; width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #0284c7, #9333ea); border:none; color:#fff; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 0 25px rgba(2, 132, 199, 0.4);" onclick="window.dopamineEngine.startSprint();">
+        🚀 SPRINT STARTEN (60s)
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: DMN-BREAKER (ANTI-PROKRASTINATIONS KATAPULT)             -->
+  <!-- ============================================================== -->
+  <div class="dopamine-modal-backdrop" id="dmn-breaker-modal">
+    <div class="dopamine-modal-card" style="max-width:460px;">
+      <button style="position:absolute; top:18px; right:20px; background:transparent; border:none; color:#94a3b8; font-size:22px; cursor:pointer;" onclick="window.dopamineEngine.closeDmn();">✕</button>
+      
+      <div style="font-size:11px; font-weight:900; color:#34d399; letter-spacing:1px; text-transform:uppercase;">🚨 NEURONALER RESET (DMN-STOPP)</div>
+      <h2 style="font-size:22px; font-weight:900; color:#fff; margin:6px 0 4px;">Du hängst fest? Keine Panik!</h2>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:16px;">Dein Gehirn ist nicht faul. Das Default Mode Network weigert sich nur abzuschalten. Lass uns die Hürde in 10 Sekunden einreißen!</p>
+
+      <div style="background:rgba(16, 185, 129, 0.1); border:1px solid rgba(16, 185, 129, 0.35); border-radius:20px; padding:18px; margin-bottom:18px;">
+        <div style="font-size:12px; color:#6ee7b7; font-weight:800; margin-bottom:6px;">DEINE 10-SEKUNDEN MIKRO-AUFGABE:</div>
+        <div style="font-size:16px; font-weight:900; color:#ffffff;" id="dmn-random-microtask">
+          💧 Trinke einen einzigen Schluck Wasser und atme tief aus!
+        </div>
+      </div>
+
+      <button style="width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #10b981, #06b6d4); border:none; color:#fff; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 0 25px rgba(16, 185, 129, 0.4);" onclick="window.dopamineEngine.completeDmnTask();">
+        ✅ ERLEDIGT! (+50 XP & Dopamin-Kick)
+      </button>
+    </div>
+  </div>
+
+
+<!-- ============================================================== -->
+<!-- SCRIPT: DOPAMIN-MATRIX 3.0 ENGINE (NEUROBIOLOGICAL GAMIFICATION)-->
+<!-- ============================================================== -->
+<script>
+class DopamineVaultEngine {
+  constructor() {
+    this.keys = parseInt(localStorage.getItem('neuro_vault_keys') || '1', 10);
+    this.sparks = parseInt(localStorage.getItem('neuro_vault_sparks') || '60', 10);
+    this.combo = 0;
+    this.comboTimer = null;
+    this.overdriveUntil = parseInt(localStorage.getItem('neuro_overdrive_until') || '0', 10);
+    
+    // Sprint state
+    this.sprintActive = false;
+    this.sprintTimeLeft = 60;
+    this.sprintScore = 0;
+    this.sprintTimer = null;
+
+    // Scientific Knowledge Drops (from user paper)
+    this.knowledgePool = [
+      { rarity: 'legendary', title: '🧬 Volkow-PET-Entdeckung (JAMA 2009)', text: 'Nora Volkow bewies: Die D2/D3-Rezeptoren im Nucleus accumbens sind bei ADHS um signifikante Mengen reduziert (2.68 vs 2.85). Deine Dopamin-Suche ist kein Charakterfehler, sondern zerebrale Homöostase!' },
+      { rarity: 'epic', title: '⏳ Barkley-Zeitblindheit (Formel)', text: 'Delay Discounting Formel: V = A / (1 + kD). Da k bei ADHS extrem hoch ist, verliert jede Belohnung in der Zukunft ihren Wert. Nur das JETZT zählt!' },
+      { rarity: 'epic', title: '🍔 Food Noise & Binge-Eating', text: 'Zucker & Fast-Food lösen instantane Dopamin-Stöße aus. 21% der Patienten nutzen Essen unbewusst als Selbstmedikation für den chronisch niedrigen Basaltonus.' },
+      { rarity: 'rare', title: '🚨 DMN-Inhibition Versagen', text: 'Das Default Mode Network (DMN) schaltet bei Aufgabenstart nicht ab. 10-Sekunden Mikro-Tasks erzwingen das Hochfahren des Kontrollnetzwerks (FPN)!' },
+      { rarity: 'legendary', title: '👑 Rang-Titel: Dopamin-Alchemist', text: 'Du hast die Biochemie deines Gehirns gemeistert. Verwandle Unterstimulation in puren kreativen Hyperfokus!' }
+    ];
+
+    this.init();
+  }
+
+  init() {
+    this.checkOverdrive();
+    this.updateUI();
+    this.bindGlobalActions();
+    this.bindDockButtons();
+  }
+
+  bindDockButtons() {
+    const vaultBtn = document.getElementById('btn-dock-open-vault');
+    if (vaultBtn) vaultBtn.addEventListener('click', () => this.openVault());
+
+    const sprintBtn = document.getElementById('btn-dock-open-sprint');
+    if (sprintBtn) sprintBtn.addEventListener('click', () => this.openSprintModal());
+
+    const dmnBtn = document.getElementById('btn-dock-open-dmn');
+    if (dmnBtn) dmnBtn.addEventListener('click', () => this.openDmnModal());
+  }
+
+  bindGlobalActions() {
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('.dopamine-modal-backdrop') || e.target.closest('#btn-dock-open-vault')) return;
+      this.registerAction();
+    });
+  }
+
+  registerAction() {
+    this.combo++;
+    clearTimeout(this.comboTimer);
+
+    if (window.audio && typeof window.audio.playComboSound === 'function') {
+      window.audio.playComboSound(this.combo);
+    }
+
+    const sparkGain = this.isOverdriveActive() ? 4 : 2;
+    this.addSparks(sparkGain);
+
+    if (this.sprintActive) {
+      this.sprintScore++;
+      const scoreEl = document.getElementById('sprint-score-counter');
+      const multEl = document.getElementById('sprint-mult-counter');
+      if (scoreEl) scoreEl.textContent = this.sprintScore;
+      if (multEl) multEl.textContent = 'x' + (1 + (this.combo * 0.1)).toFixed(1);
+    }
+
+    this.updateComboHud();
+
+    this.comboTimer = setTimeout(() => {
+      this.combo = 0;
+      this.hideComboHud();
+    }, 4500);
+  }
+
+  updateComboHud() {
+    const hud = document.getElementById('neuro-combo-hud');
+    const num = document.getElementById('combo-hud-number');
+    const mult = document.getElementById('combo-hud-mult');
+    if (!hud || !num || !mult) return;
+
+    num.textContent = this.combo;
+    const factor = (1 + (this.combo * 0.15)).toFixed(1);
+    mult.textContent = 'x' + factor + ' XP';
+
+    hud.classList.add('active');
+    hud.classList.toggle('hyperfocus', this.combo >= 5);
+    hud.classList.toggle('overdrive', this.combo >= 10);
+  }
+
+  hideComboHud() {
+    const hud = document.getElementById('neuro-combo-hud');
+    if (hud) hud.classList.remove('active', 'hyperfocus', 'overdrive');
+  }
+
+  addSparks(amount) {
+    this.sparks += amount;
+    if (this.sparks >= 100) {
+      this.sparks -= 100;
+      this.keys += 1;
+      this.triggerKeyFoundCelebration();
+    }
+    localStorage.setItem('neuro_vault_sparks', this.sparks.toString());
+    localStorage.setItem('neuro_vault_keys', this.keys.toString());
+    this.updateUI();
+  }
+
+  triggerKeyFoundCelebration() {
+    if (window.audio && typeof window.audio.playCoinSound === 'function') {
+      window.audio.playCoinSound();
+    }
+    if (window.masteryEngine) {
+      window.masteryEngine.showXpToast('🗝️ DOPAMIN-SCHLÜSSEL GEFUNDEN!');
+    }
+  }
+
+  openVault() {
+    const modal = document.getElementById('dopamine-vault-modal');
+    if (modal) modal.classList.add('active');
+    const rewardBox = document.getElementById('vault-reward-container');
+    if (rewardBox) {
+      rewardBox.style.display = 'none';
+      rewardBox.innerHTML = '';
+    }
+    const chestIcon = document.getElementById('vault-chest-icon');
+    if (chestIcon) chestIcon.textContent = '🎁';
+    this.updateUI();
+  }
+
+  closeVault() {
+    const modal = document.getElementById('dopamine-vault-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  openChest() {
+    if (this.keys <= 0) {
+      alert('Sammle noch etwas mehr Funken durch Interaktionen, um den nächsten Schlüssel zu schmieden!');
+      return;
+    }
+
+    const chestBox = document.getElementById('vault-chest-box');
+    const chestIcon = document.getElementById('vault-chest-icon');
+    const rewardBox = document.getElementById('vault-reward-container');
+
+    if (!chestBox || !rewardBox) return;
+
+    this.keys -= 1;
+    localStorage.setItem('neuro_vault_keys', this.keys.toString());
+    this.updateUI();
+
+    chestBox.classList.add('shaking');
+
+    setTimeout(() => {
+      chestBox.classList.remove('shaking');
+      if (chestIcon) chestIcon.textContent = '✨';
+
+      const roll = Math.random();
+      let drop;
+
+      if (roll < 0.25) {
+        drop = this.knowledgePool[0];
+        this.activateOverdrive(180);
+        if (window.masteryEngine) window.masteryEngine.addXp(200, '👑 LEGENDÄR');
+        if (window.audio) window.audio.playLootDropSound(true);
+      } else if (roll < 0.55) {
+        drop = this.knowledgePool[1];
+        if (window.masteryEngine) window.masteryEngine.addXp(120, '⚡ EPISCH');
+        if (window.audio) window.audio.playLootDropSound(false);
+      } else if (roll < 0.8) {
+        drop = this.knowledgePool[2];
+        if (window.masteryEngine) window.masteryEngine.addXp(75, '🔵 SELTEN');
+        if (window.audio) window.audio.playCoinSound();
+      } else {
+        drop = this.knowledgePool[3];
+        if (window.masteryEngine) window.masteryEngine.addXp(40, '⚪ BONUS');
+        if (window.audio) window.audio.playCoinSound();
+      }
+
+      if (window.confetti) {
+        try { window.confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } }); } catch(e) {}
+      }
+
+      rewardBox.innerHTML = `
+        <div class="reward-reveal-card">
+          <div class="reward-rarity-pill ${drop.rarity}">${drop.rarity.toUpperCase()} REWARD</div>
+          <h3 style="color:#fff; font-size:17px; margin:4px 0 6px;">${drop.title}</h3>
+          <p style="color:#cbd5e1; font-size:12.5px; line-height:1.5; margin:0;">${drop.text}</p>
+        </div>
+      `;
+      rewardBox.style.display = 'block';
+
+    }, 800);
+  }
+
+  activateOverdrive(seconds) {
+    this.overdriveUntil = Date.now() + (seconds * 1000);
+    localStorage.setItem('neuro_overdrive_until', this.overdriveUntil.toString());
+    document.body.classList.add('hyperfocus-overdrive-active');
+    if (window.masteryEngine) window.masteryEngine.showXpToast('⚡ 3X HYPERFOKUS-OVERDRIVE AKTIVIERT!');
+  }
+
+  isOverdriveActive() {
+    return Date.now() < this.overdriveUntil;
+  }
+
+  checkOverdrive() {
+    if (this.isOverdriveActive()) {
+      document.body.classList.add('hyperfocus-overdrive-active');
+    } else {
+      document.body.classList.remove('hyperfocus-overdrive-active');
+    }
+  }
+
+  openSprintModal() {
+    const modal = document.getElementById('dopamine-sprint-modal');
+    if (modal) modal.classList.add('active');
+    this.sprintScore = 0;
+    const scoreEl = document.getElementById('sprint-score-counter');
+    if (scoreEl) scoreEl.textContent = '0';
+    const msgEl = document.getElementById('sprint-status-msg');
+    if (msgEl) msgEl.textContent = 'Bereit machen... Drücke auf Start!';
+  }
+
+  closeSprint() {
+    const modal = document.getElementById('dopamine-sprint-modal');
+    if (modal) modal.classList.remove('active');
+    clearInterval(this.sprintTimer);
+    this.sprintActive = false;
+  }
+
+  startSprint() {
+    this.sprintActive = true;
+    this.sprintTimeLeft = 60;
+    this.sprintScore = 0;
+    const btn = document.getElementById('btn-start-sprint');
+    if (btn) btn.style.display = 'none';
+
+    const circle = document.getElementById('sprint-progress-circle');
+    const disp = document.getElementById('sprint-timer-display');
+    const msg = document.getElementById('sprint-status-msg');
+    if (msg) msg.textContent = '🔥 JETZT! Klicke, bewege, interagiere mit voller Energie!';
+
+    clearInterval(this.sprintTimer);
+    this.sprintTimer = setInterval(() => {
+      this.sprintTimeLeft--;
+      if (disp) disp.textContent = this.sprintTimeLeft;
+
+      if (circle) {
+        const offset = 351.8 * (1 - (this.sprintTimeLeft / 60));
+        circle.style.strokeDashoffset = offset;
+      }
+
+      if (this.sprintTimeLeft <= 0) {
+        clearInterval(this.sprintTimer);
+        this.sprintActive = false;
+        if (btn) btn.style.display = 'block';
+        this.finishSprint();
+      }
+    }, 1000);
+  }
+
+  finishSprint() {
+    const msg = document.getElementById('sprint-status-msg');
+    const finalScore = this.sprintScore;
+    const bonusXp = Math.min(250, finalScore * 4);
+
+    if (msg) msg.innerHTML = `🏆 <b>GESCHAFFT!</b> Rang S+ mit ${finalScore} Aktionen! (+1 Schlüssel & +${bonusXp} XP)`;
+    this.keys += 1;
+    localStorage.setItem('neuro_vault_keys', this.keys.toString());
+    if (window.masteryEngine) window.masteryEngine.addXp(bonusXp, '⚡ SPRINT-MEISTER');
+    if (window.audio) window.audio.playLootDropSound(true);
+    if (window.confetti) {
+      try { window.confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } }); } catch(e) {}
+    }
+    this.updateUI();
+  }
+
+  openDmnModal() {
+    const modal = document.getElementById('dmn-breaker-modal');
+    if (modal) modal.classList.add('active');
+    const tasks = [
+      '💧 Trinke einen Schluck Wasser und schüttle deine Schultern aus!',
+      '🌬️ Atme 3x langsam durch die Nase ein und doppelt so lang durch den Mund aus.',
+      '👀 Schau vom Bildschirm weg und zähle 3 grüne Gegenstände im Raum.',
+      '✍️ Öffne den KI-Chat und tippe nur ein einziges Wort ein.',
+      '🫧 Lass 5 Seifenblasen im Seifenblasen-Labor platzen!'
+    ];
+    const taskEl = document.getElementById('dmn-random-microtask');
+    if (taskEl) taskEl.textContent = tasks[Math.floor(Math.random() * tasks.length)];
+    if (window.audio && typeof window.audio.playDmnShatterSound === 'function') {
+      window.audio.playDmnShatterSound();
+    }
+  }
+
+  closeDmn() {
+    const modal = document.getElementById('dmn-breaker-modal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  completeDmnTask() {
+    this.closeDmn();
+    if (window.masteryEngine) window.masteryEngine.addXp(50, '🚨 DMN-BEFREIT');
+    if (window.audio) window.audio.playLevelUpChime();
+    if (window.confetti) {
+      try { window.confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } }); } catch(e) {}
+    }
+  }
+
+  updateUI() {
+    const dockKeys = document.getElementById('dock-vault-keys-count');
+    const modalKeys = document.getElementById('vault-keys-count-modal');
+    const modalSparks = document.getElementById('vault-sparks-count-modal');
+
+    if (dockKeys) dockKeys.textContent = this.keys;
+    if (modalKeys) modalKeys.textContent = this.keys;
+    if (modalSparks) modalSparks.textContent = this.sparks;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.dopamineEngine = new DopamineVaultEngine();
 });
 </script>
 
