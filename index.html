@@ -3609,6 +3609,343 @@
     text-shadow: 0 0 15px #38bdf8;
   }
 
+
+  /* ============================================================== */
+  /* NEUROARCADE - ROBLOX & GAMEMONETIZE ZONE CSS                   */
+  /* ============================================================== */
+
+  #view-games {
+    background: radial-gradient(circle at 50% 0%, #120e2e, #060914 80%) !important;
+    overflow-y: auto !important;
+    padding-bottom: 70px;
+  }
+
+  .games-hub-wrapper {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 20px 24px 60px;
+  }
+
+  /* HERO BANNER */
+  .games-hero-banner {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.22), rgba(168, 85, 247, 0.22)), rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(236, 72, 153, 0.45);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 35px rgba(236, 72, 153, 0.2);
+    border-radius: 24px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .games-hero-banner::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.35), transparent 70%);
+    pointer-events: none;
+  }
+
+  .games-hero-title {
+    font-size: 26px;
+    font-weight: 900;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.5px;
+  }
+  .games-hero-sub {
+    font-size: 13.5px;
+    color: #cbd5e1;
+    margin-top: 6px;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
+  /* SEARCH & FILTER CONTROLS */
+  .games-search-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(10, 15, 30, 0.9);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 18px;
+    padding: 6px 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    min-width: 280px;
+    max-width: 420px;
+    flex: 1;
+  }
+  .games-search-bar-wrap input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 13.5px;
+    width: 100%;
+    outline: none;
+  }
+  .games-search-bar-wrap input::placeholder {
+    color: #64748b;
+  }
+
+  /* CATEGORY PILLS BAR */
+  .games-category-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    scrollbar-width: none;
+  }
+  .games-category-bar::-webkit-scrollbar { display: none; }
+
+  .game-cat-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #cbd5e1;
+    padding: 7px 15px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .game-cat-pill:hover {
+    background: rgba(236, 72, 153, 0.15);
+    border-color: rgba(236, 72, 153, 0.4);
+    color: #f472b6;
+    transform: translateY(-2px);
+  }
+  .game-cat-pill.active {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    border-color: #ec4899;
+    color: #fff;
+    box-shadow: 0 0 16px rgba(236, 72, 153, 0.5);
+  }
+
+  /* GAMES GRID */
+  .games-portal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+  }
+
+  /* GAME CARD (ROBLOX STYLE) */
+  .game-portal-card {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+  .game-portal-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: rgba(236, 72, 153, 0.6);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(236, 72, 153, 0.35);
+  }
+
+  .game-card-thumb-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    position: relative;
+    background: #0a0e1a;
+  }
+  .game-card-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .game-portal-card:hover .game-card-thumb-img {
+    transform: scale(1.08);
+  }
+
+  .game-card-top-pill {
+    position: absolute;
+    top: 8px; left: 8px;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 3px 8px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #38bdf8;
+    text-transform: uppercase;
+  }
+  .game-card-rating-pill {
+    position: absolute;
+    top: 8px; right: 8px;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 3px 8px;
+    border-radius: 8px;
+    background: rgba(245, 158, 11, 0.85);
+    color: #000;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+  }
+
+  .game-card-info-wrap {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .game-card-title {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+  .game-card-desc {
+    font-size: 11.5px;
+    color: #94a3b8;
+    line-height: 1.4;
+    height: 32px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 12px;
+  }
+
+  .game-card-play-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 8px 0;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(168, 85, 247, 0.2));
+    border: 1px solid rgba(236, 72, 153, 0.4);
+    color: #f472b6;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .game-portal-card:hover .game-card-play-btn {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    border-color: #ec4899;
+    color: #fff;
+    box-shadow: 0 0 16px rgba(236, 72, 153, 0.6);
+  }
+
+  /* FULLSCREEN GAME PLAYER MODAL */
+  #game-player-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #030712;
+    z-index: 200000;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  #game-player-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .game-player-topbar {
+    height: 54px;
+    background: rgba(15, 23, 42, 0.98);
+    border-bottom: 1px solid rgba(236, 72, 153, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+  }
+  .game-player-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .game-player-action-btn {
+    padding: 7px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .game-player-action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  .game-player-action-btn.fullscreen-btn {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    border-color: #ec4899;
+    color: #fff;
+    box-shadow: 0 0 14px rgba(236, 72, 153, 0.4);
+  }
+  .game-player-action-btn.fullscreen-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 22px rgba(236, 72, 153, 0.7);
+  }
+
+  .game-player-iframe-wrap {
+    flex: 1;
+    width: 100%;
+    height: calc(100% - 54px);
+    position: relative;
+    background: #000;
+  }
+  #game-active-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  /* PARTIKEL-GRAVITRON 2.0 ENHANCEMENTS */
+  #view-particles {
+    position: relative;
+    overflow: hidden;
+  }
+  .particles-event-horizon-glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 50px rgba(56, 189, 248, 0.6), inset 0 0 30px rgba(168, 85, 247, 0.6);
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
@@ -3633,6 +3970,10 @@
       <nav class="nav-menu-list">
         <button class="nav-menu-item active">
           <span>🏠</span> Control Center
+        </button>
+        
+        <button class="nav-menu-item" id="btn-open-games-hub" style="position:relative; background:linear-gradient(135deg,rgba(236,72,153,0.18),rgba(168,85,247,0.18)); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800;">
+          <span>🎮</span> Spiele & Arcade <span style="font-size:9px; background:linear-gradient(135deg,#ec4899,#f59e0b); color:#fff; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(236,72,153,0.5);">ROBLOX 🔥</span>
         </button>
         <button class="nav-menu-item" id="btn-open-ai-tools" style="position:relative;">
           <span>🤖</span> AI Tools <span style="font-size:9px; background:linear-gradient(135deg,#10b981,#38bdf8); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(16,185,129,0.5);">LIVE ⚡</span>
@@ -3762,7 +4103,30 @@
       </section>
 
       <!-- APP CARDS GRID WITH GORGEOUS 3D HERO THUMBNAILS (MATCHING SCREENSHOT) -->
+      
       <section class="neuro-cards-grid" id="apps-grid">
+
+        <!-- 0. Spiele & Arcade (GameMonetize & Roblox-Zone) -->
+        <div class="neuro-card" data-target="view-games" data-category="focus" style="border-color: rgba(236,72,153,0.45); box-shadow: 0 0 25px rgba(236,72,153,0.22); background: radial-gradient(circle at 50% 0%, rgba(35, 15, 50, 0.95), rgba(15, 20, 32, 0.95));">
+          <div class="card-hero-thumb" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+            <span class="card-hero-icon" style="font-size:38px;">🎮</span>
+            <span class="card-neu-badge" style="background: linear-gradient(135deg,#ec4899,#f59e0b);">2.000+ GAMES</span>
+          </div>
+          <div class="card-body-content">
+            <div class="card-title-row">
+              <span class="card-title-text" style="color: #f472b6; font-size:15px; font-weight:900;">Spiele & Arcade (Roblox-Zone)</span>
+            </div>
+            <p class="card-desc-text">2.000+ handverlesene Games live von GameMonetize. Sofort 1-Klick Vollbild, Action, 3D, Rennspiele & Obbys!</p>
+            <div class="card-bottom-row">
+              <div class="card-tags-wrap">
+                <span class="card-pill-tag" style="color:#f472b6; border-color:rgba(236,72,153,0.4);">🎮 Arcade</span>
+                <span class="card-pill-tag">🔥 Roblox-Style</span>
+                <span class="card-pill-tag">⛶ Vollbild</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <!-- 1. Fokus-Flow (Pomodoro / Konzentration) -->
         <div class="neuro-card" data-target="view-breathing" data-category="focus">
@@ -4805,6 +5169,108 @@
 <!-- ============================================================== -->
 <!-- 26. SOUNDSCAPE & BROWN NOISE                                   -->
 <!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- VIEW: NEUROARCADE - ROBLOX & GAMEMONETIZE HUB                  -->
+<!-- ============================================================== -->
+<div class="app-view" id="view-games">
+  <div class="view-nav">
+    <button class="nav-back-btn" data-back="view-hub">← Hauptmenü</button>
+    <div class="view-title-pill"><span>🎮</span> NeuroArcade - Roblox & HTML5 Zone</div>
+    <div style="margin-left:auto; display:flex; align-items:center; gap:10px;">
+      <button class="tool-pill-btn" id="btn-random-game" style="background:linear-gradient(135deg,#f59e0b,#ef4444); color:#fff; border:none; box-shadow:0 0 12px rgba(245,158,11,0.4);">
+        🎲 Zufälliges Spiel
+      </button>
+      <div style="font-size:11px; font-weight:800; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.5); color:#f472b6; padding:4px 10px; border-radius:12px;">
+        ⚡ 2.000+ Games Live
+      </div>
+    </div>
+  </div>
+
+  <div class="games-hub-wrapper">
+    <!-- Hero Header -->
+    <div class="games-hero-banner">
+      <div>
+        <div class="games-hero-title">
+          <span>🔥</span> DIE ULTIMATIVE ADHS GAMING-ZONE
+          <span style="font-size:11px; font-weight:900; background:#ec4899; color:#fff; padding:3px 8px; border-radius:8px;">ROBLOX VIBES</span>
+        </div>
+        <p class="games-hero-sub">
+          2.000+ kostenlose HTML5 Games direkt im Browser zocken. Mit 1-Klick Vollbildmodus, flüssigem Sound und sofortigen XP-Belohnungen für jedes Spiel!
+        </p>
+      </div>
+
+      <!-- Live Search Box -->
+      <div class="games-search-bar-wrap">
+        <span>🔍</span>
+        <input type="text" id="games-search-input" placeholder="Spiel suchen (z. B. Car, 3D, Obby, Runner, Stickman)..." autocomplete="off">
+        <span id="games-count-pill" style="font-size:11px; color:#94a3b8; font-weight:700;">2000</span>
+      </div>
+    </div>
+
+    <!-- Category Pills Bar -->
+    <div class="games-category-bar" id="games-category-bar">
+      <button class="game-cat-pill active" data-cat="all">🔥 Alle Trends (Top)</button>
+      <button class="game-cat-pill" data-cat="Racing">🚗 Racing & Autos</button>
+      <button class="game-cat-pill" data-cat="Action">⚔️ Action & Kämpfe</button>
+      <button class="game-cat-pill" data-cat="Arcade">🏃 Arcade & Obbys</button>
+      <button class="game-cat-pill" data-cat="Shooting">🎯 Shooter & Sniper</button>
+      <button class="game-cat-pill" data-cat="Adventure">🗺️ Adventure & 3D</button>
+      <button class="game-cat-pill" data-cat="Puzzle">🧩 Puzzle & Logik</button>
+      <button class="game-cat-pill" data-cat="Hypercasual">🕹️ Hypercasual</button>
+      <button class="game-cat-pill" data-cat="Sports">⚽ Sport & Fußball</button>
+    </div>
+
+    <!-- Games Grid -->
+    <div class="games-portal-grid" id="games-portal-grid">
+      <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #94a3b8; font-size: 15px; font-weight: 800;">
+        ⚡ Lade 2.000+ Games aus dem GameMonetize Feed...
+      </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div style="text-align:center; margin-top:35px;">
+      <button id="btn-load-more-games" style="padding:12px 30px; border-radius:18px; background:linear-gradient(135deg,rgba(56,189,248,0.2),rgba(168,85,247,0.2)); border:1px solid rgba(56,189,248,0.4); color:#38bdf8; font-size:14px; font-weight:900; cursor:pointer; box-shadow:0 0 20px rgba(56,189,248,0.2); transition:all 0.2s ease;">
+        ⚡ Mehr Spiele anzeigen
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- MODAL: FULLSCREEN GAME PLAYER (ROBLOX STYLE)                   -->
+<!-- ============================================================== -->
+<div id="game-player-modal">
+  <div class="game-player-topbar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button class="game-player-action-btn" id="btn-close-game-player">
+        ← Zurück zur Spielübersicht
+      </button>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:20px;" id="game-active-icon">🎮</span>
+        <span style="font-size:15px; font-weight:900; color:#fff;" id="game-active-title">Spiel lädt...</span>
+        <span style="font-size:10px; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.5); color:#f472b6; font-weight:800; padding:2px 7px; border-radius:6px;" id="game-active-cat">ARCADE</span>
+      </div>
+    </div>
+
+    <div class="game-player-controls">
+      <button class="game-player-action-btn fullscreen-btn" id="btn-fullscreen-game" title="Vollbildmodus aktivieren">
+        ⛶ VOLLBILD
+      </button>
+      <button class="game-player-action-btn" id="btn-reload-game" title="Spiel neu starten">
+        🔄 Neustart
+      </button>
+      <button class="game-player-action-btn" id="btn-exit-game" style="padding:7px 11px;">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <div class="game-player-iframe-wrap" id="game-player-frame-wrap">
+    <iframe id="game-active-frame" src="about:blank" allow="fullscreen; autoplay; gamepad; microphone"></iframe>
+  </div>
+</div>
+
 <div class="app-view" id="view-soundscape">
   <div class="view-nav">
     <button class="nav-back-btn" data-back="view-hub">← Hauptmenü</button>
@@ -9359,16 +9825,22 @@ document.addEventListener('DOMContentLoaded', () => {
 class ParticleGravitron {
   constructor() {
     this.canvas = document.getElementById('particles-canvas');
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = this.canvas ? this.canvas.getContext('2d') : null;
     this.particles = [];
     this.mouse = { x: 0, y: 0, down: false, active: false, mode: 'attract' };
-    this.resize();
-    this.initParticles();
-    this.bindEvents();
-    window.addEventListener('resize', () => {
+    this.colorTheme = 'nebula'; // 'nebula' | 'solar' | 'cyber' | 'matrix'
+    this.shockwaves = [];
+    this.humOsc = null;
+    this.humGain = null;
+    this.particleCount = 4200;
+
+    if (this.canvas) {
       this.resize();
-    });
-    requestAnimationFrame(() => this.loop());
+      this.initParticles();
+      this.bindEvents();
+      window.addEventListener('resize', () => this.resize());
+      requestAnimationFrame(() => this.loop());
+    }
   }
 
   resize() {
@@ -9377,26 +9849,42 @@ class ParticleGravitron {
     this.canvas.height = window.innerHeight;
   }
 
+  getPalette() {
+    if (this.colorTheme === 'solar') {
+      return ['#f59e0b', '#ef4444', '#fbbf24', '#f97316', '#ffedd5', '#ea580c'];
+    } else if (this.colorTheme === 'matrix') {
+      return ['#10b981', '#00e676', '#34d399', '#6ee7b7', '#a7f3d0', '#059669'];
+    } else if (this.colorTheme === 'cyber') {
+      return ['#ec4899', '#f43f5e', '#a855f7', '#38bdf8', '#00e676', '#fbbf24'];
+    }
+    // Default: Deep Nebula
+    return ['#38bdf8', '#818cf8', '#c084fc', '#a855f7', '#67e8f9', '#f472b6', '#3b82f6'];
+  }
+
   initParticles() {
     this.particles = [];
-    const count = 3200;
-    const colors = ['#00e676', '#38bdf8', '#c084fc', '#f43f5e', '#fbbf24', '#22d3ee', '#a855f7'];
-    const w = this.canvas.width || window.innerWidth || 800;
-    const h = this.canvas.height || window.innerHeight || 600;
-    for (let i = 0; i < count; i++) {
+    const colors = this.getPalette();
+    const w = this.canvas ? (this.canvas.width || window.innerWidth) : 800;
+    const h = this.canvas ? (this.canvas.height || window.innerHeight) : 600;
+
+    for (let i = 0; i < this.particleCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 1.5;
       this.particles.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 1.5,
-        vy: (Math.random() - 0.5) * 1.5,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
         color: colors[Math.floor(Math.random() * colors.length)],
-        size: Math.random() * 2.2 + 1,
-        origSize: Math.random() * 2.2 + 1
+        size: Math.random() * 2.2 + 0.9,
+        baseSize: Math.random() * 2.2 + 0.9
       });
     }
   }
 
   bindEvents() {
+    if (!this.canvas) return;
+
     const setMouse = (e, isDown) => {
       const rect = this.canvas.getBoundingClientRect();
       const x = e.touches ? e.touches[0].clientX : e.clientX;
@@ -9404,26 +9892,75 @@ class ParticleGravitron {
       this.mouse.x = x - rect.left;
       this.mouse.y = y - rect.top;
       this.mouse.active = true;
-      if (isDown !== undefined) this.mouse.down = isDown;
+      if (isDown !== undefined) {
+        this.mouse.down = isDown;
+        if (isDown) {
+          this.startCosmicSound();
+          if (window.dopamineEngine) window.dopamineEngine.registerAction();
+        } else {
+          this.stopCosmicSound();
+        }
+      }
     };
 
     this.canvas.addEventListener('mousedown', (e) => setMouse(e, true));
     window.addEventListener('mousemove', (e) => setMouse(e));
-    window.addEventListener('mouseup', () => { this.mouse.down = false; });
+    window.addEventListener('mouseup', () => {
+      this.mouse.down = false;
+      this.stopCosmicSound();
+    });
 
     this.canvas.addEventListener('touchstart', (e) => { setMouse(e, true); }, { passive: true });
     this.canvas.addEventListener('touchmove', (e) => { setMouse(e, true); }, { passive: true });
-    window.addEventListener('touchend', () => { this.mouse.down = false; this.mouse.active = false; });
+    window.addEventListener('touchend', () => {
+      this.mouse.down = false;
+      this.mouse.active = false;
+      this.stopCosmicSound();
+    });
 
+    // Double click triggers Supernova shockwave burst!
+    this.canvas.addEventListener('dblclick', (e) => {
+      const rect = this.canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      this.triggerSupernova(x, y);
+    });
+
+    // Mode Buttons
     document.querySelectorAll('[data-part-mode]').forEach(b => {
       b.addEventListener('click', () => {
         document.querySelectorAll('[data-part-mode]').forEach(btn => btn.classList.remove('active'));
         b.classList.add('active');
-        this.mouse.mode = b.dataset.partMode;
+        this.mouse.mode = b.dataset.partMode || 'attract';
         if (window.audio) audio.playPop(350);
       });
     });
 
+    // Theme Toggle
+    const themeBtn = document.getElementById('btn-part-theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const themes = ['nebula', 'solar', 'cyber', 'matrix'];
+        const curIdx = themes.indexOf(this.colorTheme);
+        this.colorTheme = themes[(curIdx + 1) % themes.length];
+        themeBtn.textContent = '🎨 ' + this.colorTheme.toUpperCase();
+        this.initParticles();
+        if (window.audio) audio.playPop(480);
+      });
+    }
+
+    // Turbo Particle Count
+    const turboBtn = document.getElementById('btn-part-turbo');
+    if (turboBtn) {
+      turboBtn.addEventListener('click', () => {
+        this.particleCount = (this.particleCount === 4200) ? 6500 : 4200;
+        turboBtn.textContent = '⚡ ' + this.particleCount + ' Sterne';
+        this.initParticles();
+        if (window.audio) audio.playLevelUpChime();
+      });
+    }
+
+    // Reset Button
     const resetBtn = document.getElementById('btn-particles-reset');
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
@@ -9433,23 +9970,116 @@ class ParticleGravitron {
     }
   }
 
+  triggerSupernova(x, y) {
+    this.shockwaves.push({ x, y, r: 10, maxR: 260, alpha: 1.0 });
+    for (let i = 0; i < this.particles.length; i++) {
+      const p = this.particles[i];
+      const dx = p.x - x;
+      const dy = p.y - y;
+      const dist = Math.hypot(dx, dy) + 1;
+      if (dist < 300) {
+        const force = (300 - dist) / 12;
+        p.vx += (dx / dist) * force * 4;
+        p.vy += (dy / dist) * force * 4;
+      }
+    }
+    if (window.audio) audio.playLootDropSound(true);
+    if (window.masteryEngine) window.masteryEngine.addXp(30, '💥 SUPERNOVA');
+  }
+
+  startCosmicSound() {
+    if (!window.audio || !window.audio.ctx) return;
+    try {
+      if (this.humOsc) return;
+      const ctx = window.audio.ctx;
+      this.humOsc = ctx.createOscillator();
+      this.humGain = ctx.createGain();
+      this.humOsc.type = 'sine';
+      this.humOsc.frequency.setValueAtTime(110, ctx.currentTime);
+      this.humGain.gain.setValueAtTime(0.001, ctx.currentTime);
+      this.humGain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.3);
+      this.humOsc.connect(this.humGain);
+      this.humGain.connect(ctx.destination);
+      this.humOsc.start();
+    } catch(e) {}
+  }
+
+  stopCosmicSound() {
+    if (!this.humGain) return;
+    try {
+      const ctx = window.audio ? window.audio.ctx : null;
+      if (ctx) {
+        this.humGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+        setTimeout(() => {
+          if (this.humOsc) {
+            this.humOsc.stop();
+            this.humOsc.disconnect();
+            this.humOsc = null;
+            this.humGain = null;
+          }
+        }, 320);
+      }
+    } catch(e) {}
+  }
+
   loop() {
-    if (document.getElementById('view-particles') && document.getElementById('view-particles').classList.contains('active')) {
+    const view = document.getElementById('view-particles');
+    if (view && view.classList.contains('active')) {
       const w = this.canvas.width;
       const h = this.canvas.height;
       if (w === 0 || h === 0) {
         this.resize();
       }
 
-      this.ctx.fillStyle = 'rgba(5, 7, 12, 0.22)';
+      // Smooth cosmic trail persistence
+      this.ctx.fillStyle = 'rgba(4, 7, 16, 0.2)';
       this.ctx.fillRect(0, 0, w, h);
 
       const mx = this.mouse.x;
       const my = this.mouse.y;
-      // Gravitation reagiert ERST WENN MAN KLICKT!
       const isInteracting = this.mouse.down;
-      const forceMult = 1.0;
+      const mode = this.mouse.mode || 'attract';
 
+      // Accretion disk event horizon glow around cursor
+      if (isInteracting && mx > 0 && my > 0) {
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(mx, my, mode === 'repel' ? 45 : 32, 0, Math.PI * 2);
+        this.ctx.strokeStyle = mode === 'repel' ? 'rgba(239, 68, 68, 0.6)' : 'rgba(56, 189, 248, 0.6)';
+        this.ctx.lineWidth = 2.5;
+        this.ctx.shadowColor = mode === 'repel' ? '#ef4444' : '#38bdf8';
+        this.ctx.shadowBlur = 18;
+        this.ctx.stroke();
+
+        this.ctx.beginPath();
+        this.ctx.arc(mx, my, 8, 0, Math.PI * 2);
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.fill();
+        this.ctx.restore();
+
+        // Modulate sound pitch based on mouse interaction
+        if (this.humOsc && window.audio && window.audio.ctx) {
+          const targetFreq = mode === 'vortex' ? 220 : (mode === 'repel' ? 140 : 180);
+          this.humOsc.frequency.setTargetAtTime(targetFreq, window.audio.ctx.currentTime, 0.1);
+        }
+      }
+
+      // Render shockwaves
+      for (let sIdx = this.shockwaves.length - 1; sIdx >= 0; sIdx--) {
+        const sw = this.shockwaves[sIdx];
+        sw.r += 12;
+        sw.alpha *= 0.94;
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
+        this.ctx.strokeStyle = 'rgba(56, 189, 248, ' + sw.alpha + ')';
+        this.ctx.lineWidth = 3;
+        this.ctx.stroke();
+        this.ctx.restore();
+        if (sw.alpha < 0.05) this.shockwaves.splice(sIdx, 1);
+      }
+
+      // Physics loop
       for (let i = 0; i < this.particles.length; i++) {
         const p = this.particles[i];
 
@@ -9457,39 +10087,58 @@ class ParticleGravitron {
           const dx = mx - p.x;
           const dy = my - p.y;
           const dist = Math.hypot(dx, dy) + 12;
-          const force = (550 / (dist * dist)) * forceMult;
+          const force = (650 / (dist * dist));
 
           if (mode === 'attract') {
-            p.vx += (dx / dist) * force * 18;
-            p.vy += (dy / dist) * force * 18;
+            // Relativistic black hole pull with light swirl
+            p.vx += (dx / dist) * force * 22;
+            p.vy += (dy / dist) * force * 22;
           } else if (mode === 'repel') {
-            p.vx -= (dx / dist) * force * 28;
-            p.vy -= (dy / dist) * force * 28;
+            // Explosive Supernova
+            p.vx -= (dx / dist) * force * 32;
+            p.vy -= (dy / dist) * force * 32;
           } else if (mode === 'vortex') {
-            p.vx += (-dy / dist) * force * 24 + (dx / dist) * 1.5;
-            p.vy += (dx / dist) * force * 24 + (dy / dist) * 1.5;
+            // Galactic spiral vortex (tangential speed + inward pull)
+            p.vx += (-dy / dist) * force * 28 + (dx / dist) * 2.2;
+            p.vy += (dx / dist) * force * 28 + (dy / dist) * 2.2;
+          } else if (mode === 'quantum') {
+            // Harmonic wave undulation
+            const wave = Math.sin(p.x * 0.02 + Date.now() * 0.003) * 1.8;
+            p.vx += (dx / dist) * force * 14 + wave;
+            p.vy += (dy / dist) * force * 14 - wave;
           }
         }
 
         p.x += p.vx;
         p.y += p.vy;
-        p.vx *= 0.975;
-        p.vy *= 0.975;
+        p.vx *= 0.978;
+        p.vy *= 0.978;
 
-        // Wrap around boundaries
+        // Wrap boundaries
         if (p.x < 0) p.x = w;
         if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h;
         if (p.y > h) p.y = 0;
 
-        this.ctx.fillStyle = p.color;
-        this.ctx.fillRect(p.x, p.y, p.size, p.size);
+        // Speed-based dynamic radiant heat map
+        const spd = Math.hypot(p.vx, p.vy);
+        if (spd > 7) {
+          this.ctx.fillStyle = '#ffffff'; // White singularity
+        } else if (spd > 4) {
+          this.ctx.fillStyle = '#fbbf24'; // Radiant gold
+        } else {
+          this.ctx.fillStyle = p.color;
+        }
+
+        const sz = spd > 5 ? p.size * 1.5 : p.size;
+        this.ctx.fillRect(p.x, p.y, sz, sz);
       }
     }
     requestAnimationFrame(() => this.loop());
   }
 }
 window.particles = new ParticleGravitron();
+
 </script>
 
 <!-- ============================================================== -->
@@ -12653,6 +13302,284 @@ class DopamineVaultEngine {
 
 document.addEventListener('DOMContentLoaded', () => {
   window.dopamineEngine = new DopamineVaultEngine();
+});
+</script>
+
+
+<!-- ============================================================== -->
+<!-- SCRIPT: NEUROARCADE - ROBLOX & GAMEMONETIZE PORTAL ENGINE       -->
+<!-- ============================================================== -->
+<script>
+class NeuroArcadeEngine {
+  constructor() {
+    this.feedUrl = 'https://gamemonetize.com/feed.php?format=0&page=1';
+    this.allGames = [];
+    this.displayedGames = [];
+    this.currentCat = 'all';
+    this.searchQuery = '';
+    this.page = 1;
+    this.pageSize = 28;
+    this.activeGame = null;
+    this.gamingStartTime = 0;
+    this.gamingXpInterval = null;
+
+    this.grid = document.getElementById('games-portal-grid');
+    this.searchInput = document.getElementById('games-search-input');
+    this.countPill = document.getElementById('games-count-pill');
+    this.loadMoreBtn = document.getElementById('btn-load-more-games');
+    this.playerModal = document.getElementById('game-player-modal');
+    this.playerFrame = document.getElementById('game-active-frame');
+    this.playerTitle = document.getElementById('game-active-title');
+    this.playerCat = document.getElementById('game-active-cat');
+    this.fullscreenBtn = document.getElementById('btn-fullscreen-game');
+    this.reloadBtn = document.getElementById('btn-reload-game');
+    this.closeBtn = document.getElementById('btn-close-game-player');
+    this.exitBtn = document.getElementById('btn-exit-game');
+    this.randomBtn = document.getElementById('btn-random-game');
+
+    this.init();
+  }
+
+  init() {
+    this.bindEvents();
+    this.fetchGamesFeed();
+  }
+
+  bindEvents() {
+    // Nav sidebar button
+    const navBtn = document.getElementById('btn-open-games-hub');
+    if (navBtn) {
+      navBtn.addEventListener('click', () => {
+        if (typeof switchView === 'function') {
+          switchView('view-games');
+          if (window.audio) audio.playPop(480);
+        }
+      });
+    }
+
+    // Search input
+    if (this.searchInput) {
+      this.searchInput.addEventListener('input', (e) => {
+        this.searchQuery = e.target.value.toLowerCase().trim();
+        this.page = 1;
+        this.filterAndRender();
+      });
+    }
+
+    // Category pills
+    document.querySelectorAll('.game-cat-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.game-cat-pill').forEach(b => b.classList.remove('active'));
+        pill.classList.add('active');
+        this.currentCat = pill.dataset.cat || 'all';
+        this.page = 1;
+        this.filterAndRender();
+        if (window.audio) audio.playPop(360);
+      });
+    });
+
+    // Load more
+    if (this.loadMoreBtn) {
+      this.loadMoreBtn.addEventListener('click', () => {
+        this.page++;
+        this.renderGrid(true);
+        if (window.audio) audio.playPop(420);
+      });
+    }
+
+    // Random Game
+    if (this.randomBtn) {
+      this.randomBtn.addEventListener('click', () => this.launchRandomGame());
+    }
+
+    // Player modal controls
+    if (this.closeBtn) this.closeBtn.addEventListener('click', () => this.closePlayer());
+    if (this.exitBtn) this.exitBtn.addEventListener('click', () => this.closePlayer());
+
+    if (this.reloadBtn) {
+      this.reloadBtn.addEventListener('click', () => {
+        if (this.activeGame && this.playerFrame) {
+          this.playerFrame.src = this.activeGame.url;
+          if (window.audio) audio.playPop(500);
+        }
+      });
+    }
+
+    if (this.fullscreenBtn) {
+      this.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+    }
+  }
+
+  async fetchGamesFeed() {
+    try {
+      const res = await fetch(this.feedUrl);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        this.allGames = data;
+        localStorage.setItem('neuro_cached_games_count', data.length.toString());
+        this.filterAndRender();
+        console.log('GameMonetize: Loaded ' + data.length + ' live games.');
+      }
+    } catch(err) {
+      console.warn('GameMonetize live feed warning, loading fallback games:', err.message);
+      this.loadFallbackGames();
+    }
+  }
+
+  loadFallbackGames() {
+    this.allGames = [
+      { title: 'Villadash Hero Rescue', category: 'Adventure', thumb: 'https://img.gamemonetize.com/901eh9sn07eefyfjkfotl4zv432wgvud/512x384.jpg', url: 'https://html5.gamemonetize.co/901eh9sn07eefyfjkfotl4zv432wgvud/', description: 'Rette dein Dorf in diesem epischen Action-Adventure!' },
+      { title: 'Steal Car Duel', category: 'Action', thumb: 'https://img.gamemonetize.com/ue3nhk2f20r984onh9u9nst268a9yh5r/512x384.jpg', url: 'https://html5.gamemonetize.co/ue3nhk2f20r984onh9u9nst268a9yh5r/', description: 'Rennsport, Verfolgungsjagd und rasante Drifts im Vollbild!' },
+      { title: 'Simulator GT Motorsport', category: 'Racing', thumb: 'https://img.gamemonetize.com/f6nitbpjolxwjywr1u78jybbvj0wnzkt/512x384.jpg', url: 'https://html5.gamemonetize.co/f6nitbpjolxwjywr1u78jybbvj0wnzkt/', description: 'Echtes Rennwagen-Feeling mit ultra-schnellem Gameplay.' },
+      { title: 'Block Drop Escape Puzzle', category: 'Puzzle', thumb: 'https://img.gamemonetize.com/zef4dbx833cpmmgfswkva8eaj811jfym/512x384.jpg', url: 'https://html5.gamemonetize.co/zef4dbx833cpmmgfswkva8eaj811jfym/', description: 'Knifflige Block-Rätsel zur perfekten Fokussierung.' },
+      { title: 'Mud Truck Simulator Game', category: 'Racing', thumb: 'https://img.gamemonetize.com/spxackbi5osov27qpzzmtogq2lj0ag4d/512x384.jpg', url: 'https://html5.gamemonetize.co/spxackbi5osov27qpzzmtogq2lj0ag4d/', description: 'Offroad-Action durch extremen Schlamm und Hindernisse.' },
+      { title: 'Void Rescue', category: 'Hypercasual', thumb: 'https://img.gamemonetize.com/bgf1ck5e398663kzfqn1ogx3avjkxg11/512x384.jpg', url: 'https://html5.gamemonetize.co/bgf1ck5e398663kzfqn1ogx3avjkxg11/', description: 'Schnelle Reflexe und unendlicher Dopamin-Highscore!' }
+    ];
+    this.filterAndRender();
+  }
+
+  filterAndRender() {
+    let filtered = this.allGames;
+
+    if (this.currentCat !== 'all') {
+      const c = this.currentCat.toLowerCase();
+      filtered = filtered.filter(g => (g.category || '').toLowerCase().includes(c));
+    }
+
+    if (this.searchQuery) {
+      filtered = filtered.filter(g => 
+        (g.title || '').toLowerCase().includes(this.searchQuery) ||
+        (g.category || '').toLowerCase().includes(this.searchQuery) ||
+        (g.description || '').toLowerCase().includes(this.searchQuery)
+      );
+    }
+
+    this.displayedGames = filtered;
+    if (this.countPill) this.countPill.textContent = filtered.length;
+    this.renderGrid(false);
+  }
+
+  renderGrid(append = false) {
+    if (!this.grid) return;
+    if (!append) this.grid.innerHTML = '';
+
+    const start = append ? (this.page - 1) * this.pageSize : 0;
+    const end = this.page * this.pageSize;
+    const slice = this.displayedGames.slice(start, end);
+
+    if (slice.length === 0 && !append) {
+      this.grid.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #94a3b8; font-size: 15px;">
+          Keine Spiele gefunden für diese Suche. Probiere eine andere Kategorie!
+        </div>
+      `;
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    slice.forEach(game => {
+      const card = document.createElement('div');
+      card.className = 'game-portal-card';
+      const rating = (4.7 + Math.random() * 0.29).toFixed(1);
+
+      card.innerHTML = `
+        <div class="game-card-thumb-wrap">
+          <img src="${game.thumb}" alt="${this.escape(game.title)}" class="game-card-thumb-img" loading="lazy">
+          <div class="game-card-top-pill">${this.escape(game.category || 'Arcade')}</div>
+          <div class="game-card-rating-pill">⭐ ${rating}</div>
+        </div>
+        <div class="game-card-info-wrap">
+          <div class="game-card-title">${this.escape(game.title)}</div>
+          <div class="game-card-desc">${this.escape(game.description || 'Spiele jetzt direkt im Vollbildmodus!')}</div>
+          <button class="game-card-play-btn">
+            <span>🎮</span> JETZT SPIELEN
+          </button>
+        </div>
+      `;
+
+      card.addEventListener('click', () => this.launchGame(game));
+      fragment.appendChild(card);
+    });
+
+    this.grid.appendChild(fragment);
+
+    if (this.loadMoreBtn) {
+      this.loadMoreBtn.style.display = (end >= this.displayedGames.length) ? 'none' : 'inline-block';
+    }
+  }
+
+  launchGame(game) {
+    this.activeGame = game;
+    if (!this.playerModal || !this.playerFrame) return;
+
+    if (this.playerTitle) this.playerTitle.textContent = game.title;
+    if (this.playerCat) this.playerCat.textContent = (game.category || 'ARCADE').toUpperCase();
+    this.playerFrame.src = game.url;
+    this.playerModal.classList.add('active');
+
+    // Reward XP & audio
+    if (window.audio) audio.playLevelUpChime();
+    if (window.masteryEngine) window.masteryEngine.addXp(35, '🎮 GAMING-START');
+    if (window.dopamineEngine) window.dopamineEngine.addSparks(25);
+
+    // Track play time rewards (Every 90s awards +20 XP!)
+    clearInterval(this.gamingXpInterval);
+    this.gamingXpInterval = setInterval(() => {
+      if (this.playerModal.classList.contains('active')) {
+        if (window.masteryEngine) window.masteryEngine.addXp(20, '🔥 GAMING-STREAK');
+      }
+    }, 90000);
+  }
+
+  launchRandomGame() {
+    if (this.displayedGames.length === 0) return;
+    const random = this.displayedGames[Math.floor(Math.random() * this.displayedGames.length)];
+    this.launchGame(random);
+  }
+
+  closePlayer() {
+    if (!this.playerModal || !this.playerFrame) return;
+    this.playerModal.classList.remove('active');
+    this.playerFrame.src = 'about:blank';
+    this.activeGame = null;
+    clearInterval(this.gamingXpInterval);
+
+    // Exit fullscreen if active
+    if (document.fullscreenElement) {
+      try { document.exitFullscreen(); } catch(e) {}
+    }
+    if (window.audio) audio.playPop(300);
+  }
+
+  toggleFullscreen() {
+    const el = document.getElementById('game-player-frame-wrap') || this.playerModal;
+    if (!document.fullscreenElement) {
+      if (el.requestFullscreen) {
+        el.requestFullscreen();
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      } else if (el.msRequestFullscreen) {
+        el.msRequestFullscreen();
+      }
+      if (this.fullscreenBtn) this.fullscreenBtn.textContent = '🗗 FENSTER';
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      if (this.fullscreenBtn) this.fullscreenBtn.textContent = '⛶ VOLLBILD';
+    }
+  }
+
+  escape(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.arcadeEngine = new NeuroArcadeEngine();
 });
 </script>
 
