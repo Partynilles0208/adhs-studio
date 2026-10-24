@@ -5144,6 +5144,9 @@
         <button class="nav-menu-item" id="btn-open-ai-tools" style="position:relative;">
           <span>🤖</span> AI Tools <span style="font-size:9px; background:linear-gradient(135deg,#10b981,#38bdf8); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(16,185,129,0.5);">LIVE ⚡</span>
         </button>
+                <button class="nav-menu-item" id="btn-sidebar-3d-intro" style="position:relative; background:linear-gradient(135deg,rgba(56,189,248,0.12),rgba(236,72,153,0.12)); border:1px solid rgba(56,189,248,0.35); color:#38bdf8; font-weight:800;" onclick="if(window.open3DIntroModal) window.open3DIntroModal();">
+          <span>🎬</span> 3D Intro <span style="font-size:9.5px; background:linear-gradient(135deg,#38bdf8,#ec4899); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto;">BLENDER</span>
+        </button>
         <button class="nav-menu-item" id="btn-open-onboarding-wizard" style="position:relative; background:rgba(236,72,153,0.08); border:1px solid rgba(236,72,153,0.25);" onclick="if(window.personalizationWizard) window.personalizationWizard.open();">
           <span>💖</span> Mein Profil <span style="font-size:9.5px; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800; padding:1px 7px; border-radius:10px; margin-left:auto;">Setup</span>
         </button>
@@ -5231,6 +5234,9 @@
           </button>
           <button class="header-pill-btn secret-vault-btn" id="btn-secret-vault-open" onclick="if(window.dopamineEngine) window.dopamineEngine.openVault();" title="XP Kick-Tresor öffnen">
             <span>🎁</span> Geheim-Tresor
+          </button>
+          <button class="header-pill-btn" id="btn-header-3d-intro" style="background:linear-gradient(135deg, rgba(56,189,248,0.2), rgba(236,72,153,0.2)); border:1px solid rgba(56,189,248,0.5); color:#38bdf8; font-weight:800;" onclick="if(window.open3DIntroModal) window.open3DIntroModal();" title="Blender 3D Intro ansehen">
+            <span>🎬</span> 3D Intro
           </button>
           <button class="header-pill-btn" id="btn-open-relics">
             <span>🏆</span> Relikte
@@ -14096,7 +14102,89 @@ bindEvents() {
   <!-- ============================================================== -->
   <!-- MODAL: XP KICK-TRESOR (VARIABLE RATIO REINFORCEMENT LOOTBOX)   -->
   <!-- ============================================================== -->
-  <div class="dopamine-modal-backdrop" id="dopamine-vault-modal">
+  
+<!-- ============================================================== -->
+<!-- 3D BLENDER INTRO SHOWCASE MODAL                                 -->
+<!-- ============================================================== -->
+<div class="onboarding-overlay" id="modal-3d-intro" style="display:none; z-index:999999; backdrop-filter:blur(16px); background:rgba(4,7,18,0.88);">
+  <div class="onboarding-modal-card" style="max-width:880px; width:92%; background:linear-gradient(145deg, #0d121f, #070a12); border:1px solid rgba(56,189,248,0.35); box-shadow:0 0 50px rgba(56,189,248,0.25); border-radius:20px; padding:24px; color:#fff;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:28px;">🎬</span>
+        <div>
+          <h2 style="font-size:22px; font-weight:900; background:linear-gradient(135deg, #38bdf8, #ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:0;">
+            NeuroSpace Studio – 3D Blender Intro
+          </h2>
+          <p style="font-size:12px; color:#94a3b8; margin:2px 0 0;">
+            Prozedural in Blender 5.2.1 LTS generiert • Quantum-Core, Tri-Orbit-Ringe & EEVEE Ray-Glow
+          </p>
+        </div>
+      </div>
+      <button onclick="window.close3DIntroModal();" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:#fff; font-size:18px; width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+    </div>
+
+    <!-- Media Display Area -->
+    <div style="position:relative; border-radius:14px; overflow:hidden; border:1px solid rgba(56,189,248,0.4); box-shadow:0 0 30px rgba(56,189,248,0.15); background:#02040a;">
+      <img id="intro-3d-player-img" src="neurospace_3d_intro.webp" alt="NeuroSpace 3D Intro" style="width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover;">
+      <div style="position:absolute; bottom:12px; left:12px; display:flex; gap:8px;">
+        <span style="font-size:11px; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); border:1px solid rgba(56,189,248,0.5); color:#38bdf8; font-weight:800; padding:4px 10px; border-radius:8px;">
+          ⚡ 3D ANIMATION LOOP
+        </span>
+        <span style="font-size:11px; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); border:1px solid rgba(236,72,153,0.5); color:#f472b6; font-weight:800; padding:4px 10px; border-radius:8px;">
+          CYBER EEVEE
+        </span>
+      </div>
+    </div>
+
+    <!-- Features & Download Actions -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-top:16px;">
+      <a href="neurospace_3d_intro.glb" download="neurospace_3d_intro.glb" style="text-decoration:none; display:flex; align-items:center; gap:10px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); padding:10px 14px; border-radius:10px; color:#38bdf8; font-weight:700; font-size:13px; transition:all 0.2s;">
+        <span style="font-size:20px;">📦</span>
+        <div>
+          <div>3D Web Model (.GLB)</div>
+          <div style="font-size:10.5px; color:#94a3b8; font-weight:400;">860 KB • Web & Three.js</div>
+        </div>
+      </a>
+      <a href="neurospace_3d_intro.blend" download="neurospace_3d_intro.blend" style="text-decoration:none; display:flex; align-items:center; gap:10px; background:rgba(249,115,22,0.12); border:1px solid rgba(249,115,22,0.3); padding:10px 14px; border-radius:10px; color:#fb923c; font-weight:700; font-size:13px; transition:all 0.2s;">
+        <span style="font-size:20px;">🎨</span>
+        <div>
+          <div>Blender Projekt (.BLEND)</div>
+          <div style="font-size:10.5px; color:#94a3b8; font-weight:400;">148 KB • Blender 5.2+</div>
+        </div>
+      </a>
+      <a href="neurospace_3d_intro.png" target="_blank" style="text-decoration:none; display:flex; align-items:center; gap:10px; background:rgba(168,85,247,0.12); border:1px solid rgba(168,85,247,0.3); padding:10px 14px; border-radius:10px; color:#c084fc; font-weight:700; font-size:13px; transition:all 0.2s;">
+        <span style="font-size:20px;">🖼️</span>
+        <div>
+          <div>Hero Render (.PNG)</div>
+          <div style="font-size:10.5px; color:#94a3b8; font-weight:400;">Full HD 1080p • 2.25 MB</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Quick Info Footer -->
+    <div style="margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#94a3b8;">
+      <span>💡 Tipp: Du kannst die .blend-Datei direkt in Blender öffnen oder die .glb-Datei in jedem 3D-Viewer betrachten!</span>
+      <button onclick="window.close3DIntroModal();" style="background:linear-gradient(135deg,#38bdf8,#0284c7); border:none; color:#000; font-weight:800; padding:8px 20px; border-radius:8px; cursor:pointer;">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.open3DIntroModal = function() {
+  const m = document.getElementById('modal-3d-intro');
+  if (m) {
+    m.style.display = 'flex';
+    const img = document.getElementById('intro-3d-player-img');
+    if (img) img.src = 'neurospace_3d_intro.webp?t=' + Date.now();
+  }
+};
+window.close3DIntroModal = function() {
+  const m = document.getElementById('modal-3d-intro');
+  if (m) m.style.display = 'none';
+};
+</script>
+
+<div class="dopamine-modal-backdrop" id="dopamine-vault-modal">
     <div class="dopamine-modal-card">
       <button style="position:absolute; top:18px; right:20px; background:transparent; border:none; color:#94a3b8; font-size:22px; cursor:pointer;" onclick="window.dopamineEngine.closeVault();">✕</button>
       
