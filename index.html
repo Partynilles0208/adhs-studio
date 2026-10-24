@@ -4771,8 +4771,197 @@
     color: #34d399;
   }
 
+
+  /* === ADHD DOPAMIN FIDGET & ENGAGEMENT HOOKS === */
+  .sidebar-fidget-card {
+    margin-top: auto;
+    padding: 12px;
+    background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), rgba(15, 23, 42, 0.75));
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .sidebar-fidget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fidget-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #38bdf8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .fidget-counter-pill {
+    font-size: 10px;
+    font-weight: 800;
+    background: rgba(56, 189, 248, 0.18);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #7dd3fc;
+    padding: 1px 7px;
+    border-radius: 10px;
+  }
+  .sidebar-bubble-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .fidget-pop-bubble {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #38bdf8, #0284c7 60%, #0369a1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.12s, opacity 0.12s;
+    outline: none;
+    padding: 0;
+  }
+  .fidget-pop-bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 12px #38bdf8, inset 0 2px 4px rgba(255, 255, 255, 0.8);
+  }
+  .fidget-pop-bubble.popped {
+    background: radial-gradient(circle at center, #082f49, #0f172a);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.8), 0 0 2px rgba(56, 189, 248, 0.2);
+    transform: scale(0.9);
+    border-color: rgba(56, 189, 248, 0.2);
+    opacity: 0.5;
+  }
+  .fidget-switch-btn {
+    width: 100%;
+    padding: 7px 10px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.18), rgba(168, 85, 247, 0.18));
+    border: 1px solid rgba(236, 72, 153, 0.4);
+    color: #f472b6;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+    user-select: none;
+  }
+  .fidget-switch-btn:hover {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3));
+    border-color: #ec4899;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 0 14px rgba(236, 72, 153, 0.4);
+  }
+  .fidget-switch-btn:active {
+    transform: translateY(2px) scale(0.97);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+  }
+  .sidebar-fidget-status {
+    font-size: 10px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: center;
+  }
+
+  /* FORBIDDEN HAZARD BUTTON */
+  .forbidden-hazard-btn {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(245, 158, 11, 0.22)) !important;
+    border: 1px solid rgba(239, 68, 68, 0.6) !important;
+    color: #fca5a5 !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px;
+    animation: hazardPulse 2.4s ease-in-out infinite;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .forbidden-hazard-btn:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(245, 158, 11, 0.4)) !important;
+    border-color: #ef4444 !important;
+    color: #ffffff !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(239, 68, 68, 0.65);
+  }
+  .forbidden-hazard-btn:active {
+    transform: scale(0.96);
+  }
+  @keyframes hazardPulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.25); border-color: rgba(239, 68, 68, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.55); border-color: rgba(245, 158, 11, 0.85); }
+  }
+  .btn-wobble {
+    animation: wobbleShake 0.4s ease !important;
+  }
+  @keyframes wobbleShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px) rotate(-3deg); }
+    40% { transform: translateX(6px) rotate(3deg); }
+    60% { transform: translateX(-4px) rotate(-1deg); }
+    80% { transform: translateX(4px) rotate(1deg); }
+  }
+  .screen-micro-shake {
+    animation: screenShakeAnim 0.25s ease-out;
+  }
+  @keyframes screenShakeAnim {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-3px, 2px); }
+    50% { transform: translate(3px, -2px); }
+    75% { transform: translate(-2px, -1px); }
+  }
+
+  /* SECRET VAULT BUTTON */
+  .secret-vault-btn {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.22), rgba(56, 189, 248, 0.22)) !important;
+    border: 1px solid rgba(168, 85, 247, 0.5) !important;
+    color: #e9d5ff !important;
+    font-weight: 800 !important;
+  }
+  .secret-vault-btn:hover {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.38), rgba(56, 189, 248, 0.38)) !important;
+    border-color: #a855f7 !important;
+    color: #fff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 0 16px rgba(168, 85, 247, 0.5);
+  }
+
+  /* CURSOR FLOATING XP PARTICLES */
+  .cursor-xp-float {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999999;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: #fde047;
+    text-shadow: 0 0 10px rgba(253, 224, 71, 0.8), 0 2px 4px rgba(0,0,0,0.9);
+    animation: cursorFloatFade 0.75s ease-out forwards;
+    transform: translate(-50%, -50%);
+  }
+  @keyframes cursorFloatFade {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.85); }
+    40% { opacity: 1; transform: translate(-50%, -75px) scale(1.15); }
+    100% { opacity: 0; transform: translate(-50%, -105px) scale(1); }
+  }
+
+  /* OVERCLOCK FLASH (EASTER EGG) */
+  .overclock-flash {
+    animation: overclockGlow 0.8s ease-out;
+  }
+  @keyframes overclockGlow {
+    0% { box-shadow: inset 0 0 80px rgba(56, 189, 248, 0.8); }
+    50% { box-shadow: inset 0 0 120px rgba(236, 72, 153, 0.8); }
+    100% { box-shadow: inset 0 0 0 rgba(0, 0, 0, 0); }
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
@@ -4781,29 +4970,29 @@
 <!-- ============================================================== -->
 <div id="site-access-gate-overlay">
   <div class="site-gate-card">
-    <div class="site-gate-logo" style="background:radial-gradient(circle,rgba(236,72,153,0.25),rgba(56,189,248,0.2)); border-color:rgba(236,72,153,0.5); box-shadow:0 0 30px rgba(236,72,153,0.3);">
-      💜
+    <div class="site-gate-logo" style="background:radial-gradient(circle,rgba(56,189,248,0.25),rgba(236,72,153,0.2)); border-color:rgba(56,189,248,0.5); box-shadow:0 0 30px rgba(56,189,248,0.35);">
+      🧠
     </div>
-    <div style="font-size:11px; font-weight:900; color:#a7f3d0; letter-spacing:1.5px; text-transform:uppercase;">
-      🛡️ DEIN GESCHÜTZTER RÜCKZUGSORT
+    <div style="font-size:11px; font-weight:900; color:#38bdf8; letter-spacing:1.5px; text-transform:uppercase;">
+      ⚡ DEINE ADHS KOMMANDOZENTRALE
     </div>
     <h1 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 3px;">
-      Willkommen im NeuroSpace
+      Willkommen im NeuroSpace Studio
     </h1>
     <p style="font-size:13px; color:#cbd5e1; line-height:1.45; margin-bottom:12px;">
-      Ein sicherer, werbefreier Hafen für Fokus, Entspannung und sensorischen Ausgleich. Entwickelt mit Verständnis für dein Gehirn.
+      Kein Gelaber, keine Werbung, null Cringe. Pure sensorische Spielzeuge, Fokus-Tools und instant Dopamin auf Knopfdruck.
     </p>
 
-    <!-- Warm Trust Badges -->
+    <!-- Punchy Badges -->
     <div style="display:flex; justify-content:center; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
       <span style="font-size:10.5px; font-weight:800; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); color:#6ee7b7; padding:3px 9px; border-radius:10px;">
-        🔒 100% Privat im Browser
+        🔒 100% Offline & Privat
       </span>
       <span style="font-size:10.5px; font-weight:800; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); color:#7dd3fc; padding:3px 9px; border-radius:10px;">
-        🌿 Reizarm & Werbefrei
+        ⚡ Werbefrei & Ungetrackt
       </span>
       <span style="font-size:10.5px; font-weight:800; background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.35); color:#f472b6; padding:3px 9px; border-radius:10px;">
-        💜 Ohne Leistungsdruck
+        🎮 27 Tools & 2.000+ Games
       </span>
     </div>
 
@@ -4813,11 +5002,11 @@
 
     <!-- Friendly Helper / Code Mention -->
     <div style="font-size:12px; color:#94a3b8; margin-bottom:14px;" id="site-gate-msg">
-      🔒 Gib deinen privaten Zugangscode ein, um den Raum zu betreten.
+      🔑 Zugangscode eingeben & Zentrale starten:
     </div>
 
     <button id="btn-unlock-site-gate" class="site-gate-btn" style="background:linear-gradient(135deg, #10b981, #0284c7); font-size:15px;">
-      <span>Meinen sicheren Raum betreten</span> 💜
+      <span>Zentrale starten</span> 🚀
     </button>
   </div>
 </div>
@@ -4831,7 +5020,7 @@
 
     <!-- LEFT SIDEBAR -->
     <aside class="neuro-sidebar-left">
-      <div class="user-profile-badge" id="sidebar-user-profile-btn" onclick="if(window.personalizationWizard) window.personalizationWizard.open();" title="Klicke hier, um dein Wohlfühl-Profil anzupassen">
+      <div class="user-profile-badge" id="sidebar-user-profile-btn" onclick="if(window.personalizationWizard) window.personalizationWizard.open();" title="Klicke hier, um dein Spieler-Profil anzupassen">
         <div class="user-avatar-img">🧠</div>
         <div class="user-info-text">
           <span class="user-name-title">ADHS_Pro</span>
@@ -4851,7 +5040,7 @@
           <span>🤖</span> AI Tools <span style="font-size:9px; background:linear-gradient(135deg,#10b981,#38bdf8); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(16,185,129,0.5);">LIVE ⚡</span>
         </button>
         <button class="nav-menu-item" id="btn-open-onboarding-wizard" style="position:relative; background:rgba(236,72,153,0.08); border:1px solid rgba(236,72,153,0.25);" onclick="if(window.personalizationWizard) window.personalizationWizard.open();">
-          <span>💖</span> Mein Profil <span style="font-size:9.5px; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800; padding:1px 7px; border-radius:10px; margin-left:auto;">Wohlfühl-Raum</span>
+          <span>💖</span> Mein Profil <span style="font-size:9.5px; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800; padding:1px 7px; border-radius:10px; margin-left:auto;">Setup</span>
         </button>
         <button class="nav-menu-item" onclick="if(window.masteryEngine) window.masteryEngine.openModal();">
           <span>🏆</span> Relikte & Grade
@@ -4867,12 +5056,25 @@
         </button>
       </nav>
 
-      <div class="sidebar-quote-card" style="margin-top:auto;">
-        <div class="sidebar-quote-title">Du bist hier sicher 💜</div>
-        <div class="sidebar-quote-item"><span>🔒</span> 100% Deine Privatsphäre</div>
-        <div class="sidebar-quote-item"><span>✓</span> Mehr Fokus</div>
-        <div class="sidebar-quote-item"><span>✓</span> Weniger Stress</div>
-        <div class="sidebar-quote-item"><span>✓</span> 100% du selbst</div>
+      <!-- ADHD TACTILE FIDGET PAD (ADDICTION HOOK) -->
+      <div class="sidebar-fidget-card" style="margin-top:auto;" title="Klick mich! Taktile Dopamin-Quelle">
+        <div class="sidebar-fidget-header">
+          <span class="fidget-title">⚡ Dopamin-Fidget</span>
+          <span class="fidget-counter-pill" id="fidget-counter-display">0</span>
+        </div>
+        <div class="sidebar-bubble-row" id="sidebar-bubbles-wrap">
+          <button class="fidget-pop-bubble" data-idx="0" title="Plop!"></button>
+          <button class="fidget-pop-bubble" data-idx="1" title="Plop!"></button>
+          <button class="fidget-pop-bubble" data-idx="2" title="Plop!"></button>
+          <button class="fidget-pop-bubble" data-idx="3" title="Plop!"></button>
+        </div>
+        <button class="fidget-switch-btn" id="sidebar-mech-clicker-btn" title="Klick mich! Real Switch Sound">
+          <span>🕹️</span>
+          <span>Clicky Switch</span>
+        </button>
+        <div class="sidebar-fidget-status">
+          <span>🧠 Modus:</span> <b style="color:#38bdf8;">Hyperfokus-Ready</b>
+        </div>
       </div>
     </aside>
 
@@ -4882,13 +5084,13 @@
       <!-- TOP HEADER -->
       <header class="neuro-top-header">
         <div class="neuro-brand-col">
-          <div class="neuro-brand-logo">🧠</div>
+          <div class="neuro-brand-logo" id="header-brand-logo" title="5x schnell klicken für Geheimbefehl!" style="cursor:pointer; user-select:none;">🧠</div>
           <div class="neuro-brand-text">
             <h1>NeuroSpace <span class="neuro-neon-note" style="font-weight:700; opacity:0.9;">Studio Suite</span></h1>
             <p style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-              <span>Fokus, Entspannung und Spiele – alles an einem Ort.</span>
+              <span>Dein Dopamin-Spielplatz – Sensorik, Fokus & 2.000+ Games.</span>
               <span style="font-size:10.5px; background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.45); color:#6ee7b7; padding:1px 8px; border-radius:8px; font-weight:800; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.openModal();" title="Hier klicken für Datenschutz- und Vertrauens-Garantie">
-                🛡️ 100% Privat & Sicher
+                ⚡ 100% Lokal & Privat
               </span>
             </p>
           </div>
@@ -4915,6 +5117,12 @@
           </button>
           <button class="header-pill-btn" onclick="if(window.masteryEngine) window.masteryEngine.addXP(15, 'Daily Boost!');">
             <span>🔥</span> Daily Boost
+          </button>
+          <button class="header-pill-btn forbidden-hazard-btn" id="btn-forbidden-action" title="Tu es nicht...">
+            <span>⚠️</span> NICHT DRÜCKEN!
+          </button>
+          <button class="header-pill-btn secret-vault-btn" id="btn-secret-vault-open" onclick="if(window.dopamineEngine) window.dopamineEngine.openVault();" title="Dopamin-Tresor öffnen">
+            <span>🎁</span> Geheim-Tresor
           </button>
           <button class="header-pill-btn" id="btn-open-relics">
             <span>🏆</span> Relikte
@@ -5501,7 +5709,7 @@
         </button>
 
         <div class="dock-right-pill" onclick="if(window.trustEngine) window.trustEngine.showAffirmation();">
-          Heute schon was Gutes für dich getan? 💜
+          <span>⚡</span> ADHS-Impuls ziehen 🎲
         </div>
         <button class="dock-close-btn" id="btn-close-bottom-dock" title="Leiste schließen (wegmachen)">
           ✕
@@ -6715,6 +6923,7 @@ class SensoryAudioEngine {
 }
 
 const audio = new SensoryAudioEngine();
+window.audio = audio;
 </script>
 
 <!-- ============================================================== -->
@@ -11206,6 +11415,9 @@ class MasteryRelicEngine {
 
     // Harder, multi-tier Relics that reward real depth and exploration
     this.relics = [
+      { id: 'forbidden_button', icon: '🛑', name: 'Der Verbotene Knopf', desc: 'Konnte dem "Nicht drücken"-Knopf nicht widerstehen.', target: 1, getVal: (s) => s.forbiddenPressed ? 1 : 0 },
+      { id: 'fidget_master', icon: '🫧', name: 'Fidget-König', desc: 'Drücke das Fidget-Pad mindestens 50 Mal.', target: 50, getVal: (s) => parseInt(localStorage.getItem('adhs_fidget_clicks') || '0', 10) },
+      { id: 'gamer_legend', icon: '🕹️', name: 'Cheat-Code Legende', desc: 'Entdecke das geheime Konami-Code Easter-Egg.', target: 1, getVal: (s) => s.konamiUnlocked ? 1 : 0 },
       { id: 'first_spark', icon: '✨', name: 'Erster Funke', desc: 'Starte deine allererste sensorische Reise.', target: 1, getVal: (s) => s.visitedTools.length },
       { id: 'pathfinder_10', icon: '🧭', name: 'Pfadfinder', desc: 'Erkunde mindestens 10 verschiedene Sensorik-Welten.', target: 10, getVal: (s) => s.visitedTools.length },
       { id: 'master_cosmos', icon: '🌌', name: 'Kosmischer Geist', desc: 'Meistere alle 27 sensorischen Räume.', target: 27, getVal: (s) => s.visitedTools.length },
@@ -11303,6 +11515,7 @@ class MasteryRelicEngine {
     this.state.xp += finalAmount;
 
     this.showXpToast(`+${finalAmount} XP ${reason}`);
+    if (window.adhsAddictionEngine) window.adhsAddictionEngine.spawnFloatingXp(finalAmount);
     try {
       if (typeof audio !== 'undefined' && audio && audio.playCoinSound) {
         audio.playCoinSound();
@@ -11547,13 +11760,13 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- Header Area -->
     <div class="onboarding-header-area" style="text-align:center;">
       <div style="display:inline-flex; align-items:center; gap:8px; padding:4px 14px; border-radius:20px; background:rgba(236,72,153,0.12); border:1px solid rgba(236,72,153,0.35); color:#f472b6; font-size:12px; font-weight:800; margin-bottom:10px;">
-        <span>🌸</span> Dein persönlicher Wohlfühl-Raum • 100% Privat
+        <span>⚡</span> Spieler-Setup & Vibes • 100% Lokal
       </div>
       <h2 style="font-size:24px; font-weight:900; color:#ffffff; margin:0 0 6px 0; letter-spacing:-0.3px;">
-        ✨ Gestalte dein Profil
+        ⚡ Dein Profil-Setup
       </h2>
       <p style="font-size:13.5px; color:#cbd5e1; margin:0; line-height:1.5; max-width:540px; margin-inline:auto;">
-        Kein Leistungsdruck, kein Quiz, keine Beurteilung. Wähle einfach deinen Lieblingsbegleiter und deinen Namen – ganz wie du dich wohlfühlst.
+        Wähle deinen Begleiter, deinen Nickname und deine Lieblings-Vibe – ganz wie du willst.
       </p>
     </div>
 
@@ -11601,7 +11814,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- Name Input Section -->
     <div class="profile-section-box">
       <div class="profile-section-title">
-        <span>💖</span> Wie dürfen wir dich nennen?
+        <span>⚡</span> Dein Nickname / Alias:
       </div>
       <div style="position:relative;">
         <input type="text" id="sympathetic-profile-name-input" class="sympathetic-name-field" placeholder="z. B. Alex, Fips, Wolke oder dein Spitzname" maxlength="30" autocomplete="off">
@@ -11615,7 +11828,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- Vibe / Atmosphere Toggle -->
     <div class="profile-section-box">
       <div class="profile-section-title">
-        <span>🌿</span> Deine Wohlfühl-Atmosphäre:
+        <span>🎨</span> Deine Studio-Vibe:
       </div>
       <div class="vibe-selection-row" id="profile-vibe-selection">
         <button type="button" class="vibe-pill-btn active" data-vibe="dynamic">
@@ -11913,7 +12126,7 @@ class NeuroPersonalizationWizard {
       this.updateModalSelection();
 
       if (this.submitBtn && savedName) {
-        this.submitBtn.innerHTML = '<span>💖</span> Profil speichern & Wohlfühlen ✨';
+        this.submitBtn.innerHTML = '<span>💖</span> Setup speichern & Weiter 🚀';
       }
     } catch(e) {
       console.warn('Error loading profile:', e);
@@ -12058,7 +12271,7 @@ class NeuroPersonalizationWizard {
       this.close();
 
       // 7. Show warm, heartfelt toast
-      this.showWarmToast('🌸 Schön, dass du da bist, ' + finalName + '! Dein Wohlfühl-Profil wurde liebevoll gespeichert. Du bist hier sicher 💖');
+      this.showWarmToast('⚡ Profil gespeichert! Auf geht\'s, ' + finalName + '! Let\'s rock 🚀');
     } catch(err) {
       console.error('Error saving profile:', err);
     }
@@ -15216,11 +15429,12 @@ class TrustAndWarmthEngine {
   constructor() {
     this.modal = document.getElementById('trust-privacy-modal');
     this.affirmations = [
-      { text: "Du bist nicht faul. Dein Gehirn arbeitet einfach anders – und das ist eine Superkraft mit Eigenheiten. 💜", icon: "🧠" },
-      { text: "Kleine Schritte sind auch Schritte. Sei heute stolz auf alles, was du geschafft hast – auch auf das Aufstehen! 🌟", icon: "🌱" },
-      { text: "Pausen sind produktiv. Dein Nervensystem hat das Recht, sich ohne Schuldgefühle auszuruhen. 🫁", icon: "☁️" },
-      { text: "Dein Wert hängt nicht von deiner To-Do-Liste oder deiner Produktivität ab. Du bist wertvoll, genau so wie du bist. 👑", icon: "✨" },
-      { text: "Gedankenchaos im Kopf? Atme einmal lang durch die Nase ein und sanft durch den Mund aus. Du machst das toll. 🌊", icon: "💜" }
+      { text: "47 offene Tabs im Kopf? Völlig normal. Such dir einfach den spannendsten aus und ab geht's! 🚀", icon: "🧠" },
+      { text: "Prokrastination ist oft nur ein Gehirn, das nach Dopamin schreit. Hier hast du etwas! ⚡", icon: "🔥" },
+      { text: "Wenn dein Kopf rennt wie ein Ferrari mit Fahrradbremsen: Mach kurz Pause und drift um die Kurve! 🏎️", icon: "🎯" },
+      { text: "Du bist kein kaputter Roboter – du funktionierst nur nicht nach Schema F. Mach's auf deine Art! 👑", icon: "✨" },
+      { text: "Hyperfokus ist eine Naturgewalt. Nutze ihn, wenn er kommt – und null Druck, wenn er gerade chillt. 🌊", icon: "⚡" },
+      { text: "Du hast heute schon mehr geregelt, als dein innerer Kritiker dir einredet. Gönn dir den Win! 🏆", icon: "🌱" }
     ];
     this.currentAffirmationIdx = 0;
   }
@@ -15508,6 +15722,326 @@ class NeuroInteractiveHubEngine {
 }
 
 window.neuroInteractiveHub = new NeuroInteractiveHubEngine();
+</script>
+
+
+<!-- ============================================================== -->
+<!-- SCRIPT: ADHD SECRET ADDICTION & DOPAMINE ENGINE                 -->
+<!-- ============================================================== -->
+<script>
+class AdhsSecretAddictionEngine {
+  constructor() {
+    this.fidgetClicks = parseInt(localStorage.getItem('adhs_fidget_clicks') || '0', 10);
+    this.forbiddenClicks = parseInt(localStorage.getItem('adhs_forbidden_clicks') || '0', 10);
+    this.lastPointerPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    this.konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    this.konamiIndex = 0;
+    this.brainLogoClicks = 0;
+    this.brainLogoTimer = null;
+
+    this.init();
+  }
+
+  init() {
+    this.bindPointerTracker();
+    this.bindFidgetPad();
+    this.bindForbiddenButton();
+    this.bindUniversalUiAudio();
+    this.bindEasterEggs();
+    this.updateFidgetDisplay();
+  }
+
+  bindPointerTracker() {
+    window.addEventListener('pointerdown', (e) => {
+      this.lastPointerPos = { x: e.clientX, y: e.clientY };
+    }, { passive: true });
+  }
+
+  spawnFloatingXp(amount) {
+    try {
+      const el = document.createElement('div');
+      el.className = 'cursor-xp-float';
+      el.textContent = '+' + amount + ' XP';
+      el.style.left = this.lastPointerPos.x + 'px';
+      el.style.top = this.lastPointerPos.y + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 800);
+    } catch(e) {}
+  }
+
+  bindFidgetPad() {
+    const bubbles = document.querySelectorAll('.fidget-pop-bubble');
+    bubbles.forEach((bubble) => {
+      bubble.addEventListener('click', () => {
+        if (bubble.classList.contains('popped')) return;
+        bubble.classList.add('popped');
+        this.fidgetClicks++;
+        localStorage.setItem('adhs_fidget_clicks', this.fidgetClicks.toString());
+        this.updateFidgetDisplay();
+
+        // Audio pop with pitch variety
+        const pitch = 380 + Math.random() * 260;
+        if (window.audio && typeof window.audio.playPop === 'function') {
+          window.audio.playPop(pitch);
+        }
+
+        // Check if all 4 are popped
+        const allPopped = Array.from(bubbles).every(b => b.classList.contains('popped'));
+        if (allPopped) {
+          if (window.confetti) {
+            try { window.confetti({ particleCount: 35, spread: 50, origin: { x: 0.1, y: 0.85 } }); } catch(e) {}
+          }
+          if (window.audio && typeof window.audio.playLevelUpChime === 'function') {
+            window.audio.playLevelUpChime();
+          }
+          if (window.masteryEngine) {
+            window.masteryEngine.addXp(15, '🫧 Fidget-Kombo!');
+          }
+
+          setTimeout(() => {
+            bubbles.forEach((b, idx) => {
+              setTimeout(() => {
+                b.classList.remove('popped');
+                if (window.audio && typeof window.audio.playPop === 'function') {
+                  window.audio.playPop(300 + idx * 80);
+                }
+              }, idx * 60);
+            });
+          }, 350);
+        }
+
+        this.checkFidgetRelic();
+      });
+    });
+
+    const mechBtn = document.getElementById('sidebar-mech-clicker-btn');
+    if (mechBtn) {
+      mechBtn.addEventListener('click', () => {
+        this.fidgetClicks++;
+        localStorage.setItem('adhs_fidget_clicks', this.fidgetClicks.toString());
+        this.updateFidgetDisplay();
+
+        if (window.audio && typeof window.audio.playMechSwitch === 'function') {
+          window.audio.playMechSwitch('blue');
+        }
+
+        // Mini XP every 10 clicks
+        if (this.fidgetClicks % 10 === 0 && window.masteryEngine) {
+          window.masteryEngine.addXp(10, '⚡ Fidget-Streak!');
+        }
+
+        this.checkFidgetRelic();
+      });
+    }
+  }
+
+  updateFidgetDisplay() {
+    const display = document.getElementById('fidget-counter-display');
+    if (display) display.textContent = this.fidgetClicks;
+  }
+
+  checkFidgetRelic() {
+    if (this.fidgetClicks >= 50 && window.masteryEngine) {
+      window.masteryEngine.checkRelics();
+    }
+  }
+
+  bindForbiddenButton() {
+    const btn = document.getElementById('btn-forbidden-action');
+    if (!btn) return;
+
+    const funnyPrompts = [
+      "🚨 Tab-Polizei: Schließe sofort einen deiner 47 Tabs!",
+      "💧 Trinkpause-Reflex: Nimm jetzt einen großen Schluck Wasser!",
+      "🧘 Schultern runter, Kiefer entspannen. Ja, genau jetzt.",
+      "⚡ Hyperfokus-Boost gezündet! +25 XP",
+      "🧠 Dein Gehirn: 'Nochmal drücken!' Antigravity: 'Okay hier!' +20 XP",
+      "🌀 100% Neugier, 0% Reue. Du bist die Definition von ADHS.",
+      "👀 Du klickst das doch jetzt nur noch, weil das Feedback so befriedigend ist, oder?",
+      "🚀 Maximales Dopamin freigesetzt! Weiter geht's!"
+    ];
+
+    btn.addEventListener('click', () => {
+      this.forbiddenClicks++;
+      localStorage.setItem('adhs_forbidden_clicks', this.forbiddenClicks.toString());
+
+      btn.classList.remove('btn-wobble');
+      void btn.offsetWidth; // Trigger reflow
+      btn.classList.add('btn-wobble');
+
+      if (this.forbiddenClicks === 1) {
+        btn.innerHTML = '<span>👀</span> Hab gesagt NEIN!';
+        if (window.audio && typeof window.audio.playPop === 'function') window.audio.playPop(200);
+        if (window.masteryEngine) window.masteryEngine.addXp(10, '🤫 Neugierig?');
+      } else if (this.forbiddenClicks === 2) {
+        btn.innerHTML = '<span>🛑</span> Ernsthaft jetzt?';
+        document.body.classList.add('screen-micro-shake');
+        setTimeout(() => document.body.classList.remove('screen-micro-shake'), 280);
+        if (window.audio && typeof window.audio.playMechSwitch === 'function') window.audio.playMechSwitch('blue');
+        if (window.masteryEngine) window.masteryEngine.addXp(20, '⚠️ Hör auf damit!');
+      } else if (this.forbiddenClicks === 3) {
+        btn.innerHTML = '<span>💥</span> LETZTE WARNUNG!';
+        document.body.classList.add('screen-micro-shake');
+        setTimeout(() => document.body.classList.remove('screen-micro-shake'), 280);
+        if (window.audio && typeof window.audio.playChime === 'function') window.audio.playChime(640, 'silver');
+        if (window.masteryEngine) window.masteryEngine.addXp(35, '🔥 Gleich knallt es...');
+      } else if (this.forbiddenClicks === 4) {
+        btn.innerHTML = '<span>⚡</span> DOPAMIN-JACKPOT!';
+        btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
+        btn.style.borderColor = '#10b981';
+        btn.style.color = '#fff';
+
+        if (window.confetti) {
+          try { window.confetti({ particleCount: 120, spread: 90, origin: { y: 0.4 } }); } catch(e) {}
+        }
+        if (window.audio && typeof window.audio.playLevelUpChime === 'function') {
+          window.audio.playLevelUpChime();
+        }
+        if (window.masteryEngine) {
+          window.masteryEngine.state.forbiddenPressed = true;
+          window.masteryEngine.addXp(100, '💥 DOPAMIN OVERLOAD (Relikt freigeschaltet!)');
+        }
+      } else {
+        // Rotating funny prompts
+        const randomPrompt = funnyPrompts[Math.floor(Math.random() * funnyPrompts.length)];
+        const xpBonus = 15 + Math.floor(Math.random() * 20);
+
+        if (window.audio && typeof window.audio.playPop === 'function') {
+          window.audio.playPop(300 + Math.random() * 400);
+        }
+        if (window.masteryEngine) {
+          window.masteryEngine.addXp(xpBonus, randomPrompt);
+        }
+      }
+    });
+  }
+
+  bindUniversalUiAudio() {
+    // Soft hover sound on app cards & navigation
+    document.querySelectorAll('.neuro-card, .nav-menu-item, .hub-action-chip').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if (window.audio && typeof window.audio.playClick === 'function') {
+          try {
+            const ctx = window.audio.ctx;
+            if (ctx && ctx.state === 'running') {
+              const t = ctx.currentTime;
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(1800, t);
+              gain.gain.setValueAtTime(0.015, t);
+              gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.02);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(t);
+              osc.stop(t + 0.02);
+            }
+          } catch(e) {}
+        }
+      }, { passive: true });
+    });
+
+    // Crisp pop/click sound on buttons
+    document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (window.audio && typeof window.audio.playPop === 'function') {
+          window.audio.playPop(480);
+        }
+      });
+    });
+
+    document.querySelectorAll('.nav-menu-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (window.audio && typeof window.audio.playMechSwitch === 'function') {
+          window.audio.playMechSwitch('brown');
+        }
+      });
+    });
+  }
+
+  bindEasterEggs() {
+    // 1. Konami Code
+    window.addEventListener('keydown', (e) => {
+      const expected = this.konamiSequence[this.konamiIndex];
+      if (e.key === expected || (expected === 'b' && e.key.toLowerCase() === 'b') || (expected === 'a' && e.key.toLowerCase() === 'a')) {
+        this.konamiIndex++;
+        if (this.konamiIndex === this.konamiSequence.length) {
+          this.triggerKonamiEasterEgg();
+          this.konamiIndex = 0;
+        }
+      } else {
+        this.konamiIndex = 0;
+      }
+
+      // Spacebar Fidget Pop on main hub (if not in an input)
+      if (e.code === 'Space' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        const hubView = document.getElementById('view-hub');
+        if (hubView && hubView.classList.contains('active')) {
+          e.preventDefault();
+          if (window.audio && typeof window.audio.playPop === 'function') {
+            window.audio.playPop(420 + Math.random() * 200);
+          }
+          if (window.masteryEngine) {
+            window.masteryEngine.addXp(5, '🫧 Space-Pop');
+          }
+        }
+      }
+    });
+
+    // 2. Brain Logo Overclock (5 fast clicks)
+    const logo = document.getElementById('header-brand-logo');
+    if (logo) {
+      logo.addEventListener('click', () => {
+        this.brainLogoClicks++;
+        clearTimeout(this.brainLogoTimer);
+        this.brainLogoTimer = setTimeout(() => { this.brainLogoClicks = 0; }, 1800);
+
+        if (window.audio && typeof window.audio.playPop === 'function') {
+          window.audio.playPop(300 + this.brainLogoClicks * 100);
+        }
+
+        if (this.brainLogoClicks >= 5) {
+          this.brainLogoClicks = 0;
+          document.body.classList.add('overclock-flash');
+          setTimeout(() => document.body.classList.remove('overclock-flash'), 850);
+
+          if (window.confetti) {
+            try { window.confetti({ particleCount: 80, spread: 70, origin: { x: 0.1, y: 0.2 } }); } catch(e) {}
+          }
+          if (window.audio && typeof window.audio.playLevelUpChime === 'function') {
+            window.audio.playLevelUpChime();
+          }
+          if (window.masteryEngine) {
+            window.masteryEngine.addXp(75, '⚡ Gehirn übertaktet! Hyperfokus-Overdrive aktiv!');
+          }
+        }
+      });
+    }
+  }
+
+  triggerKonamiEasterEgg() {
+    if (window.confetti) {
+      try {
+        window.confetti({ particleCount: 200, spread: 120, origin: { y: 0.5 } });
+        setTimeout(() => {
+          window.confetti({ particleCount: 150, angle: 60, spread: 80, origin: { x: 0 } });
+          window.confetti({ particleCount: 150, angle: 120, spread: 80, origin: { x: 1 } });
+        }, 300);
+      } catch(e) {}
+    }
+    if (window.audio && typeof window.audio.playLevelUpChime === 'function') {
+      window.audio.playLevelUpChime();
+    }
+    if (window.masteryEngine) {
+      window.masteryEngine.state.konamiUnlocked = true;
+      window.masteryEngine.addXp(200, '🕹️ KONAMI-CODE: Gamer-Legende freigeschaltet!');
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.adhsAddictionEngine = new AdhsSecretAddictionEngine();
+});
 </script>
 
 </body>
