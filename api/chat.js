@@ -1,13 +1,13 @@
 // Vercel Serverless Function: Groq / OpenAI Chat Completion
 // Model: openai/gpt-oss-20b
 export default async function handler(req, res) {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  // CORS configuration
+  const origin = req.headers.origin || '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization'
+    'X-CSRF-Token, X-Requested-With, Accept, Content-Type, Authorization'
   );
 
   if (req.method === 'OPTIONS') {
@@ -19,6 +19,17 @@ export default async function handler(req, res) {
   }
 
   const { messages, model = 'openai/gpt-oss-20b' } = req.body || {};
+
+  // Security: Payload validation
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: 'Ungültige Anfrage: messages muss ein Array sein.' });
+  }
+
+  // Security: Prevent token flooding & runaway cost
+  const totalLength = messages.reduce((acc, m) => acc + (typeof m.content === 'string' ? m.content.length : 0), 0);
+  if (totalLength > 15000) {
+    return res.status(400).json({ error: 'Nachricht zu lang (maximal 15.000 Zeichen erlaubt).' });
+  }
 
   // Groq API Key or OpenAI API Key from Vercel Environment Variables
   const apiKey = process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY;
@@ -43,7 +54,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: model || 'openai/gpt-oss-20b',
-        messages: messages || [],
+        messages: messages,
         temperature: 0.7,
         max_tokens: 1500
       })
@@ -62,7 +73,7 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             model: 'llama-3.3-70b-versatile',
-            messages: messages || [],
+            messages: messages,
             temperature: 0.7,
             max_tokens: 1500
           })

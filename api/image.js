@@ -1,13 +1,13 @@
 // Vercel Serverless Function: OpenAI Image Generation
 // Model: gpt-image-1-mini / DALL-E
 export default async function handler(req, res) {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  // CORS configuration
+  const origin = req.headers.origin || '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization'
+    'X-CSRF-Token, X-Requested-With, Accept, Content-Type, Authorization'
   );
 
   if (req.method === 'OPTIONS') {
@@ -20,16 +20,21 @@ export default async function handler(req, res) {
 
   const { prompt, model = 'gpt-image-1-mini', size = '1024x1024' } = req.body || {};
 
+  // Security: Payload validation
+  if (!prompt || typeof prompt !== 'string') {
+    return res.status(400).json({ error: 'Kein Prompt übergeben.' });
+  }
+
+  if (prompt.length > 1000) {
+    return res.status(400).json({ error: 'Prompt zu lang (maximal 1.000 Zeichen erlaubt).' });
+  }
+
   const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
     return res.status(500).json({
       error: 'Kein OpenAI API Key auf Vercel hinterlegt. Bitte OPENAI_API_KEY in den Vercel Environment Variables anlegen.'
     });
-  }
-
-  if (!prompt || typeof prompt !== 'string') {
-    return res.status(400).json({ error: 'Kein Prompt übergeben.' });
   }
 
   try {
