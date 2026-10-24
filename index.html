@@ -5191,7 +5191,7 @@
         <div class="neuro-brand-col">
           <div class="neuro-brand-logo" id="header-brand-logo" title="5x schnell klicken für Geheimbefehl!" style="cursor:pointer; user-select:none;">🧠</div>
           <div class="neuro-brand-text">
-            <h1>NeuroSpace <span class="neuro-neon-note" style="font-weight:700; opacity:0.9;">Studio Suite</span></h1>
+            <h1>NeuroSpace <span style="font-weight:700; opacity:0.9; font-size:16px; color:#38bdf8; margin-left:8px;">Studio Suite</span></h1>
             <p style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
               <span>Dein XP Kick-Spielplatz – Sensorik, Fokus & 2.000+ Games.</span>
               <span style="font-size:10.5px; background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.45); color:#6ee7b7; padding:1px 8px; border-radius:8px; font-weight:800; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.openModal();" title="Hier klicken für Datenschutz- und Vertrauens-Garantie">
@@ -5260,9 +5260,10 @@
               </div>
             </div>
           </div>
-          <div class="brain-banner-quote" style="font-size:18px;">
-            Klarer Kopf.<br>
-            Voller Fokus ✨
+          <div style="margin-left:auto; display:flex; gap:10px; align-items:center;">
+            <span style="font-size:11.5px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); color:#38bdf8; padding:5px 12px; border-radius:10px; font-weight:800; letter-spacing:0.5px;">
+              ⚡ 27 TOOLS • 2.000+ GAMES
+            </span>
           </div>
         </div>
 
@@ -5786,7 +5787,7 @@
     <footer class="neuro-bottom-dock" id="neuro-bottom-dock">
       <div class="dock-left-brain">
         <div class="dock-brain-icon">🧠</div>
-        <span>Fokus | Motivation | Balance | Du 💜</span>
+        <span>NeuroSpace Studio</span>
       </div>
 
       <div class="dock-waveform" id="ambient-dock-waveform">
@@ -5818,10 +5819,6 @@
         <button class="dock-dmn-btn" id="btn-dock-open-dmn" title="Anti-Prokrastinations DMN-Breaker">
           🌱 10s Reset
         </button>
-
-        <div class="dock-right-pill" onclick="if(window.trustEngine) window.trustEngine.showAffirmation();">
-          <span>⚡</span> NeuroSpace-Impuls ziehen 🎲
-        </div>
         <button class="dock-close-btn" id="btn-close-bottom-dock" title="Leiste schließen (wegmachen)">
           ✕
         </button>
@@ -6093,7 +6090,7 @@
   </div>
   <div class="shredder-box" id="worry-ui-container" style="position:relative; z-index:10; margin:auto;">
     <div>
-      <h3 style="font-size:18px; font-weight:800;">Schreib deine Last von der Seele</h3>
+      <h3 style="font-size:18px; font-weight:800;">Schreib deine Gedanken oder Notizen auf</h3>
       <p style="font-size:12.5px; color:var(--text-secondary); margin-top:4px;">Nichts wird gespeichert. Was hier steht, darf sich auflösen.</p>
     </div>
     <textarea class="worry-textarea" id="worry-input" placeholder="Was überreizt, stresst oder bedrückt dich gerade? Tippe es hier ein..."></textarea>
@@ -13696,10 +13693,10 @@ ${deck.slides.map((s, i) => `
 
         const thinkingRow = this.renderThinkingIndicator('NeuroCopilot denkt nach (openai/gpt-oss-20b)...');
 
-        const systemPrompt = `Du bist NeuroCopilot AI, ein warmherziger, hochkompetenter und hyper-kreativer NeuroSpace-Assistent im "NeuroSpace Studio" von Nils.
+        const systemPrompt = `Du bist NeuroCopilot AI, ein direkter, sachlicher und hochkompetenter Assistent im "NeuroSpace Studio" von Nils.
 Du nutzt das Modell openai/gpt-oss-20b und hast Zugriff auf gpt-image-1-mini, Web-Suche, Deep Research und PowerPoint-Generierung!
-Deine Superkraft ist es, chaotische Gedanken zu strukturieren, Prokrastination durch mundgerechte 2-Minuten-Mikroschritte zu brechen, XP Kick-Belohnungen einzubauen und immer optimistisch, klar und motivierend zu sein.
-Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Emojis. Wenn der Nutzer nach Präsentationen oder Deep Research fragt, weise ihn auf diese Tools hin!`;
+Verzichte komplett auf kitschige Motivationssprüche, Sinnsprüche oder leere Ratschläge wie "bleib stark" oder "alles wird gut". Antworte sachlich, lösungsorientiert und strukturiert.
+Halte Antworten prägnant und visuell übersichtlich mit Aufzählungspunkten. Wenn der Nutzer nach Präsentationen oder Deep Research fragt, weise ihn direkt auf diese Tools hin!`;
 
         try {
           let replyText = null;
@@ -13802,14 +13799,14 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
         }
 
         if (t.includes('gedanken') || t.includes('chaos') || t.includes('kopf') || t.includes('voll') || t.includes('überfordert')) {
-          return `Atme einmal tief durch, ${userName}. 🫁\n\nWenn im Kopf alles gleichzeitig hupt, hilft der **Neuro-Braindump**:\n• Schreib mir einfach **3 Stichworte**, die dir gerade im Kopf herumschwirren.\n• Ich sortiere sie für dich nach: **Wichtig**, **Später** und **Wegwerfen**.\n\nWas liegt dir gerade am meisten auf dem Herzen?`;
+          return `Alles klar, ${userName}. Wenn du Gedanken strukturieren willst, schreib mir einfach Stichworte:\n• Ich sortiere sie nach Priorität und konkreten nächsten Schritten.\n\nWomit wollen wir anfangen?`;
         }
 
         if (t.includes('dopamin') || t.includes('xp kick') || t.includes('flow') || t.includes('kick')) {
-          return `⚡ **XP Kick-Quick-Booster für jetzt sofort:**\n\n1. **Sensorischer Reset**: Trink ein eiskaltes Glas Wasser oder wasch dein Gesicht kurz kalt ab.\n2. **Audio-Stim**: Starte deinen Lieblings-Track auf voller Lautstärke und bewege dich 30 Sekunden dazu.\n3. **Mini-Win**: Mach eine Sache in deiner Reichweite gerade (z. B. Glas wegbringen) -> *Level Up!* 🚀\n\nProbier einen davon aus und sag mir, wie es sich anfühlt!`;
+          return `⚡ **Schneller Fokus-Reset:**\n\n1. **Kaltes Wasser**: Gesicht kurz kalt abwaschen oder Glas Wasser trinken.\n2. **Audio**: Im Menü einen Track oder Brown Noise starten.\n3. **Mini-Aktion**: Einen winzigen 1-Minuten-Schritt erledigen.\n\nSag mir Bescheid, woran du arbeiten möchtest.`;
         }
 
-        return `Ich höre dir zu, ${userName}! 💡\n\nMit **openai/gpt-oss-20b** und dem NeuroSpace Studio an deiner Seite finden wir für jeden Gedanken den passenden Fokus.\n\n• 📊 **PowerPoint**: Tippe *„Mach mir eine PowerPoint über Chips“* für eine fertige Präsentation mit Bildern!\n• 🔬 **Deep Research**: Tippe *„Deep Research zu [Thema]“* für tiefgehende Analysen.\n\nWas möchtest du als Nächstes ausprobieren?`;
+        return `Bereit, ${userName}. Wie kann ich dir helfen?\n\n• 📊 **PowerPoint**: Tippe *„Mach mir eine PowerPoint über [Thema]“* für eine fertige Präsentation mit Bildern!\n• 🔬 **Deep Research**: Tippe *„Deep Research zu [Thema]“* für strukturierte Analysen.\n\nWas möchtest du erstellen?`;
       }
 
       escapeHtml(str) {
@@ -13953,10 +13950,10 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
 
       triggerDopamineSurprise() {
         const surprises = [
-          { title: '⚡ Hyperfokus-Boost!', xp: 35, text: '💡 **Fakt des Tages:** Hyperfokus bei NeuroSpace ist eine neuronale Superkraft, wenn das Thema echtes Interesse weckt. Nutze diesen Schwung jetzt!' },
-          { title: '🧠 XP Kick-Glückstreffer!', xp: 50, text: '🎰 **JACKPOT!** Dein Belohnungszentrum hat gerade einen extra Kick bekommen (+50 XP). Was möchtest du heute Episches erschaffen?' },
-          { title: '🌟 Kreativitäts-Explosion!', xp: 40, text: '🎨 Wusstest du? Menschen mit neurodivergentem Denken finden über 300% mehr unkonventionelle Lösungswege! Erstelle eine PowerPoint oder ein Bild, um deine Vision festzuhalten.' },
-          { title: '🔥 Power-Streak Aktiviert!', xp: 30, text: '🚀 Du bist heute im Tunnel! 3 tiefe Atemzüge, Schluck Wasser – und weiter geht die Reise!' }
+          { title: '⚡ Hyperfokus-Boost!', xp: 35, text: '⚡ **XP Kick aktiviert:** +35 XP gutgeschrieben. Welches Tool möchtest du als Nächstes nutzen?' },
+          { title: '🧠 XP Kick-Bonus!', xp: 50, text: '🎰 **BONUS:** +50 XP gutgeschrieben. Weiter gehts!' },
+          { title: '🌟 Tool-Impuls!', xp: 40, text: '🎨 +40 XP erhalten. Nutze den PowerPoint-Generator oder ein Zeichen-Tool für deine Ideen.' },
+          { title: '🔥 Streak-Bonus!', xp: 30, text: '🚀 +30 XP für deine heutige Aktivität.' }
         ];
         const item = surprises[Math.floor(Math.random() * surprises.length)];
         this.addXp(item.xp, '⚡');
@@ -15841,8 +15838,8 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <div class="trust-pillar-box">
-        <h4><span>💜</span> 4. Radikale Wertschätzung & Kein Urteil</h4>
-        <p>Wir wissen, wie anstrengend die Welt sein kann. Wenn du prokrastinierst, müde bist oder einfach nur Seifenblasen platzen lassen willst: Du bist hier genau richtig und vollkommen okay, so wie du bist.</p>
+        <h4><span>⚡</span> 4. Keine leeren Sprüche & Echter Nutzen</h4>
+        <p>Keine abgedroschenen Motivationsfloskeln oder ungefragtes Coaching. NeuroSpace liefert direkte Werkzeuge für den Alltag: reizarme Sensorik, Fokus-Hilfen und Spiele ohne Bevormundung.</p>
       </div>
 
       <!-- Krisen- & Notfall-Hilfe (Sicherheit für akute Notfälle) -->
@@ -15857,7 +15854,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <button style="margin-top:20px; width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #10b981, #0284c7); border:none; color:#fff; font-size:14.5px; font-weight:900; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.closeModal();">
-        Verstanden & Danke 💜
+        Schließen
       </button>
     </div>
   </div>
@@ -15870,15 +15867,6 @@ document.addEventListener('DOMContentLoaded', () => {
 class TrustAndWarmthEngine {
   constructor() {
     this.modal = document.getElementById('trust-privacy-modal');
-    this.affirmations = [
-      { text: "47 offene Tabs im Kopf? Völlig normal. Such dir einfach den spannendsten aus und ab geht's! 🚀", icon: "🧠" },
-      { text: "Prokrastination ist oft nur ein Gehirn, das nach XP Kicks schreit. Hier hast du etwas! ⚡", icon: "🔥" },
-      { text: "Wenn dein Kopf rennt wie ein Ferrari mit Fahrradbremsen: Mach kurz Pause und drift um die Kurve! 🏎️", icon: "🎯" },
-      { text: "Du bist kein kaputter Roboter – du funktionierst nur nicht nach Schema F. Mach's auf deine Art! 👑", icon: "✨" },
-      { text: "Hyperfokus ist eine Naturgewalt. Nutze ihn, wenn er kommt – und null Druck, wenn er gerade chillt. 🌊", icon: "⚡" },
-      { text: "Du hast heute schon mehr geregelt, als dein innerer Kritiker dir einredet. Gönn dir den Win! 🏆", icon: "🌱" }
-    ];
-    this.currentAffirmationIdx = 0;
   }
 
   openModal() {
@@ -15893,46 +15881,6 @@ class TrustAndWarmthEngine {
     if (window.audio && typeof window.audio.playPop === 'function') {
       window.audio.playPop(340);
     }
-  }
-
-  showAffirmation() {
-    const item = this.affirmations[this.currentAffirmationIdx];
-    this.currentAffirmationIdx = (this.currentAffirmationIdx + 1) % this.affirmations.length;
-
-    // Remove existing toast if any
-    const existing = document.querySelector('.warm-affirmation-popup');
-    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
-
-    const toast = document.createElement('div');
-    toast.className = 'warm-affirmation-popup';
-    toast.innerHTML = `
-      <div style="display:flex; align-items:flex-start; gap:12px;">
-        <div style="font-size:26px; line-height:1;">${item.icon}</div>
-        <div style="flex:1;">
-          <div style="font-size:11px; font-weight:900; color:#f472b6; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:3px;">
-            Sanfter Gedanke für dich 💜
-          </div>
-          <div style="font-size:13px; color:#f8fafc; line-height:1.45; font-weight:600;">
-            ${item.text}
-          </div>
-        </div>
-        <button style="background:transparent; border:none; color:#94a3b8; font-size:18px; cursor:pointer; padding:0 2px;" onclick="this.closest('.warm-affirmation-popup').remove();">✕</button>
-      </div>
-    `;
-
-    document.body.appendChild(toast);
-    if (window.audio && typeof window.audio.playLevelUpChime === 'function') {
-      window.audio.playLevelUpChime();
-    }
-
-    setTimeout(() => {
-      if (toast.parentNode) {
-        toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(15px)';
-        setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 400);
-      }
-    }, 8000);
   }
 }
 
