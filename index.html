@@ -2026,6 +2026,7 @@
   }
 
   /* AUTUMN THEME THUMBNAILS (COZY, WARM AMBER, COPPER, CINNAMON & GOLD) */
+  .thumb-magnets { background: radial-gradient(circle at 35% 35%, #e2e8f0 0%, #94a3b8 40%, #334155 75%, #0f172a 100%); }
   .thumb-fluid { background: radial-gradient(circle at center, #f59e0b, #ea580c, #b91c1c, #1a0505); }
   .thumb-thisissand { background: radial-gradient(circle at center, #f59e0b, #d97706, #9a3412, #240c03); }
   .thumb-lavalamp { background: radial-gradient(circle at center, #f97316, #ea580c, #7c2d12, #1f0a04); }
@@ -6524,6 +6525,7 @@
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
@@ -6619,7 +6621,7 @@
       <!-- CATEGORY FILTER & SEARCH ROW -->
       <section class="neuro-filter-row">
         <div class="neuro-cat-pills">
-          <button class="cat-filter-btn active" data-cat="all">🍁 Alle (29)</button>
+          <button class="cat-filter-btn active" data-cat="all">🍁 Alle (30)</button>
           <button class="cat-filter-btn" data-cat="focus">🌰 Fokus & Ruhe</button>
           <button class="cat-filter-btn" data-cat="tactile">🍂 Sensorik & Taktil</button>
           <button class="cat-filter-btn" data-cat="audio">🎵 Audio & Klang</button>
@@ -6635,6 +6637,24 @@
       <!-- APP CARDS GRID WITH GORGEOUS 3D HERO THUMBNAILS (MATCHING SCREENSHOT) -->
       
       <section class="neuro-cards-grid" id="apps-grid">
+        <div class="neuro-card" data-target="view-magnets" data-category="tactile sensory focus" onclick="if(window.switchView) window.switchView('view-magnets');">
+          <div class="card-hero-thumb thumb-magnets">
+            <span class="card-hero-icon">🧲</span>
+            <span class="card-neu-badge">✨ 3D NEODYM</span>
+          </div>
+          <div class="card-body-content">
+            <div class="card-title-row">
+              <span class="card-title-text">Neodym Magnet-Kugeln</span>
+            </div>
+            <p class="card-desc-text">Spiegelnde 3D-Chromkugeln mit physikalischer Magnetanziehung, Kettenbildung & Klack-Sounds.</p>
+            <div class="card-bottom-row">
+              <div class="card-tags-wrap">
+                <span class="card-pill-tag">🧲 Magnet-Physik</span><span class="card-pill-tag">✨ Spiegel-Chrom</span><span class="card-pill-tag">🔊 Taktil</span>
+              </div>
+              <div class="card-arrow-btn">➜</div>
+            </div>
+          </div>
+        </div>
         <div class="neuro-card" data-target="view-pixelgravity" data-category="fluid tactile" onclick="if(window.switchView) window.switchView('view-pixelgravity');">
           <div class="card-hero-thumb thumb-thisissand">
             <span class="card-hero-icon">⏳</span>
@@ -7984,6 +8004,33 @@
 </div>
 
 <!-- ============================================================== -->
+<!-- 30. NEODYM MAGNET-KUGELN 3D (BUCKYBALLS)                       -->
+<!-- ============================================================== -->
+<div class="app-view" id="view-magnets" style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 40%, #15100d 0%, #080504 100%);">
+  <div class="view-nav">
+    <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
+    <div class="view-title-pill"><span>🧲</span> Neodym Magnet-Kugeln 3D</div>
+    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
+  </div>
+  
+  <canvas id="buckyballs-canvas" class="canvas-fullscreen" style="width:100%; height:100%; display:block; touch-action:none;"></canvas>
+
+  <div id="magnets-hint-overlay" style="position:absolute; top:75px; left:50%; transform:translateX(-50%); pointer-events:none; z-index:15; background:rgba(20,14,10,0.82); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(245,158,11,0.35); border-radius:18px; padding:7px 18px; font-size:12px; color:#fef3c7; box-shadow:0 6px 20px rgba(0,0,0,0.45); transition:opacity 0.6s ease; text-align:center; white-space:nowrap;">
+    <span>👆 Kugeln ziehen & schleudern • Hintergrund drehen • Buttons für Muster & Klicks</span>
+  </div>
+
+  <div class="floating-dock" style="z-index:20;">
+    <button class="action-btn primary" id="btn-magnets-cluster" title="Kompakter Kugel-Cluster">🔮 Cluster</button>
+    <button class="action-btn" id="btn-magnets-chain" title="Flexible Magnet-Kette">📿 Kette</button>
+    <button class="action-btn" id="btn-magnets-cube" title="3D Würfel-Gitter">🧊 Würfel</button>
+    <button class="action-btn" id="btn-magnets-ring" title="Magnet-Ring">⭕ Ring</button>
+    <button class="action-btn" id="btn-magnets-scatter" title="Kugeln zerstreuen">💥 Streuen</button>
+    <button class="pill-btn active" id="btn-magnets-sound" title="Klack-Sound an/aus">🔊 Klicks: AN</button>
+    <button class="pill-btn" id="btn-magnets-theme" title="Chrom / Gold wechseln">✨ Chrom</button>
+  </div>
+</div>
+
+<!-- ============================================================== -->
 <!-- SCRIPT: CORE AUDIO ENGINE                                      -->
 <!-- ============================================================== -->
 <script>
@@ -8464,6 +8511,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const bgVid = document.getElementById('neuro-bg-video');
       if (bgVid) {
         bgVid.play().catch(() => {});
+      }
+      if (targetId === 'view-magnets' && window.buckyballsApp) {
+        setTimeout(() => window.buckyballsApp.activate(), 50);
+      } else if (window.buckyballsApp && window.buckyballsApp.isActive && targetId !== 'view-magnets') {
+        window.buckyballsApp.deactivate();
       }
       if (targetId === 'view-games' && window.arcadeEngine) {
         window.arcadeEngine.filterAndRender();
@@ -15720,6 +15772,664 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
   </div>
 </div>
+
+
+<!-- ============================================================== -->
+<!-- SCRIPT: 3D NEODYM MAGNET-KUGELN (BUCKYBALLS PHYSICS & CHROME)   -->
+<!-- ============================================================== -->
+<script>
+class NeodymMagnets3DApp {
+  constructor() {
+    this.canvas = document.getElementById('buckyballs-canvas');
+    if (!this.canvas) return;
+
+    this.isActive = false;
+    this.animId = null;
+    this.soundEnabled = true;
+    this.currentTheme = 'chrome'; // 'chrome' or 'gold'
+    this.hintDismissed = false;
+
+    // Audio synthesizer for realistic metallic clacks
+    this.audioCtx = null;
+    this.lastSoundTime = 0;
+
+    // Simulation params
+    this.numSpheres = 54;
+    this.radius = 1.05;
+    this.magneticConstant = 3.6;
+    this.damping = 0.982;
+    this.subSteps = 3;
+
+    // Three.js instances
+    this.renderer = null;
+    this.scene = null;
+    this.camera = null;
+    this.spheres = [];
+    this.sphereMeshes = [];
+    this.envTexture = null;
+    this.sphereMaterial = null;
+
+    // Camera orbit controls
+    this.spherical = { radius: 34, theta: 0.1, phi: Math.PI / 2.2 };
+    this.target = new THREE.Vector3(0, 0, 0);
+
+    // Pointer interaction
+    this.raycaster = new THREE.Raycaster();
+    this.pointer = new THREE.Vector2(-999, -999);
+    this.isPointerDown = false;
+    this.pointerAction = null; // 'drag' or 'orbit'
+    this.draggedIndex = -1;
+    this.dragPlane = new THREE.Plane();
+    this.dragOffset = new THREE.Vector3();
+    this.dragTargetPos = new THREE.Vector3();
+    this.lastPointer = { x: 0, y: 0 };
+    this.hasMoved = false;
+
+    this.initThree();
+    this.initSpheres();
+    this.initEvents();
+    this.setFormation('cluster');
+  }
+
+  initAudio() {
+    if (!this.audioCtx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.audioCtx = new AudioCtx();
+    }
+    if (this.audioCtx && this.audioCtx.state === 'suspended') {
+      this.audioCtx.resume().catch(() => {});
+    }
+  }
+
+  playMetallicClick(velocity = 1.0) {
+    if (!this.soundEnabled) return;
+    this.initAudio();
+    if (!this.audioCtx) return;
+
+    const now = this.audioCtx.currentTime;
+    if (now - this.lastSoundTime < 0.03) return; // rate limit max ~33 clicks/sec
+    this.lastSoundTime = now;
+
+    try {
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      const filter = this.audioCtx.createBiquadFilter();
+
+      // Realistic high-pitched resonant Neodym click (2600Hz - 3800Hz)
+      const baseFreq = 2700 + Math.random() * 800;
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(baseFreq, now);
+      osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.45, now + 0.045);
+
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(baseFreq, now);
+      filter.Q.setValueAtTime(6.5, now);
+
+      const vol = Math.min(0.35, Math.max(0.04, 0.18 * Math.min(2.5, velocity)));
+      gain.gain.setValueAtTime(vol, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.055);
+    } catch(e) {}
+  }
+
+  createProceduralEnvironment() {
+    const envCanvas = document.createElement('canvas');
+    envCanvas.width = 512;
+    envCanvas.height = 256;
+    const ctx = envCanvas.getContext('2d');
+
+    // Base background gradient: warm studio ceiling down to dark autumn horizon
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, envCanvas.height);
+    skyGrad.addColorStop(0, '#ffffff');      // Soft studio ceiling softbox
+    skyGrad.addColorStop(0.25, '#dbeafe');   // Crisp daylight fill
+    skyGrad.addColorStop(0.48, '#fbbf24');   // Warm golden autumn horizon highlight
+    skyGrad.addColorStop(0.50, '#1c1917');   // Sharp horizon line (creates that specular mirror edge!)
+    skyGrad.addColorStop(0.75, '#0c0a09');   // Dark floor reflection
+    skyGrad.addColorStop(1, '#050403');
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, envCanvas.width, envCanvas.height);
+
+    // Add bright studio softbox specular lights
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.ellipse(140, 60, 45, 25, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(254, 240, 138, 0.9)';
+    ctx.beginPath();
+    ctx.ellipse(370, 75, 40, 20, 0.2, 0, Math.PI * 2);
+    ctx.fill();
+
+    const texture = new THREE.CanvasTexture(envCanvas);
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    return texture;
+  }
+
+  initThree() {
+    if (typeof THREE === 'undefined') return;
+
+    this.scene = new THREE.Scene();
+    this.scene.fog = new THREE.FogExp2(0x0a0705, 0.012);
+
+    const width = this.canvas.clientWidth || window.innerWidth;
+    const height = this.canvas.clientHeight || window.innerHeight;
+
+    this.camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    this.updateCamera();
+
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+    this.renderer.setSize(width, height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    this.renderer.toneMappingExposure = 1.15;
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    // Procedural mirror environment map
+    this.envTexture = this.createProceduralEnvironment();
+    this.scene.environment = this.envTexture;
+
+    // Studio lights for shiny specular glints
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.65);
+    this.scene.add(ambLight);
+
+    const keyLight = new THREE.DirectionalLight(0xfef3c7, 1.8);
+    keyLight.position.set(15, 25, 20);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.width = 1024;
+    keyLight.shadow.mapSize.height = 1024;
+    keyLight.shadow.bias = -0.0005;
+    this.scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0x94a3b8, 0.7);
+    fillLight.position.set(-15, -8, 15);
+    this.scene.add(fillLight);
+
+    const rimLight = new THREE.PointLight(0xf59e0b, 1.2, 80);
+    rimLight.position.set(0, 20, -18);
+    this.scene.add(rimLight);
+
+    // Soft grounded shadow floor disc
+    const floorGeo = new THREE.PlaneGeometry(60, 60);
+    const floorMat = new THREE.ShadowMaterial({ opacity: 0.38 });
+    const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+    floorMesh.rotation.x = -Math.PI / 2;
+    floorMesh.position.y = -9.0;
+    floorMesh.receiveShadow = true;
+    this.scene.add(floorMesh);
+
+    // Chrome sphere material: ultra-smooth mirror finish ("glatt grau und spiegelnd")
+    this.sphereMaterial = new THREE.MeshStandardMaterial({
+      color: 0xdce2ec,       // Polished chrome gray
+      metalness: 0.98,       // Pure metal
+      roughness: 0.032,      // Ultra-smooth mirror glass finish
+      envMap: this.envTexture,
+      envMapIntensity: 1.45
+    });
+  }
+
+  initSpheres() {
+    if (!this.scene) return;
+    const geometry = new THREE.SphereGeometry(this.radius, 32, 24);
+
+    this.spheres = [];
+    this.sphereMeshes = [];
+
+    for (let i = 0; i < this.numSpheres; i++) {
+      const mesh = new THREE.Mesh(geometry, this.sphereMaterial);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      mesh.userData = { index: i };
+      this.scene.add(mesh);
+      this.sphereMeshes.push(mesh);
+
+      this.spheres.push({
+        pos: new THREE.Vector3(0, 0, 0),
+        vel: new THREE.Vector3(0, 0, 0),
+        force: new THREE.Vector3(0, 0, 0)
+      });
+    }
+  }
+
+  setTheme(theme) {
+    this.currentTheme = theme;
+    const btn = document.getElementById('btn-magnets-theme');
+    if (theme === 'gold') {
+      this.sphereMaterial.color.setHex(0xfbbf24);
+      if (btn) btn.textContent = '✨ Gold';
+    } else {
+      this.sphereMaterial.color.setHex(0xdce2ec);
+      if (btn) btn.textContent = '✨ Chrom';
+    }
+  }
+
+  // --- PRESET FORMATIONS ---
+  setFormation(type) {
+    this.dismissHint();
+    const count = this.spheres.length;
+    const spacing = this.radius * 2.02;
+
+    if (type === 'cluster') {
+      // Fibonacci 3D geodesic cluster (dense, tight packing)
+      const phi = Math.PI * (3 - Math.sqrt(5)); // Golden ratio angle
+      for (let i = 0; i < count; i++) {
+        const y = 1 - (i / (count - 1)) * 2;
+        const rad = Math.sqrt(1 - y * y);
+        const theta = phi * i;
+        const rCluster = Math.cbrt((i + 1) / count) * 4.2;
+
+        this.spheres[i].pos.set(
+          Math.cos(theta) * rad * rCluster,
+          y * rCluster,
+          Math.sin(theta) * rad * rCluster
+        );
+        this.spheres[i].vel.set(0, 0, 0);
+      }
+    } else if (type === 'chain') {
+      // Long continuous serpentine sine chain
+      for (let i = 0; i < count; i++) {
+        const t = (i - count / 2);
+        this.spheres[i].pos.set(
+          t * spacing * 0.75,
+          Math.sin(i * 0.35) * 3.5,
+          Math.cos(i * 0.35) * 3.5
+        );
+        this.spheres[i].vel.set(0, 0, 0);
+      }
+    } else if (type === 'cube') {
+      // 3x3x6 crystalline 3D block
+      const nx = 3, ny = 3, nz = 6;
+      let idx = 0;
+      for (let z = 0; z < nz; z++) {
+        for (let y = 0; y < ny; y++) {
+          for (let x = 0; x < nx; x++) {
+            if (idx >= count) break;
+            this.spheres[idx].pos.set(
+              (x - (nx - 1) / 2) * spacing,
+              (y - (ny - 1) / 2) * spacing,
+              (z - (nz - 1) / 2) * spacing
+            );
+            this.spheres[idx].vel.set(0, 0, 0);
+            idx++;
+          }
+        }
+      }
+    } else if (type === 'ring') {
+      // Closed magnetic circular ring/torus
+      const ringRadius = (count * spacing) / (Math.PI * 2);
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * Math.PI * 2;
+        this.spheres[i].pos.set(
+          Math.cos(angle) * ringRadius,
+          0,
+          Math.sin(angle) * ringRadius
+        );
+        this.spheres[i].vel.set(0, 0, 0);
+      }
+    } else if (type === 'scatter') {
+      // Violent radial explosion with metallic snap back!
+      this.playMetallicClick(2.5);
+      for (let i = 0; i < count; i++) {
+        const randDir = new THREE.Vector3(
+          (Math.random() - 0.5) * 2,
+          (Math.random() - 0.5) * 2,
+          (Math.random() - 0.5) * 2
+        ).normalize();
+        this.spheres[i].vel.copy(randDir.multiplyScalar(28 + Math.random() * 20));
+      }
+    }
+
+    // Play formation snap click
+    if (type !== 'scatter') this.playMetallicClick(1.5);
+  }
+
+  // --- PHYSICS ENGINE LOOP ---
+  stepPhysics(dt) {
+    const count = this.spheres.length;
+    const subDt = dt / this.subSteps;
+    const diam = this.radius * 2;
+    const diamSq = diam * diam;
+    const maxMagDist = 14.0;
+    const maxMagDistSq = maxMagDist * maxMagDist;
+
+    for (let step = 0; step < this.subSteps; step++) {
+      // Reset forces
+      for (let i = 0; i < count; i++) {
+        this.spheres[i].force.set(0, 0, 0);
+
+        // Soft centering spring to keep the cluster beautifully framed in 3D
+        this.spheres[i].force.addScaledVector(this.spheres[i].pos, -0.014);
+      }
+
+      // Pairwise magnetic forces & hard sphere collision
+      for (let i = 0; i < count; i++) {
+        const p1 = this.spheres[i].pos;
+
+        for (let j = i + 1; j < count; j++) {
+          const p2 = this.spheres[j].pos;
+
+          const dx = p2.x - p1.x;
+          const dy = p2.y - p1.y;
+          const dz = p2.z - p1.z;
+          const distSq = dx * dx + dy * dy + dz * dz;
+
+          if (distSq > maxMagDistSq || distSq < 0.0001) continue;
+
+          const dist = Math.sqrt(distSq);
+          const nx = dx / dist;
+          const ny = dy / dist;
+          const nz = dz / dist;
+
+          // 1. MAGNETIC ATTRACTION FORCE: inverse-square magnetic pull
+          if (dist > diam) {
+            const magForce = this.magneticConstant / (distSq + 0.35);
+            this.spheres[i].force.x += nx * magForce;
+            this.spheres[i].force.y += ny * magForce;
+            this.spheres[i].force.z += nz * magForce;
+
+            this.spheres[j].force.x -= nx * magForce;
+            this.spheres[j].force.y -= ny * magForce;
+            this.spheres[j].force.z -= nz * magForce;
+          }
+
+          // 2. HARD-SPHERE CONTACT & COLLISION
+          if (dist < diam) {
+            const overlap = (diam - dist);
+
+            // Positional correction (prevents penetration)
+            if (this.draggedIndex !== i && this.draggedIndex !== j) {
+              p1.x -= nx * overlap * 0.5;
+              p1.y -= ny * overlap * 0.5;
+              p1.z -= nz * overlap * 0.5;
+
+              p2.x += nx * overlap * 0.5;
+              p2.y += ny * overlap * 0.5;
+              p2.z += nz * overlap * 0.5;
+            } else if (this.draggedIndex === i) {
+              p2.x += nx * overlap;
+              p2.y += ny * overlap;
+              p2.z += nz * overlap;
+            } else if (this.draggedIndex === j) {
+              p1.x -= nx * overlap;
+              p1.y -= ny * overlap;
+              p1.z -= nz * overlap;
+            }
+
+            // Normal relative velocity
+            const v1 = this.spheres[i].vel;
+            const v2 = this.spheres[j].vel;
+            const rvx = v1.x - v2.x;
+            const rvy = v1.y - v2.y;
+            const rvz = v1.z - v2.z;
+            const velAlongNormal = rvx * nx + rvy * ny + rvz * nz;
+
+            if (velAlongNormal < 0) {
+              const restitution = 0.42; // Snappy inelastic magnetic impact
+              const impulse = -(1 + restitution) * velAlongNormal * 0.5;
+
+              v1.x += nx * impulse;
+              v1.y += ny * impulse;
+              v1.z += nz * impulse;
+
+              v2.x -= nx * impulse;
+              v2.y -= ny * impulse;
+              v2.z -= nz * impulse;
+
+              // Audible metallic click when colliding with energy!
+              if (Math.abs(velAlongNormal) > 0.4) {
+                this.playMetallicClick(Math.abs(velAlongNormal));
+              }
+            }
+          }
+        }
+      }
+
+      // Integrate velocities & positions (Euler / Verlet)
+      for (let i = 0; i < count; i++) {
+        const s = this.spheres[i];
+
+        if (i === this.draggedIndex) {
+          // Dragged sphere directly follows pointer
+          s.pos.copy(this.dragTargetPos);
+          s.vel.set(0, 0, 0);
+        } else {
+          s.vel.x = (s.vel.x + s.force.x * subDt) * this.damping;
+          s.vel.y = (s.vel.y + s.force.y * subDt) * this.damping;
+          s.vel.z = (s.vel.z + s.force.z * subDt) * this.damping;
+
+          s.pos.x += s.vel.x * subDt;
+          s.pos.y += s.vel.y * subDt;
+          s.pos.z += s.vel.z * subDt;
+
+          // Soft floor boundary at y = -8.5
+          if (s.pos.y < -8.5 + this.radius) {
+            s.pos.y = -8.5 + this.radius;
+            if (s.vel.y < 0) s.vel.y = -s.vel.y * 0.35;
+          }
+        }
+      }
+    }
+
+    // Sync Three.js mesh positions
+    for (let i = 0; i < count; i++) {
+      this.sphereMeshes[i].position.copy(this.spheres[i].pos);
+    }
+  }
+
+  updateCamera() {
+    if (!this.camera) return;
+    const { radius, theta, phi } = this.spherical;
+    this.camera.position.x = radius * Math.sin(phi) * Math.sin(theta);
+    this.camera.position.y = radius * Math.cos(phi);
+    this.camera.position.z = radius * Math.sin(phi) * Math.cos(theta);
+    this.camera.lookAt(this.target);
+  }
+
+  dismissHint() {
+    if (this.hintDismissed) return;
+    this.hintDismissed = true;
+    const hint = document.getElementById('magnets-hint-overlay');
+    if (hint) {
+      hint.style.opacity = '0';
+      setTimeout(() => hint.remove(), 600);
+    }
+  }
+
+  // --- USER INTERACTION EVENTS ---
+  initEvents() {
+    const canvas = this.canvas;
+
+    const getPointerPos = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: ((clientX - rect.left) / rect.width) * 2 - 1,
+        y: -((clientY - rect.top) / rect.height) * 2 + 1,
+        rawX: clientX,
+        rawY: clientY
+      };
+    };
+
+    canvas.addEventListener('pointerdown', (e) => {
+      if (!this.isActive) return;
+      this.initAudio();
+      this.dismissHint();
+
+      this.isPointerDown = true;
+      this.hasMoved = false;
+      const p = getPointerPos(e);
+      this.lastPointer = { x: p.rawX, y: p.rawY };
+
+      this.pointer.x = p.x;
+      this.pointer.y = p.y;
+      this.raycaster.setFromCamera(this.pointer, this.camera);
+
+      // Check if user clicked a sphere
+      const intersects = this.raycaster.intersectObjects(this.sphereMeshes);
+      if (intersects.length > 0 && e.button !== 2) {
+        // Drag a sphere
+        this.pointerAction = 'drag';
+        const hit = intersects[0];
+        this.draggedIndex = hit.object.userData.index;
+
+        // Create drag plane parallel to camera at sphere's depth
+        const planeNormal = this.camera.getWorldDirection(new THREE.Vector3()).negate();
+        this.dragPlane.setFromNormalAndCoplanarPoint(planeNormal, hit.point);
+        this.dragTargetPos.copy(hit.point);
+
+        this.playMetallicClick(1.2);
+        canvas.style.cursor = 'grabbing';
+      } else {
+        // Orbit camera
+        this.pointerAction = 'orbit';
+        this.draggedIndex = -1;
+      }
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!this.isActive || !this.isPointerDown) {
+        // Just hover check for cursor
+        if (this.isActive) {
+          const p = getPointerPos(e);
+          this.pointer.x = p.x;
+          this.pointer.y = p.y;
+          this.raycaster.setFromCamera(this.pointer, this.camera);
+          const intersects = this.raycaster.intersectObjects(this.sphereMeshes);
+          canvas.style.cursor = intersects.length > 0 ? 'grab' : 'default';
+        }
+        return;
+      }
+
+      const p = getPointerPos(e);
+      const dx = p.rawX - this.lastPointer.x;
+      const dy = p.rawY - this.lastPointer.y;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) this.hasMoved = true;
+      this.lastPointer = { x: p.rawX, y: p.rawY };
+
+      if (this.pointerAction === 'drag' && this.draggedIndex >= 0) {
+        this.pointer.x = p.x;
+        this.pointer.y = p.y;
+        this.raycaster.setFromCamera(this.pointer, this.camera);
+
+        const targetIntersection = new THREE.Vector3();
+        if (this.raycaster.ray.intersectPlane(this.dragPlane, targetIntersection)) {
+          this.dragTargetPos.copy(targetIntersection);
+        }
+      } else if (this.pointerAction === 'orbit') {
+        this.spherical.theta -= dx * 0.007;
+        this.spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, this.spherical.phi - dy * 0.007));
+        this.updateCamera();
+      }
+    });
+
+    window.addEventListener('pointerup', () => {
+      if (!this.isActive) return;
+      this.isPointerDown = false;
+      this.pointerAction = null;
+      this.draggedIndex = -1;
+      canvas.style.cursor = 'default';
+    });
+
+    // Zoom on wheel / pinch
+    canvas.addEventListener('wheel', (e) => {
+      if (!this.isActive) return;
+      e.preventDefault();
+      this.spherical.radius = Math.max(14, Math.min(65, this.spherical.radius + e.deltaY * 0.035));
+      this.updateCamera();
+    }, { passive: false });
+
+    // Double tap/click to shockwave pulse
+    canvas.addEventListener('dblclick', () => {
+      if (!this.isActive) return;
+      this.setFormation('scatter');
+    });
+
+    // UI BUTTONS BINDINGS
+    const bindBtn = (id, fn) => {
+      const b = document.getElementById(id);
+      if (b) b.addEventListener('click', (e) => { e.stopPropagation(); fn(); });
+    };
+
+    bindBtn('btn-magnets-cluster', () => this.setFormation('cluster'));
+    bindBtn('btn-magnets-chain', () => this.setFormation('chain'));
+    bindBtn('btn-magnets-cube', () => this.setFormation('cube'));
+    bindBtn('btn-magnets-ring', () => this.setFormation('ring'));
+    bindBtn('btn-magnets-scatter', () => this.setFormation('scatter'));
+
+    bindBtn('btn-magnets-sound', () => {
+      this.soundEnabled = !this.soundEnabled;
+      const b = document.getElementById('btn-magnets-sound');
+      if (b) {
+        b.textContent = this.soundEnabled ? '🔊 Klicks: AN' : '🔇 Klicks: AUS';
+        b.classList.toggle('active', this.soundEnabled);
+      }
+    });
+
+    bindBtn('btn-magnets-theme', () => {
+      this.setTheme(this.currentTheme === 'chrome' ? 'gold' : 'chrome');
+    });
+
+    window.addEventListener('resize', () => {
+      if (!this.isActive) return;
+      this.resize();
+    });
+  }
+
+  resize() {
+    if (!this.renderer || !this.camera || !this.canvas) return;
+    const width = this.canvas.clientWidth || window.innerWidth;
+    const height = this.canvas.clientHeight || window.innerHeight;
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height);
+  }
+
+  activate() {
+    this.isActive = true;
+    this.resize();
+    if (!this.animId) {
+      let lastTime = performance.now();
+      const loop = (time) => {
+        if (!this.isActive) {
+          this.animId = null;
+          return;
+        }
+        const dt = Math.min((time - lastTime) / 1000, 0.05);
+        lastTime = time;
+
+        this.stepPhysics(dt);
+        this.renderer.render(this.scene, this.camera);
+        this.animId = requestAnimationFrame(loop);
+      };
+      this.animId = requestAnimationFrame(loop);
+    }
+  }
+
+  deactivate() {
+    this.isActive = false;
+    if (this.animId) {
+      cancelAnimationFrame(this.animId);
+      this.animId = null;
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.buckyballsApp = new NeodymMagnets3DApp();
+});
+</script>
 
 </body>
 </html>
