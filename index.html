@@ -2026,7 +2026,7 @@
   }
 
   /* AUTUMN THEME THUMBNAILS (COZY, WARM AMBER, COPPER, CINNAMON & GOLD) */
-  .thumb-magnets { background: radial-gradient(circle at 35% 35%, #e2e8f0 0%, #94a3b8 40%, #334155 75%, #0f172a 100%); }
+  .thumb-magnets { background: radial-gradient(circle at 40% 35%, #fde68a 0%, #f59e0b 35%, #d97706 65%, #78350f 88%, #1c0d04 100%); }
   .thumb-fluid { background: radial-gradient(circle at center, #f59e0b, #ea580c, #b91c1c, #1a0505); }
   .thumb-thisissand { background: radial-gradient(circle at center, #f59e0b, #d97706, #9a3412, #240c03); }
   .thumb-lavalamp { background: radial-gradient(circle at center, #f97316, #ea580c, #7c2d12, #1f0a04); }
@@ -6640,16 +6640,16 @@
         <div class="neuro-card" data-target="view-magnets" data-category="tactile sensory focus" onclick="if(window.switchView) window.switchView('view-magnets');">
           <div class="card-hero-thumb thumb-magnets">
             <span class="card-hero-icon">🧲</span>
-            <span class="card-neu-badge">✨ 3D NEODYM</span>
+            <span class="card-neu-badge">🍂 HERBST-NEODYM</span>
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
               <span class="card-title-text">Neodym Magnet-Kugeln</span>
             </div>
-            <p class="card-desc-text">Spiegelnde 3D-Chromkugeln mit physikalischer Magnetanziehung, Kettenbildung & Klack-Sounds.</p>
+            <p class="card-desc-text">Spiegelnde 3D-Magnetkugeln im warmen Herbst-Glow mit physikalischer Anziehung, Kettenbildung & Klack-Sounds.</p>
             <div class="card-bottom-row">
               <div class="card-tags-wrap">
-                <span class="card-pill-tag">🧲 Magnet-Physik</span><span class="card-pill-tag">✨ Spiegel-Chrom</span><span class="card-pill-tag">🔊 Taktil</span>
+                <span class="card-pill-tag">🧲 Magnet-Physik</span><span class="card-pill-tag">🍂 Herbst-Gold</span><span class="card-pill-tag">🔊 Taktil</span>
               </div>
               <div class="card-arrow-btn">➜</div>
             </div>
@@ -8026,7 +8026,7 @@
     <button class="action-btn" id="btn-magnets-ring" title="Magnet-Ring">⭕ Ring</button>
     <button class="action-btn" id="btn-magnets-scatter" title="Kugeln zerstreuen">💥 Streuen</button>
     <button class="pill-btn active" id="btn-magnets-sound" title="Klack-Sound an/aus">🔊 Klicks: AN</button>
-    <button class="pill-btn" id="btn-magnets-theme" title="Chrom / Gold wechseln">✨ Chrom</button>
+    <button class="pill-btn active" id="btn-magnets-theme" title="Herbst-Gold / Silber-Chrom wechseln">🍂 Herbst-Gold</button>
   </div>
 </div>
 
@@ -15786,7 +15786,7 @@ class NeodymMagnets3DApp {
     this.isActive = false;
     this.animId = null;
     this.soundEnabled = true;
-    this.currentTheme = 'chrome'; // 'chrome' or 'gold'
+    this.currentTheme = 'gold'; // default autumn gold
     this.hintDismissed = false;
 
     // Audio synthesizer for realistic metallic clacks
@@ -15969,9 +15969,9 @@ class NeodymMagnets3DApp {
     floorMesh.receiveShadow = true;
     this.scene.add(floorMesh);
 
-    // Chrome sphere material: ultra-smooth mirror finish ("glatt grau und spiegelnd")
+    // Sphere material: ultra-smooth mirror finish with autumn gold default
     this.sphereMaterial = new THREE.MeshStandardMaterial({
-      color: 0xdce2ec,       // Polished chrome gray
+      color: 0xfbbf24,       // Warm 24k polished autumn gold
       metalness: 0.98,       // Pure metal
       roughness: 0.032,      // Ultra-smooth mirror glass finish
       envMap: this.envTexture,
@@ -16007,10 +16007,16 @@ class NeodymMagnets3DApp {
     const btn = document.getElementById('btn-magnets-theme');
     if (theme === 'gold') {
       this.sphereMaterial.color.setHex(0xfbbf24);
-      if (btn) btn.textContent = '✨ Gold';
+      if (btn) {
+        btn.textContent = '🍂 Herbst-Gold';
+        btn.classList.add('active');
+      }
     } else {
       this.sphereMaterial.color.setHex(0xdce2ec);
-      if (btn) btn.textContent = '✨ Chrom';
+      if (btn) {
+        btn.textContent = '✨ Silber-Chrom';
+        btn.classList.remove('active');
+      }
     }
   }
 
