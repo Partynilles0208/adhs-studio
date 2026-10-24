@@ -7049,6 +7049,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (target) {
       target.classList.add('active');
       window.dispatchEvent(new Event('resize'));
+      if (window.bgMusicController) {
+        window.bgMusicController.checkViewMusic();
+      }
       if (targetId === 'view-games' && window.arcadeEngine) {
         window.arcadeEngine.filterAndRender();
       }
@@ -15488,8 +15491,10 @@ class BackgroundMusicController {
     this.audio.loop = true;
     this.audio.preload = 'auto';
     this.targetVolume = 0.8;
-    this.fadeInDuration = 4500; // 4.5 Sekunden sanftes Einblenden
+    this.fadeInDuration = 3500; // 3.5 Sekunden sanftes Einblenden
+    this.fadeOutDuration = 800;  // 0.8 Sekunden sanftes Ausblenden
     this.isPlaying = false;
+    this.userPaused = false;
     this.fadeInterval = null;
     this.armed = false;
 
@@ -15500,11 +15505,64 @@ class BackgroundMusicController {
         this.toggle();
       });
     }
+
+    // Automatische Überwachung aller Ansichten & Modals
+    this.initObserver();
+  }
+
+  // Musik läuft ausschließlich im Hauptmenü (view-hub)
+  isHubActive() {
+    const hub = document.getElementById('view-hub');
+    if (!hub || !hub.classList.contains('active')) return false;
+
+    // Kein Spiel aktiv im Game-Player
+    const gameModal = document.getElementById('game-player-modal');
+    if (gameModal && gameModal.classList.contains('active')) return false;
+
+    // Kein AI-Tools-Modal aktiv
+    const aiModal = document.getElementById('ai-tools-modal');
+    if (aiModal && aiModal.classList.contains('active')) return false;
+
+    return true;
+  }
+
+  initObserver() {
+    const observer = new MutationObserver(() => {
+      this.checkViewMusic();
+    });
+
+    document.querySelectorAll('.app-view').forEach(view => {
+      observer.observe(view, { attributes: true, attributeFilter: ['class'] });
+    });
+
+    const gameModal = document.getElementById('game-player-modal');
+    if (gameModal) {
+      observer.observe(gameModal, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    const aiModal = document.getElementById('ai-tools-modal');
+    if (aiModal) {
+      observer.observe(aiModal, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
+
+  // Zentrale Prüfung: Hauptmenü = Musik AN, Woanders = Musik WEG
+  checkViewMusic() {
+    if (this.isHubActive()) {
+      if (!this.userPaused) {
+        this.startWithFadeIn();
+      }
+    } else {
+      this.fadeOut();
+    }
   }
 
   startWithFadeIn() {
+    if (!this.isHubActive()) return;
+    if (this.userPaused) return;
     if (this.isPlaying && !this.audio.paused) return;
 
+    if (this.fadeInterval) clearInterval(this.fadeInterval);
     this.audio.volume = 0.0;
     const playPromise = this.audio.play();
     if (playPromise !== undefined) {
@@ -15527,6 +15585,12 @@ class BackgroundMusicController {
     const stepIncrement = this.targetVolume / totalSteps;
 
     this.fadeInterval = setInterval(() => {
+      if (!this.isHubActive()) {
+        clearInterval(this.fadeInterval);
+        this.fadeInterval = null;
+        this.fadeOut();
+        return;
+      }
       if (this.audio.volume + stepIncrement >= this.targetVolume) {
         this.audio.volume = this.targetVolume;
         clearInterval(this.fadeInterval);
@@ -15537,12 +15601,34 @@ class BackgroundMusicController {
     }, stepTime);
   }
 
+  fadeOut() {
+    if (this.audio.paused && !this.isPlaying) return;
+    if (this.fadeInterval) clearInterval(this.fadeInterval);
+
+    const stepTime = 50;
+    const totalSteps = this.fadeOutDuration / stepTime;
+    const stepDecrement = (this.audio.volume || this.targetVolume) / totalSteps;
+
+    this.fadeInterval = setInterval(() => {
+      if (this.audio.volume - stepDecrement <= 0.05) {
+        this.audio.volume = 0.0;
+        this.audio.pause();
+        this.isPlaying = false;
+        clearInterval(this.fadeInterval);
+        this.fadeInterval = null;
+        this.updateButton(false);
+      } else {
+        this.audio.volume = Math.max(0.0, this.audio.volume - stepDecrement);
+      }
+    }, stepTime);
+  }
+
   armAutoplayOnFirstInteraction() {
     if (this.armed || (this.isPlaying && !this.audio.paused)) return;
     this.armed = true;
 
     const onUserInteraction = () => {
-      if (!this.isPlaying || this.audio.paused) {
+      if (this.isHubActive() && (!this.isPlaying || this.audio.paused) && !this.userPaused) {
         this.startWithFadeIn();
       }
       window.removeEventListener('pointerdown', onUserInteraction);
@@ -15561,12 +15647,11 @@ class BackgroundMusicController {
 
   toggle() {
     if (this.audio.paused) {
+      this.userPaused = false;
       this.startWithFadeIn();
     } else {
-      this.audio.pause();
-      this.isPlaying = false;
-      if (this.fadeInterval) clearInterval(this.fadeInterval);
-      this.updateButton(false);
+      this.userPaused = true;
+      this.fadeOut();
     }
   }
 
