@@ -845,25 +845,26 @@
   
   /* === NEXT-GEN CYBER-GLASS & HIGH-ENGAGEMENT STYLING === */
   :root {
-    --bg-dark: #07090e;
-    --bg-card: rgba(18, 24, 38, 0.72);
-    --bg-card-hover: rgba(28, 38, 58, 0.88);
-    --border: rgba(255, 255, 255, 0.12);
-    --border-hover: rgba(0, 230, 118, 0.6);
-    --accent: #00e676;
-    --accent-glow: rgba(0, 230, 118, 0.45);
-    --accent-purple: #c084fc;
+    --bg-dark: #090d16;
+    --bg-card: rgba(20, 28, 48, 0.75);
+    --bg-card-hover: rgba(28, 40, 68, 0.92);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(99, 102, 241, 0.5);
+    --accent: #818cf8;
+    --accent-glow: rgba(99, 102, 241, 0.35);
+    --accent-purple: #a855f7;
     --accent-cyan: #38bdf8;
     --accent-gold: #fbbf24;
-    --accent-pink: #f43f5e;
-    --accent-fire: #ff6b35;
+    --accent-pink: #fb7185;
+    --accent-fire: #f97316;
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
   }
 
   body {
-    background: radial-gradient(circle at 50% 0%, #151d2f 0%, #07090e 75%) fixed;
+    background: radial-gradient(circle at 50% -10%, #1a233d 0%, #0c1220 50%, #070a12 100%) fixed;
     background-color: var(--bg-dark);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 
   /* Animated subtle grid overlay on background */
@@ -5097,7 +5098,7 @@
         ⚡ Werbefrei & Ungetrackt
       </span>
       <span style="font-size:10.5px; font-weight:800; background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.35); color:#f472b6; padding:3px 9px; border-radius:10px;">
-        🎮 27 Tools & 2.000+ Games
+        🎮 28 Tools & 2.000+ Games
       </span>
     </div>
 
@@ -5144,8 +5145,8 @@
         <button class="nav-menu-item" id="btn-open-ai-tools" style="position:relative;">
           <span>🤖</span> AI Tools <span style="font-size:9px; background:linear-gradient(135deg,#10b981,#38bdf8); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(16,185,129,0.5);">LIVE ⚡</span>
         </button>
-        <button class="nav-menu-item" id="btn-open-onboarding-wizard" style="position:relative; background:rgba(236,72,153,0.08); border:1px solid rgba(236,72,153,0.25);" onclick="if(window.personalizationWizard) window.personalizationWizard.open();">
-          <span>💖</span> Mein Profil <span style="font-size:9.5px; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800; padding:1px 7px; border-radius:10px; margin-left:auto;">Setup</span>
+        <button class="nav-menu-item" id="btn-open-pixelgravity" style="position:relative; background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(239,68,68,0.15)); border:1px solid rgba(245,158,11,0.35); color:#fbbf24; font-weight:800;" onclick="if(window.switchView) window.switchView('view-pixelgravity');">
+          <span>⏳</span> Pixel-Gravitation <span style="font-size:9.5px; background:linear-gradient(135deg,#f59e0b,#ef4444); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto;">NEU ⭐</span>
         </button>
         <button class="nav-menu-item" onclick="if(window.masteryEngine) window.masteryEngine.openModal();">
           <span>🏆</span> Relikte & Grade
@@ -5256,13 +5257,13 @@
                 Willkommen zurück, <span id="hero-user-name" style="background:linear-gradient(135deg, #38bdf8, #ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">NeuroSpace_Pro</span>! 🚀
               </div>
               <div style="font-size:12px; color:#94a3b8; margin-top:2px;">
-                Hyperfokus-Multiplikator aktiv: <span id="hero-combo-mult" style="color:#fbbf24; font-weight:800;">Aktiv</span> • 27 Tools & 2.000+ Games
+                Hyperfokus-Multiplikator aktiv: <span id="hero-combo-mult" style="color:#fbbf24; font-weight:800;">Aktiv</span> • 28 Tools & 2.000+ Games
               </div>
             </div>
           </div>
           <div style="margin-left:auto; display:flex; gap:10px; align-items:center;">
             <span style="font-size:11.5px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); color:#38bdf8; padding:5px 12px; border-radius:10px; font-weight:800; letter-spacing:0.5px;">
-              ⚡ 27 TOOLS • 2.000+ GAMES
+              ⚡ 28 TOOLS • 2.000+ GAMES
             </span>
           </div>
         </div>
@@ -5314,7 +5315,7 @@
       <!-- CATEGORY FILTER & SEARCH ROW -->
       <section class="neuro-filter-row">
         <div class="neuro-cat-pills">
-          <button class="cat-filter-btn active" data-cat="all">🌟 Alle (27)</button>
+          <button class="cat-filter-btn active" data-cat="all">🌟 Alle (28)</button>
           <button class="cat-filter-btn" data-cat="focus">🧠 Fokus & NeuroSpace</button>
           <button class="cat-filter-btn" data-cat="tactile">🫧 Lifestyle & Routine</button>
           <button class="cat-filter-btn" data-cat="audio">🎵 Audio & Musik</button>
@@ -5330,6 +5331,27 @@
       <!-- APP CARDS GRID WITH GORGEOUS 3D HERO THUMBNAILS (MATCHING SCREENSHOT) -->
       
       <section class="neuro-cards-grid" id="apps-grid">
+
+        <!-- 0.5. Pixel-Gravitation (Physik & Sand-Sandbox) -->
+        <div class="neuro-card" data-target="view-pixelgravity" data-category="tactile" onclick="if(window.switchView) window.switchView('view-pixelgravity');" style="border-color: rgba(245, 158, 11, 0.45); box-shadow: 0 0 25px rgba(245, 158, 11, 0.2); background: radial-gradient(circle at 50% 0%, rgba(45, 30, 15, 0.95), rgba(15, 20, 32, 0.95));">
+          <div class="card-hero-thumb" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+            <span class="card-hero-icon" style="font-size:38px;">⏳</span>
+            <span class="card-neu-badge" style="background: linear-gradient(135deg,#f59e0b,#ec4899);">NEU ⭐ PHYSIK</span>
+          </div>
+          <div class="card-body-content">
+            <div class="card-title-row">
+              <span class="card-title-text" style="color: #fbbf24; font-size:15px; font-weight:900;">Pixel-Gravitation</span>
+            </div>
+            <p class="card-desc-text">Physik- & Sand-Sandbox! Experimentiere mit Sand, Wasser, Feuer, Lava, Säure & Gravitations-Wirbeln.</p>
+            <div class="card-bottom-row">
+              <div class="card-tags-wrap">
+                <span class="card-pill-tag" style="color:#fbbf24; border-color:rgba(245,158,11,0.4);">⏳ Physik</span>
+                <span class="card-pill-tag">🧪 Sandbox</span>
+                <span class="card-pill-tag">🌊 Gravitation</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- 0. Spiele & Arcade (GameMonetize Portal) -->
         <div class="neuro-card" data-target="view-games" data-category="focus" onclick="if(window.switchView) window.switchView('view-games');" style="border-color: rgba(236,72,153,0.45); box-shadow: 0 0 25px rgba(236,72,153,0.22); background: radial-gradient(circle at 50% 0%, rgba(35, 15, 50, 0.95), rgba(15, 20, 32, 0.95));">
@@ -6248,6 +6270,77 @@
   </div>
 </div>
 
+
+<!-- ============================================================== -->
+<!-- PIXEL-GRAVITATION: PHYSIK & SAND-SANDBOX                       -->
+<!-- ============================================================== -->
+<div class="app-view" id="view-pixelgravity" style="position:relative; overflow:hidden; background:#070a12;">
+  <div class="view-nav" style="z-index:20;">
+    <button class="nav-back-btn" data-back="view-hub" onclick="if(window.switchView) window.switchView('view-hub');">← Hauptmenü</button>
+    <div class="view-title-pill"><span>⏳</span> Pixel-Gravitation (Physik- & Sand-Sandbox)</div>
+    <div style="margin-left:auto; display:flex; align-items:center; gap:8px;">
+      <button class="action-btn" id="btn-pg-sound" style="padding:6px 12px; font-size:12px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); color:#38bdf8;" title="Audio an/aus">🔊 Sound: AN</button>
+      <button class="action-btn" id="btn-pg-clear" style="padding:6px 12px; font-size:12px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#fca5a5;">🧹 Leeren</button>
+      <button class="action-btn" id="btn-pg-pause" style="padding:6px 12px; font-size:12px;">⏸️ Pause</button>
+      <button class="action-btn" id="btn-pg-fullscreen" style="padding:6px 12px; font-size:12px;">⛶ Vollbild</button>
+    </div>
+  </div>
+
+  <!-- Interactive Canvas Container -->
+  <div style="position:absolute; top:60px; left:0; right:0; bottom:88px; display:flex; align-items:center; justify-content:center; background:#05070f; overflow:hidden;">
+    <canvas id="pixelgravity-canvas" style="image-rendering:pixelated; width:100%; height:100%; object-fit:contain; cursor:crosshair; touch-action:none;"></canvas>
+  </div>
+
+  <!-- Bottom Floating Toolbar -->
+  <div class="floating-dock" style="z-index:25; bottom:14px; max-width:980px; flex-wrap:wrap; justify-content:center; gap:8px; padding:10px 16px;">
+    <!-- Elements -->
+    <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;" id="pg-elements-wrap">
+      <button class="pill-btn active" data-pg-el="sand" style="color:#fbbf24; border-color:rgba(245,158,11,0.5);">⏳ Sand</button>
+      <button class="pill-btn" data-pg-el="water" style="color:#38bdf8; border-color:rgba(56,189,248,0.5);">💧 Wasser</button>
+      <button class="pill-btn" data-pg-el="fire" style="color:#f97316; border-color:rgba(249,115,22,0.5);">🔥 Feuer</button>
+      <button class="pill-btn" data-pg-el="wood" style="color:#22c55e; border-color:rgba(34,197,94,0.5);">🌿 Pflanze</button>
+      <button class="pill-btn" data-pg-el="stone" style="color:#94a3b8; border-color:rgba(148,163,184,0.5);">🧱 Stein</button>
+      <button class="pill-btn" data-pg-el="acid" style="color:#a3e635; border-color:rgba(163,230,53,0.5);">🧪 Säure</button>
+      <button class="pill-btn" data-pg-el="lava" style="color:#ef4444; border-color:rgba(239,68,68,0.5);">🌋 Lava</button>
+      <button class="pill-btn" data-pg-el="spark" style="color:#ec4899; border-color:rgba(236,72,153,0.5);">⚡ Funken</button>
+      <button class="pill-btn" data-pg-el="vortex" style="color:#c084fc; border-color:rgba(192,132,252,0.5);">💥 Wirbel</button>
+      <button class="pill-btn" data-pg-el="eraser" style="color:#cbd5e1;">🧹 Radierer</button>
+    </div>
+
+    <div class="dock-divider"></div>
+
+    <!-- Gravity Direction -->
+    <div style="display:flex; align-items:center; gap:6px;">
+      <span class="dock-label" style="font-size:11px;">Gravitation:</span>
+      <button class="pill-btn active" data-pg-grav="down" title="Schwerkraft nach unten">⬇️</button>
+      <button class="pill-btn" data-pg-grav="up" title="Invertierte Schwerkraft">⬆️</button>
+      <button class="pill-btn" data-pg-grav="left" title="Schwerkraft nach links">⬅️</button>
+      <button class="pill-btn" data-pg-grav="right" title="Schwerkraft nach rechts">➡️</button>
+      <button class="pill-btn" data-pg-grav="zero" title="Schwerelosigkeit (Zero-G)">🌌</button>
+    </div>
+
+    <div class="dock-divider"></div>
+
+    <!-- Brush Size -->
+    <div style="display:flex; align-items:center; gap:6px;">
+      <span class="dock-label" style="font-size:11px;">Pinsel:</span>
+      <button class="pill-btn" data-pg-brush="2">2px</button>
+      <button class="pill-btn active" data-pg-brush="5">5px</button>
+      <button class="pill-btn" data-pg-brush="10">10px</button>
+      <button class="pill-btn" data-pg-brush="18">18px</button>
+    </div>
+
+    <div class="dock-divider"></div>
+
+    <!-- Presets -->
+    <div style="display:flex; align-items:center; gap:6px;">
+      <button class="pill-btn" id="btn-pg-preset-volcano" title="Vulkan & Lava-Fluss">🌋 Vulkan</button>
+      <button class="pill-btn" id="btn-pg-preset-hourglass" title="Sanduhr">⏳ Sanduhr</button>
+      <button class="pill-btn" id="btn-pg-preset-rain" title="Automatischer Partikel-Regen">🌧️ Regen</button>
+    </div>
+  </div>
+</div>
+
 <div class="app-view" id="view-thisissand" style="position:relative; overflow:hidden;">
   <div class="view-nav" style="z-index:10;">
     <button class="nav-back-btn" data-back="view-hub">← Hauptmenü</button>
@@ -7051,6 +7144,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (targetId === 'view-games' && window.arcadeEngine) {
         window.arcadeEngine.filterAndRender();
+      }
+      if (targetId === 'view-pixelgravity' && window.pixelGravity) {
+        window.pixelGravity.isPaused = false;
       }
       if (targetId === 'view-draw' && window.drawStudio) {
         setTimeout(() => window.drawStudio.resize(), 50);
@@ -15475,6 +15571,699 @@ class NeuroArcadeEngine {
   }
 }
 window.arcadeEngine = new NeuroArcadeEngine();
+</script>
+
+<!-- ============================================================== -->
+<!-- SCRIPT: PIXEL-GRAVITATION CELLULAR AUTOMATA ENGINE (60 FPS)    -->
+<!-- ============================================================== -->
+<script>
+class PixelGravityEngine {
+  constructor() {
+    this.canvas = document.getElementById('pixelgravity-canvas');
+    if (!this.canvas) return;
+    this.ctx = this.canvas.getContext('2d');
+
+    // Grid size (240x150 = 36.000 cells for locked 60 FPS)
+    this.w = 240;
+    this.h = 150;
+    this.canvas.width = this.w;
+    this.canvas.height = this.h;
+
+    // State arrays
+    this.grid = new Uint8Array(this.w * this.h);
+    this.colors = new Uint32Array(this.w * this.h);
+    this.imgData = this.ctx.createImageData(this.w, this.h);
+    this.buf32 = new Uint32Array(this.imgData.data.buffer);
+
+    // Simulation params
+    this.currentElement = 1; // 1: sand
+    this.brushSize = 5;
+    this.gravity = [0, 1]; // down
+    this.isPaused = false;
+    this.isMouseDown = false;
+    this.lastPointer = null;
+    this.soundEnabled = true;
+    this.rainMode = false;
+    this.animId = null;
+
+    // Web Audio Synthesizer for tactile feedback
+    this.audioCtx = null;
+    this.lastSoundTime = 0;
+
+    // Types enum
+    this.TYPES = {
+      EMPTY: 0,
+      SAND: 1,
+      WATER: 2,
+      FIRE: 3,
+      WOOD: 4,
+      STONE: 5,
+      ACID: 6,
+      LAVA: 7,
+      SPARK: 8,
+      VORTEX: 9
+    };
+
+    this.init();
+  }
+
+  init() {
+    this.bindControls();
+    this.bindCanvasEvents();
+    this.loadPresetHourglass();
+    this.startLoop();
+  }
+
+  initAudio() {
+    if (!this.audioCtx) {
+      const AudioCtor = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtor) this.audioCtx = new AudioCtor();
+    }
+  }
+
+  playTactileClick(type) {
+    if (!this.soundEnabled || !this.audioCtx) return;
+    const now = Date.now();
+    if (now - this.lastSoundTime < 45) return;
+    this.lastSoundTime = now;
+
+    try {
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+
+      if (type === 1) { // Sand
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(320 + Math.random() * 80, this.audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.02, this.audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.05);
+        osc.start();
+        osc.stop(this.audioCtx.currentTime + 0.05);
+      } else if (type === 2) { // Water
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(240 + Math.random() * 60, this.audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.025, this.audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.08);
+        osc.start();
+        osc.stop(this.audioCtx.currentTime + 0.08);
+      } else if (type === 7) { // Lava
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140 + Math.random() * 40, this.audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.02, this.audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.06);
+        osc.start();
+        osc.stop(this.audioCtx.currentTime + 0.06);
+      }
+    } catch(e) {}
+  }
+
+  getRandomColor(type) {
+    // Little variations for organic texture
+    const v = (Math.random() - 0.5) * 14;
+    switch(type) {
+      case 1: { // Sand (Golden Dunes)
+        const r = Math.min(255, Math.max(0, 245 + v));
+        const g = Math.min(255, Math.max(0, 185 + v));
+        const b = Math.min(255, Math.max(0, 65 + v));
+        return (255 << 24) | (b << 16) | (g << 8) | r;
+      }
+      case 2: { // Water (Liquid Cyan Blue)
+        const r = Math.min(255, Math.max(0, 40 + v));
+        const g = Math.min(255, Math.max(0, 160 + v));
+        const b = Math.min(255, Math.max(0, 245 + v));
+        return (255 << 24) | (b << 16) | (g << 8) | r;
+      }
+      case 3: { // Fire (Orange/Red Flicker)
+        const r = Math.min(255, Math.max(0, 255));
+        const g = Math.min(255, Math.max(0, 80 + Math.random() * 120));
+        const b = 20;
+        return (255 << 24) | (b << 16) | (g << 8) | r;
+      }
+      case 4: { // Wood / Plant (Deep Forest Green)
+        const r = Math.min(255, Math.max(0, 34 + v));
+        const g = Math.min(255, Math.max(0, 185 + v));
+        const b = Math.min(255, Math.max(0, 75 + v));
+        return (255 << 24) | (b << 16) | (g << 8) | r;
+      }
+      case 5: { // Stone (Slate Grey Wall)
+        const c = Math.min(255, Math.max(0, 110 + v));
+        return (255 << 24) | (c << 16) | (c << 8) | c;
+      }
+      case 6: { // Acid (Neon Lime Fizz)
+        const r = Math.min(255, Math.max(0, 160 + v));
+        const g = Math.min(255, Math.max(0, 240 + v));
+        const b = 30;
+        return (255 << 24) | (b << 16) | (g << 8) | r;
+      }
+      case 7: { // Lava (Molten Red/Orange)
+        const r = 255;
+        const g = Math.min(255, Math.max(0, 50 + Math.random() * 60));
+        const b = 20;
+        return (255 << 24) | (b << 16) | (g << 8) | r;
+      }
+      case 8: { // Sparks (Electric Pink/Cyan)
+        const isPink = Math.random() > 0.5;
+        return isPink ? 0xfff43fec : 0xff38bdf8;
+      }
+      case 9: { // Vortex (Cosmic Purple)
+        const r = 180 + Math.random() * 40;
+        const g = 80;
+        const b = 255;
+        return (255 << 24) | (b << 16) | (g << 8) | r;
+      }
+      default:
+        return 0x00000000;
+    }
+  }
+
+  step() {
+    if (this.isPaused) return;
+
+    const W = this.w;
+    const H = this.h;
+    const g = this.grid;
+    const c = this.colors;
+    const [gx, gy] = this.gravity;
+
+    // Rain mode generator
+    if (this.rainMode && Math.random() > 0.3) {
+      const rx = Math.floor(Math.random() * (W - 10)) + 5;
+      const el = Math.random() > 0.6 ? this.TYPES.SAND : (Math.random() > 0.5 ? this.TYPES.WATER : this.TYPES.SPARK);
+      g[rx] = el;
+      c[rx] = this.getRandomColor(el);
+    }
+
+    // Directional iteration order to respect gravity
+    const yStart = gy >= 0 ? H - 2 : 1;
+    const yEnd = gy >= 0 ? 0 : H - 1;
+    const yStep = gy >= 0 ? -1 : 1;
+
+    for (let y = yStart; gy >= 0 ? y >= yEnd : y <= yEnd; y += yStep) {
+      // Alternate X direction to eliminate bias
+      const leftToRight = Math.random() > 0.5;
+      const xStart = leftToRight ? 0 : W - 1;
+      const xEnd = leftToRight ? W : -1;
+      const xStep = leftToRight ? 1 : -1;
+
+      for (let x = xStart; x !== xEnd; x += xStep) {
+        const idx = x + y * W;
+        const type = g[idx];
+        if (type === this.TYPES.EMPTY || type === this.TYPES.STONE) continue;
+
+        // 1. SAND & GRAVITY PARTICLES
+        if (type === this.TYPES.SAND) {
+          const targetY = y + gy;
+          const targetX = x + gx;
+
+          if (targetY >= 0 && targetY < H && targetX >= 0 && targetX < W) {
+            const below = targetX + targetY * W;
+            if (g[below] === this.TYPES.EMPTY) {
+              g[below] = type; c[below] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+            } else if (g[below] === this.TYPES.WATER || g[below] === this.TYPES.ACID) {
+              // Sand sinks in water & acid
+              const tempT = g[below]; const tempC = c[below];
+              g[below] = type; c[below] = c[idx];
+              g[idx] = tempT; c[idx] = tempC;
+            } else {
+              // Diagonal roll
+              const d1 = (x - 1) + targetY * W;
+              const d2 = (x + 1) + targetY * W;
+              const canLeft = x > 0 && g[d1] === this.TYPES.EMPTY;
+              const canRight = x < W - 1 && g[d2] === this.TYPES.EMPTY;
+
+              if (canLeft && canRight) {
+                const choice = Math.random() > 0.5 ? d1 : d2;
+                g[choice] = type; c[choice] = c[idx];
+                g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              } else if (canLeft) {
+                g[d1] = type; c[d1] = c[idx];
+                g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              } else if (canRight) {
+                g[d2] = type; c[d2] = c[idx];
+                g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              }
+            }
+          }
+        }
+
+        // 2. WATER (Flows down and spreads sideways)
+        else if (type === this.TYPES.WATER) {
+          const targetY = y + gy;
+          if (targetY >= 0 && targetY < H) {
+            const below = x + targetY * W;
+            if (g[below] === this.TYPES.EMPTY) {
+              g[below] = type; c[below] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              continue;
+            }
+            // Diagonal
+            const d1 = (x - 1) + targetY * W;
+            const d2 = (x + 1) + targetY * W;
+            const canLeft = x > 0 && g[d1] === this.TYPES.EMPTY;
+            const canRight = x < W - 1 && g[d2] === this.TYPES.EMPTY;
+            if (canLeft && canRight) {
+              const choice = Math.random() > 0.5 ? d1 : d2;
+              g[choice] = type; c[choice] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              continue;
+            } else if (canLeft) {
+              g[d1] = type; c[d1] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              continue;
+            } else if (canRight) {
+              g[d2] = type; c[d2] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              continue;
+            }
+          }
+          // Lateral Flow
+          const sideDir = Math.random() > 0.5 ? 1 : -1;
+          const sx = x + sideDir;
+          if (sx >= 0 && sx < W) {
+            const sideIdx = sx + y * W;
+            if (g[sideIdx] === this.TYPES.EMPTY) {
+              g[sideIdx] = type; c[sideIdx] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+            }
+          }
+        }
+
+        // 3. FIRE (Rises, burns wood, extinguished by water)
+        else if (type === this.TYPES.FIRE) {
+          // Burn out chance
+          if (Math.random() < 0.12) {
+            g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+            continue;
+          }
+          // Check neighbors to burn wood
+          const neighbors = [idx - 1, idx + 1, idx - W, idx + W];
+          for (let n of neighbors) {
+            if (n >= 0 && n < W * H) {
+              if (g[n] === this.TYPES.WOOD) {
+                g[n] = this.TYPES.FIRE;
+                c[n] = this.getRandomColor(this.TYPES.FIRE);
+              } else if (g[n] === this.TYPES.WATER) {
+                g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+                break;
+              }
+            }
+          }
+          // Rises up against gravity
+          const upY = y - (gy !== 0 ? gy : 1);
+          const upX = x + Math.floor((Math.random() - 0.5) * 3);
+          if (upY >= 0 && upY < H && upX >= 0 && upX < W) {
+            const upIdx = upX + upY * W;
+            if (g[upIdx] === this.TYPES.EMPTY) {
+              g[upIdx] = type; c[upIdx] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+            }
+          }
+        }
+
+        // 4. ACID (Dissolves anything beneath)
+        else if (type === this.TYPES.ACID) {
+          const targetY = y + gy;
+          if (targetY >= 0 && targetY < H) {
+            const below = x + targetY * W;
+            if (g[below] !== this.TYPES.EMPTY) {
+              // Dissolve both
+              g[below] = this.TYPES.EMPTY; c[below] = 0;
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              continue;
+            } else {
+              g[below] = type; c[below] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              continue;
+            }
+          }
+        }
+
+        // 5. LAVA (Dense hot magma)
+        else if (type === this.TYPES.LAVA) {
+          const targetY = y + gy;
+          if (targetY >= 0 && targetY < H) {
+            const below = x + targetY * W;
+            if (g[below] === this.TYPES.WATER) {
+              // Turn water into stone / steam
+              g[below] = this.TYPES.STONE; c[below] = this.getRandomColor(this.TYPES.STONE);
+              g[idx] = this.TYPES.STONE; c[idx] = this.getRandomColor(this.TYPES.STONE);
+              continue;
+            } else if (g[below] === this.TYPES.WOOD) {
+              g[below] = this.TYPES.FIRE; c[below] = this.getRandomColor(this.TYPES.FIRE);
+            } else if (g[below] === this.TYPES.EMPTY) {
+              g[below] = type; c[below] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+              continue;
+            }
+          }
+          // Slow viscous flow
+          if (Math.random() < 0.4) {
+            const sideDir = Math.random() > 0.5 ? 1 : -1;
+            const sx = x + sideDir;
+            if (sx >= 0 && sx < W && g[sx + y * W] === this.TYPES.EMPTY) {
+              g[sx + y * W] = type; c[sx + y * W] = c[idx];
+              g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+            }
+          }
+        }
+
+        // 6. SPARKS
+        else if (type === this.TYPES.SPARK) {
+          if (Math.random() < 0.08) {
+            g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+            continue;
+          }
+          const rx = x + Math.floor((Math.random() - 0.5) * 3);
+          const ry = y + Math.floor((Math.random() - 0.5) * 3);
+          if (rx >= 0 && rx < W && ry >= 0 && ry < H && g[rx + ry * W] === this.TYPES.EMPTY) {
+            g[rx + ry * W] = type; c[rx + ry * W] = c[idx];
+            g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+          }
+        }
+
+        // 7. VORTEX (Attracts surrounding particles)
+        else if (type === this.TYPES.VORTEX) {
+          const radius = 10;
+          for (let dy = -radius; dy <= radius; dy++) {
+            for (let dx = -radius; dx <= radius; dx++) {
+              if (dx === 0 && dy === 0) continue;
+              const nx = x + dx; const ny = y + dy;
+              if (nx >= 0 && nx < W && ny >= 0 && ny < H) {
+                const nIdx = nx + ny * W;
+                if (g[nIdx] !== this.TYPES.EMPTY && g[nIdx] !== this.TYPES.STONE && g[nIdx] !== this.TYPES.VORTEX) {
+                  // Pull one step closer
+                  const stepX = dx > 0 ? -1 : (dx < 0 ? 1 : 0);
+                  const stepY = dy > 0 ? -1 : (dy < 0 ? 1 : 0);
+                  const destIdx = (nx + stepX) + (ny + stepY) * W;
+                  if (g[destIdx] === this.TYPES.EMPTY) {
+                    g[destIdx] = g[nIdx]; c[destIdx] = c[nIdx];
+                    g[nIdx] = this.TYPES.EMPTY; c[nIdx] = 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  draw() {
+    const W = this.w;
+    const H = this.h;
+    const g = this.grid;
+    const c = this.colors;
+    const buf = this.buf32;
+
+    for (let i = 0; i < W * H; i++) {
+      buf[i] = g[i] !== 0 ? c[i] : 0xff070a12; // dark void background
+    }
+
+    this.ctx.putImageData(this.imgData, 0, 0);
+  }
+
+  paint(x, y) {
+    const r = Math.floor(this.brushSize / 2);
+    const W = this.w;
+    const H = this.h;
+
+    for (let dy = -r; dy <= r; dy++) {
+      for (let dx = -r; dx <= r; dx++) {
+        if (dx*dx + dy*dy <= r*r) {
+          const px = x + dx;
+          const py = y + dy;
+          if (px >= 0 && px < W && py >= 0 && py < H) {
+            const idx = px + py * W;
+            if (this.currentElement === this.TYPES.EMPTY) {
+              this.grid[idx] = this.TYPES.EMPTY;
+              this.colors[idx] = 0;
+            } else {
+              this.grid[idx] = this.currentElement;
+              this.colors[idx] = this.getRandomColor(this.currentElement);
+            }
+          }
+        }
+      }
+    }
+    this.playTactileClick(this.currentElement);
+  }
+
+  paintLine(x0, y0, x1, y1) {
+    const dx = Math.abs(x1 - x0);
+    const dy = Math.abs(y1 - y0);
+    const sx = (x0 < x1) ? 1 : -1;
+    const sy = (y0 < y1) ? 1 : -1;
+    let err = dx - dy;
+
+    while (true) {
+      this.paint(x0, y0);
+      if (x0 === x1 && y0 === y1) break;
+      const e2 = 2 * err;
+      if (e2 > -dy) { err -= dy; x0 += sx; }
+      if (e2 < dx) { err += dx; y0 += sy; }
+    }
+  }
+
+  getCanvasCoords(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const scaleX = this.w / rect.width;
+    const scaleY = this.h / rect.height;
+    return {
+      x: Math.floor((clientX - rect.left) * scaleX),
+      y: Math.floor((clientY - rect.top) * scaleY)
+    };
+  }
+
+  bindCanvasEvents() {
+    const onStart = (e) => {
+      this.initAudio();
+      this.isMouseDown = true;
+      const pt = this.getCanvasCoords(e);
+      this.lastPointer = pt;
+      this.paint(pt.x, pt.y);
+    };
+
+    const onMove = (e) => {
+      if (!this.isMouseDown) return;
+      const pt = this.getCanvasCoords(e);
+      if (this.lastPointer) {
+        this.paintLine(this.lastPointer.x, this.lastPointer.y, pt.x, pt.y);
+      } else {
+        this.paint(pt.x, pt.y);
+      }
+      this.lastPointer = pt;
+    };
+
+    const onEnd = () => {
+      this.isMouseDown = false;
+      this.lastPointer = null;
+    };
+
+    this.canvas.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+
+    this.canvas.addEventListener('touchstart', onStart, { passive: true });
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onEnd);
+  }
+
+  bindControls() {
+    // Elements
+    document.querySelectorAll('[data-pg-el]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-pg-el]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const elName = btn.dataset.pgEl.toUpperCase();
+        this.currentElement = this.TYPES[elName] !== undefined ? this.TYPES[elName] : this.TYPES.SAND;
+      });
+    });
+
+    // Gravity
+    document.querySelectorAll('[data-pg-grav]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-pg-grav]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const g = btn.dataset.pgGrav;
+        if (g === 'down') this.gravity = [0, 1];
+        else if (g === 'up') this.gravity = [0, -1];
+        else if (g === 'left') this.gravity = [-1, 0];
+        else if (g === 'right') this.gravity = [1, 0];
+        else if (g === 'zero') this.gravity = [0, 0];
+      });
+    });
+
+    // Brush
+    document.querySelectorAll('[data-pg-brush]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-pg-brush]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.brushSize = parseInt(btn.dataset.pgBrush, 10) || 5;
+      });
+    });
+
+    // Clear
+    const clearBtn = document.getElementById('btn-pg-clear');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => this.clear());
+    }
+
+    // Pause
+    const pauseBtn = document.getElementById('btn-pg-pause');
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', () => {
+        this.isPaused = !this.isPaused;
+        pauseBtn.textContent = this.isPaused ? '▶️ Weiter' : '⏸️ Pause';
+      });
+    }
+
+    // Sound toggle
+    const soundBtn = document.getElementById('btn-pg-sound');
+    if (soundBtn) {
+      soundBtn.addEventListener('click', () => {
+        this.soundEnabled = !this.soundEnabled;
+        soundBtn.textContent = this.soundEnabled ? '🔊 Sound: AN' : '🔇 Sound: AUS';
+      });
+    }
+
+    // Fullscreen
+    const fsBtn = document.getElementById('btn-pg-fullscreen');
+    if (fsBtn) {
+      fsBtn.addEventListener('click', () => {
+        const view = document.getElementById('view-pixelgravity');
+        if (!document.fullscreenElement) {
+          if (view.requestFullscreen) view.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+        }
+      });
+    }
+
+    // Presets
+    const volcanoBtn = document.getElementById('btn-pg-preset-volcano');
+    if (volcanoBtn) volcanoBtn.addEventListener('click', () => this.loadPresetVolcano());
+
+    const hourglassBtn = document.getElementById('btn-pg-preset-hourglass');
+    if (hourglassBtn) hourglassBtn.addEventListener('click', () => this.loadPresetHourglass());
+
+    const rainBtn = document.getElementById('btn-pg-preset-rain');
+    if (rainBtn) {
+      rainBtn.addEventListener('click', () => {
+        this.rainMode = !this.rainMode;
+        rainBtn.classList.toggle('active', this.rainMode);
+      });
+    }
+  }
+
+  clear() {
+    this.grid.fill(0);
+    this.colors.fill(0);
+  }
+
+  loadPresetHourglass() {
+    this.clear();
+    const W = this.w;
+    const H = this.h;
+    const midX = Math.floor(W / 2);
+    const midY = Math.floor(H / 2);
+
+    // Draw Stone Hourglass Funnel
+    for (let y = 15; y < H - 15; y++) {
+      const distFromMid = Math.abs(y - midY);
+      const span = Math.floor(distFromMid * 0.7) + 6;
+
+      const leftStone = midX - span;
+      const rightStone = midX + span;
+
+      if (leftStone >= 0 && leftStone < W) {
+        this.grid[leftStone + y * W] = this.TYPES.STONE;
+        this.colors[leftStone + y * W] = this.getRandomColor(this.TYPES.STONE);
+      }
+      if (rightStone >= 0 && rightStone < W) {
+        this.grid[rightStone + y * W] = this.TYPES.STONE;
+        this.colors[rightStone + y * W] = this.getRandomColor(this.TYPES.STONE);
+      }
+    }
+
+    // Base and top platforms
+    for (let x = midX - 60; x <= midX + 60; x++) {
+      this.grid[x + (H - 16) * W] = this.TYPES.STONE;
+      this.colors[x + (H - 16) * W] = this.getRandomColor(this.TYPES.STONE);
+      this.grid[x + 14 * W] = this.TYPES.STONE;
+      this.colors[x + 14 * W] = this.getRandomColor(this.TYPES.STONE);
+    }
+
+    // Fill top chamber with warm sand
+    for (let y = 18; y < midY - 6; y++) {
+      const distFromMid = Math.abs(y - midY);
+      const span = Math.floor(distFromMid * 0.7) + 3;
+      for (let x = midX - span + 2; x <= midX + span - 2; x++) {
+        if (Math.random() > 0.15) {
+          this.grid[x + y * W] = this.TYPES.SAND;
+          this.colors[x + y * W] = this.getRandomColor(this.TYPES.SAND);
+        }
+      }
+    }
+  }
+
+  loadPresetVolcano() {
+    this.clear();
+    const W = this.w;
+    const H = this.h;
+    const midX = Math.floor(W / 2);
+
+    // Mountain slopes
+    for (let x = 0; x < W; x++) {
+      const dist = Math.abs(x - midX);
+      const peakH = Math.max(10, Math.floor(dist * 0.65) + 30);
+      for (let y = peakH; y < H; y++) {
+        const idx = x + y * W;
+        this.grid[idx] = this.TYPES.STONE;
+        this.colors[idx] = this.getRandomColor(this.TYPES.STONE);
+      }
+    }
+
+    // Hollow out crater and fill with lava
+    for (let y = 30; y < 75; y++) {
+      for (let x = midX - 12; x <= midX + 12; x++) {
+        const idx = x + y * W;
+        this.grid[idx] = this.TYPES.LAVA;
+        this.colors[idx] = this.getRandomColor(this.TYPES.LAVA);
+      }
+    }
+
+    // Trees on slopes
+    for (let x = 10; x < W - 10; x += 4) {
+      if (Math.abs(x - midX) > 28) {
+        const dist = Math.abs(x - midX);
+        const surfaceY = Math.floor(dist * 0.65) + 29;
+        if (surfaceY > 0 && surfaceY < H - 5) {
+          for (let ty = surfaceY - 5; ty <= surfaceY; ty++) {
+            this.grid[x + ty * W] = this.TYPES.WOOD;
+            this.colors[x + ty * W] = this.getRandomColor(this.TYPES.WOOD);
+          }
+        }
+      }
+    }
+  }
+
+  startLoop() {
+    const loop = () => {
+      this.step();
+      this.draw();
+      this.animId = requestAnimationFrame(loop);
+    };
+    this.animId = requestAnimationFrame(loop);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.pixelGravity = new PixelGravityEngine();
+});
 </script>
 
 
