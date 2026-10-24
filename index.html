@@ -7661,26 +7661,25 @@
     </div>
   </div>
 
-  <!-- Interactive Canvas Container -->
-  <div style="position:absolute; top:60px; left:0; right:0; bottom:88px; display:flex; align-items:center; justify-content:center; background:#05070f; overflow:hidden;">
-    <canvas id="pixelgravity-canvas" style="image-rendering:pixelated; width:100%; height:100%; object-fit:contain; cursor:crosshair; touch-action:none;"></canvas>
-  </div>
+  <!-- Fullscreen Edge-to-Edge Canvas (100% Screen Coverage) -->
+  <canvas id="pixelgravity-canvas" class="canvas-fullscreen" style="position:absolute; top:0; left:0; width:100%; height:100%; image-rendering:pixelated; cursor:crosshair; touch-action:none; z-index:1;"></canvas>
 
-  <!-- Bottom Floating Toolbar -->
-  <div class="floating-dock" style="z-index:25; bottom:14px; max-width:980px; flex-wrap:wrap; justify-content:center; gap:8px; padding:10px 16px;">
+  <!-- Bottom Floating Toolbar (Background-free pills) -->
+  <div class="floating-dock" style="z-index:25; bottom:16px; max-width:98vw; flex-wrap:wrap; justify-content:center; gap:8px;">
     <!-- Elements -->
     <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;" id="pg-elements-wrap">
-      <button class="pill-btn active" data-pg-el="sand" style="color:#fbbf24; border-color:rgba(245,158,11,0.5);">⏳ Bernsteinsand</button>
-      <button class="pill-btn" data-pg-el="leaf" style="color:#f59e0b; border-color:rgba(245,158,11,0.5);">🍁 Herbstlaub</button>
-      <button class="pill-btn" data-pg-el="ember" style="color:#ea580c; border-color:rgba(234,88,12,0.5);">🔥 Kamin-Glut</button>
+      <button class="pill-btn active" data-pg-el="sand" style="color:#fbbf24; border-color:rgba(245,158,11,0.5);">⏳ Sand</button>
       <button class="pill-btn" data-pg-el="water" style="color:#38bdf8; border-color:rgba(56,189,248,0.5);">💧 Wasser</button>
       <button class="pill-btn" data-pg-el="fire" style="color:#f97316; border-color:rgba(249,115,22,0.5);">🔥 Feuer</button>
+      <button class="pill-btn" data-pg-el="gunpowder" style="color:#94a3b8; border-color:rgba(148,163,184,0.5);">💣 Schwarzpulver</button>
+      <button class="pill-btn" data-pg-el="oil" style="color:#d97706; border-color:rgba(217,119,6,0.5);">🛢️ Öl</button>
       <button class="pill-btn" data-pg-el="wood" style="color:#22c55e; border-color:rgba(34,197,94,0.5);">🌿 Pflanze</button>
-      <button class="pill-btn" data-pg-el="stone" style="color:#94a3b8; border-color:rgba(148,163,184,0.5);">🧱 Stein</button>
+      <button class="pill-btn" data-pg-el="stone" style="color:#64748b; border-color:rgba(100,116,139,0.5);">🧱 Stein</button>
       <button class="pill-btn" data-pg-el="acid" style="color:#a3e635; border-color:rgba(163,230,53,0.5);">🧪 Säure</button>
       <button class="pill-btn" data-pg-el="lava" style="color:#ef4444; border-color:rgba(239,68,68,0.5);">🌋 Lava</button>
-      <button class="pill-btn" data-pg-el="spark" style="color:#ec4899; border-color:rgba(236,72,153,0.5);">⚡ Funken</button>
-      <button class="pill-btn" data-pg-el="vortex" style="color:#c084fc; border-color:rgba(192,132,252,0.5);">💥 Wirbel</button>
+      <button class="pill-btn" data-pg-el="leaf" style="color:#f59e0b; border-color:rgba(245,158,11,0.5);">🍁 Herbstlaub</button>
+      <button class="pill-btn" data-pg-el="ember" style="color:#ea580c; border-color:rgba(234,88,12,0.5);">🔥 Kamin-Glut</button>
+      <button class="pill-btn" data-pg-el="vortex" style="color:#c084fc; border-color:rgba(192,132,252,0.5);">🌀 Wirbel</button>
       <button class="pill-btn" data-pg-el="eraser" style="color:#cbd5e1;">🧹 Radierer</button>
     </div>
 
@@ -8566,6 +8565,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (targetId === 'view-pixelgravity' && window.pixelGravity) {
         window.pixelGravity.isPaused = false;
+        setTimeout(() => window.pixelGravity.resize(), 50);
       }
       if (targetId === 'view-draw' && window.drawStudio) {
         setTimeout(() => window.drawStudio.resize(), 50);
@@ -12280,7 +12280,6 @@ class ThisIsSandApp {
         document.querySelectorAll('#sand-color-pills .pill-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         this.color = btn.dataset.sandC;
-        if (window.audio) audio.playPop(480);
       });
     });
 
@@ -12290,7 +12289,6 @@ class ThisIsSandApp {
         document.querySelectorAll('[data-sand-flow]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         this.flowRate = parseInt(btn.dataset.sandFlow);
-        if (window.audio) audio.playPop(350);
       });
     });
 
@@ -12309,14 +12307,14 @@ class ThisIsSandApp {
     }
   }
 
-  // Authentic sand dune avalanche & angle of repose deposit
+  // Authentic panoramic sand dune avalanche (Viewed from further distance, fine micro-grain layers)
   depositGrain(targetX, color) {
     if (targetX < 0 || targetX >= this.width) return;
     let x = Math.floor(targetX);
 
-    // Avalanche / slip down slopes (Angle of repose: max height diff is ~1.5px)
-    const maxSlope = 1.35;
-    for (let step = 0; step < 5; step++) {
+    // Gentle natural angle of repose for distant desert dunes
+    const maxSlope = 0.82;
+    for (let step = 0; step < 6; step++) {
       const hCur = this.heights[x];
       const leftX = Math.max(0, x - 1);
       const rightX = Math.min(this.width - 1, x + 1);
@@ -12335,28 +12333,24 @@ class ThisIsSandApp {
       }
     }
 
-    const grainH = 1.6; // grain height
+    const grainH = 0.7; // Ultra-fine micro-grain height for smooth distant accumulation
     this.heights[x] += grainH;
     const curHeight = this.heights[x];
     const y = Math.floor(this.height - curHeight);
 
     if (y < 0) return;
 
-    // Solid sand deposit on the persistent dunes canvas!
-    this.ctx.save();
-    // Slight granular texture variation (+/- brightness)
+    // Fine micro-grain deposit
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(x, y, 2, 2.5);
+    this.ctx.fillRect(x, y, 1.2, 1.4);
 
-    // Subtle noise speck for organic sand look
-    if (Math.random() < 0.25) {
-      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.18)';
+    if (Math.random() < 0.18) {
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
       this.ctx.fillRect(x, y, 1, 1);
-    } else if (Math.random() < 0.2) {
-      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
-      this.ctx.fillRect(x, y + 1, 1, 1);
+    } else if (Math.random() < 0.15) {
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+      this.ctx.fillRect(x, y, 1, 1);
     }
-    this.ctx.restore();
   }
 
   loop() {
@@ -12370,27 +12364,22 @@ class ThisIsSandApp {
         this.fxCtx.clearRect(0, 0, this.width, this.height);
       }
 
-      // 2. Spawn new falling grains if pouring
+      // 2. Spawn new falling micro-grains (fine stream viewed from further distance, 100% silent)
       if (this.isPouring) {
-        const grainsPerFrame = this.flowRate === 1 ? 8 : (this.flowRate === 2 ? 16 : 28);
-        const spreadWidth = this.flowRate === 1 ? 6 : (this.flowRate === 2 ? 16 : 30);
+        const grainsPerFrame = this.flowRate === 1 ? 18 : (this.flowRate === 2 ? 36 : 60);
+        const spreadWidth = this.flowRate === 1 ? 2.5 : (this.flowRate === 2 ? 6 : 12);
 
         for (let i = 0; i < grainsPerFrame; i++) {
           const offsetX = (Math.random() - 0.5) * spreadWidth;
           this.particles.push({
             x: this.pourX + offsetX,
-            y: this.pourY + (Math.random() - 0.5) * 4,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: Math.random() * 4 + 7,
+            y: this.pourY + (Math.random() - 0.5) * 3,
+            vx: (Math.random() - 0.5) * 0.25,
+            vy: Math.random() * 4 + 8,
             color: this.color
           });
         }
-
-        const now = Date.now();
-        if (now - this.lastSoundTime > 120 && window.audio) {
-          this.lastSoundTime = now;
-          audio.playClick('triangle');
-        }
+        // ZERO NOISE: All repetitive click sounds removed as requested!
       }
 
       // 3. Update & render falling grains on the FX canvas
@@ -12400,7 +12389,7 @@ class ThisIsSandApp {
         const p = this.particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.5; // gravity acceleration
+        p.vy += 0.45; // smooth gravity acceleration
 
         const ix = Math.floor(p.x);
         const sandH = (ix >= 0 && ix < this.width) ? (this.heights[ix] || 0) : 0;
@@ -12411,9 +12400,9 @@ class ThisIsSandApp {
           this.depositGrain(p.x, p.color);
           this.particles.splice(i, 1);
         } else {
-          // Still falling: draw live grain on FX canvas (which gets cleared next frame!)
+          // Still falling: slender micro-grain on FX canvas (cleared next frame)
           targetCtx.fillStyle = p.color;
-          targetCtx.fillRect(p.x, p.y, 2, 2.5);
+          targetCtx.fillRect(p.x, p.y, 1.2, 1.5);
         }
       }
     }
@@ -14063,17 +14052,13 @@ class PixelGravityEngine {
     if (!this.canvas) return;
     this.ctx = this.canvas.getContext('2d');
 
-    // Grid size (240x150 = 36.000 cells for locked 60 FPS)
-    this.w = 240;
-    this.h = 150;
-    this.canvas.width = this.w;
-    this.canvas.height = this.h;
-
-    // State arrays
-    this.grid = new Uint8Array(this.w * this.h);
-    this.colors = new Uint32Array(this.w * this.h);
-    this.imgData = this.ctx.createImageData(this.w, this.h);
-    this.buf32 = new Uint32Array(this.imgData.data.buffer);
+    // Dynamic Fullscreen grid size
+    this.w = 320;
+    this.h = 180;
+    this.grid = null;
+    this.colors = null;
+    this.imgData = null;
+    this.buf32 = null;
 
     // Simulation params
     this.currentElement = 1; // 1: sand
@@ -14082,15 +14067,11 @@ class PixelGravityEngine {
     this.isPaused = false;
     this.isMouseDown = false;
     this.lastPointer = null;
-    this.soundEnabled = true;
+    this.soundEnabled = false; // SILENT BY DEFAULT: No disturbing clicks!
     this.rainMode = false;
     this.animId = null;
 
-    // Web Audio Synthesizer for tactile feedback
-    this.audioCtx = null;
-    this.lastSoundTime = 0;
-
-    // Types enum
+    // Types enum matching classic sand:box + autumn twists
     this.TYPES = {
       EMPTY: 0,
       SAND: 1,
@@ -14103,10 +14084,53 @@ class PixelGravityEngine {
       SPARK: 8,
       VORTEX: 9,
       LEAF: 10,
-      EMBER: 11
+      EMBER: 11,
+      GUNPOWDER: 12,
+      OIL: 13
     };
 
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
     this.init();
+  }
+
+  resize() {
+    if (!this.canvas) return;
+    const screenW = window.innerWidth || 800;
+    const screenH = window.innerHeight || 600;
+
+    // ~3.2 pixels per simulation cell: ultra-sharp, fullscreen sand:box feeling!
+    const cellScale = 3.2;
+    const newW = Math.max(160, Math.floor(screenW / cellScale));
+    const newH = Math.max(100, Math.floor(screenH / cellScale));
+
+    if (newW === this.w && newH === this.h && this.grid) return;
+
+    const oldGrid = this.grid;
+    const oldColors = this.colors;
+    const oldW = this.w;
+    const oldH = this.h;
+
+    this.w = newW;
+    this.h = newH;
+    this.canvas.width = this.w;
+    this.canvas.height = this.h;
+
+    this.grid = new Uint8Array(this.w * this.h);
+    this.colors = new Uint32Array(this.w * this.h);
+    this.imgData = this.ctx.createImageData(this.w, this.h);
+    this.buf32 = new Uint32Array(this.imgData.data.buffer);
+
+    if (oldGrid && oldW > 0) {
+      for (let y = 0; y < Math.min(oldH, this.h); y++) {
+        for (let x = 0; x < Math.min(oldW, this.w); x++) {
+          const oldIdx = x + y * oldW;
+          const newIdx = x + y * this.w;
+          this.grid[newIdx] = oldGrid[oldIdx];
+          this.colors[newIdx] = oldColors[oldIdx];
+        }
+      }
+    }
   }
 
   init() {
@@ -14230,6 +14254,16 @@ class PixelGravityEngine {
         const b = Math.min(255, Math.max(0, pick[2] + v));
         return (255 << 24) | (b << 16) | (g << 8) | r;
       }
+      case 12: { // Gunpowder (Charcoal explosive granular powder)
+        const c = Math.min(255, Math.max(0, 68 + v));
+        return (255 << 24) | (c << 16) | (c << 8) | c;
+      }
+      case 13: { // Oil (Dark golden-amber flammable liquid)
+        const r = Math.min(255, Math.max(0, 120 + v));
+        const g = Math.min(255, Math.max(0, 75 + v));
+        const b = 18;
+        return (255 << 24) | (b << 16) | (g << 8) | r;
+      }
       default:
         return 0x00000000;
     }
@@ -14269,8 +14303,8 @@ class PixelGravityEngine {
         const type = g[idx];
         if (type === this.TYPES.EMPTY || type === this.TYPES.STONE) continue;
 
-        // 1. SAND & GRAVITY PARTICLES
-        if (type === this.TYPES.SAND || type === this.TYPES.LEAF || type === this.TYPES.EMBER) {
+        // 1. SAND, GUNPOWDER & GRANULAR PARTICLES (Rolls down 45° slopes)
+        if (type === this.TYPES.SAND || type === this.TYPES.LEAF || type === this.TYPES.EMBER || type === this.TYPES.GUNPOWDER) {
           const targetY = y + gy;
           const targetX = x + gx;
 
@@ -14279,35 +14313,54 @@ class PixelGravityEngine {
             if (g[below] === this.TYPES.EMPTY) {
               g[below] = type; c[below] = c[idx];
               g[idx] = this.TYPES.EMPTY; c[idx] = 0;
-            } else if (g[below] === this.TYPES.WATER || g[below] === this.TYPES.ACID) {
-              // Sand sinks in water & acid
+            } else if (g[below] === this.TYPES.WATER || g[below] === this.TYPES.OIL || g[below] === this.TYPES.ACID) {
+              // Dense sand/gunpowder sinks through water and oil
               const tempT = g[below]; const tempC = c[below];
               g[below] = type; c[below] = c[idx];
               g[idx] = tempT; c[idx] = tempC;
             } else {
-              // Diagonal roll
+              // Diagonal slip
               const d1 = (x - 1) + targetY * W;
               const d2 = (x + 1) + targetY * W;
-              const canLeft = x > 0 && g[d1] === this.TYPES.EMPTY;
-              const canRight = x < W - 1 && g[d2] === this.TYPES.EMPTY;
+              const canLeft = x > 0 && (g[d1] === this.TYPES.EMPTY || g[d1] === this.TYPES.WATER || g[d1] === this.TYPES.OIL);
+              const canRight = x < W - 1 && (g[d2] === this.TYPES.EMPTY || g[d2] === this.TYPES.WATER || g[d2] === this.TYPES.OIL);
 
               if (canLeft && canRight) {
                 const choice = Math.random() > 0.5 ? d1 : d2;
+                const tempT = g[choice]; const tempC = c[choice];
                 g[choice] = type; c[choice] = c[idx];
-                g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+                g[idx] = tempT; c[idx] = tempC;
               } else if (canLeft) {
+                const tempT = g[d1]; const tempC = c[d1];
                 g[d1] = type; c[d1] = c[idx];
-                g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+                g[idx] = tempT; c[idx] = tempC;
               } else if (canRight) {
+                const tempT = g[d2]; const tempC = c[d2];
                 g[d2] = type; c[d2] = c[idx];
-                g[idx] = this.TYPES.EMPTY; c[idx] = 0;
+                g[idx] = tempT; c[idx] = tempC;
               }
             }
           }
         }
 
-        // 2. WATER (Flows down and spreads sideways)
-        else if (type === this.TYPES.WATER) {
+        // 2. WATER & OIL FLUIDS (Fast lateral leveling & plant growth like sand:box)
+        else if (type === this.TYPES.WATER || type === this.TYPES.OIL) {
+          // Plant growth reaction: Water touching plant makes plant sprout!
+          if (type === this.TYPES.WATER && Math.random() < 0.12) {
+            const checkN = [idx - 1, idx + 1, idx - W, idx + W];
+            for (let cn of checkN) {
+              if (cn >= 0 && cn < W * H && g[cn] === this.TYPES.WOOD) {
+                // Grow a new plant shoot into empty space
+                const upIdx = idx - W;
+                if (upIdx >= 0 && g[upIdx] === this.TYPES.EMPTY) {
+                  g[upIdx] = this.TYPES.WOOD;
+                  c[upIdx] = this.getRandomColor(this.TYPES.WOOD);
+                }
+                break;
+              }
+            }
+          }
+
           const targetY = y + gy;
           if (targetY >= 0 && targetY < H) {
             const below = x + targetY * W;
@@ -14316,7 +14369,14 @@ class PixelGravityEngine {
               g[idx] = this.TYPES.EMPTY; c[idx] = 0;
               continue;
             }
-            // Diagonal
+            // Oil floats on top of water
+            if (type === this.TYPES.WATER && g[below] === this.TYPES.OIL) {
+              const tempT = g[below]; const tempC = c[below];
+              g[below] = type; c[below] = c[idx];
+              g[idx] = tempT; c[idx] = tempC;
+              continue;
+            }
+            // Diagonal flow
             const d1 = (x - 1) + targetY * W;
             const d2 = (x + 1) + targetY * W;
             const canLeft = x > 0 && g[d1] === this.TYPES.EMPTY;
@@ -14336,8 +14396,10 @@ class PixelGravityEngine {
               continue;
             }
           }
-          // Lateral Flow
-          const sideDir = Math.random() > 0.5 ? 1 : -1;
+
+          // Lateral fluid leveling pressure (up to 3 cells per step for flat liquid pools!)
+          const flowDist = Math.floor(Math.random() * 3) + 1;
+          const sideDir = (Math.random() > 0.5 ? 1 : -1) * flowDist;
           const sx = x + sideDir;
           if (sx >= 0 && sx < W) {
             const sideIdx = sx + y * W;
@@ -14348,21 +14410,44 @@ class PixelGravityEngine {
           }
         }
 
-        // 3. FIRE (Rises, burns wood, extinguished by water)
+        // 3. FIRE (Rises, burns wood & oil, detonates gunpowder, extinguished by water)
         else if (type === this.TYPES.FIRE) {
           // Burn out chance
           if (Math.random() < 0.12) {
             g[idx] = this.TYPES.EMPTY; c[idx] = 0;
             continue;
           }
-          // Check neighbors to burn wood
-          const neighbors = [idx - 1, idx + 1, idx - W, idx + W];
+          // Check neighbors
+          const neighbors = [idx - 1, idx + 1, idx - W, idx + W, idx - W - 1, idx - W + 1, idx + W - 1, idx + W + 1];
           for (let n of neighbors) {
             if (n >= 0 && n < W * H) {
-              if (g[n] === this.TYPES.WOOD) {
+              // Ignite plant/wood
+              if (g[n] === this.TYPES.WOOD || g[n] === this.TYPES.LEAF) {
                 g[n] = this.TYPES.FIRE;
                 c[n] = this.getRandomColor(this.TYPES.FIRE);
-              } else if (g[n] === this.TYPES.WATER) {
+              }
+              // Ignite oil into raging fire
+              else if (g[n] === this.TYPES.OIL) {
+                g[n] = this.TYPES.FIRE;
+                c[n] = this.getRandomColor(this.TYPES.FIRE);
+              }
+              // Detonate gunpowder in chain explosion!
+              else if (g[n] === this.TYPES.GUNPOWDER) {
+                g[n] = this.TYPES.FIRE;
+                c[n] = this.getRandomColor(this.TYPES.FIRE);
+                // Radial shockwave
+                for (let ey = -2; ey <= 2; ey++) {
+                  for (let ex = -2; ex <= 2; ex++) {
+                    const eidx = n + ex + ey * W;
+                    if (eidx >= 0 && eidx < W * H && g[eidx] !== this.TYPES.STONE) {
+                      g[eidx] = Math.random() > 0.4 ? this.TYPES.FIRE : this.TYPES.SPARK;
+                      c[eidx] = this.getRandomColor(g[eidx]);
+                    }
+                  }
+                }
+              }
+              // Water puts out fire
+              else if (g[n] === this.TYPES.WATER) {
                 g[idx] = this.TYPES.EMPTY; c[idx] = 0;
                 break;
               }
@@ -14505,7 +14590,7 @@ class PixelGravityEngine {
         }
       }
     }
-    this.playTactileClick(this.currentElement);
+    // Sound disabled: 100% silent and peaceful drawing
   }
 
   paintLine(x0, y0, x1, y1) {
