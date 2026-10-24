@@ -13,7 +13,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>NeuroSpace - ADHS & Autismus Sensory Hub</title>
+<title>NeuroSpace - NeuroSpace & Autismus Sensory Hub</title>
 <style>
   :root {
     --bg-dark: #090c10;
@@ -1614,8 +1614,8 @@
     text-align: right;
   }
 
-  /* Panel 3: Dopamin Level Meter */
-  .dopamin-level-box {
+  /* Panel 3: XP Kick Level Meter */
+  .dopamin-level-box, .xp-kick-level-box {
     border-color: rgba(56, 189, 248, 0.3);
   }
   .dopamin-level-header {
@@ -3063,7 +3063,7 @@
 
 
   /* ============================================================== */
-  /* LUXURY CYBERPUNK 2.0: DOSSIER CARDS, DOPAMINE METER & FULLSCREEN */
+  /* LUXURY CYBERPUNK 2.0: DOSSIER CARDS, XP KICK METER & FULLSCREEN */
   /* ============================================================== */
 
   .ai-modal-card.mode-chat {
@@ -3088,8 +3088,8 @@
     border: none !important;
   }
 
-  /* DOPAMINE & XP METER IN HEADER */
-  .ai-dopamine-meter-box {
+  /* XP KICK & XP METER IN HEADER */
+  .ai-dopamine-meter-box, .ai-xp-kick-meter-box {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -3329,7 +3329,7 @@
 
 
   /* ============================================================== */
-  /* DOPAMIN-MATRIX 3.0: NEUROBIOLOGISCHES BELOHNUNGSSYSTEM        */
+  /* XP KICK-MATRIX 3.0: NEUROBIOLOGISCHES BELOHNUNGSSYSTEM        */
   /* ============================================================== */
 
   /* FLOATING LIVE COMBO HUD */
@@ -3416,8 +3416,8 @@
     100% { filter: hue-rotate(360deg) drop-shadow(0 0 20px #ff007f); }
   }
 
-  /* DOCK DOPAMINE BUTTONS */
-  .dock-dopamine-btn {
+  /* DOCK XP KICK BUTTONS */
+  .dock-dopamine-btn, .dock-xp-kick-btn {
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(239, 68, 68, 0.2));
     border: 1px solid rgba(245, 158, 11, 0.5);
     color: #fde68a;
@@ -3432,13 +3432,13 @@
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
   }
-  .dock-dopamine-btn:hover {
+  .dock-dopamine-btn:hover, .dock-xp-kick-btn:hover {
     transform: translateY(-2px) scale(1.05);
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.4), rgba(239, 68, 68, 0.35));
     box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
     border-color: #fbbf24;
   }
-  .dock-dopamine-btn.pulse {
+  .dock-dopamine-btn.pulse, .dock-xp-kick-btn.pulse {
     animation: dockBtnPulse 1.8s infinite;
   }
   @keyframes dockBtnPulse {
@@ -3486,8 +3486,8 @@
     box-shadow: 0 0 18px rgba(16, 185, 129, 0.5);
   }
 
-  /* MODALS: DOPAMINE VAULT (LOOTBOX) */
-  .dopamine-modal-backdrop {
+  /* MODALS: XP KICK VAULT (LOOTBOX) */
+  .dopamine-modal-backdrop, .xp-kick-modal-backdrop {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(4, 8, 18, 0.88);
@@ -3505,7 +3505,7 @@
     pointer-events: auto;
   }
 
-  .dopamine-modal-card {
+  .dopamine-modal-card, .xp-kick-modal-card {
     background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.98), rgba(10, 15, 30, 0.99));
     border: 1px solid rgba(245, 158, 11, 0.45);
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 60px rgba(245, 158, 11, 0.25);
@@ -4777,7 +4777,7 @@
   }
 
 
-  /* === ADHD DOPAMIN FIDGET & ENGAGEMENT HOOKS === */
+  /* === NEUROSPACE XP KICK FIDGET & ENGAGEMENT HOOKS === */
   .sidebar-fidget-card {
     margin-top: auto;
     padding: 12px;
@@ -5079,13 +5079,13 @@
       🧠
     </div>
     <div style="font-size:11px; font-weight:900; color:#38bdf8; letter-spacing:1.5px; text-transform:uppercase;">
-      ⚡ DEINE ADHS KOMMANDOZENTRALE
+      ⚡ DEINE NEUROSPACE KOMMANDOZENTRALE
     </div>
     <h1 style="font-size:24px; font-weight:900; color:#fff; margin:6px 0 3px;">
       Willkommen im NeuroSpace Studio
     </h1>
     <p style="font-size:13px; color:#cbd5e1; line-height:1.45; margin-bottom:12px;">
-      Kein Gelaber, keine Werbung, null Cringe. Pure sensorische Spielzeuge, Fokus-Tools und instant Dopamin auf Knopfdruck.
+      Kein Gelaber, keine Werbung, null Cringe. Pure sensorische Spielzeuge, Fokus-Tools und instant XP Kick auf Knopfdruck.
     </p>
 
     <!-- Punchy Badges -->
@@ -5128,7 +5128,7 @@
       <div class="user-profile-badge" id="sidebar-user-profile-btn" onclick="if(window.personalizationWizard) window.personalizationWizard.open();" title="Klicke hier, um dein Spieler-Profil anzupassen">
         <div class="user-avatar-img">🧠</div>
         <div class="user-info-text">
-          <span class="user-name-title">ADHS_Pro</span>
+          <span class="user-name-title">NeuroSpace_Pro</span>
           <span class="user-crown-badge">👑 Premium</span>
         </div>
       </div>
@@ -5165,9 +5165,9 @@
       </nav>
 
       <!-- ADHD TACTILE FIDGET PAD (ADDICTION HOOK) -->
-      <div class="sidebar-fidget-card" style="margin-top:auto;" title="Klick mich! Taktile Dopamin-Quelle">
+      <div class="sidebar-fidget-card" style="margin-top:auto;" title="Klick mich! Taktile XP Kick-Quelle">
         <div class="sidebar-fidget-header">
-          <span class="fidget-title">⚡ Dopamin-Fidget</span>
+          <span class="fidget-title">⚡ XP Kick-Fidget</span>
           <span class="fidget-counter-pill" id="fidget-counter-display">0</span>
         </div>
         <div class="sidebar-bubble-row" id="sidebar-bubbles-wrap">
@@ -5196,7 +5196,7 @@
           <div class="neuro-brand-text">
             <h1>NeuroSpace <span class="neuro-neon-note" style="font-weight:700; opacity:0.9;">Studio Suite</span></h1>
             <p style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-              <span>Dein Dopamin-Spielplatz – Sensorik, Fokus & 2.000+ Games.</span>
+              <span>Dein XP Kick-Spielplatz – Sensorik, Fokus & 2.000+ Games.</span>
               <span style="font-size:10.5px; background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.45); color:#6ee7b7; padding:1px 8px; border-radius:8px; font-weight:800; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.openModal();" title="Hier klicken für Datenschutz- und Vertrauens-Garantie">
                 ⚡ 100% Lokal & Privat
               </span>
@@ -5217,7 +5217,7 @@
               <div class="xp-bar-fill" id="xp-bar-fill" style="width:58%;"></div>
             </div>
           </div>
-          <button class="header-pill-btn gold" id="btn-dopamin-boost" onclick="if(window.masteryEngine) window.masteryEngine.addXP(25, 'Dopamin Boost!');">
+          <button class="header-pill-btn gold" id="btn-dopamin-boost" onclick="if(window.masteryEngine) window.masteryEngine.addXP(25, 'XP Kick Boost!');">
             <span>⚡</span> Quick Boost
           </button>
           <button class="header-pill-btn primary" id="btn-surprise-me">
@@ -5232,7 +5232,7 @@
           <button class="header-pill-btn forbidden-hazard-btn" id="btn-forbidden-action" title="Tu es nicht...">
             <span>⚠️</span> NICHT DRÜCKEN!
           </button>
-          <button class="header-pill-btn secret-vault-btn" id="btn-secret-vault-open" onclick="if(window.dopamineEngine) window.dopamineEngine.openVault();" title="Dopamin-Tresor öffnen">
+          <button class="header-pill-btn secret-vault-btn" id="btn-secret-vault-open" onclick="if(window.dopamineEngine) window.dopamineEngine.openVault();" title="XP Kick-Tresor öffnen">
             <span>🎁</span> Geheim-Tresor
           </button>
           <button class="header-pill-btn" id="btn-open-relics">
@@ -5241,7 +5241,7 @@
         </div>
       </header>
 
-      <!-- 2-PANEL HERO BANNER (ZELE WEG - KOSMISCHES GEHIRN & DOPAMIN-SUCHT-METER) -->
+      <!-- 2-PANEL HERO BANNER (ZELE WEG - KOSMISCHES GEHIRN & XP KICK-SUCHT-METER) -->
       <section class="neuro-hero-banner-row" style="grid-template-columns: 1fr 340px;">
 
         <!-- Panel 1: Cosmic Brain Synapse Center Banner with Addiction Multiplier -->
@@ -5253,7 +5253,7 @@
                 DEIN DASHBOARD
               </div>
               <div style="font-size:18px; font-weight:800; color:#fff;">
-                Willkommen zurück, <span id="hero-user-name" style="background:linear-gradient(135deg, #38bdf8, #ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">ADHS_Pro</span>! 🚀
+                Willkommen zurück, <span id="hero-user-name" style="background:linear-gradient(135deg, #38bdf8, #ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">NeuroSpace_Pro</span>! 🚀
               </div>
               <div style="font-size:12px; color:#94a3b8; margin-top:2px;">
                 Hyperfokus-Multiplikator aktiv: <span id="hero-combo-mult" style="color:#fbbf24; font-weight:800;">Aktiv</span> • 27 Tools & 2.000+ Games
@@ -5266,7 +5266,7 @@
           </div>
         </div>
 
-        <!-- Panel 2: Dopamin-Level Meter & Sucht-Trigger -->
+        <!-- Panel 2: XP Kick-Level Meter & Sucht-Trigger -->
         <div class="hero-panel-box dopamin-level-box" style="padding:16px 20px;">
           <div class="dopamin-level-header">
             <div class="dopamin-level-title"><span>⚡</span> Tages-Aktivität</div>
@@ -5279,7 +5279,7 @@
             <div class="dopamin-sub-status" style="margin:0;">
               <span>🔥</span> <span id="dopamin-streak-sub">1 Tag Streak</span>
             </div>
-            <button class="header-pill-btn gold" id="btn-hero-dopamine-claim" style="padding:4px 10px; font-size:11px;" onclick="if(window.masteryEngine) window.masteryEngine.addXP(35, 'Dopamin Kick!');">
+            <button class="header-pill-btn gold" id="btn-hero-dopamine-claim" style="padding:4px 10px; font-size:11px;" onclick="if(window.masteryEngine) window.masteryEngine.addXP(35, 'XP Kick!');">
               ✨ Bonus abholen (+35 XP)
             </button>
           </div>
@@ -5314,7 +5314,7 @@
       <section class="neuro-filter-row">
         <div class="neuro-cat-pills">
           <button class="cat-filter-btn active" data-cat="all">🌟 Alle (27)</button>
-          <button class="cat-filter-btn" data-cat="focus">🧠 Fokus & ADHS</button>
+          <button class="cat-filter-btn" data-cat="focus">🧠 Fokus & NeuroSpace</button>
           <button class="cat-filter-btn" data-cat="tactile">🫧 Lifestyle & Routine</button>
           <button class="cat-filter-btn" data-cat="audio">🎵 Audio & Musik</button>
           <button class="cat-filter-btn" data-cat="fluid">📱 Apps & Tools</button>
@@ -5365,7 +5365,7 @@
             <p class="card-desc-text">Fokus, Konzentration, Pomodoro-Atemrhythmus</p>
             <div class="card-bottom-row">
               <div class="card-tags-group">
-                <span class="card-pill-tag">ADHS</span>
+                <span class="card-pill-tag">NeuroSpace</span>
                 <span class="card-pill-tag">Focus</span>
                 <span class="card-pill-tag">Routine</span>
               </div>
@@ -5410,7 +5410,7 @@
             <div class="card-bottom-row">
               <div class="card-tags-group">
                 <span class="card-pill-tag">Relax</span>
-                <span class="card-pill-tag">ADHS</span>
+                <span class="card-pill-tag">NeuroSpace</span>
                 <span class="card-pill-tag">Stimmung</span>
               </div>
               <div class="card-arrow-btn">➔</div>
@@ -5497,7 +5497,7 @@
             <p class="card-desc-text">Dein Kopf, 4D. Hypnotischer Flow-Zustand.</p>
             <div class="card-bottom-row">
               <div class="card-tags-group">
-                <span class="card-pill-tag">ADHS</span>
+                <span class="card-pill-tag">NeuroSpace</span>
                 <span class="card-pill-tag">Fokus</span>
                 <span class="card-pill-tag">Trance</span>
               </div>
@@ -5541,7 +5541,7 @@
             <p class="card-desc-text">Stress abbauen, Hände beschäftigen mit ASMR.</p>
             <div class="card-bottom-row">
               <div class="card-tags-group">
-                <span class="card-pill-tag">ADHS</span>
+                <span class="card-pill-tag">NeuroSpace</span>
                 <span class="card-pill-tag">Relax</span>
                 <span class="card-pill-tag">Focus</span>
               </div>
@@ -5564,7 +5564,7 @@
             <div class="card-bottom-row">
               <div class="card-tags-group">
                 <span class="card-pill-tag">Focus</span>
-                <span class="card-pill-tag">ADHS</span>
+                <span class="card-pill-tag">NeuroSpace</span>
                 <span class="card-pill-tag">Zocken</span>
               </div>
               <div class="card-arrow-btn">➔</div>
@@ -5587,7 +5587,7 @@
               <div class="card-tags-group">
                 <span class="card-pill-tag">Motivation</span>
                 <span class="card-pill-tag">Focus</span>
-                <span class="card-pill-tag">ADHS</span>
+                <span class="card-pill-tag">NeuroSpace</span>
               </div>
               <div class="card-arrow-btn">➔</div>
             </div>
@@ -5607,7 +5607,7 @@
             <p class="card-desc-text">Reagieren. Drücken. Abschalten. Mechanische Switches.</p>
             <div class="card-bottom-row">
               <div class="card-tags-group">
-                <span class="card-pill-tag">ADHS</span>
+                <span class="card-pill-tag">NeuroSpace</span>
                 <span class="card-pill-tag">Reaktion</span>
                 <span class="card-pill-tag">Spiel</span>
               </div>
@@ -5726,7 +5726,7 @@
           </div>
         </div>
 
-        <!-- 18. ADHS Focus Soundscape -->
+        <!-- 18. NeuroSpace Focus Soundscape -->
         <div class="neuro-card" data-target="view-soundscape" data-category="audio">
           <div class="card-hero-thumb thumb-windchimes">
             <span class="card-hero-icon">🎧</span>
@@ -5734,7 +5734,7 @@
           </div>
           <div class="card-body-content">
             <div class="card-title-row">
-              <span class="card-title-text">ADHS Focus Soundscape</span>
+              <span class="card-title-text">NeuroSpace Focus Soundscape</span>
             </div>
             <p class="card-desc-text">Braunes Rauschen, Kaminfeuer & sanfter Regen.</p>
             <div class="card-bottom-row">
@@ -5804,11 +5804,11 @@
 
       <div style="display:flex; align-items:center; gap:8px;">
         
-        <!-- Dopamin-Matrix 3.0 Dock Controls -->
+        <!-- XP Kick-Matrix 3.0 Dock Controls -->
         <button class="dock-reaction-btn" id="btn-dock-open-reaction" title="Reaktionszeit testen" onclick="if(window.neuroInteractiveHub) window.neuroInteractiveHub.openReactionTest();">
           <span>⚡</span> Reaktionstest
         </button>
-        <button class="dock-dopamine-btn pulse" id="btn-dock-open-vault" title="Dopamin-Tresor öffnen (Lootbox)">
+        <button class="dock-dopamine-btn pulse" id="btn-dock-open-vault" title="XP Kick-Tresor öffnen (Lootbox)">
           🎰 <span id="dock-vault-label">Belohnung</span>
           <span style="font-size:10px; background:rgba(255,255,255,0.25); padding:1px 5px; border-radius:8px;" id="dock-vault-keys-count">1</span>
         </button>
@@ -5820,7 +5820,7 @@
         </button>
 
         <div class="dock-right-pill" onclick="if(window.trustEngine) window.trustEngine.showAffirmation();">
-          <span>⚡</span> ADHS-Impuls ziehen 🎲
+          <span>⚡</span> NeuroSpace-Impuls ziehen 🎲
         </div>
         <button class="dock-close-btn" id="btn-close-bottom-dock" title="Leiste schließen (wegmachen)">
           ✕
@@ -6284,7 +6284,7 @@
 
 
 <!-- ============================================================== -->
-<!-- 22. FLÜSSIGE SANDUHR (ADHS FLOW-TIMER)                         -->
+<!-- 22. FLÜSSIGE SANDUHR (NEUROSPACE FLOW-TIMER)                 -->
 <!-- ============================================================== -->
 <div class="app-view" id="view-zenhourglass" style="align-items:center; justify-content:center; padding:20px;">
   <div class="view-nav">
@@ -6509,7 +6509,7 @@
 <div class="app-view" id="view-soundscape">
   <div class="view-nav">
     <button class="nav-back-btn" data-back="view-hub">← Hauptmenü</button>
-    <div class="view-title-pill"><span>🎧</span> ADHS Focus Soundscape</div>
+    <div class="view-title-pill"><span>🎧</span> NeuroSpace Focus Soundscape</div>
   </div>
   <div class="soundscape-card">
     <div>
@@ -6518,7 +6518,7 @@
     </div>
     <div class="sound-channel">
       <div class="sound-icon">🤎</div>
-      <div class="sound-info"><div class="sound-name">Braunes Rauschen (Brown Noise)</div><div class="sound-sub">Beruhigt Gedankenstrudel & ADHS-Hyperaktivität</div></div>
+      <div class="sound-info"><div class="sound-name">Braunes Rauschen (Brown Noise)</div><div class="sound-sub">Beruhigt Gedankenstrudel & NeuroSpace-Hyperaktivität</div></div>
       <input type="range" class="sound-slider" id="vol-brown" min="0" max="1" step="0.01" value="0.35">
     </div>
     <div class="sound-channel">
@@ -11899,7 +11899,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="avatar-emoji">🌸</span>
           <span class="avatar-label">Sanft</span>
         </button>
-        <button type="button" class="avatar-select-btn" data-avatar="⚡" title="Dopamin-Blitz">
+        <button type="button" class="avatar-select-btn" data-avatar="⚡" title="XP Kick-Blitz">
           <span class="avatar-emoji">⚡</span>
           <span class="avatar-label">Blitz</span>
         </button>
@@ -11986,7 +11986,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <h2 style="font-size:22px; font-weight:900; color:#ffffff; margin-bottom:10px; line-height:1.3;">
-        ADHS AI Tools
+        NeuroSpace AI Tools
       </h2>
 
       <!-- Zugangscode Banner -->
@@ -12093,7 +12093,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
 
-        <!-- Live Dopamine & XP Level Meter -->
+        <!-- Live XP Kick & XP Level Meter -->
         <div class="ai-dopamine-meter-box" id="ai-dopamine-meter">
           <div class="ai-level-badge">⭐ LVL <span id="ai-user-level">1</span></div>
           <div class="ai-xp-bar-track" title="XP Fortschritt">
@@ -12155,18 +12155,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <!-- Quick Action Prompt Chips Bar -->
       <div class="ai-quick-prompts-bar">
-        <button class="ai-prompt-pill" data-prompt="Erkläre mir die Volkow-Studie (JAMA 2009): Warum liebt mein ADHS-Gehirn Dopamin?" style="background:rgba(245,158,11,0.2); border-color:rgba(245,158,11,0.5); color:#fde68a;">🧠 Volkow-Studie & Belohnung</button>
-        <button class="ai-prompt-pill" data-prompt="Warum habe ich ständiges Food Noise und Binge-Eating Drang bei ADHS?" style="background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.5); color:#fca5a5;">🍔 Food Noise & Binge-Eating</button>
-        <button class="ai-prompt-pill" data-prompt="Erkläre die Formel für Zeitblindheit: V = A / (1 + kD) bei ADHS" style="background:rgba(56,189,248,0.2); border-color:rgba(56,189,248,0.5); color:#7dd3fc;">⏳ Zeitblindheit (Formel)</button>
-        <button class="ai-prompt-pill" data-action="dopamine-roulette" style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(239,68,68,0.25)); border-color:rgba(245,158,11,0.6); color:#fde68a; font-weight:900;">🎲 Dopamin-Impuls</button>
+        <button class="ai-prompt-pill" data-prompt="Erkläre mir die Volkow-Studie (JAMA 2009): Warum liebt mein NeuroSpace-Gehirn XP Kicks?" style="background:rgba(245,158,11,0.2); border-color:rgba(245,158,11,0.5); color:#fde68a;">🧠 Volkow-Studie & Belohnung</button>
+        <button class="ai-prompt-pill" data-prompt="Warum habe ich ständiges Food Noise und Binge-Eating Drang bei NeuroSpace?" style="background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.5); color:#fca5a5;">🍔 Food Noise & Binge-Eating</button>
+        <button class="ai-prompt-pill" data-prompt="Erkläre die Formel für Zeitblindheit: V = A / (1 + kD) bei NeuroSpace" style="background:rgba(56,189,248,0.2); border-color:rgba(56,189,248,0.5); color:#7dd3fc;">⏳ Zeitblindheit (Formel)</button>
+        <button class="ai-prompt-pill" data-action="dopamine-roulette" style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(239,68,68,0.25)); border-color:rgba(245,158,11,0.6); color:#fde68a; font-weight:900;">🎲 XP Kick-Impuls</button>
         <button class="ai-prompt-pill" data-mode="powerpoint" data-prompt="Mach mir eine PowerPoint über Chips">📊 PowerPoint über Chips</button>
         <button class="ai-prompt-pill" data-mode="research" data-prompt="Deep Research: Die Entstehung, Wissenschaft und weltweite Vielfalt von Chips">🔬 Deep Research: Chips</button>
         <button class="ai-prompt-pill" data-mode="powerpoint" data-prompt="Erstelle eine PowerPoint-Präsentation über das Sonnensystem und Raumfahrt">📊 PowerPoint Sonnensystem</button>
-        <button class="ai-prompt-pill" data-mode="research" data-prompt="Deep Research: Neueste wissenschaftliche Erkenntnisse zu ADHS und Neuroplastizität">🔬 Deep Research: ADHS</button>
+        <button class="ai-prompt-pill" data-mode="research" data-prompt="Deep Research: Neueste wissenschaftliche Erkenntnisse zu NeuroSpace und Neuroplastizität">🔬 Deep Research: NeuroSpace</button>
         <button class="ai-prompt-pill" data-prompt="Hilf mir, meine aktuellen Gedanken zu sortieren und die wichtigste Sache zu finden.">🧠 Gedanken ordnen</button>
         <button class="ai-prompt-pill" data-prompt="Gib mir einen 3-Schritte Anti-Prokrastinations-Plan für eine Aufgabe.">🎯 Anti-Prokrastination</button>
         <button class="ai-prompt-pill" data-mode="image" data-prompt="Generiere ein Bild von einem leuchtenden Cyberpunk-Gehirn mit violetten und cyan Synapsen-Blitzen im Weltall">🎨 Cyber-Gehirn Bild</button>
-        <button class="ai-prompt-pill" data-prompt="Gib mir einen 2-Minuten Dopamin-Kick Impuls, um jetzt wieder in den Flow zu kommen!">⚡ Quick Dopamin</button>
+        <button class="ai-prompt-pill" data-prompt="Gib mir einen 2-Minuten XP Kick Impuls, um jetzt wieder in den Flow zu kommen!">⚡ Quick XP Kick</button>
       </div>
 
       <!-- Chat Messages Scroll Container -->
@@ -12536,7 +12536,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         this.fullscreenBtn = document.getElementById('btn-ai-fullscreen');
 
-        // Gamification & Dopamine System
+        // Gamification & XP Kick System
         this.xp = parseInt(localStorage.getItem('neuro_user_xp') || '85', 10);
         this.level = parseInt(localStorage.getItem('neuro_user_level') || '1', 10);
         this.streak = parseInt(localStorage.getItem('neuro_user_streak') || '1', 10);
@@ -12657,7 +12657,7 @@ document.addEventListener('DOMContentLoaded', () => {
           { t: 0, text: '[1/5] 🌐 Verbinde mit Vercel Backend & Groq Gateway...' },
           { t: 1000, text: '[2/5] ⚡ Lade Modell: openai/gpt-oss-20b...' },
           { t: 2200, text: '[3/5] 🎨 Initialisiere Image Engine: gpt-image-1-mini...' },
-          { t: 3400, text: '[4/5] 🧠 Kalibriere ADHS Fokus- & Deep-Research-Assistent...' },
+          { t: 3400, text: '[4/5] 🧠 Kalibriere NeuroSpace Fokus- & Deep-Research-Assistent...' },
           { t: 4500, text: '[5/5] ✨ System bereit! Starte NeuroCopilot Chat...' }
         ];
 
@@ -12719,9 +12719,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const ph = {
           chat: "Schreibe eine Nachricht oder 'Mach eine PowerPoint über Chips'...",
-          powerpoint: "Thema für PowerPoint eingeben (z. B. 'Chips', 'Sonnensystem', 'ADHS')...",
+          powerpoint: "Thema für PowerPoint eingeben (z. B. 'Chips', 'Sonnensystem', 'NeuroSpace')...",
           research: "Thema für Deep Research eingeben (z. B. 'Geschichte der Chips', 'Quantenphysik')...",
-          web: "Websuche eingeben (z. B. 'Neueste ADHS Studien')...",
+          web: "Websuche eingeben (z. B. 'Neueste NeuroSpace Studien')...",
           image: "Bild beschreiben (gpt-image-1-mini)..."
         };
         if (this.chatInput) {
@@ -13168,11 +13168,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: "Warum unser Gehirn nach Knuspern verlangt",
                 bullets: [
                   "🔊 Akustisches Signal: Knuspern signalisiert dem Gehirn evolutionsbiologische Frische.",
-                  "🧠 'Bliss Point': Exakte sensorische Abstimmung triggert sofortige Dopamin-Ausschüttung.",
+                  "🧠 'Bliss Point': Exakte sensorische Abstimmung triggert sofortige XP Kick-Ausschüttung.",
                   "✨ Das Knack-Geräusch verstärkt den wahrgenommenen Geschmack um bis zu 40%."
                 ],
                 takeaway: "Echtes Neuromarketing im Mund – Psychoakustik in Vollendung.",
-                imagePrompt: "Artistic scientific visualization of a potato chip crunching with sound waves and glowing dopamine sparks, vibrant"
+                imagePrompt: "Artistic scientific visualization of a potato chip crunching with sound waves and glowing xp kick sparks, vibrant"
               },
               {
                 category: "Herstellung & Aromen",
@@ -13656,9 +13656,9 @@ ${deck.slides.map((s, i) => `
 
         const thinkingRow = this.renderThinkingIndicator('NeuroCopilot denkt nach (openai/gpt-oss-20b)...');
 
-        const systemPrompt = `Du bist NeuroCopilot AI, ein warmherziger, hochkompetenter und hyper-kreativer ADHS-Assistent im "NeuroSpace ADHS Studio" von Nils.
+        const systemPrompt = `Du bist NeuroCopilot AI, ein warmherziger, hochkompetenter und hyper-kreativer NeuroSpace-Assistent im "NeuroSpace Studio" von Nils.
 Du nutzt das Modell openai/gpt-oss-20b und hast Zugriff auf gpt-image-1-mini, Web-Suche, Deep Research und PowerPoint-Generierung!
-Deine Superkraft ist es, chaotische Gedanken zu strukturieren, Prokrastination durch mundgerechte 2-Minuten-Mikroschritte zu brechen, Dopamin-Belohnungen einzubauen und immer optimistisch, klar und motivierend zu sein.
+Deine Superkraft ist es, chaotische Gedanken zu strukturieren, Prokrastination durch mundgerechte 2-Minuten-Mikroschritte zu brechen, XP Kick-Belohnungen einzubauen und immer optimistisch, klar und motivierend zu sein.
 Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Emojis. Wenn der Nutzer nach Präsentationen oder Deep Research fragt, weise ihn auf diese Tools hin!`;
 
         try {
@@ -13745,31 +13745,31 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
       generateOfflineAdhdResponse(input) {
         c
 
-        if (t.includes('volkow') || t.includes('belohnung') || (t.includes('warum') && t.includes('dopamin'))) {
-          return `🧠 **Die Neurobiologie deines Belohnungssystems (Volkow et al., JAMA 2009):**\n\n${userName}, deine Dopamin-Suche ist **kein Charakterfehler**, sondern fest in deinen Synapsen verdrahtet!\n\nDie berühmte PET-Studie von Nora Volkow zeigte quantitativ:\n• **Nucleus accumbens D2/D3-Rezeptoren:** Reduziert auf **2,68** (Kontrollgruppe: 2,85, p=0,004)\n• **Mittelhirn (VTA) DAT-Transporter:** Reduziert auf **0,09** (Kontrollgruppe: 0,16, p<0,001)\n\n**Was bedeutet das für dich?**\nDein Gehirn hat einen chronisch niedrigen basalen hedonischen Tonus (**Reward Deficiency Syndrome**). Alltägliche, langweilige Aufgaben erzeugen nicht genug Dopamin für das Arbeitsgedächtnis. Dein Gehirn **muss** nach intensiven, neuartigen Reizen suchen, um überhaupt kognitive Wachheit zu erreichen. Du bist ein evolutionärer Jäger in einer Welt voller Formulare! 🚀⚡`;
+        if (t.includes('volkow') || t.includes('belohnung') || (t.includes('warum') && (t.includes('dopamin') || t.includes('xp kick')))) {
+          return `🧠 **Die Neurobiologie deines Belohnungssystems (Volkow et al., JAMA 2009):**\n\n${userName}, deine XP Kick-Suche ist **kein Charakterfehler**, sondern fest in deinen Synapsen verdrahtet!\n\nDie berühmte PET-Studie von Nora Volkow zeigte quantitativ:\n• **Nucleus accumbens D2/D3-Rezeptoren:** Reduziert auf **2,68** (Kontrollgruppe: 2,85, p=0,004)\n• **Mittelhirn (VTA) DAT-Transporter:** Reduziert auf **0,09** (Kontrollgruppe: 0,16, p<0,001)\n\n**Was bedeutet das für dich?**\nDein Gehirn hat einen chronisch niedrigen basalen hedonischen Tonus (**Reward Deficiency Syndrome**). Alltägliche, langweilige Aufgaben erzeugen nicht genug XP Kicks für das Arbeitsgedächtnis. Dein Gehirn **muss** nach intensiven, neuartigen Reizen suchen, um überhaupt kognitive Wachheit zu erreichen. Du bist ein evolutionärer Jäger in einer Welt voller Formulare! 🚀⚡`;
         }
 
         if (t.includes('food noise') || t.includes('essen') || t.includes('binge') || t.includes('hunger')) {
-          return `🍔 **Warum Food Noise & Heißhunger bei ADHS auftreten:**\n\nStudien belegen ein **3,8-fach erhöhtes Risiko** für Essanfälle (Binge-Eating) bei ADHS. Der Grund ist rein neurobiologisch:\n\n1. **Schneller Dopamin-Spike:** Zucker und Fett resorbieren rasant und überfluten den Nucleus accumbens mit Dopamin.\n2. **Kompensation von Erschöpfung:** Wenn das Gehirn unterstimuliert ist oder unter emotionalem Stress leidet, nutzt es Essen als schnell verfügbares Schmerzmittel.\n3. **Delay Discounting:** Der Sofort-Kick schlägt in der Amygdala jede langfristige Konsequenz.\n\n💡 **Neuro-Tipp:** Wenn der Food-Noise-Drang kommt, frage dich: *„Habe ich wirklich Magenhunger – oder schreit mein Gehirn gerade nach Dopamin?“* Öffne den Dopamin-Tresor, lausche einem binauralen Beat oder bewege dich für 60 Sekunden!`;
+          return `🍔 **Warum Food Noise & Heißhunger bei NeuroSpace auftreten:**\n\nStudien belegen ein **3,8-fach erhöhtes Risiko** für Essanfälle (Binge-Eating) bei NeuroSpace. Der Grund ist rein neurobiologisch:\n\n1. **Schneller XP Kick-Spike:** Zucker und Fett resorbieren rasant und überfluten den Nucleus accumbens mit XP Kicks.\n2. **Kompensation von Erschöpfung:** Wenn das Gehirn unterstimuliert ist oder unter emotionalem Stress leidet, nutzt es Essen als schnell verfügbares Schmerzmittel.\n3. **Delay Discounting:** Der Sofort-Kick schlägt in der Amygdala jede langfristige Konsequenz.\n\n💡 **Neuro-Tipp:** Wenn der Food-Noise-Drang kommt, frage dich: *„Habe ich wirklich Magenhunger – oder schreit mein Gehirn gerade nach XP Kicks?“* Öffne den XP Kick-Tresor, lausche einem binauralen Beat oder bewege dich für 60 Sekunden!`;
         }
 
         if (t.includes('zeitblind') || t.includes('formel') || t.includes('v = a') || t.includes('delay discounting')) {
-          return `⏳ **Die Mathematik deiner Zeitblindheit (Barkley & Delay Discounting):**\n\nWarum kannst du nicht für Deadlines in 3 Wochen arbeiten? Wegen der **hyperbolischen Diskontierungsgleichung**:\n\n$\\Large V = \\frac{A}{1 + kD}$\n\n• **V:** Subjektiver Wert der Belohnung im Hier und Jetzt\n• **A:** Absolute Größe der Belohnung (z.B. gute Note, gespartes Geld)\n• **D:** Zeitliche Verzögerung (Delay)\n• **k:** Diskontierungsrate\n\nBei neurotypischen Menschen ist *k* klein. Bei ADHS ist ***k* gigantisch groß!**\nDas Gehirn kennt nur zwei Zeitzonen: **„JETZT“** und **„NICHT-JETZT“**! Eine Belohnung in 2 Wochen fühlt sich neurologisch wie Null an. Deshalb funktionieren nur Micro-Deadlines und der 60s-Sprint!`;
+          return `⏳ **Die Mathematik deiner Zeitblindheit (Barkley & Delay Discounting):**\n\nWarum kannst du nicht für Deadlines in 3 Wochen arbeiten? Wegen der **hyperbolischen Diskontierungsgleichung**:\n\n$\\Large V = \\frac{A}{1 + kD}$\n\n• **V:** Subjektiver Wert der Belohnung im Hier und Jetzt\n• **A:** Absolute Größe der Belohnung (z.B. gute Note, gespartes Geld)\n• **D:** Zeitliche Verzögerung (Delay)\n• **k:** Diskontierungsrate\n\nBei neurotypischen Menschen ist *k* klein. Bei NeuroSpace ist ***k* gigantisch groß!**\nDas Gehirn kennt nur zwei Zeitzonen: **„JETZT“** und **„NICHT-JETZT“**! Eine Belohnung in 2 Wochen fühlt sich neurologisch wie Null an. Deshalb funktionieren nur Micro-Deadlines und der 60s-Sprint!`;
         }
 
         if (t.includes('prokrastin') || t.includes('aufschieb') || t.includes('kein bock') || t.includes('anfangen')) {
-          return `Das kenne ich nur zu gut, ${userName}! Bei ADHS streikt hier gerade das Belohnungszentrum. 🧠\n\nLass uns den **„2-Minuten-Trick“** machen:\n1. **Mikro-Schritt**: Öffne nur das Dokument / lege nur ein einziges Werkzeug bereit.\n2. **Timer**: Stell dir 3 Minuten ein. Danach darfst du sofort aufhören, wenn du willst.\n3. **Dopamin-Belohnung**: Sobald du angefangen hast, hol dir ein kühles Getränk oder mach einen Beat an!\n\nSoll ich dich bei einem bestimmten Schritt anleiten?`;
+          return `Das kenne ich nur zu gut, ${userName}! Bei NeuroSpace streikt hier gerade das Belohnungszentrum. 🧠\n\nLass uns den **„2-Minuten-Trick“** machen:\n1. **Mikro-Schritt**: Öffne nur das Dokument / lege nur ein einziges Werkzeug bereit.\n2. **Timer**: Stell dir 3 Minuten ein. Danach darfst du sofort aufhören, wenn du willst.\n3. **XP Kick-Belohnung**: Sobald du angefangen hast, hol dir ein kühles Getränk oder mach einen Beat an!\n\nSoll ich dich bei einem bestimmten Schritt anleiten?`;
         }
 
         if (t.includes('gedanken') || t.includes('chaos') || t.includes('kopf') || t.includes('voll') || t.includes('überfordert')) {
           return `Atme einmal tief durch, ${userName}. 🫁\n\nWenn im Kopf alles gleichzeitig hupt, hilft der **Neuro-Braindump**:\n• Schreib mir einfach **3 Stichworte**, die dir gerade im Kopf herumschwirren.\n• Ich sortiere sie für dich nach: **Wichtig**, **Später** und **Wegwerfen**.\n\nWas liegt dir gerade am meisten auf dem Herzen?`;
         }
 
-        if (t.includes('dopamin') || t.includes('flow') || t.includes('kick')) {
-          return `⚡ **Dopamin-Quick-Booster für jetzt sofort:**\n\n1. **Sensorischer Reset**: Trink ein eiskaltes Glas Wasser oder wasch dein Gesicht kurz kalt ab.\n2. **Audio-Stim**: Starte deinen Lieblings-Track auf voller Lautstärke und bewege dich 30 Sekunden dazu.\n3. **Mini-Win**: Mach eine Sache in deiner Reichweite gerade (z. B. Glas wegbringen) -> *Level Up!* 🚀\n\nProbier einen davon aus und sag mir, wie es sich anfühlt!`;
+        if (t.includes('dopamin') || t.includes('xp kick') || t.includes('flow') || t.includes('kick')) {
+          return `⚡ **XP Kick-Quick-Booster für jetzt sofort:**\n\n1. **Sensorischer Reset**: Trink ein eiskaltes Glas Wasser oder wasch dein Gesicht kurz kalt ab.\n2. **Audio-Stim**: Starte deinen Lieblings-Track auf voller Lautstärke und bewege dich 30 Sekunden dazu.\n3. **Mini-Win**: Mach eine Sache in deiner Reichweite gerade (z. B. Glas wegbringen) -> *Level Up!* 🚀\n\nProbier einen davon aus und sag mir, wie es sich anfühlt!`;
         }
 
-        return `Ich höre dir zu, ${userName}! 💡\n\nMit **openai/gpt-oss-20b** und dem ADHS Studio an deiner Seite finden wir für jeden Gedanken den passenden Fokus.\n\n• 📊 **PowerPoint**: Tippe *„Mach mir eine PowerPoint über Chips“* für eine fertige Präsentation mit Bildern!\n• 🔬 **Deep Research**: Tippe *„Deep Research zu [Thema]“* für tiefgehende Analysen.\n\nWas möchtest du als Nächstes ausprobieren?`;
+        return `Ich höre dir zu, ${userName}! 💡\n\nMit **openai/gpt-oss-20b** und dem NeuroSpace Studio an deiner Seite finden wir für jeden Gedanken den passenden Fokus.\n\n• 📊 **PowerPoint**: Tippe *„Mach mir eine PowerPoint über Chips“* für eine fertige Präsentation mit Bildern!\n• 🔬 **Deep Research**: Tippe *„Deep Research zu [Thema]“* für tiefgehende Analysen.\n\nWas möchtest du als Nächstes ausprobieren?`;
       }
 
       escapeHtml(str) {
@@ -13826,7 +13826,7 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
       }
 
             // ==============================================================
-      // LUXURY FULLSCREEN & GAMIFICATION ENGINE (DOPAMINE XP SYSTEM)
+      // LUXURY FULLSCREEN & GAMIFICATION ENGINE (XP KICK XP SYSTEM)
       // ==============================================================
       toggleFullscreen() {
         if (!this.card) return;
@@ -13908,19 +13908,19 @@ Halte Antworten prägnant, visuell übersichtlich mit Aufzählungspunkten und Em
             window.confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
           } catch (e) {}
         }
-        this.renderBotMessage(`🎉 **LEVEL UP!** Du hast **Level ${this.level}** erreicht! Dein Dopamin-Pegel ist maximal fokussiert. 🚀⚡`);
+        this.renderBotMessage(`🎉 **LEVEL UP!** Du hast **Level ${this.level}** erreicht! Dein XP Kick-Pegel ist maximal fokussiert. 🚀⚡`);
       }
 
       triggerDopamineSurprise() {
         const surprises = [
-          { title: '⚡ Hyperfokus-Boost!', xp: 35, text: '💡 **Fakt des Tages:** Hyperfokus bei ADHS ist eine neuronale Superkraft, wenn das Thema echtes Interesse weckt. Nutze diesen Schwung jetzt!' },
-          { title: '🧠 Dopamin-Glückstreffer!', xp: 50, text: '🎰 **JACKPOT!** Dein Belohnungszentrum hat gerade einen extra Kick bekommen (+50 XP). Was möchtest du heute Episches erschaffen?' },
+          { title: '⚡ Hyperfokus-Boost!', xp: 35, text: '💡 **Fakt des Tages:** Hyperfokus bei NeuroSpace ist eine neuronale Superkraft, wenn das Thema echtes Interesse weckt. Nutze diesen Schwung jetzt!' },
+          { title: '🧠 XP Kick-Glückstreffer!', xp: 50, text: '🎰 **JACKPOT!** Dein Belohnungszentrum hat gerade einen extra Kick bekommen (+50 XP). Was möchtest du heute Episches erschaffen?' },
           { title: '🌟 Kreativitäts-Explosion!', xp: 40, text: '🎨 Wusstest du? Menschen mit neurodivergentem Denken finden über 300% mehr unkonventionelle Lösungswege! Erstelle eine PowerPoint oder ein Bild, um deine Vision festzuhalten.' },
           { title: '🔥 Power-Streak Aktiviert!', xp: 30, text: '🚀 Du bist heute im Tunnel! 3 tiefe Atemzüge, Schluck Wasser – und weiter geht die Reise!' }
         ];
         const item = surprises[Math.floor(Math.random() * surprises.length)];
         this.addXp(item.xp, '⚡');
-        this.renderBotMessage(`🎲 **DOPAMIN-IMPULS:** ${item.title}\n\n${item.text}`);
+        this.renderBotMessage(`🎲 **XP KICK-IMPULS:** ${item.title}\n\n${item.text}`);
       }
 
 bindEvents() {
@@ -14001,7 +14001,7 @@ bindEvents() {
           this.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
         }
 
-        // Quick Prompts & Dopamine Action
+        // Quick Prompts & XP Kick Action
         document.querySelectorAll('.ai-prompt-pill').forEach(btn => {
           btn.addEventListener('click', () => {
             const action = btn.getAttribute('data-action');
@@ -14060,7 +14060,7 @@ bindEvents() {
 
 
   <!-- ============================================================== -->
-  <!-- MODAL: DOPAMIN-TRESOR (VARIABLE RATIO REINFORCEMENT LOOTBOX)   -->
+  <!-- MODAL: XP KICK-TRESOR (VARIABLE RATIO REINFORCEMENT LOOTBOX)   -->
   <!-- ============================================================== -->
   <div class="dopamine-modal-backdrop" id="dopamine-vault-modal">
     <div class="dopamine-modal-card">
@@ -14103,7 +14103,7 @@ bindEvents() {
   </div>
 
   <!-- ============================================================== -->
-  <!-- MODAL: 60-SEKUNDEN DOPAMIN-SPRINT (DMN DEACTIVATION RUSH)      -->
+  <!-- MODAL: 60-SEKUNDEN XP KICK-SPRINT (DMN DEACTIVATION RUSH)      -->
   <!-- ============================================================== -->
   <div class="dopamine-modal-backdrop" id="dopamine-sprint-modal">
     <div class="dopamine-modal-card" style="max-width:480px;">
@@ -14166,7 +14166,7 @@ bindEvents() {
 
 
 <!-- ============================================================== -->
-<!-- SCRIPT: DOPAMIN-MATRIX 3.0 ENGINE (NEUROBIOLOGICAL GAMIFICATION)-->
+<!-- SCRIPT: XP KICK-MATRIX 3.0 ENGINE (NEUROBIOLOGICAL GAMIFICATION)-->
 <!-- ============================================================== -->
 <script>
 class DopamineVaultEngine {
@@ -14794,7 +14794,7 @@ class DopamineVaultEngine {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.dopamineEngine = new DopamineVaultEngine();
+  window.xpKickEngine = window.dopamineEngine = new DopamineVaultEngine();
 });
 </script>
 
@@ -15499,7 +15499,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
       <p style="font-size:13px; color:#cbd5e1; margin-bottom:20px; line-height:1.5;">
-        NeuroSpace wurde geschaffen, um Menschen mit ADHS, Autismus und hoher Reizsensibilität einen sicheren, respektvollen und ehrlichen Rückzugsort zu bieten.
+        NeuroSpace wurde geschaffen, um Menschen mit NeuroSpace, Autismus und hoher Reizsensibilität einen sicheren, respektvollen und ehrlichen Rückzugsort zu bieten.
       </p>
 
       <div class="trust-pillar-box">
@@ -15514,7 +15514,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <div class="trust-pillar-box">
         <h4><span>🧠</span> 3. Wissenschaftliche Basis statt leere Versprechen</h4>
-        <p>Die sensorischen Werkzeuge und Dopamin-Mechanismen basieren auf etablierter neuropsychologischer Forschung (u. a. Delay Discounting nach Dr. Russell Barkley und PET-Studien von Dr. Nora Volkow). Sie dienen als digitaler Fidget- und Regulationsraum.</p>
+        <p>Die sensorischen Werkzeuge und XP Kick-Mechanismen basieren auf etablierter neuropsychologischer Forschung (u. a. Delay Discounting nach Dr. Russell Barkley und PET-Studien von Dr. Nora Volkow). Sie dienen als digitaler Fidget- und Regulationsraum.</p>
       </div>
 
       <div class="trust-pillar-box">
@@ -15529,7 +15529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="crisis-numbers-row">
           <a href="tel:08001110111" class="crisis-pill-btn">📞 Telefonseelsorge (0800 111 0 111)</a>
           <a href="tel:116123" class="crisis-pill-btn">📞 Krisentelefon (116 123)</a>
-          <a href="https://www.adhs-deutschland.de" target="_blank" rel="noopener noreferrer" class="crisis-pill-btn">🌐 ADHS Deutschland e.V. ↗</a>
+          <a href="https://www.adhs-deutschland.de" target="_blank" rel="noopener noreferrer" class="crisis-pill-btn">🌐 NeuroSpace Deutschland e.V. (ADHS-Hilfe) ↗</a>
         </div>
       </div>
 
@@ -15549,7 +15549,7 @@ class TrustAndWarmthEngine {
     this.modal = document.getElementById('trust-privacy-modal');
     this.affirmations = [
       { text: "47 offene Tabs im Kopf? Völlig normal. Such dir einfach den spannendsten aus und ab geht's! 🚀", icon: "🧠" },
-      { text: "Prokrastination ist oft nur ein Gehirn, das nach Dopamin schreit. Hier hast du etwas! ⚡", icon: "🔥" },
+      { text: "Prokrastination ist oft nur ein Gehirn, das nach XP Kicks schreit. Hier hast du etwas! ⚡", icon: "🔥" },
       { text: "Wenn dein Kopf rennt wie ein Ferrari mit Fahrradbremsen: Mach kurz Pause und drift um die Kurve! 🏎️", icon: "🎯" },
       { text: "Du bist kein kaputter Roboter – du funktionierst nur nicht nach Schema F. Mach's auf deine Art! 👑", icon: "✨" },
       { text: "Hyperfokus ist eine Naturgewalt. Nutze ihn, wenn er kommt – und null Druck, wenn er gerade chillt. 🌊", icon: "⚡" },
@@ -15845,13 +15845,13 @@ window.neuroInteractiveHub = new NeuroInteractiveHubEngine();
 
 
 <!-- ============================================================== -->
-<!-- SCRIPT: ADHD SECRET ADDICTION & DOPAMINE ENGINE                 -->
+<!-- SCRIPT: NEUROSPACE SECRET ADDICTION & XP KICK ENGINE             -->
 <!-- ============================================================== -->
 <script>
 class AdhsSecretAddictionEngine {
   constructor() {
-    this.fidgetClicks = parseInt(localStorage.getItem('adhs_fidget_clicks') || '0', 10);
-    this.forbiddenClicks = parseInt(localStorage.getItem('adhs_forbidden_clicks') || '0', 10);
+    this.fidgetClicks = parseInt(localStorage.getItem('neurospace_fidget_clicks') || localStorage.getItem('adhs_fidget_clicks') || '0', 10);
+    this.forbiddenClicks = parseInt(localStorage.getItem('neurospace_forbidden_clicks') || localStorage.getItem('adhs_forbidden_clicks') || '0', 10);
     this.lastPointerPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     this.konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     this.konamiIndex = 0;
@@ -15895,7 +15895,7 @@ class AdhsSecretAddictionEngine {
         if (bubble.classList.contains('popped')) return;
         bubble.classList.add('popped');
         this.fidgetClicks++;
-        localStorage.setItem('adhs_fidget_clicks', this.fidgetClicks.toString());
+        localStorage.setItem('neurospace_fidget_clicks', this.fidgetClicks.toString()); localStorage.setItem('adhs_fidget_clicks', this.fidgetClicks.toString());
         this.updateFidgetDisplay();
 
         // Audio pop with pitch variety
@@ -15975,14 +15975,14 @@ class AdhsSecretAddictionEngine {
       "🧘 Schultern runter, Kiefer entspannen. Ja, genau jetzt.",
       "⚡ Hyperfokus-Boost gezündet! +25 XP",
       "🧠 Dein Gehirn: 'Nochmal drücken!' Antigravity: 'Okay hier!' +20 XP",
-      "🌀 100% Neugier, 0% Reue. Du bist die Definition von ADHS.",
+      "🌀 100% Neugier, 0% Reue. Du bist die Definition von NeuroSpace.",
       "👀 Du klickst das doch jetzt nur noch, weil das Feedback so befriedigend ist, oder?",
-      "🚀 Maximales Dopamin freigesetzt! Weiter geht's!"
+      "🚀 Maximaler XP Kick freigesetzt! Weiter geht's!"
     ];
 
     btn.addEventListener('click', () => {
       this.forbiddenClicks++;
-      localStorage.setItem('adhs_forbidden_clicks', this.forbiddenClicks.toString());
+      localStorage.setItem('neurospace_forbidden_clicks', this.forbiddenClicks.toString()); localStorage.setItem('adhs_forbidden_clicks', this.forbiddenClicks.toString());
 
       btn.classList.remove('btn-wobble');
       void btn.offsetWidth; // Trigger reflow
@@ -16005,7 +16005,7 @@ class AdhsSecretAddictionEngine {
         if (window.audio && typeof window.audio.playChime === 'function') window.audio.playChime(640, 'silver');
         if (window.masteryEngine) window.masteryEngine.addXp(35, '🔥 Gleich knallt es...');
       } else if (this.forbiddenClicks === 4) {
-        btn.innerHTML = '<span>⚡</span> DOPAMIN-JACKPOT!';
+        btn.innerHTML = '<span>⚡</span> XP KICK-JACKPOT!';
         btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
         btn.style.borderColor = '#10b981';
         btn.style.color = '#fff';
@@ -16018,7 +16018,7 @@ class AdhsSecretAddictionEngine {
         }
         if (window.masteryEngine) {
           window.masteryEngine.state.forbiddenPressed = true;
-          window.masteryEngine.addXp(100, '💥 DOPAMIN OVERLOAD (Relikt freigeschaltet!)');
+          window.masteryEngine.addXp(100, '💥 XP KICK OVERLOAD (Relikt freigeschaltet!)');
         }
       } else {
         // Rotating funny prompts
@@ -16159,7 +16159,7 @@ class AdhsSecretAddictionEngine {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.adhsAddictionEngine = new AdhsSecretAddictionEngine();
+  window.neurospaceAddictionEngine = window.adhsAddictionEngine = new AdhsSecretAddictionEngine();
 });
 </script>
 
