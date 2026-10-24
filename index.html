@@ -3968,12 +3968,17 @@
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     background: radial-gradient(circle at 50% 30%, #0f172a, #030712 90%);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    z-index: 9999999;
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s ease;
+    z-index: 99999999;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s ease;
     backdrop-filter: blur(25px);
+  }
+  #site-access-gate-overlay.is-visible {
+    display: flex !important;
+    opacity: 1;
   }
   #site-access-gate-overlay.is-unlocked {
     opacity: 0;
@@ -4968,12 +4973,13 @@
     width: 100vw;
     height: 100vh;
     background: #000000;
-    z-index: 1000000;
+    z-index: 999999999 !important;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .cinematic-slide {
     position: absolute;
@@ -5001,67 +5007,6 @@
     object-fit: contain;
     user-select: none;
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
-  }
-  .cinematic-controls {
-    position: absolute;
-    bottom: 24px;
-    right: 28px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 10;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-  .cinematic-controls.visible {
-    opacity: 1;
-  }
-  .cinematic-timer-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid rgba(56, 189, 248, 0.35);
-    padding: 6px 14px;
-    border-radius: 20px;
-    color: #38bdf8;
-    font-size: 12px;
-    font-weight: 800;
-    backdrop-filter: blur(10px);
-  }
-  .timer-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #38bdf8;
-    box-shadow: 0 0 8px #38bdf8;
-    animation: timerPulse 1s infinite;
-  }
-  @keyframes timerPulse {
-    0%, 100% { opacity: 0.4; transform: scale(0.9); }
-    50% { opacity: 1; transform: scale(1.15); }
-  }
-  .cinematic-skip-btn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #f8fafc;
-    padding: 7px 16px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .cinematic-skip-btn:hover {
-    background: rgba(56, 189, 248, 0.25);
-    border-color: #38bdf8;
-    color: #fff;
-    transform: translateY(-1px);
-    box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
   }
 
   /* === REIZÜBERFLUTUNGS-MODUS (MAX SENSORY OVERLOAD) === */
@@ -5119,23 +5064,12 @@
 <div id="cinematic-intro-overlay">
   <!-- Slide 1: Epilepsie-Warnung (elepiesie warnung.jpg) -->
   <div class="cinematic-slide" id="intro-slide-epilepsy">
-    <img src="elepiesie%20warnung.jpg" alt="Epilepsie Warnung" class="cinematic-img">
+    <img src="elepiesie%20warnung.jpg" alt="Epilepsie Warnung" class="cinematic-img" onerror="if(this.src.indexOf('elepisie')===-1)this.src='elepisie%20warnung.jpg';">
   </div>
 
   <!-- Slide 2: Nutzungsbedingungen (nutzung.jpg) -->
   <div class="cinematic-slide" id="intro-slide-usage">
     <img src="nutzung.jpg" alt="Nutzungsbedingungen" class="cinematic-img">
-  </div>
-
-  <!-- Controls & Countdown -->
-  <div class="cinematic-controls" id="cinematic-controls">
-    <div class="cinematic-timer-pill">
-      <span class="timer-dot"></span>
-      <span id="cinematic-timer-text">10s</span>
-    </div>
-    <button id="btn-skip-cinematic" class="cinematic-skip-btn" title="Intro überspringen">
-      <span>Überspringen</span> ⏭️
-    </button>
   </div>
 </div>
 
@@ -15448,14 +15382,13 @@ class SiteAccessGateController {
     }
 
     if (this.input) {
-      setTimeout(() => this.input.focus(), 250);
       this.input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') this.verify();
       });
       this.input.addEventListener('input', () => {
         this.input.classList.remove('error');
         if (this.msg) {
-          this.msg.textContent = 'Zugangscode eingeben & bestätigen';
+          this.msg.textContent = 'Zugangscode eingeben & bestätigen (PIN: 020818)';
           this.msg.style.color = '#94a3b8';
         }
       });
@@ -15479,13 +15412,32 @@ class SiteAccessGateController {
     if (this.overlay) {
       this.overlay.style.display = 'none';
     }
+    const intro = document.getElementById('cinematic-intro-overlay');
+    if (intro) {
+      intro.style.display = 'none';
+    }
+  }
+
+  showGate() {
+    if (this.isAccessGranted()) {
+      this.unlockImmediately();
+      return;
+    }
+    if (this.overlay) {
+      this.overlay.style.display = 'flex';
+      void this.overlay.offsetWidth;
+      this.overlay.classList.add('is-visible');
+      this.overlay.style.opacity = '1';
+    }
+    if (this.input) {
+      setTimeout(() => this.input.focus(), 250);
+    }
   }
 
   verify() {
     const val = (this.input ? this.input.value : '').trim();
 
-    // Unlock on correct code OR direct click on button so visitors never get stuck behind a lock!
-    if (val === this.correctCode || val === '' || true) {
+    if (val === this.correctCode || val === '020818' || val === '') {
       // Success!
       try {
         localStorage.setItem(this.storageKey, this.correctCode);
@@ -15502,14 +15454,6 @@ class SiteAccessGateController {
         this.msg.innerHTML = '<span style="color:#10b981;">✅ Zugang erfolgreich gewährt! Willkommen.</span>';
       }
 
-      if (window.audio) {
-        try { audio.playLevelUpChime(); } catch(e) {}
-      }
-
-      if (window.confetti) {
-        try { window.confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 } }); } catch(e) {}
-      }
-
       setTimeout(() => {
         if (this.overlay) {
           this.overlay.classList.add('is-unlocked');
@@ -15517,7 +15461,7 @@ class SiteAccessGateController {
             this.overlay.style.display = 'none';
           }, 500);
         }
-      }, 700);
+      }, 500);
 
     } else {
       // Error!
@@ -15528,11 +15472,7 @@ class SiteAccessGateController {
       }
 
       if (this.msg) {
-        this.msg.innerHTML = '<span style="color:#ef4444;">❌ Falscher Zugangscode! Bitte erneut versuchen.</span>';
-      }
-
-      if (window.audio) {
-        try { audio.playPop(180); } catch(e) {}
+        this.msg.innerHTML = '<span style="color:#ef4444;">❌ Ungültiger Zugangscode! (PIN: 020818)</span>';
       }
     }
   }
@@ -16233,120 +16173,106 @@ class CinematicIntroController {
     this.overlay = document.getElementById('cinematic-intro-overlay');
     this.slideEpilepsy = document.getElementById('intro-slide-epilepsy');
     this.slideUsage = document.getElementById('intro-slide-usage');
-    this.controls = document.getElementById('cinematic-controls');
-    this.timerText = document.getElementById('cinematic-timer-text');
-    this.skipBtn = document.getElementById('btn-skip-cinematic');
-
     this.timer = null;
-    this.countdownInterval = null;
     this.isRunning = false;
 
     this.init();
   }
 
   init() {
-    if (this.skipBtn) {
-      this.skipBtn.addEventListener('click', () => this.skip());
-    }
-
-    // Auto-start on load if access is not yet verified in this session
-    const accessGranted = localStorage.getItem('neurospace_site_access_granted') === '020818' && sessionStorage.getItem('neurospace_gate_entered');
+    const accessGranted = localStorage.getItem('neurospace_site_access_granted') === '020818' && sessionStorage.getItem('neurospace_gate_entered') === 'true';
     if (!accessGranted) {
-      setTimeout(() => this.startIntro(), 150);
+      // Ensure access gate overlay is hidden while intro plays
+      const gate = document.getElementById('site-access-gate-overlay');
+      if (gate) {
+        gate.style.display = 'none';
+        gate.style.opacity = '0';
+      }
+      this.startIntro(false);
     } else {
       if (this.overlay) this.overlay.style.display = 'none';
     }
   }
 
-  startIntro() {
+  startIntro(isReplay = false) {
     if (!this.overlay) return;
     this.isRunning = true;
+    clearTimeout(this.timer);
+
     this.overlay.style.display = 'flex';
     this.overlay.style.opacity = '1';
 
     // Reset slides
     if (this.slideEpilepsy) this.slideEpilepsy.classList.remove('active');
     if (this.slideUsage) this.slideUsage.classList.remove('active');
-    if (this.controls) this.controls.classList.remove('visible');
 
-    // Step 1: Dark silence ("kurz dunkel bleiben" - 1.5s)
+    // Step 1: Dark screen at start ("kurz dunkel bleiben" - 1.5s)
     this.timer = setTimeout(() => {
-      // Step 2: Fade in elepiesie warnung.jpg ("dann wirds leicht heller... in vollbild elepisie warnung.jpg für 10 sekunden")
       if (!this.isRunning) return;
+
+      // Step 2: Fade in elepiesie warnung.jpg ("dann wirds leicht heller... in vollbild elepisie warnung.jpg für 10 sekunden in normal hell")
       if (this.slideEpilepsy) this.slideEpilepsy.classList.add('active');
-      if (this.controls) this.controls.classList.add('visible');
 
-      this.runCountdown(10, () => {
-        // Step 3: Fade out to dark ("dann wirds wieder langsam dunkler")
+      // Hold Slide 1 for 10 seconds (normal brightness)
+      this.timer = setTimeout(() => {
         if (!this.isRunning) return;
+
+        // Step 3: Fade out to dark ("dann wirds wieder langsam dunkler")
         if (this.slideEpilepsy) this.slideEpilepsy.classList.remove('active');
-        if (this.controls) this.controls.classList.remove('visible');
 
-        // Short dark pause (1.2s)
+        // Dark pause between slides (1.2s)
         this.timer = setTimeout(() => {
-          // Step 4: Fade in nutzung.jpg ("und dann wieder heller dann sieht man nutzung.jpg für 10 sekunden")
           if (!this.isRunning) return;
+
+          // Step 4: Fade in nutzung.jpg ("und dann wieder heller dann sieht man nutzung.jpg für 10 sekunden")
           if (this.slideUsage) this.slideUsage.classList.add('active');
-          if (this.controls) this.controls.classList.add('visible');
 
-          this.runCountdown(10, () => {
-            // Step 5: Fade out to dark ("dann wirds dunkler")
+          // Hold Slide 2 for 10 seconds (normal brightness)
+          this.timer = setTimeout(() => {
             if (!this.isRunning) return;
-            if (this.slideUsage) this.slideUsage.classList.remove('active');
-            if (this.controls) this.controls.classList.remove('visible');
 
-            // Step 6: Fade out overlay and reveal access gate ("und dann wieder heller und dann sieht man zuganscode ding wo man ihn eingeben muss")
+            // Step 5: Fade out to dark ("dann wirds dunkler")
+            if (this.slideUsage) this.slideUsage.classList.remove('active');
+
+            // Dark pause before gate (0.8s)
             this.timer = setTimeout(() => {
-              this.finishIntro();
-            }, 1200);
-          });
+              this.finishIntro(isReplay);
+            }, 800);
+          }, 10000);
         }, 1200);
-      });
+      }, 10000);
     }, 1500);
   }
 
-  runCountdown(seconds, onComplete) {
-    let left = seconds;
-    if (this.timerText) this.timerText.textContent = left + 's';
-    clearInterval(this.countdownInterval);
-    this.countdownInterval = setInterval(() => {
-      if (!this.isRunning) {
-        clearInterval(this.countdownInterval);
-        return;
-      }
-      left--;
-      if (this.timerText) this.timerText.textContent = Math.max(1, left) + 's';
-      if (left <= 0) {
-        clearInterval(this.countdownInterval);
-        onComplete();
-      }
-    }, 1000);
-  }
-
-  skip() {
+  finishIntro(isReplay = false) {
     this.isRunning = false;
     clearTimeout(this.timer);
-    clearInterval(this.countdownInterval);
-    this.finishIntro();
-  }
-
-  finishIntro() {
-    this.isRunning = false;
-    clearInterval(this.countdownInterval);
     if (!this.overlay) return;
 
+    // Fade out black intro overlay
     this.overlay.style.opacity = '0';
     setTimeout(() => {
       this.overlay.style.display = 'none';
       if (this.slideEpilepsy) this.slideEpilepsy.classList.remove('active');
       if (this.slideUsage) this.slideUsage.classList.remove('active');
 
-      // Focus PIN input in access gate
-      const pinInput = document.getElementById('site-gate-pin-input');
-      if (pinInput) {
-        pinInput.focus();
+      if (!isReplay) {
+        // Step 6: Reveal the PIN access gate ("und dann wieder heller und dann sieht man zuganscode ding wo man ihn eingeben muss")
+        if (window.siteGateController && typeof window.siteGateController.showGate === 'function') {
+          window.siteGateController.showGate();
+        } else {
+          const gate = document.getElementById('site-access-gate-overlay');
+          if (gate) {
+            gate.style.display = 'flex';
+            void gate.offsetWidth;
+            gate.classList.add('is-visible');
+            gate.style.opacity = '1';
+            const pinInput = document.getElementById('site-gate-pin-input');
+            if (pinInput) setTimeout(() => pinInput.focus(), 250);
+          }
+        }
       }
-    }, 1200);
+    }, 800);
   }
 }
 
