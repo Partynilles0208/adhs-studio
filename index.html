@@ -5144,9 +5144,6 @@
         <button class="nav-menu-item" id="btn-open-ai-tools" style="position:relative;">
           <span>🤖</span> AI Tools <span style="font-size:9px; background:linear-gradient(135deg,#10b981,#38bdf8); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto; box-shadow:0 0 10px rgba(16,185,129,0.5);">LIVE ⚡</span>
         </button>
-                <button class="nav-menu-item" id="btn-sidebar-3d-intro" style="position:relative; background:linear-gradient(135deg,rgba(56,189,248,0.12),rgba(236,72,153,0.12)); border:1px solid rgba(56,189,248,0.35); color:#38bdf8; font-weight:800;" onclick="if(window.open3DIntroModal) window.open3DIntroModal();">
-          <span>🎬</span> 3D Intro <span style="font-size:9.5px; background:linear-gradient(135deg,#38bdf8,#ec4899); color:#000; font-weight:900; padding:1px 6px; border-radius:8px; margin-left:auto;">BLENDER</span>
-        </button>
         <button class="nav-menu-item" id="btn-open-onboarding-wizard" style="position:relative; background:rgba(236,72,153,0.08); border:1px solid rgba(236,72,153,0.25);" onclick="if(window.personalizationWizard) window.personalizationWizard.open();">
           <span>💖</span> Mein Profil <span style="font-size:9.5px; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.45); color:#f472b6; font-weight:800; padding:1px 7px; border-radius:10px; margin-left:auto;">Setup</span>
         </button>
@@ -5235,8 +5232,8 @@
           <button class="header-pill-btn secret-vault-btn" id="btn-secret-vault-open" onclick="if(window.dopamineEngine) window.dopamineEngine.openVault();" title="XP Kick-Tresor öffnen">
             <span>🎁</span> Geheim-Tresor
           </button>
-          <button class="header-pill-btn" id="btn-header-3d-intro" style="background:linear-gradient(135deg, rgba(56,189,248,0.2), rgba(236,72,153,0.2)); border:1px solid rgba(56,189,248,0.5); color:#38bdf8; font-weight:800;" onclick="if(window.open3DIntroModal) window.open3DIntroModal();" title="Blender 3D Intro ansehen">
-            <span>🎬</span> 3D Intro
+          <button class="header-pill-btn" id="btn-toggle-bg-music" title="Hintergrundmusik an/aus (background.mp3)" style="background:rgba(56,189,248,0.12); border-color:rgba(56,189,248,0.35); color:#7dd3fc;">
+            <span>🎵</span> Musik: AN
           </button>
           <button class="header-pill-btn" id="btn-open-relics">
             <span>🏆</span> Relikte
@@ -15482,9 +15479,113 @@ window.arcadeEngine = new NeuroArcadeEngine();
 
 
 <!-- ============================================================== -->
-<!-- SCRIPT: SITE ACCESS GATE CONTROLLER (CODE: 020818)             -->
+<!-- SCRIPT: SITE ACCESS GATE CONTROLLER (CODE: 020818) & BACKGROUND MUSIC -->
 <!-- ============================================================== -->
 <script>
+class BackgroundMusicController {
+  constructor() {
+    this.audio = new Audio('background.mp3');
+    this.audio.loop = true;
+    this.audio.preload = 'auto';
+    this.targetVolume = 0.8;
+    this.fadeInDuration = 4500; // 4.5 Sekunden sanftes Einblenden
+    this.isPlaying = false;
+    this.fadeInterval = null;
+    this.armed = false;
+
+    this.toggleBtn = document.getElementById('btn-toggle-bg-music');
+    if (this.toggleBtn) {
+      this.toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.toggle();
+      });
+    }
+  }
+
+  startWithFadeIn() {
+    if (this.isPlaying && !this.audio.paused) return;
+
+    this.audio.volume = 0.0;
+    const playPromise = this.audio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        this.isPlaying = true;
+        this.armed = false;
+        this.updateButton(true);
+        this.fadeIn();
+      }).catch(err => {
+        console.warn('Autoplay blockiert (Browser Audio Policy), warte auf Interaktion:', err);
+        this.armAutoplayOnFirstInteraction();
+      });
+    }
+  }
+
+  fadeIn() {
+    if (this.fadeInterval) clearInterval(this.fadeInterval);
+    const stepTime = 50;
+    const totalSteps = this.fadeInDuration / stepTime;
+    const stepIncrement = this.targetVolume / totalSteps;
+
+    this.fadeInterval = setInterval(() => {
+      if (this.audio.volume + stepIncrement >= this.targetVolume) {
+        this.audio.volume = this.targetVolume;
+        clearInterval(this.fadeInterval);
+        this.fadeInterval = null;
+      } else {
+        this.audio.volume = Math.min(this.targetVolume, this.audio.volume + stepIncrement);
+      }
+    }, stepTime);
+  }
+
+  armAutoplayOnFirstInteraction() {
+    if (this.armed || (this.isPlaying && !this.audio.paused)) return;
+    this.armed = true;
+
+    const onUserInteraction = () => {
+      if (!this.isPlaying || this.audio.paused) {
+        this.startWithFadeIn();
+      }
+      window.removeEventListener('pointerdown', onUserInteraction);
+      window.removeEventListener('click', onUserInteraction);
+      window.removeEventListener('keydown', onUserInteraction);
+      window.removeEventListener('touchstart', onUserInteraction);
+      window.removeEventListener('scroll', onUserInteraction);
+    };
+
+    window.addEventListener('pointerdown', onUserInteraction, { once: true, passive: true });
+    window.addEventListener('click', onUserInteraction, { once: true });
+    window.addEventListener('keydown', onUserInteraction, { once: true });
+    window.addEventListener('touchstart', onUserInteraction, { once: true, passive: true });
+    window.addEventListener('scroll', onUserInteraction, { once: true, passive: true });
+  }
+
+  toggle() {
+    if (this.audio.paused) {
+      this.startWithFadeIn();
+    } else {
+      this.audio.pause();
+      this.isPlaying = false;
+      if (this.fadeInterval) clearInterval(this.fadeInterval);
+      this.updateButton(false);
+    }
+  }
+
+  updateButton(playing) {
+    if (this.toggleBtn) {
+      this.toggleBtn.innerHTML = playing ? '<span>🎵</span> Musik: AN' : '<span>🔇</span> Musik: PAUSE';
+      if (playing) {
+        this.toggleBtn.style.background = 'rgba(16,185,129,0.18)';
+        this.toggleBtn.style.borderColor = 'rgba(16,185,129,0.45)';
+        this.toggleBtn.style.color = '#6ee7b7';
+      } else {
+        this.toggleBtn.style.background = 'rgba(148,163,184,0.12)';
+        this.toggleBtn.style.borderColor = 'rgba(148,163,184,0.3)';
+        this.toggleBtn.style.color = '#94a3b8';
+      }
+    }
+  }
+}
+
 class SiteAccessGateController {
   constructor() {
     this.storageKey = 'neurospace_site_access_granted';
@@ -15521,9 +15622,11 @@ class SiteAccessGateController {
     }
   }
 
+  // Dauerhaft im localStorage gespeichert – kein erneutes Eingeben nötig!
   isAccessGranted() {
     try {
-      return localStorage.getItem(this.storageKey) === this.correctCode && sessionStorage.getItem('neurospace_gate_entered') === 'true';
+      const saved = localStorage.getItem(this.storageKey);
+      return saved === this.correctCode || saved === '020818' || saved === 'true';
     } catch(e) {
       return false;
     }
@@ -15537,6 +15640,10 @@ class SiteAccessGateController {
     const intro = document.getElementById('cinematic-intro-overlay');
     if (intro) {
       intro.style.display = 'none';
+    }
+    // Musik beim Betreten der Website direkt starten & sanft einblenden!
+    if (window.bgMusicController) {
+      window.bgMusicController.startWithFadeIn();
     }
   }
 
@@ -15560,10 +15667,10 @@ class SiteAccessGateController {
     const val = (this.input ? this.input.value : '').trim();
 
     if (val === this.correctCode || val === '020818' || val === '') {
-      // Success!
+      // Dauerhaft im localStorage speichern
       try {
         localStorage.setItem(this.storageKey, this.correctCode);
-        sessionStorage.setItem('neurospace_gate_entered', 'true');
+        localStorage.setItem('neurospace_site_access_granted', '020818');
       } catch(e) {}
       document.documentElement.classList.add('site-access-granted');
 
@@ -15576,13 +15683,19 @@ class SiteAccessGateController {
         this.msg.innerHTML = '<span style="color:#10b981;">✅ Zugang erfolgreich gewährt! Willkommen.</span>';
       }
 
+      // Hintergrundmusik starten & langsam lauter werden lassen
+      if (window.bgMusicController) {
+        window.bgMusicController.startWithFadeIn();
+      }
+
       setTimeout(() => {
         if (this.overlay) {
           this.overlay.classList.add('is-unlocked');
           setTimeout(() => {
             this.overlay.style.display = 'none';
-            // Start the onboarding survey right after gate unlock!
-            if (window.personalizationWizard && typeof window.personalizationWizard.open === 'function') {
+            // Umfrage nur starten, falls noch nicht abgeschlossen
+            const surveyDone = localStorage.getItem('neuro_onboarding_completed') === 'true';
+            if (!surveyDone && window.personalizationWizard && typeof window.personalizationWizard.open === 'function') {
               window.personalizationWizard.open();
             }
           }, 500);
@@ -15590,7 +15703,6 @@ class SiteAccessGateController {
       }, 500);
 
     } else {
-      // Error!
       if (this.input) {
         this.input.classList.add('error');
         this.input.value = '';
@@ -15605,12 +15717,12 @@ class SiteAccessGateController {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  window.bgMusicController = new BackgroundMusicController();
   window.siteGateController = new SiteAccessGateController();
 });
 </script>
 
 
-  <!-- ============================================================== -->
   <!-- MODAL: DATENSCHUTZ, ETHIK & VERTRAUENS-VERSPRECHEN              -->
   <!-- ============================================================== -->
   <div id="trust-privacy-modal">
@@ -16306,9 +16418,11 @@ class CinematicIntroController {
   }
 
   init() {
-    const accessGranted = localStorage.getItem('neurospace_site_access_granted') === '020818' && sessionStorage.getItem('neurospace_gate_entered') === 'true';
+    const accessGranted = (
+      localStorage.getItem('neurospace_site_access_granted') === '020818' ||
+      localStorage.getItem('neurospace_site_access_granted') === 'true'
+    );
     if (!accessGranted) {
-      // Ensure access gate overlay is hidden while intro plays
       const gate = document.getElementById('site-access-gate-overlay');
       if (gate) {
         gate.style.display = 'none';
@@ -16317,6 +16431,8 @@ class CinematicIntroController {
       this.startIntro(false);
     } else {
       if (this.overlay) this.overlay.style.display = 'none';
+      const gate = document.getElementById('site-access-gate-overlay');
+      if (gate) gate.style.display = 'none';
     }
   }
 
