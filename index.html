@@ -487,25 +487,30 @@
     border-color: rgba(244, 63, 94, 0.3);
   }
 
-  /* Universal Dock Styling */
+  /* Universal Dock Styling (Background-free) */
   .floating-dock {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 30;
-    background: rgba(15, 20, 28, 0.92);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 28px;
-    padding: 8px 16px;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 8px;
     max-width: 95vw;
-    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7);
+    box-shadow: none;
+    pointer-events: none;
+  }
+  .floating-dock > * {
+    pointer-events: auto;
   }
   .dock-group {
     display: flex;
@@ -5627,17 +5632,23 @@
   }
 
 
-  /* AUTUMN COMPONENT UPGRADES ACROSS ALL 29 APPS */
+  /* AUTUMN COMPONENT UPGRADES ACROSS ALL APPS (BACKGROUND-FREE) */
   .view-nav {
     display: flex !important;
     align-items: center !important;
     gap: 12px !important;
-    padding: 10px 18px !important;
-    background: rgba(22, 14, 10, 0.88) !important;
-    backdrop-filter: blur(16px) !important;
-    border-bottom: 1px solid rgba(245, 158, 11, 0.28) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    padding: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
     z-index: 100 !important;
+    pointer-events: none !important;
+  }
+  .view-nav > * {
+    pointer-events: auto !important;
   }
   .nav-music-toggle-btn {
     background: rgba(245, 158, 11, 0.18) !important;
@@ -5715,7 +5726,7 @@
     flex-direction: column !important;
   }
 
-  /* Sleek Floating Glass Nav Bar */
+  /* Sleek Floating Glass Nav Bar (Background-free pills) */
   .view-nav {
     position: absolute !important;
     top: 14px !important;
@@ -5725,15 +5736,19 @@
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 0 16px !important;
-    background: rgba(20, 13, 9, 0.78) !important;
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    border: 1px solid rgba(245, 158, 11, 0.28) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 158, 11, 0.1) !important;
+    padding: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
     z-index: 1000 !important;
     box-sizing: border-box !important;
+    pointer-events: none !important;
+  }
+  .view-nav > * {
+    pointer-events: auto !important;
   }
 
   .nav-back-btn {
@@ -5819,26 +5834,42 @@
     margin-top: 84px !important;
   }
 
-  /* Fresh & Clear Floating Bottom Docks */
+  /* Fresh & Clear Floating Bottom Docks (Background-free across every app) */
   .floating-dock {
     position: absolute !important;
     bottom: 22px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 100 !important;
-    background: rgba(20, 13, 9, 0.82) !important;
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    border: 1px solid rgba(245, 158, 11, 0.3) !important;
-    border-radius: 20px !important;
-    padding: 8px 16px !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
-    max-width: 92vw !important;
-    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(245, 158, 11, 0.15) !important;
+    max-width: 95vw !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+  }
+  .floating-dock > *,
+  .floating-dock button,
+  .floating-dock label,
+  .floating-dock input,
+  .floating-dock select,
+  .dock-group {
+    pointer-events: auto !important;
+  }
+  .dock-label {
+    color: #fef3c7 !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.8) !important;
+    pointer-events: auto !important;
   }
 
   /* Fresh & Clear Buttons */
@@ -5958,7 +5989,10 @@
       left: 10px !important;
       right: 10px !important;
       height: 48px !important;
-      padding: 0 10px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
     }
     .nav-back-btn {
       padding: 6px 12px !important;
@@ -5979,11 +6013,18 @@
     .floating-dock {
       bottom: 12px !important;
       max-width: 96vw !important;
-      padding: 6px 10px !important;
+      padding: 0 !important;
       gap: 6px !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
       overflow-x: auto !important;
       flex-wrap: nowrap !important;
       justify-content: flex-start !important;
+      pointer-events: none !important;
+    }
+    .floating-dock > * {
+      pointer-events: auto !important;
     }
     .tool-pill-btn, .pill-btn, .action-btn {
       padding: 6px 10px !important;
@@ -6003,6 +6044,9 @@
       top: 12px !important;
       left: 14px !important;
       right: 14px !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
     }
   }
 
