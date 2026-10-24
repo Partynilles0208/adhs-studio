@@ -5050,9 +5050,316 @@
     50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.6); }
   }
 
+
+  /* ============================================================== */
+  /* NEUROSPACE SUPABASE AUTH & ACCOUNT MODALS STYLING               */
+  /* ============================================================== */
+  .neuro-auth-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at 50% 30%, rgba(15, 23, 42, 0.95), rgba(3, 7, 18, 0.98));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999999;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 16px;
+    animation: authFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes authFadeIn {
+    from { opacity: 0; transform: scale(0.97); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .neuro-auth-card {
+    background: radial-gradient(circle at 50% 0%, #151d30, #0a0e18 80%);
+    border: 1px solid rgba(129, 140, 248, 0.35);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 50px rgba(129, 140, 248, 0.2);
+    border-radius: 26px;
+    width: 100%;
+    max-width: 440px;
+    padding: 30px 26px;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .neuro-auth-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .neuro-auth-icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.3), rgba(168, 85, 247, 0.3));
+    border: 1.5px solid rgba(129, 140, 248, 0.5);
+    box-shadow: 0 0 25px rgba(129, 140, 248, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 14px;
+  }
+
+  .neuro-auth-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    margin: 0 0 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .neuro-auth-subtitle {
+    font-size: 12.5px;
+    color: #94a3b8;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .neuro-auth-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .neuro-auth-tab {
+    flex: 1;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .neuro-auth-tab.active {
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.35), rgba(168, 85, 247, 0.35));
+    border: 1px solid rgba(129, 140, 248, 0.6);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .neuro-auth-alert {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .neuro-auth-alert.error {
+    background: rgba(244, 63, 94, 0.15);
+    border: 1px solid rgba(244, 63, 94, 0.4);
+    color: #fda4af;
+  }
+  .neuro-auth-alert.success {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #6ee7b7;
+  }
+
+  .neuro-auth-field {
+    margin-bottom: 14px;
+    text-align: left;
+  }
+
+  .neuro-auth-field label {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #cbd5e1;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .neuro-auth-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .neuro-auth-input-wrap .input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 15px;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .neuro-auth-input-wrap input {
+    width: 100%;
+    padding: 12px 42px 12px 40px;
+    background: rgba(4, 7, 16, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    color: #fff;
+    font-size: 13.5px;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .neuro-auth-input-wrap input:focus {
+    border-color: #818cf8;
+    box-shadow: 0 0 18px rgba(129, 140, 248, 0.4);
+  }
+
+  .toggle-password-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.65;
+    transition: opacity 0.2s;
+    padding: 4px;
+  }
+  .toggle-password-btn:hover {
+    opacity: 1;
+  }
+
+  .neuro-auth-submit-btn {
+    width: 100%;
+    padding: 13px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .neuro-auth-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+    filter: brightness(1.1);
+  }
+  .neuro-auth-submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .neuro-auth-footer {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .auth-guest-link {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+  .auth-guest-link:hover {
+    color: #fff;
+  }
+
+  .auth-supabase-cfg-link {
+    background: rgba(62, 207, 142, 0.1);
+    border: 1px solid rgba(62, 207, 142, 0.3);
+    color: #6ee7b7;
+    font-size: 11.5px;
+    font-weight: 800;
+    border-radius: 10px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .auth-supabase-cfg-link:hover {
+    background: rgba(62, 207, 142, 0.2);
+    border-color: #3ecf8e;
+  }
+
+  .neuro-auth-cancel-btn {
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .neuro-auth-cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  .auth-close-x {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .auth-close-x:hover {
+    color: #fff;
+  }
+
+  .account-menu-btn {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: #e2e8f0;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+  }
+  .account-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(129, 140, 248, 0.4);
+    transform: translateX(2px);
+  }
+  .account-menu-btn.logout {
+    color: #fda4af;
+    border-color: rgba(244, 63, 94, 0.25);
+    background: rgba(244, 63, 94, 0.06);
+  }
+  .account-menu-btn.logout:hover {
+    background: rgba(244, 63, 94, 0.15);
+    border-color: #f43f5e;
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -5117,6 +5424,195 @@
   </div>
 </div>
 
+<!-- ============================================================== -->
+<!-- NEUROSPACE SUPABASE AUTH & ACCOUNT MODAL                      -->
+<!-- ============================================================== -->
+<div id="neuro-auth-modal" class="neuro-auth-overlay" style="display:none;">
+  <div class="neuro-auth-card">
+    <div class="neuro-auth-header">
+      <div class="neuro-auth-icon-wrap">
+        <span>✨</span>
+      </div>
+      <h2 id="auth-modal-title" class="neuro-auth-title">Account erstellen</h2>
+      <p id="auth-modal-subtitle" class="neuro-auth-subtitle">
+        Sichere deinen Fortschritt, XP-Kicks & Highscores online via Supabase Cloud!
+      </p>
+    </div>
+
+    <!-- Mode Tabs -->
+    <div class="neuro-auth-tabs">
+      <button type="button" class="neuro-auth-tab active" id="tab-auth-register">✨ Registrieren</button>
+      <button type="button" class="neuro-auth-tab" id="tab-auth-login">🔑 Einloggen</button>
+    </div>
+
+    <!-- Alert / Status message -->
+    <div id="auth-alert-box" class="neuro-auth-alert" style="display:none;"></div>
+
+    <!-- Form: Registrieren -->
+    <form id="form-auth-register" class="neuro-auth-form" onsubmit="return false;">
+      <div class="neuro-auth-field">
+        <label for="reg-username">Benutzername</label>
+        <div class="neuro-auth-input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="reg-username" placeholder="z. B. GamerNils oder Nils_01" autocomplete="username" required>
+        </div>
+      </div>
+
+      <div class="neuro-auth-field">
+        <label for="reg-firstname">Vorname</label>
+        <div class="neuro-auth-input-wrap">
+          <span class="input-icon">👋</span>
+          <input type="text" id="reg-firstname" placeholder="z. B. Nils" autocomplete="given-name" required>
+        </div>
+      </div>
+
+      <div class="neuro-auth-field">
+        <label for="reg-password">Passwort</label>
+        <div class="neuro-auth-input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="reg-password" placeholder="Mindestens 6 Zeichen" autocomplete="new-password" required>
+          <button type="button" class="toggle-password-btn" onclick="window.neuroAuth.togglePasswordVisibility('reg-password', this)">👁️</button>
+        </div>
+      </div>
+
+      <div class="neuro-auth-field">
+        <label for="reg-password-repeat">Passwort wiederholen</label>
+        <div class="neuro-auth-input-wrap">
+          <span class="input-icon">🛡️</span>
+          <input type="password" id="reg-password-repeat" placeholder="Passwort bestätigen" autocomplete="new-password" required>
+          <button type="button" class="toggle-password-btn" onclick="window.neuroAuth.togglePasswordVisibility('reg-password-repeat', this)">👁️</button>
+        </div>
+      </div>
+
+      <button type="submit" id="btn-submit-register" class="neuro-auth-submit-btn">
+        <span>🚀 Account erstellen & online sichern</span>
+      </button>
+    </form>
+
+    <!-- Form: Einloggen -->
+    <form id="form-auth-login" class="neuro-auth-form" style="display:none;" onsubmit="return false;">
+      <div class="neuro-auth-field">
+        <label for="login-username">Benutzername</label>
+        <div class="neuro-auth-input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="login-username" placeholder="Dein Benutzername" autocomplete="username" required>
+        </div>
+      </div>
+
+      <div class="neuro-auth-field">
+        <label for="login-password">Passwort</label>
+        <div class="neuro-auth-input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="login-password" placeholder="Dein Passwort" autocomplete="current-password" required>
+          <button type="button" class="toggle-password-btn" onclick="window.neuroAuth.togglePasswordVisibility('login-password', this)">👁️</button>
+        </div>
+      </div>
+
+      <button type="submit" id="btn-submit-login" class="neuro-auth-submit-btn">
+        <span>🔑 Einloggen & Daten laden</span>
+      </button>
+    </form>
+
+    <!-- Footer Actions: Guest Mode & Supabase Settings -->
+    <div class="neuro-auth-footer">
+      <button type="button" class="auth-guest-link" id="btn-auth-skip-guest">
+        Lokal weiterspielen (Gast-Modus) ➡️
+      </button>
+      <button type="button" class="auth-supabase-cfg-link" onclick="if(window.neuroSupabase) window.neuroSupabase.openConfigModal();">
+        ⚙️ Supabase-Verbindung einrichten
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- SUPABASE CONFIGURATION MODAL (URL & KEY DIALOG)                -->
+<!-- ============================================================== -->
+<div id="supabase-config-modal" class="neuro-auth-overlay" style="display:none; z-index:999999999;">
+  <div class="neuro-auth-card" style="max-width:480px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,#3ecf8e,#10b981); display:flex; align-items:center; justify-content:center; font-size:20px;">⚡</div>
+        <h3 style="font-size:18px; font-weight:900; color:#fff; margin:0;">Supabase Verbindung</h3>
+      </div>
+      <button type="button" class="auth-close-x" onclick="document.getElementById('supabase-config-modal').style.display='none';">✕</button>
+    </div>
+
+    <p style="font-size:12px; color:#94a3b8; line-height:1.45; margin-bottom:14px;">
+      Trage hier deine Supabase-Projekt-URL und den Anon/Public Key ein. Deine Daten werden dann automatisch verschlüsselt in deiner Cloud-Datenbank gespeichert.
+    </p>
+
+    <div class="neuro-auth-field">
+      <label>Supabase Projekt-URL</label>
+      <input type="url" id="cfg-supabase-url" placeholder="https://xyzprojekt.supabase.co" style="width:100%; padding:11px 14px; border-radius:12px; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.15); color:#fff; font-size:13px; font-family:monospace; box-sizing:border-box;">
+    </div>
+
+    <div class="neuro-auth-field">
+      <label>Supabase Anon / Public Key</label>
+      <textarea id="cfg-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." rows="3" style="width:100%; padding:10px 14px; border-radius:12px; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.15); color:#fff; font-size:11px; font-family:monospace; resize:none; box-sizing:border-box;"></textarea>
+    </div>
+
+    <div id="cfg-supabase-status" style="font-size:12px; margin:4px 0 12px; min-height:18px; font-weight:700;"></div>
+
+    <div style="display:flex; gap:10px;">
+      <button type="button" id="btn-save-supabase-cfg" class="neuro-auth-submit-btn" style="flex:1; margin-top:0;">
+        💾 Speichern & Verbinden
+      </button>
+      <button type="button" class="neuro-auth-cancel-btn" onclick="document.getElementById('supabase-config-modal').style.display='none';">
+        Abbrechen
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- NEUROSPACE ACCOUNT & CLOUD-SYNC PROFILE MODAL                 -->
+<!-- ============================================================== -->
+<div id="neuro-account-profile-modal" class="neuro-auth-overlay" style="display:none; z-index:99999999;">
+  <div class="neuro-auth-card" style="max-width:440px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="width:48px; height:48px; border-radius:16px; background:linear-gradient(135deg,#818cf8,#ec4899); display:flex; align-items:center; justify-content:center; font-size:24px;">🧠</div>
+        <div>
+          <div id="account-card-display-name" style="font-size:18px; font-weight:900; color:#fff;">Nils</div>
+          <div id="account-card-username" style="font-size:12px; color:#818cf8; font-weight:700;">@NeuroSpace_Pro</div>
+        </div>
+      </div>
+      <button type="button" class="auth-close-x" onclick="document.getElementById('neuro-account-profile-modal').style.display='none';">✕</button>
+    </div>
+
+    <!-- Stats summary -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+      <div style="background:rgba(255,255,255,0.04); padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-size:10.5px; color:#94a3b8; font-weight:800;">LEVEL & RANG</div>
+        <div id="account-card-level" style="font-size:14px; font-weight:900; color:#fbbf24; margin-top:2px;">Lv. 1 Fokus-Novize</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04); padding:12px; border-radius:14px; border:1px solid rgba(255,255,255,0.08);">
+        <div style="font-size:10.5px; color:#94a3b8; font-weight:800;">XP KICK GESAMT</div>
+        <div id="account-card-xp" style="font-size:14px; font-weight:900; color:#38bdf8; margin-top:2px;">0 XP</div>
+      </div>
+    </div>
+
+    <!-- Cloud Sync Status Indicator -->
+    <div id="account-cloud-status-box" style="padding:10px 14px; border-radius:12px; background:rgba(62,207,142,0.1); border:1px solid rgba(62,207,142,0.3); color:#6ee7b7; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+      <span id="account-cloud-status-text">🟢 Supabase Cloud: Verbunden</span>
+      <button type="button" id="btn-manual-cloud-sync" style="background:rgba(255,255,255,0.12); border:none; border-radius:8px; padding:4px 9px; color:#fff; font-size:11px; font-weight:800; cursor:pointer;" onclick="if(window.neuroSupabase) window.neuroSupabase.syncToCloud(true);">🔄 Sync</button>
+    </div>
+
+    <!-- Actions -->
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <button type="button" class="account-menu-btn" onclick="document.getElementById('neuro-account-profile-modal').style.display='none'; if(window.personalizationWizard) window.personalizationWizard.open();">
+        <span>📝</span> Umfrage & Vorlieben anpassen
+      </button>
+      <button type="button" class="account-menu-btn" onclick="document.getElementById('neuro-account-profile-modal').style.display='none'; if(window.neuroSupabase) window.neuroSupabase.openConfigModal();">
+        <span>⚙️</span> Supabase Zugangsdaten bearbeiten
+      </button>
+      <button type="button" class="account-menu-btn logout" onclick="if(window.neuroAuth) window.neuroAuth.logout();">
+        <span>🚪</span> Abmelden / Account wechseln
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- ============================================================== -->
 <!-- 1. MAIN HUB / DASHBOARD (27 SENSORY APPS)                      -->
@@ -5126,7 +5622,7 @@
 
     <!-- LEFT SIDEBAR -->
     <aside class="neuro-sidebar-left">
-      <div class="user-profile-badge" id="sidebar-user-profile-btn" onclick="if(window.personalizationWizard) window.personalizationWizard.open();" title="Klicke hier, um dein Spieler-Profil anzupassen">
+      <div class="user-profile-badge" id="sidebar-user-profile-btn" onclick="if(window.neuroAuth) window.neuroAuth.openProfileModal(); else if(window.personalizationWizard) window.personalizationWizard.open();" title="Klicke hier, um dein Spieler-Profil anzupassen">
         <div class="user-avatar-img">🧠</div>
         <div class="user-info-text">
           <span class="user-name-title">NeuroSpace_Pro</span>
@@ -11687,6 +12183,9 @@ class MasteryRelicEngine {
   saveState() {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.state));
+      if (window.neuroSupabase && typeof window.neuroSupabase.debouncedSync === 'function') {
+        window.neuroSupabase.debouncedSync();
+      }
     } catch (e) {}
   }
 
@@ -12589,6 +13088,11 @@ class NeuroPersonalizationWizard {
       localStorage.setItem('neuro_user_profile', JSON.stringify(profile));
 
       this.applyUserName(finalName);
+
+      // Daten online mit Supabase Cloud synchronisieren!
+      if (window.neuroSupabase && typeof window.neuroSupabase.syncToCloud === 'function') {
+        window.neuroSupabase.syncToCloud();
+      }
 
       if (window.masteryEngine && typeof window.masteryEngine.addXp === 'function') {
         window.masteryEngine.addXp(120, '🎉 Profil erstellt! (+120 XP)');
@@ -16267,6 +16771,648 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
+
+<!-- ============================================================== -->
+<!-- SCRIPT: NEUROSPACE SUPABASE CLIENT & CLOUD SYNC ENGINE         -->
+<!-- ============================================================== -->
+<script>
+class NeuroSupabaseSync {
+  constructor() {
+    this.storageUrlKey = 'neuro_supabase_url';
+    this.storageKeyKey = 'neuro_supabase_key';
+
+    // Default Configuration Slots (falls direkt im Code konfiguriert)
+    this.defaultUrl = '';
+    this.defaultKey = '';
+
+    this.client = null;
+    this.isConnected = false;
+    this.isSyncing = false;
+    this.syncTimeout = null;
+
+    this.init();
+  }
+
+  init() {
+    const savedUrl = localStorage.getItem(this.storageUrlKey) || this.defaultUrl;
+    const savedKey = localStorage.getItem(this.storageKeyKey) || this.defaultKey;
+
+    if (savedUrl && savedKey && savedUrl.startsWith('http')) {
+      try {
+        if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+          this.client = window.supabase.createClient(savedUrl, savedKey);
+          this.isConnected = true;
+          console.log('⚡ Supabase Cloud Client erfolgreich initialisiert!');
+        }
+      } catch (err) {
+        console.warn('Supabase Init Fehler:', err);
+        this.isConnected = false;
+      }
+    } else {
+      this.isConnected = false;
+    }
+
+    this.updateStatusBadge();
+    this.bindConfigModal();
+  }
+
+  async hashPassword(password) {
+    try {
+      const msgBuffer = new TextEncoder().encode(password + '_neurospace_salt_2026');
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    } catch (e) {
+      let hash = 0;
+      for (let i = 0; i < password.length; i++) {
+        hash = ((hash << 5) - hash) + password.charCodeAt(i);
+        hash |= 0;
+      }
+      return 'fb_' + Math.abs(hash);
+    }
+  }
+
+  updateStatusBadge() {
+    const textEl = document.getElementById('account-cloud-status-text');
+    const boxEl = document.getElementById('account-cloud-status-box');
+    if (!textEl || !boxEl) return;
+
+    if (this.isConnected) {
+      textEl.innerHTML = '🟢 Supabase Cloud: Verbunden';
+      boxEl.style.borderColor = 'rgba(62, 207, 142, 0.4)';
+      boxEl.style.background = 'rgba(62, 207, 142, 0.12)';
+      boxEl.style.color = '#6ee7b7';
+    } else {
+      textEl.innerHTML = '⚡ Supabase: Bereit (Klicke zum Verbinden)';
+      boxEl.style.borderColor = 'rgba(251, 191, 36, 0.4)';
+      boxEl.style.background = 'rgba(251, 191, 36, 0.12)';
+      boxEl.style.color = '#fde68a';
+    }
+  }
+
+  openConfigModal() {
+    const modal = document.getElementById('supabase-config-modal');
+    if (!modal) return;
+    const urlInput = document.getElementById('cfg-supabase-url');
+    const keyInput = document.getElementById('cfg-supabase-key');
+    const statusEl = document.getElementById('cfg-supabase-status');
+
+    if (urlInput) urlInput.value = localStorage.getItem(this.storageUrlKey) || this.defaultUrl || '';
+    if (keyInput) keyInput.value = localStorage.getItem(this.storageKeyKey) || this.defaultKey || '';
+    if (statusEl) {
+      statusEl.textContent = this.isConnected ? '✅ Aktuell verbunden mit Supabase.' : 'ℹ️ Gib deine Supabase URL und Key ein.';
+      statusEl.style.color = this.isConnected ? '#6ee7b7' : '#94a3b8';
+    }
+
+    modal.style.display = 'flex';
+  }
+
+  bindConfigModal() {
+    const saveBtn = document.getElementById('btn-save-supabase-cfg');
+    if (!saveBtn) return;
+
+    saveBtn.addEventListener('click', async () => {
+      const urlInput = document.getElementById('cfg-supabase-url');
+      const keyInput = document.getElementById('cfg-supabase-key');
+      const statusEl = document.getElementById('cfg-supabase-status');
+
+      const url = (urlInput ? urlInput.value : '').trim();
+      const key = (keyInput ? keyInput.value : '').trim();
+
+      if (!url || !key) {
+        if (statusEl) {
+          statusEl.textContent = '❌ Bitte URL und Key ausfüllen!';
+          statusEl.style.color = '#fda4af';
+        }
+        return;
+      }
+
+      if (!url.startsWith('http')) {
+        if (statusEl) {
+          statusEl.textContent = '❌ URL muss mit https:// beginnen!';
+          statusEl.style.color = '#fda4af';
+        }
+        return;
+      }
+
+      if (statusEl) {
+        statusEl.textContent = '⏳ Verbindung wird getestet...';
+        statusEl.style.color = '#38bdf8';
+      }
+
+      try {
+        if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+          const testClient = window.supabase.createClient(url, key);
+          this.client = testClient;
+          this.isConnected = true;
+
+          localStorage.setItem(this.storageUrlKey, url);
+          localStorage.setItem(this.storageKeyKey, key);
+
+          if (statusEl) {
+            statusEl.textContent = '✅ Erfolgreich mit Supabase verbunden & gespeichert!';
+            statusEl.style.color = '#6ee7b7';
+          }
+
+          this.updateStatusBadge();
+
+          setTimeout(() => {
+            document.getElementById('supabase-config-modal').style.display = 'none';
+            this.syncToCloud(true);
+          }, 900);
+        } else {
+          throw new Error('Supabase SDK nicht geladen.');
+        }
+      } catch (err) {
+        if (statusEl) {
+          statusEl.textContent = '❌ Verbindungsfehler: ' + (err.message || 'Unbekannt');
+          statusEl.style.color = '#fda4af';
+        }
+      }
+    });
+  }
+
+  async register(username, firstname, password) {
+    const cleanUsername = username.trim().toLowerCase().replace(/[^a-z0-9_.-]/g, '');
+    const cleanFirstname = firstname.trim();
+
+    if (!cleanUsername || cleanUsername.length < 2) {
+      throw new Error('Benutzername muss mindestens 2 Zeichen lang sein.');
+    }
+    if (!cleanFirstname) {
+      throw new Error('Bitte gib deinen Vornamen ein.');
+    }
+    if (!password || password.length < 6) {
+      throw new Error('Das Passwort muss mindestens 6 Zeichen lang sein.');
+    }
+
+    const pwdHash = await this.hashPassword(password);
+
+    const masteryState = JSON.parse(localStorage.getItem('neurospace_mastery_v2') || '{}');
+    const surveyAnswers = JSON.parse(localStorage.getItem('neuro_user_answers') || '{}');
+    const favoriteGames = JSON.parse(localStorage.getItem('neuro_favorite_games') || '[]');
+    const fidgetClicks = parseInt(localStorage.getItem('adhs_fidget_clicks') || '0', 10);
+    const bestReaction = parseInt(localStorage.getItem('neuro_best_reaction_ms') || '0', 10);
+
+    const userRecord = {
+      username: cleanUsername,
+      firstname: cleanFirstname,
+      password_hash: pwdHash,
+      xp: masteryState.xp || 0,
+      level: masteryState.level || 1,
+      streak: masteryState.streak || 1,
+      mastery_state: masteryState,
+      survey_answers: surveyAnswers,
+      profile_data: { firstname: cleanFirstname, username: cleanUsername },
+      favorite_games: favoriteGames,
+      fidget_clicks: fidgetClicks,
+      best_reaction_ms: bestReaction,
+      settings: { sensory_overdrive: localStorage.getItem('neuro_sensory_overdrive') !== 'false' },
+      updated_at: new Date().toISOString()
+    };
+
+    if (this.isConnected && this.client) {
+      try {
+        const { data: existing } = await this.client
+          .from('neurospace_users')
+          .select('username')
+          .eq('username', cleanUsername)
+          .maybeSingle();
+
+        if (existing) {
+          throw new Error('Dieser Benutzername ist leider schon vergeben!');
+        }
+
+        const { error: insertErr } = await this.client
+          .from('neurospace_users')
+          .insert([userRecord]);
+
+        if (insertErr) {
+          console.warn('Supabase Insert Fehler:', insertErr);
+          if (insertErr.code !== '42P01') {
+            throw new Error('Supabase: ' + (insertErr.message || 'Speichern fehlgeschlagen.'));
+          }
+        }
+      } catch (err) {
+        if (err.message && err.message.includes('schon vergeben')) throw err;
+        console.warn('Cloud-Registrierung Fallback:', err);
+      }
+    }
+
+    const authSession = { username: cleanUsername, firstname: cleanFirstname, loggedInAt: new Date().toISOString() };
+    localStorage.setItem('neuro_auth_user', JSON.stringify(authSession));
+    localStorage.setItem('neuro_username', cleanFirstname || cleanUsername);
+    localStorage.setItem('neuro_local_pwd_hash', pwdHash);
+
+    return authSession;
+  }
+
+  async login(username, password) {
+    const cleanUsername = username.trim().toLowerCase().replace(/[^a-z0-9_.-]/g, '');
+    if (!cleanUsername) throw new Error('Bitte Benutzername eingeben.');
+    if (!password) throw new Error('Bitte Passwort eingeben.');
+
+    const pwdHash = await this.hashPassword(password);
+
+    if (this.isConnected && this.client) {
+      try {
+        const { data: user, error } = await this.client
+          .from('neurospace_users')
+          .select('*')
+          .eq('username', cleanUsername)
+          .maybeSingle();
+
+        if (error && error.code !== '42P01') {
+          throw new Error(error.message);
+        }
+
+        if (user) {
+          if (user.password_hash !== pwdHash) {
+            throw new Error('Das eingegebene Passwort ist leider falsch!');
+          }
+
+          if (user.mastery_state) {
+            localStorage.setItem('neurospace_mastery_v2', JSON.stringify(user.mastery_state));
+          }
+          if (user.survey_answers && Object.keys(user.survey_answers).length > 0) {
+            localStorage.setItem('neuro_user_answers', JSON.stringify(user.survey_answers));
+            localStorage.setItem('neuro_onboarding_completed', 'true');
+          }
+          if (user.favorite_games) {
+            localStorage.setItem('neuro_favorite_games', JSON.stringify(user.favorite_games));
+          }
+          if (user.fidget_clicks !== undefined) {
+            localStorage.setItem('adhs_fidget_clicks', user.fidget_clicks.toString());
+          }
+          if (user.best_reaction_ms) {
+            localStorage.setItem('neuro_best_reaction_ms', user.best_reaction_ms.toString());
+          }
+
+          const authSession = { username: user.username, firstname: user.firstname || user.username };
+          localStorage.setItem('neuro_auth_user', JSON.stringify(authSession));
+          localStorage.setItem('neuro_username', user.firstname || user.username);
+
+          return authSession;
+        }
+      } catch (err) {
+        if (err.message && err.message.includes('Passwort ist leider falsch')) throw err;
+        console.warn('Supabase Login Fallback:', err);
+      }
+    }
+
+    const localUserRaw = localStorage.getItem('neuro_auth_user');
+    const localHash = localStorage.getItem('neuro_local_pwd_hash');
+    if (localUserRaw) {
+      const localUser = JSON.parse(localUserRaw);
+      if (localUser.username === cleanUsername) {
+        if (localHash && localHash !== pwdHash) {
+          throw new Error('Das eingegebene Passwort ist falsch!');
+        }
+        return localUser;
+      }
+    }
+
+    throw new Error('Benutzerkonto "' + cleanUsername + '" wurde nicht gefunden. Bitte registriere dich zuerst!');
+  }
+
+  debouncedSync() {
+    clearTimeout(this.syncTimeout);
+    this.syncTimeout = setTimeout(() => {
+      this.syncToCloud(false);
+    }, 1800);
+  }
+
+  async syncToCloud(isManual = false) {
+    if (!this.isConnected || !this.client) {
+      if (isManual) {
+        this.openConfigModal();
+      }
+      return;
+    }
+
+    const authUserRaw = localStorage.getItem('neuro_auth_user');
+    if (!authUserRaw) return;
+
+    let authUser;
+    try { authUser = JSON.parse(authUserRaw); } catch(e) { return; }
+    if (!authUser || !authUser.username) return;
+
+    if (this.isSyncing) return;
+    this.isSyncing = true;
+
+    try {
+      const masteryState = (window.masteryEngine && window.masteryEngine.state)
+        ? window.masteryEngine.state
+        : JSON.parse(localStorage.getItem('neurospace_mastery_v2') || '{}');
+
+      const surveyAnswers = JSON.parse(localStorage.getItem('neuro_user_answers') || '{}');
+      const profileData = JSON.parse(localStorage.getItem('neuro_user_profile') || '{}');
+      const favoriteGames = JSON.parse(localStorage.getItem('neuro_favorite_games') || '[]');
+      const fidgetClicks = parseInt(localStorage.getItem('adhs_fidget_clicks') || '0', 10);
+      const bestReaction = parseInt(localStorage.getItem('neuro_best_reaction_ms') || '0', 10);
+
+      const updatePayload = {
+        xp: masteryState.xp || 0,
+        level: masteryState.level || 1,
+        streak: masteryState.streak || 1,
+        mastery_state: masteryState,
+        survey_answers: surveyAnswers,
+        profile_data: profileData,
+        favorite_games: favoriteGames,
+        fidget_clicks: fidgetClicks,
+        best_reaction_ms: bestReaction,
+        settings: { sensory_overdrive: localStorage.getItem('neuro_sensory_overdrive') !== 'false' },
+        updated_at: new Date().toISOString()
+      };
+
+      const { error } = await this.client
+        .from('neurospace_users')
+        .update(updatePayload)
+        .eq('username', authUser.username);
+
+      if (error) {
+        console.warn('Cloud Sync Update Fehler:', error);
+      } else {
+        if (isManual && window.masteryEngine && typeof window.masteryEngine.showXpToast === 'function') {
+          window.masteryEngine.showXpToast('☁️ Cloud synchronisiert!');
+        }
+      }
+    } catch (err) {
+      console.warn('Sync Fehler:', err);
+    } finally {
+      this.isSyncing = false;
+    }
+  }
+
+  async loadFromCloud() {
+    if (!this.isConnected || !this.client) return;
+    const authUserRaw = localStorage.getItem('neuro_auth_user');
+    if (!authUserRaw) return;
+
+    let authUser;
+    try { authUser = JSON.parse(authUserRaw); } catch(e) { return; }
+    if (!authUser || !authUser.username) return;
+
+    try {
+      const { data: user, error } = await this.client
+        .from('neurospace_users')
+        .select('*')
+        .eq('username', authUser.username)
+        .maybeSingle();
+
+      if (user && !error) {
+        if (user.mastery_state) {
+          localStorage.setItem('neurospace_mastery_v2', JSON.stringify(user.mastery_state));
+          if (window.masteryEngine) {
+            window.masteryEngine.state = user.mastery_state;
+            if (typeof window.masteryEngine.updateUI === 'function') window.masteryEngine.updateUI();
+          }
+        }
+        if (user.survey_answers) {
+          localStorage.setItem('neuro_user_answers', JSON.stringify(user.survey_answers));
+        }
+        if (user.firstname) {
+          localStorage.setItem('neuro_username', user.firstname);
+          if (window.personalizationWizard && typeof window.personalizationWizard.applyUserName === 'function') {
+            window.personalizationWizard.applyUserName(user.firstname);
+          }
+        }
+      }
+    } catch(err) {
+      console.warn('loadFromCloud Fehler:', err);
+    }
+  }
+}
+
+class NeuroAuthManager {
+  constructor() {
+    this.modal = document.getElementById('neuro-auth-modal');
+    this.profileModal = document.getElementById('neuro-account-profile-modal');
+    this.tabRegister = document.getElementById('tab-auth-register');
+    this.tabLogin = document.getElementById('tab-auth-login');
+    this.formRegister = document.getElementById('form-auth-register');
+    this.formLogin = document.getElementById('form-auth-login');
+    this.alertBox = document.getElementById('auth-alert-box');
+    this.onCompleteCallback = null;
+
+    this.init();
+  }
+
+  init() {
+    if (this.tabRegister && this.tabLogin) {
+      this.tabRegister.addEventListener('click', () => this.switchMode('register'));
+      this.tabLogin.addEventListener('click', () => this.switchMode('login'));
+    }
+
+    const regBtn = document.getElementById('btn-submit-register');
+    if (regBtn) regBtn.addEventListener('click', () => this.handleRegister());
+
+    const loginBtn = document.getElementById('btn-submit-login');
+    if (loginBtn) loginBtn.addEventListener('click', () => this.handleLogin());
+
+    const skipGuestBtn = document.getElementById('btn-auth-skip-guest');
+    if (skipGuestBtn) {
+      skipGuestBtn.addEventListener('click', () => {
+        this.closeModal();
+        if (this.onCompleteCallback) this.onCompleteCallback();
+      });
+    }
+
+    const user = this.getCurrentUser();
+    if (user && user.firstname) {
+      const heroName = document.getElementById('hero-user-name');
+      if (heroName) heroName.innerText = user.firstname;
+      document.querySelectorAll('.user-name-title').forEach(el => el.innerText = user.firstname);
+    }
+  }
+
+  getCurrentUser() {
+    try {
+      const raw = localStorage.getItem('neuro_auth_user');
+      return raw ? JSON.parse(raw) : null;
+    } catch(e) {
+      return null;
+    }
+  }
+
+  switchMode(mode) {
+    this.clearAlert();
+    if (mode === 'register') {
+      this.tabRegister.classList.add('active');
+      this.tabLogin.classList.remove('active');
+      this.formRegister.style.display = 'block';
+      this.formLogin.style.display = 'none';
+      document.getElementById('auth-modal-title').textContent = 'Account erstellen';
+      document.getElementById('auth-modal-subtitle').textContent = 'Sichere deinen Fortschritt, XP-Kicks & Highscores online via Supabase Cloud!';
+    } else {
+      this.tabRegister.classList.remove('active');
+      this.tabLogin.classList.add('active');
+      this.formRegister.style.display = 'none';
+      this.formLogin.style.display = 'block';
+      document.getElementById('auth-modal-title').textContent = 'Willkommen zurück!';
+      document.getElementById('auth-modal-subtitle').textContent = 'Melde dich an, um deinen Online-Spielstand aus der Cloud zu synchronisieren.';
+    }
+  }
+
+  showAlert(msg, isSuccess = false) {
+    if (!this.alertBox) return;
+    this.alertBox.className = 'neuro-auth-alert ' + (isSuccess ? 'success' : 'error');
+    this.alertBox.innerHTML = (isSuccess ? '✅ ' : '❌ ') + msg;
+    this.alertBox.style.display = 'flex';
+  }
+
+  clearAlert() {
+    if (this.alertBox) {
+      this.alertBox.style.display = 'none';
+      this.alertBox.innerHTML = '';
+    }
+  }
+
+  togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.textContent = '🔒';
+    } else {
+      input.type = 'password';
+      btn.textContent = '👁️';
+    }
+  }
+
+  openModal(opts = {}) {
+    this.onCompleteCallback = opts.onComplete || null;
+    this.clearAlert();
+    this.switchMode('register');
+    if (this.modal) {
+      this.modal.style.display = 'flex';
+      setTimeout(() => {
+        const uInp = document.getElementById('reg-username');
+        if (uInp) uInp.focus();
+      }, 250);
+    }
+  }
+
+  closeModal() {
+    if (this.modal) this.modal.style.display = 'none';
+  }
+
+  openProfileModal() {
+    const modal = document.getElementById('neuro-account-profile-modal');
+    if (!modal) return;
+
+    const user = this.getCurrentUser();
+    const nameEl = document.getElementById('account-card-display-name');
+    const uEl = document.getElementById('account-card-username');
+    const lvlEl = document.getElementById('account-card-level');
+    const xpEl = document.getElementById('account-card-xp');
+
+    if (user) {
+      if (nameEl) nameEl.textContent = user.firstname || user.username;
+      if (uEl) uEl.textContent = '@' + user.username;
+    } else {
+      if (nameEl) nameEl.textContent = 'Gast-Spieler';
+      if (uEl) uEl.textContent = 'Kein Account verbunden';
+    }
+
+    if (window.masteryEngine && window.masteryEngine.state) {
+      if (lvlEl) lvlEl.textContent = window.masteryEngine.getLevelTitle(window.masteryEngine.state.level);
+      if (xpEl) xpEl.textContent = window.masteryEngine.state.xp + ' XP';
+    }
+
+    if (window.neuroSupabase) window.neuroSupabase.updateStatusBadge();
+    modal.style.display = 'flex';
+  }
+
+  async handleRegister() {
+    const username = (document.getElementById('reg-username').value || '').trim();
+    const firstname = (document.getElementById('reg-firstname').value || '').trim();
+    const password = document.getElementById('reg-password').value || '';
+    const repeat = document.getElementById('reg-password-repeat').value || '';
+
+    this.clearAlert();
+
+    if (!username) return this.showAlert('Bitte wähle einen Benutzernamen!');
+    if (!firstname) return this.showAlert('Bitte gib deinen Vornamen ein!');
+    if (!password) return this.showAlert('Bitte gib ein Passwort ein!');
+    if (password.length < 6) return this.showAlert('Das Passwort muss mindestens 6 Zeichen lang sein!');
+    if (password !== repeat) return this.showAlert('Die Passwörter stimmen nicht überein!');
+
+    const btn = document.getElementById('btn-submit-register');
+    if (btn) btn.innerHTML = '<span>⏳ Account wird erstellt...</span>';
+
+    try {
+      const user = await window.neuroSupabase.register(username, firstname, password);
+      this.showAlert('Erfolgreich registriert! Willkommen, ' + (user.firstname || user.username) + ' 🚀', true);
+
+      if (window.personalizationWizard && typeof window.personalizationWizard.applyUserName === 'function') {
+        window.personalizationWizard.applyUserName(user.firstname || user.username);
+      }
+
+      const wizInp = document.getElementById('wizard-name-input');
+      if (wizInp) wizInp.value = user.firstname || user.username;
+
+      setTimeout(() => {
+        this.closeModal();
+        if (this.onCompleteCallback) this.onCompleteCallback();
+      }, 900);
+    } catch (err) {
+      this.showAlert(err.message || 'Registrierung fehlgeschlagen.');
+    } finally {
+      if (btn) btn.innerHTML = '<span>🚀 Account erstellen & online sichern</span>';
+    }
+  }
+
+  async handleLogin() {
+    const username = (document.getElementById('login-username').value || '').trim();
+    const password = document.getElementById('login-password').value || '';
+
+    this.clearAlert();
+
+    if (!username) return this.showAlert('Bitte Benutzername eingeben!');
+    if (!password) return this.showAlert('Bitte Passwort eingeben!');
+
+    const btn = document.getElementById('btn-submit-login');
+    if (btn) btn.innerHTML = '<span>⏳ Anmelden & Cloud-Sync...</span>';
+
+    try {
+      const user = await window.neuroSupabase.login(username, password);
+      this.showAlert('Erfolgreich angemeldet! Willkommen zurück, ' + (user.firstname || user.username) + ' ✨', true);
+
+      if (window.personalizationWizard && typeof window.personalizationWizard.applyUserName === 'function') {
+        window.personalizationWizard.applyUserName(user.firstname || user.username);
+      }
+      if (window.masteryEngine) {
+        window.masteryEngine.state = window.masteryEngine.loadState();
+        if (typeof window.masteryEngine.updateUI === 'function') window.masteryEngine.updateUI();
+      }
+
+      setTimeout(() => {
+        this.closeModal();
+        if (this.onCompleteCallback) this.onCompleteCallback();
+      }, 900);
+    } catch (err) {
+      this.showAlert(err.message || 'Login fehlgeschlagen.');
+    } finally {
+      if (btn) btn.innerHTML = '<span>🔑 Einloggen & Daten laden</span>';
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('neuro_auth_user');
+    document.getElementById('neuro-account-profile-modal').style.display = 'none';
+    if (window.personalizationWizard) window.personalizationWizard.applyUserName('NeuroSpace_Pro');
+    this.openModal();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.neuroSupabase = new NeuroSupabaseSync();
+  window.neuroAuth = new NeuroAuthManager();
+});
+</script>
+
+
 <!-- ============================================================== -->
 <!-- SCRIPT: SITE ACCESS GATE CONTROLLER (CODE: 020818) & BACKGROUND MUSIC -->
 <!-- ============================================================== -->
@@ -16516,6 +17662,10 @@ class SiteAccessGateController {
     if (window.bgMusicController) {
       window.bgMusicController.startWithFadeIn();
     }
+    // Daten aus Supabase Cloud im Hintergrund synchronisieren falls eingeloggt
+    if (window.neuroSupabase && typeof window.neuroSupabase.loadFromCloud === 'function') {
+      window.neuroSupabase.loadFromCloud();
+    }
   }
 
   showGate() {
@@ -16564,10 +17714,27 @@ class SiteAccessGateController {
           this.overlay.classList.add('is-unlocked');
           setTimeout(() => {
             this.overlay.style.display = 'none';
-            // Umfrage nur starten, falls noch nicht abgeschlossen
-            const surveyDone = localStorage.getItem('neuro_onboarding_completed') === 'true';
-            if (!surveyDone && window.personalizationWizard && typeof window.personalizationWizard.open === 'function') {
-              window.personalizationWizard.open();
+
+            // Nach Zugangscode: Account-Erstellung prüfen!
+            const currentUser = window.neuroAuth ? window.neuroAuth.getCurrentUser() : null;
+            if (!currentUser) {
+              // Noch kein Account -> Account erstellen Modal öffnen!
+              if (window.neuroAuth && typeof window.neuroAuth.openModal === 'function') {
+                window.neuroAuth.openModal({
+                  onComplete: () => {
+                    const surveyDone = localStorage.getItem('neuro_onboarding_completed') === 'true';
+                    if (!surveyDone && window.personalizationWizard && typeof window.personalizationWizard.open === 'function') {
+                      window.personalizationWizard.open();
+                    }
+                  }
+                });
+              }
+            } else {
+              // Account vorhanden -> Umfrage prüfen
+              const surveyDone = localStorage.getItem('neuro_onboarding_completed') === 'true';
+              if (!surveyDone && window.personalizationWizard && typeof window.personalizationWizard.open === 'function') {
+                window.personalizationWizard.open();
+              }
             }
           }, 500);
         }
