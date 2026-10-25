@@ -6714,15 +6714,21 @@
 
 <!-- Auth & Supabase modals removed for clean direct entry -->
 
-<!-- CINEMATIC EXPANDING APP CARD OVERLAY (EXPANDS FROM CARD TO COVER SCREEN IN BLACK, WAITS 3s, SHRINKS & DISSOLVES) -->
-<div id="app-card-expansion-overlay" style="position:fixed; z-index:9999999; display:none; overflow:hidden; background:#000000; border:1px solid rgba(245, 158, 11, 0.35); box-shadow:0 25px 80px rgba(0,0,0,0.95); will-change:top, left, width, height, transform, opacity, border-radius;">
-  <div id="expansion-card-content" style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px; box-sizing:border-box; user-select:none; cursor:pointer;">
-    <div id="expansion-card-badge" style="font-size:11px; font-weight:800; color:#f59e0b; background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.35); padding:5px 14px; border-radius:999px; margin-bottom:20px; letter-spacing:0.5px; text-transform:uppercase;"></div>
-    <div id="expansion-card-icon" style="font-size:80px; line-height:1; margin-bottom:18px; filter:drop-shadow(0 12px 30px rgba(245,158,11,0.35));"></div>
-    <div id="expansion-card-title" style="font-size:28px; font-weight:800; color:#fef3c7; letter-spacing:-0.2px; margin-bottom:10px;"></div>
-    <div style="font-size:13px; color:#94a3b8; font-weight:600; opacity:0.85;">Wird geladen...</div>
-    <div style="width:160px; height:3px; background:rgba(255,255,255,0.08); border-radius:3px; margin-top:22px; overflow:hidden; position:relative;">
-      <div id="expansion-progress-bar" style="position:absolute; top:0; left:0; height:100%; width:0%; background:linear-gradient(90deg, #f59e0b, #ea580c); border-radius:3px;"></div>
+<!-- CINEMATIC EXPANDING APP CARD OVERLAY (EXPANDS FROM CARD WITH EMBEDDED VIDEO BACKGROUND, WAITS 3s, SHRINKS & DISSOLVES) -->
+<div id="app-card-expansion-overlay" style="position:fixed; z-index:9999999; display:none; overflow:hidden; background:#080b12; border:1px solid rgba(245, 158, 11, 0.35); box-shadow:0 25px 80px rgba(0,0,0,0.95); will-change:top, left, width, height, transform, opacity, border-radius;">
+  <!-- Autumn Video Background Playing Inside the Expanding Card -->
+  <video id="expansion-card-video" class="neuro-bg-video" autoplay loop muted playsinline preload="auto" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; transform:scale(1.02); opacity:0.92;">
+    <source src="backround.mp4" type="video/mp4">
+  </video>
+  <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle at 50% 35%, rgba(245, 158, 11, 0.12) 0%, rgba(30, 15, 10, 0.42) 65%, rgba(10, 6, 4, 0.75) 100%); z-index:1; pointer-events:none;"></div>
+
+  <div id="expansion-card-content" style="position:relative; z-index:2; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px; box-sizing:border-box; user-select:none; cursor:pointer;">
+    <div id="expansion-card-badge" style="font-size:11px; font-weight:800; color:#f59e0b; background:rgba(245,158,11,0.22); backdrop-filter:blur(8px); border:1px solid rgba(245,158,11,0.4); padding:5px 14px; border-radius:999px; margin-bottom:20px; letter-spacing:0.5px; text-transform:uppercase;"></div>
+    <div id="expansion-card-icon" style="font-size:80px; line-height:1; margin-bottom:18px; filter:drop-shadow(0 12px 30px rgba(245,158,11,0.5));"></div>
+    <div id="expansion-card-title" style="font-size:28px; font-weight:800; color:#fef3c7; letter-spacing:-0.2px; margin-bottom:10px; text-shadow:0 2px 14px rgba(0,0,0,0.85);"></div>
+    <div style="font-size:13px; color:#cbd5e1; font-weight:600; opacity:0.92; text-shadow:0 1px 6px rgba(0,0,0,0.85);">Wird geladen...</div>
+    <div style="width:160px; height:3px; background:rgba(255,255,255,0.12); border-radius:3px; margin-top:22px; overflow:hidden; position:relative;">
+      <div id="expansion-progress-bar" style="position:absolute; top:0; left:0; height:100%; width:0%; background:linear-gradient(90deg, #f59e0b, #ea580c); border-radius:3px; box-shadow:0 0 10px #f59e0b;"></div>
     </div>
   </div>
 </div>
@@ -6809,7 +6815,7 @@
         </div>
         <div class="neuro-card" data-target="view-pixelgravity" data-category="fluid tactile" onclick="if(window.switchView) window.switchView('view-pixelgravity');">
           <div class="card-hero-thumb thumb-thisissand">
-            <span class="card-hero-icon">⏳</span>
+            <span class="card-hero-icon">✨</span>
             <span class="card-neu-badge">🍁 HERBST-SAND</span>
           </div>
           <div class="card-body-content">
@@ -7759,7 +7765,7 @@
 <div class="app-view" id="view-pixelgravity" style="position:relative; overflow:hidden; background:transparent;">
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
-    <div class="view-title-pill"><span>⏳</span> Pixel-Gravitation</div>
+    <div class="view-title-pill"><span>✨</span> Pixel-Gravitation</div>
     <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
       <button class="action-btn" id="btn-pg-sound" title="Audio an/aus" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">🔊 Sound</button>
       <button class="action-btn" id="btn-pg-clear" title="Sandbox leeren" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">🧹 Leeren</button>
@@ -7769,50 +7775,87 @@
     </div>
   </div>
 
-  <!-- Fullscreen Edge-to-Edge Canvas (100% Screen Coverage) -->
+  <!-- Fullscreen Edge-to-Edge Canvas (100% Screen Coverage with ZERO Bottom Menu Blocking) -->
   <canvas id="pixelgravity-canvas" class="canvas-fullscreen" style="position:absolute; top:0; left:0; width:100%; height:100%; image-rendering:pixelated; cursor:crosshair; touch-action:none; z-index:1;"></canvas>
 
-  <!-- Bottom Floating Toolbar: 2 Sleek Organized Rows (Zero Cut-Off) -->
-  <div class="floating-dock pg-floating-dock" style="z-index:25; bottom:12px; max-width:96vw; display:flex !important; flex-direction:column !important; align-items:center !important; gap:6px !important; border-radius:22px !important; padding:8px 14px !important;">
-    <!-- Elements (Horizontal Smooth Scroll) -->
-    <div style="display:flex; align-items:center; gap:6px; overflow-x:auto; max-width:100%; scrollbar-width:none; padding:2px 4px;" id="pg-elements-wrap">
-      <button class="pill-btn active" data-pg-el="sand" style="color:#fbbf24; border-color:rgba(245,158,11,0.5); flex-shrink:0;">⏳ Sand</button>
-      <button class="pill-btn" data-pg-el="water" style="color:#38bdf8; border-color:rgba(56,189,248,0.5); flex-shrink:0;">💧 Wasser</button>
-      <button class="pill-btn" data-pg-el="fire" style="color:#f97316; border-color:rgba(249,115,22,0.5); flex-shrink:0;">🔥 Feuer</button>
-      <button class="pill-btn" data-pg-el="gunpowder" style="color:#94a3b8; border-color:rgba(148,163,184,0.5); flex-shrink:0;">💣 Schwarzpulver</button>
-      <button class="pill-btn" data-pg-el="oil" style="color:#d97706; border-color:rgba(217,119,6,0.5); flex-shrink:0;">🛢️ Öl</button>
-      <button class="pill-btn" data-pg-el="wood" style="color:#22c55e; border-color:rgba(34,197,94,0.5); flex-shrink:0;">🌿 Pflanze</button>
-      <button class="pill-btn" data-pg-el="stone" style="color:#64748b; border-color:rgba(100,116,139,0.5); flex-shrink:0;">🧱 Stein</button>
-      <button class="pill-btn" data-pg-el="acid" style="color:#a3e635; border-color:rgba(163,230,53,0.5); flex-shrink:0;">🧪 Säure</button>
-      <button class="pill-btn" data-pg-el="lava" style="color:#ef4444; border-color:rgba(239,68,68,0.5); flex-shrink:0;">🌋 Lava</button>
-      <button class="pill-btn" data-pg-el="leaf" style="color:#f59e0b; border-color:rgba(245,158,11,0.5); flex-shrink:0;">🍁 Herbstlaub</button>
-      <button class="pill-btn" data-pg-el="ember" style="color:#ea580c; border-color:rgba(234,88,12,0.5); flex-shrink:0;">🔥 Kamin-Glut</button>
-      <button class="pill-btn" data-pg-el="vortex" style="color:#c084fc; border-color:rgba(192,132,252,0.5); flex-shrink:0;">🌀 Wirbel</button>
-      <button class="pill-btn" data-pg-el="eraser" style="color:#cbd5e1; flex-shrink:0;">🧹 Radierer</button>
+  <!-- Slide-out Material Drawer from Right (Pull left on the checkmark square ☑️ to open!) -->
+  <div id="pg-material-drawer" style="position:absolute; top:74px; right:0; bottom:20px; width:285px; max-width:calc(100vw - 60px); background:rgba(18, 12, 8, 0.94); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(245, 158, 11, 0.35); border-right:none; border-radius:24px 0 0 24px; box-shadow:-15px 0 45px rgba(0,0,0,0.85); z-index:80; transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display:flex; flex-direction:column; padding:18px; box-sizing:border-box;">
+    
+    <!-- Drawer Pull Handle: Checkmark in a Square (☑️) -->
+    <button id="pg-drawer-toggle" title="Materialien ausziehen" style="position:absolute; left:-48px; top:50%; transform:translateY(-50%); width:48px; height:54px; background:rgba(22, 14, 10, 0.95); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(245, 158, 11, 0.45); border-right:none; border-radius:14px 0 0 14px; cursor:grab; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; box-shadow:-8px 4px 20px rgba(0,0,0,0.6); z-index:81; color:#fde047; padding:0; user-select:none; touch-action:none;">
+      <div style="width:24px; height:24px; border:2px solid #f59e0b; border-radius:6px; display:flex; align-items:center; justify-content:center; background:rgba(245,158,11,0.22);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fde047" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <span style="font-size:8.5px; font-weight:800; color:#fbbf24; letter-spacing:0.3px;">◀ ZIEHEN</span>
+    </button>
+
+    <!-- Drawer Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:18px;">🧪</span>
+        <span style="font-size:14px; font-weight:800; color:#fde047; letter-spacing:0.3px;">Material-Labor</span>
+      </div>
+      <button id="btn-pg-close-drawer" style="background:transparent; border:none; color:#f59e0b; font-size:18px; cursor:pointer; padding:4px 8px; border-radius:8px; line-height:1;" title="Schließen">✕</button>
     </div>
 
-    <!-- Controls: Gravity, Brush, Presets -->
-    <div style="display:flex; align-items:center; gap:8px; overflow-x:auto; max-width:100%; scrollbar-width:none; padding:2px 4px; flex-wrap:nowrap;">
-      <span class="dock-label" style="font-size:11px; flex-shrink:0;">Gravitation:</span>
-      <button class="pill-btn active" data-pg-grav="down" title="Schwerkraft nach unten" style="flex-shrink:0;">⬇️</button>
-      <button class="pill-btn" data-pg-grav="up" title="Invertierte Schwerkraft" style="flex-shrink:0;">⬆️</button>
-      <button class="pill-btn" data-pg-grav="left" title="Schwerkraft nach links" style="flex-shrink:0;">⬅️</button>
-      <button class="pill-btn" data-pg-grav="right" title="Schwerkraft nach rechts" style="flex-shrink:0;">➡️</button>
-      <button class="pill-btn" data-pg-grav="zero" title="Schwerelosigkeit (Zero-G)" style="flex-shrink:0;">🌌</button>
+    <!-- Scrollable Drawer Body -->
+    <div style="flex:1; overflow-y:auto; scrollbar-width:none; display:flex; flex-direction:column; gap:16px;">
+      
+      <!-- Materials Grid (13 Elemente) -->
+      <div>
+        <div style="font-size:11px; font-weight:800; color:#fcd34d; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Elemente:</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;" id="pg-elements-wrap">
+          <button class="pill-btn active" data-pg-el="sand" style="color:#fbbf24; border-color:rgba(245,158,11,0.5);">🟡 Sand</button>
+          <button class="pill-btn" data-pg-el="water" style="color:#38bdf8; border-color:rgba(56,189,248,0.5);">💧 Wasser</button>
+          <button class="pill-btn" data-pg-el="fire" style="color:#f97316; border-color:rgba(249,115,22,0.5);">🔥 Feuer</button>
+          <button class="pill-btn" data-pg-el="gunpowder" style="color:#94a3b8; border-color:rgba(148,163,184,0.5);">💣 Schwarzpulver</button>
+          <button class="pill-btn" data-pg-el="oil" style="color:#d97706; border-color:rgba(217,119,6,0.5);">🛢️ Öl</button>
+          <button class="pill-btn" data-pg-el="wood" style="color:#22c55e; border-color:rgba(34,197,94,0.5);">🌿 Pflanze</button>
+          <button class="pill-btn" data-pg-el="stone" style="color:#64748b; border-color:rgba(100,116,139,0.5);">🧱 Stein</button>
+          <button class="pill-btn" data-pg-el="acid" style="color:#a3e635; border-color:rgba(163,230,53,0.5);">🧪 Säure</button>
+          <button class="pill-btn" data-pg-el="lava" style="color:#ef4444; border-color:rgba(239,68,68,0.5);">🌋 Lava</button>
+          <button class="pill-btn" data-pg-el="leaf" style="color:#f59e0b; border-color:rgba(245,158,11,0.5);">🍁 Herbstlaub</button>
+          <button class="pill-btn" data-pg-el="ember" style="color:#ea580c; border-color:rgba(234,88,12,0.5);">🔥 Kamin-Glut</button>
+          <button class="pill-btn" data-pg-el="vortex" style="color:#c084fc; border-color:rgba(192,132,252,0.5);">🌀 Wirbel</button>
+          <button class="pill-btn" data-pg-el="eraser" style="color:#cbd5e1; grid-column:span 2;">🧹 Radierer</button>
+        </div>
+      </div>
 
-      <div class="dock-divider"></div>
+      <!-- Gravitation -->
+      <div>
+        <div style="font-size:11px; font-weight:800; color:#fcd34d; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Gravitation:</div>
+        <div style="display:flex; gap:6px; justify-content:space-between;">
+          <button class="pill-btn active" data-pg-grav="down" title="Unten" style="flex:1;">⬇️</button>
+          <button class="pill-btn" data-pg-grav="up" title="Oben" style="flex:1;">⬆️</button>
+          <button class="pill-btn" data-pg-grav="left" title="Links" style="flex:1;">⬅️</button>
+          <button class="pill-btn" data-pg-grav="right" title="Rechts" style="flex:1;">➡️</button>
+          <button class="pill-btn" data-pg-grav="zero" title="Schwerelos" style="flex:1;">🌌</button>
+        </div>
+      </div>
 
-      <span class="dock-label" style="font-size:11px; flex-shrink:0;">Pinsel:</span>
-      <button class="pill-btn" data-pg-brush="2" style="flex-shrink:0;">2px</button>
-      <button class="pill-btn active" data-pg-brush="5" style="flex-shrink:0;">5px</button>
-      <button class="pill-btn" data-pg-brush="10" style="flex-shrink:0;">10px</button>
-      <button class="pill-btn" data-pg-brush="18" style="flex-shrink:0;">18px</button>
+      <!-- Pinsel -->
+      <div>
+        <div style="font-size:11px; font-weight:800; color:#fcd34d; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Pinsel-Größe:</div>
+        <div style="display:flex; gap:6px; justify-content:space-between;">
+          <button class="pill-btn" data-pg-brush="2" style="flex:1;">2px</button>
+          <button class="pill-btn active" data-pg-brush="5" style="flex:1;">5px</button>
+          <button class="pill-btn" data-pg-brush="10" style="flex:1;">10px</button>
+          <button class="pill-btn" data-pg-brush="18" style="flex:1;">18px</button>
+        </div>
+      </div>
 
-      <div class="dock-divider"></div>
+      <!-- Presets -->
+      <div>
+        <div style="font-size:11px; font-weight:800; color:#fcd34d; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">Szenarien:</div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <button class="pill-btn" id="btn-pg-preset-volcano" title="Vulkan & Lava-Fluss" style="text-align:left; justify-content:flex-start; padding:8px 12px;">🌋 Vulkan-Ausbruch</button>
+          <button class="pill-btn" id="btn-pg-preset-rain" title="Automatischer Partikel-Regen" style="text-align:left; justify-content:flex-start; padding:8px 12px;">🌧️ Regen & Glut</button>
+          <button class="pill-btn" id="btn-pg-preset-hourglass" title="Sand-Formation" style="text-align:left; justify-content:flex-start; padding:8px 12px;">🏔️ Sand-Formation</button>
+        </div>
+      </div>
 
-      <button class="pill-btn" id="btn-pg-preset-volcano" title="Vulkan & Lava-Fluss" style="flex-shrink:0;">🌋 Vulkan</button>
-      <button class="pill-btn" id="btn-pg-preset-hourglass" title="Sanduhr" style="flex-shrink:0;">⏳ Sanduhr</button>
-      <button class="pill-btn" id="btn-pg-preset-rain" title="Automatischer Partikel-Regen" style="flex-shrink:0;">🌧️ Regen</button>
     </div>
   </div>
 </div>
@@ -8745,6 +8788,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sound effect
     if (window.audio && typeof window.audio.playPop === 'function') {
       try { window.audio.playPop(160); } catch(e) {}
+    }
+
+    // Play expansion background video
+    const expVid = document.getElementById('expansion-card-video');
+    if (expVid) {
+      expVid.currentTime = 0;
+      expVid.play().catch(() => {});
     }
 
     // Phase 1: Position overlay EXACTLY on top of the clicked card
@@ -14263,6 +14313,83 @@ window.arcadeEngine = new NeuroArcadeEngine();
 <!-- SCRIPT: PIXEL-GRAVITATION CELLULAR AUTOMATA ENGINE (60 FPS)    -->
 <!-- ============================================================== -->
 <script>
+// Pixel-Gravitation Slide-out Drawer Controller
+(function initPixelGravityDrawer() {
+  function setupDrawer() {
+    const drawer = document.getElementById('pg-material-drawer');
+    const toggleBtn = document.getElementById('pg-drawer-toggle');
+    const closeBtn = document.getElementById('btn-pg-close-drawer');
+    const canvas = document.getElementById('pixelgravity-canvas');
+    if (!drawer || !toggleBtn) return;
+
+    function openDrawer() {
+      drawer.classList.add('is-open');
+      drawer.style.transform = 'translateX(0)';
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('is-open');
+      drawer.style.transform = 'translateX(100%)';
+    }
+
+    function toggleDrawer() {
+      if (drawer.classList.contains('is-open')) closeDrawer();
+      else openDrawer();
+    }
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDrawer();
+      if (window.audio && audio.playPop) audio.playPop(300);
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeDrawer();
+        if (window.audio && audio.playPop) audio.playPop(220);
+      });
+    }
+
+    if (canvas) {
+      canvas.addEventListener('pointerdown', () => {
+        if (drawer.classList.contains('is-open')) closeDrawer();
+      });
+    }
+
+    // Swipe / Drag to left gesture support ("das zieht man nach links")
+    let startX = 0;
+    let isDragging = false;
+
+    toggleBtn.addEventListener('pointerdown', (e) => {
+      startX = e.clientX;
+      isDragging = true;
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const dx = startX - e.clientX; // positive when dragged to the left
+      if (dx > 25 && !drawer.classList.contains('is-open')) {
+        openDrawer();
+        isDragging = false;
+      } else if (dx < -25 && drawer.classList.contains('is-open')) {
+        closeDrawer();
+        isDragging = false;
+      }
+    });
+
+    window.addEventListener('pointerup', () => {
+      isDragging = false;
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupDrawer);
+  } else {
+    setupDrawer();
+  }
+})();
+
 class PixelGravityEngine {
   constructor() {
     this.canvas = document.getElementById('pixelgravity-canvas');
