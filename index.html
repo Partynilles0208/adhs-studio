@@ -14581,8 +14581,8 @@ class ThisIsSandApp {
     this.canvas = document.getElementById('thisissand-canvas');
     this.fxCanvas = document.getElementById('thisissand-fx-canvas');
     if (!this.canvas) return;
-    this.ctx = this.canvas.getContext('2d');
-    this.fxCtx = this.fxCanvas ? this.fxCanvas.getContext('2d') : null;
+    this.ctx = this.canvas.getContext('2d', { willReadFrequently: true });
+    this.fxCtx = this.fxCanvas ? this.fxCanvas.getContext('2d', { willReadFrequently: true }) : null;
 
     this.width = 0;
     this.height = 0;
@@ -15031,7 +15031,7 @@ window.hourglassApp = new HourglassApp();
 class CreativeDrawingStudio {
   constructor() {
     this.canvas = document.getElementById('draw-canvas');
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = this.canvas.getContext('2d', { willReadFrequently: true });
     this.isDrawing = false;
     this.lastX = 0;
     this.lastY = 0;
@@ -20299,10 +20299,7 @@ class NeodymMagnets3DApp {
     this.lastPointer = { x: 0, y: 0 };
     this.hasMoved = false;
 
-    this.initThree();
-    this.initSpheres();
-    this.initEvents();
-    this.setFormation('cluster');
+    this.isThreeInitialized = false;
   }
 
   initAudio() {
@@ -20397,6 +20394,14 @@ class NeodymMagnets3DApp {
     // Wide-angle dynamic 3D perspective (closer foreground spheres pop towards viewer!)
     this.camera = new THREE.PerspectiveCamera(54, width / height, 0.1, 1000);
     this.updateCamera();
+
+    this.canvas.addEventListener('webglcontextlost', (e) => {
+      e.preventDefault();
+    }, false);
+    this.canvas.addEventListener('webglcontextrestored', () => {
+      this.isThreeInitialized = false;
+      if (this.isActive) this.activate();
+    }, false);
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
@@ -20901,6 +20906,13 @@ class NeodymMagnets3DApp {
   }
 
   activate() {
+    if (!this.isThreeInitialized) {
+      this.initThree();
+      this.initSpheres();
+      this.initEvents();
+      this.setFormation('cluster');
+      this.isThreeInitialized = true;
+    }
     this.isActive = true;
     this.resize();
     if (!this.animId) {
@@ -21727,9 +21739,7 @@ class Roblox3DStudioEngine {
     this.audioCtx = null;
     this.lastStepTime = 0;
 
-    this.initThree();
-    this.buildWorld();
-    this.buildAvatar();
+    this.isThreeInitialized = false;
     this.bindEvents();
   }
 
@@ -21873,6 +21883,14 @@ class Roblox3DStudioEngine {
     const height = this.canvas.clientHeight || window.innerHeight;
 
     this.camera = new THREE.PerspectiveCamera(65, width / height, 0.1, 1000);
+    this.canvas.addEventListener('webglcontextlost', (e) => {
+      e.preventDefault();
+    }, false);
+    this.canvas.addEventListener('webglcontextrestored', () => {
+      this.isThreeInitialized = false;
+      if (this.isActive) this.activate();
+    }, false);
+
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       antialias: true,
@@ -22565,6 +22583,12 @@ class Roblox3DStudioEngine {
   }
 
   activate() {
+    if (!this.isThreeInitialized) {
+      this.initThree();
+      this.buildWorld();
+      this.buildAvatar();
+      this.isThreeInitialized = true;
+    }
     this.isActive = true;
     if (this.canvas) {
       const w = this.canvas.clientWidth || window.innerWidth;
@@ -22786,7 +22810,7 @@ console.log("Roblox3DStudioEngine class loaded");
   window.addEventListener('beforeunload', () => {
     document.title = 'NeuroSpace Studio — Close Roblox — Exit App';
   });
-  window.addEventListener('unload', () => {
+  window.addEventListener('pagehide', () => {
     document.title = 'NeuroSpace Studio — Close Roblox — Exit App';
   });
 
