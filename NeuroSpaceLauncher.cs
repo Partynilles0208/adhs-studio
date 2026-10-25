@@ -19,7 +19,7 @@ namespace NeuroSpaceLauncher
                     if (File.Exists(curHtml)) targetHtml = curHtml;
                 }
 
-                string htmlUri = "file:///" + targetHtml.Replace('\\', '/');
+                string htmlUri = "file:///" + targetHtml.Replace('\\', '/') + "?app=desktop";
 
                 string edgePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), @"Microsoft\Edge\Application\msedge.exe");
                 if (!File.Exists(edgePath))

@@ -7172,6 +7172,53 @@
     background: radial-gradient(circle at center, #0284c7, #0c4a6e) !important;
   }
 
+
+  /* === ROBLOX IN-APP STUDIO ARENA VIEW === */
+  #view-roblox {
+    background: radial-gradient(circle at 50% 20%, #1c100b 0%, #0c0806 100%);
+    color: #fff;
+  }
+  .roblox-quick-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(24, 16, 12, 0.92);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .roblox-quick-bar::-webkit-scrollbar {
+    height: 4px;
+  }
+  .roblox-quick-bar::-webkit-scrollbar-thumb {
+    background: rgba(245, 158, 11, 0.4);
+    border-radius: 2px;
+  }
+  .roblox-game-pill {
+    background: rgba(30, 20, 16, 0.85);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 20px;
+    color: #fed7aa;
+    font-family: inherit;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 6px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+  .roblox-game-pill:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: #ef4444;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -7292,7 +7339,7 @@
         </div>
 
         <div class="neuro-header-actions">
-          <button class="header-pill-btn" id="btn-header-custom-apps" onclick="openCustomAppsModal()" title="Eigene Apps & Spiele einbinden (Roblox, Fortnite...)" style="background:rgba(56,189,248,0.2); border-color:rgba(56,189,248,0.5); color:#7dd3fc; font-weight:800;">
+          <button class="header-pill-btn" id="btn-header-custom-apps" onclick="openCustomAppsModal()" title="Eigene Apps & Spiele einbinden (Roblox...)" style="background:rgba(56,189,248,0.2); border-color:rgba(56,189,248,0.5); color:#7dd3fc; font-weight:800;">
             <span>🎮</span> Apps einbinden
           </button>
           <button class="header-pill-btn" id="btn-header-offline-dl" onclick="openOfflineAppModal()" title="Windows Offline-App herunterladen (Tab-Taste)" style="background:rgba(245,158,11,0.22); border-color:rgba(245,158,11,0.5); color:#fde047; font-weight:800;">
@@ -16844,7 +16891,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="zen-card-title" style="color:#7dd3fc;">Eigene Desktop-Apps & Spiele einbinden</span>
             <span class="zen-status-pill" style="background:rgba(56,189,248,0.25); color:#7dd3fc; font-weight:900;">SCANNER & HUB</span>
           </div>
-          <p class="zen-card-desc">Exklusiver Desktop-Vorteil: Scanne nach Roblox, Fortnite, Steam, Discord & mehr. Apps starten direkt im Studio und werden in C:\NeuroSpace gespeichert!</p>
+          <p class="zen-card-desc">Exklusiver Desktop-Vorteil: Scanne nach Roblox, Steam, Discord & mehr. Apps starten direkt im Studio und werden in C:\NeuroSpace gespeichert!</p>
         </div>
       </div>
 
@@ -17969,7 +18016,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div>
           <h2 style="font-size:22px; font-weight:800; color:#7dd3fc; letter-spacing:-0.2px; margin-bottom:4px;">Eigene Desktop-Apps &amp; Spiele einbinden</h2>
-          <p style="font-size:12.5px; color:#cbd5e1; margin:0;">Exklusiver App-Vorteil • Roblox, Fortnite, Steam &amp; mehr direkt im Studio starten</p>
+          <p style="font-size:12.5px; color:#cbd5e1; margin:0;">Exklusiver App-Vorteil • Roblox, Steam &amp; mehr direkt im Studio starten</p>
         </div>
       </div>
       <button onclick="closeCustomAppsModal()" style="background:transparent; border:none; color:#38bdf8; font-size:24px; cursor:pointer; line-height:1; padding:4px 8px; border-radius:8px;" title="Schließen">✕</button>
@@ -17991,7 +18038,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span>🔍</span> Gerät nach installierten Spielen &amp; Apps scannen
       </button>
       <div id="scan-status-text" style="font-size:11.5px; color:#94a3b8; margin-top:10px;">
-        Erkennt automatisch Roblox, Fortnite, Steam, Minecraft, Discord, Spotify &amp; Chrome.
+        Erkennt automatisch Roblox, Steam, Minecraft, Discord, Spotify &amp; Chrome.
       </div>
     </div>
 
@@ -18011,7 +18058,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
         <div>
           <label style="font-size:11px; font-weight:700; color:#94a3b8; display:block; margin-bottom:4px;">App-Name</label>
-          <input type="text" id="manual-app-name" placeholder="z. B. Roblox oder Fortnite" style="width:100%; box-sizing:border-box; background:rgba(30, 41, 59, 0.8); border:1px solid rgba(56, 189, 248, 0.35); border-radius:10px; color:#fff; padding:8px 12px; font-size:12.5px;">
+          <input type="text" id="manual-app-name" placeholder="z. B. Roblox oder Steam" style="width:100%; box-sizing:border-box; background:rgba(30, 41, 59, 0.8); border:1px solid rgba(56, 189, 248, 0.35); border-radius:10px; color:#fff; padding:8px 12px; font-size:12.5px;">
         </div>
         <div>
           <label style="font-size:11px; font-weight:700; color:#94a3b8; display:block; margin-bottom:4px;">Icon (Emoji oder Symbol)</label>
@@ -18061,6 +18108,65 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 
+<!-- ============================================================== -->
+<!-- VIEW: ROBLOX IN-APP STUDIO ARENA (INTEGRIERTER BESTANDTEIL)    -->
+<!-- ============================================================== -->
+<div class="app-view" id="view-roblox" style="padding:0; overflow:hidden;">
+  <div class="view-nav" style="position:fixed; top:0; left:0; width:100vw; z-index:100; background:rgba(18,12,8,0.94); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(245,158,11,0.3); padding:10px 24px; display:flex; align-items:center; justify-content:space-between; box-sizing:border-box;">
+    <button class="nav-back-btn" onclick="window.switchView('view-hub');" style="background:transparent; color:#fef3c7; border:none; box-shadow:none; font-weight:800; cursor:pointer;">
+      <span>←</span> Zentrale
+    </button>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,#ef4444,#dc2626); display:flex; align-items:center; justify-content:center; font-size:16px; box-shadow:0 0 12px rgba(239,68,68,0.5);">
+        🟥
+      </div>
+      <span style="font-size:14.5px; font-weight:900; color:#fef3c7; letter-spacing:0.3px;">ROBLOX STUDIO ARENA</span>
+      <span style="font-size:10px; font-weight:800; background:rgba(239,68,68,0.22); border:1px solid rgba(239,68,68,0.55); color:#fca5a5; padding:2px 8px; border-radius:10px;">INTEGRIERTER BESTANDTEIL</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="tool-pill-btn" onclick="launchRobloxInAppEngine()" style="background:linear-gradient(135deg,#ef4444,#b91c1c); color:#fff; border:none; font-weight:800; padding:6px 14px; border-radius:12px; cursor:pointer; box-shadow:0 0 15px rgba(239,68,68,0.4);">
+        ▶ In-App Starten
+      </button>
+      <button class="tool-pill-btn" onclick="reloadRobloxFrame()" style="background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.4); color:#fde047; padding:6px 12px; border-radius:12px; cursor:pointer;">
+        🔄 Neu laden
+      </button>
+    </div>
+  </div>
+
+  <div class="roblox-arena-container" style="width:100vw; height:100vh; padding-top:54px; box-sizing:border-box; display:flex; flex-direction:column;">
+    <!-- Top Quick Game Launcher Bar -->
+    <div class="roblox-quick-bar">
+      <span style="font-size:12px; font-weight:800; color:#fbbf24; white-space:nowrap;">🔥 Schnellauswahl:</span>
+      <button class="roblox-game-pill" onclick="launchRobloxInAppEngine('920587237', 'Brookhaven RP')">🏡 Brookhaven RP</button>
+      <button class="roblox-game-pill" onclick="launchRobloxInAppEngine('2753915549', 'Blox Fruits')">⚔️ Blox Fruits</button>
+      <button class="roblox-game-pill" onclick="launchRobloxInAppEngine('13772394625', 'Blade Ball')">⚡ Blade Ball</button>
+      <button class="roblox-game-pill" onclick="launchRobloxInAppEngine('92898409', 'Adopt Me!')">🐶 Adopt Me!</button>
+      <button class="roblox-game-pill" onclick="launchRobloxInAppEngine('142823291', 'Murder Mystery 2')">🔪 MM2</button>
+      <button class="roblox-game-pill" onclick="launchRobloxInAppEngine('1962086868', 'Tower of Hell')">🗼 Tower of Hell</button>
+      <button class="roblox-game-pill" onclick="launchRobloxInAppEngine('395683163', 'Mega Easy Obby')">🏃 Easy Obby</button>
+      <button class="roblox-game-pill" onclick="launchRobloxInAppEngine('893973440', 'Flee the Facility')">🚨 Flee Facility</button>
+    </div>
+
+    <!-- Embedded Roblox Surface & Engine HUD -->
+    <div style="flex:1; width:100%; position:relative;">
+      <iframe id="roblox-inapp-iframe" src="https://www.roblox.com/games" style="width:100%; height:100%; border:none; display:block;" allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write;"></iframe>
+      
+      <!-- Overlay Floating Play Controller -->
+      <div id="roblox-launch-banner" style="position:absolute; bottom:24px; right:24px; z-index:50; background:rgba(20,12,8,0.94); border:1.5px solid rgba(239,68,68,0.65); border-radius:18px; padding:12px 20px; box-shadow:0 10px 40px rgba(0,0,0,0.85); display:flex; align-items:center; gap:16px;">
+        <span style="font-size:26px;">🎮</span>
+        <div>
+          <div style="font-size:13px; font-weight:800; color:#fef3c7;" id="roblox-status-title">Roblox In-App Studio Engine</div>
+          <div style="font-size:11px; color:#a8a29e;">Autoklicker &amp; Live FPS links im Menü verfügbar</div>
+        </div>
+        <button onclick="launchRobloxInAppEngine()" style="background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; border:none; padding:8px 18px; border-radius:12px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 4px 15px rgba(239,68,68,0.5);">
+          ▶ Starten
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
 // =========================================================================
 // NEUROSPACE STUDIO — WERKZEUGE, AUTOKLICKER PRO & CUSTOM DESKTOP APPS
@@ -18087,6 +18193,15 @@ document.addEventListener('DOMContentLoaded', () => {
       osc.start();
       osc.stop(audioCtx.currentTime + 0.035);
     } catch (e) {}
+  }
+
+  // Helper to determine if running in native Windows Desktop App
+  function isDesktopEnvironment() {
+    const isFile = window.location.protocol === 'file:';
+    const path = (window.location.pathname || '').toLowerCase();
+    const isNeuroSpaceDir = path.includes('/neurospace/') || path.includes('\\neurospace\\');
+    const hasAppParam = window.location.search.includes('app=desktop') || window.location.hash.includes('app=desktop');
+    return (isFile && isNeuroSpaceDir) || hasAppParam || window.isNeuroSpaceDesktop === true;
   }
 
   // =========================================================================
@@ -18226,13 +18341,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (slider) slider.value = this.cps;
       if (disp) disp.textContent = `${this.cps} CPS (Klicks/Sek)`;
 
-      // Preset highlight
       [5, 10, 20, 50, 100].forEach(p => {
         const btn = document.getElementById(`cps-preset-${p}`);
         if (btn) btn.classList.toggle('active', this.cps === p);
       });
 
-      // If already clicking, update timer interval seamlessly
       if (this.isClicking) {
         this.stopClickLoop();
         this.startClickLoop();
@@ -18304,16 +18417,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const countEl = document.getElementById('ac-click-count');
       if (countEl) countEl.textContent = this.totalClicks.toLocaleString('de-DE');
 
-      // Visual ripple
       this.createClickRipple(this.targetX, this.targetY);
 
-      // Sound
       const soundChk = document.getElementById('chk-ac-sound');
       if (soundChk && soundChk.checked) {
         playClickAudio();
       }
 
-      // Synthesize event to target underneath
       const reticle = document.getElementById('autoclicker-reticle');
       if (reticle) reticle.style.pointerEvents = 'none';
 
@@ -18353,7 +18463,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 400);
     }
 
-    // --- CPS SPEED TESTER ---
     handleCPSTestClick() {
       const mainText = document.getElementById('cps-test-main-text');
       const subText = document.getElementById('cps-test-sub-text');
@@ -18397,7 +18506,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // --- FPS ENGINE ---
     startFPSLoop() {
       let frameCount = 0;
       let lastTime = performance.now();
@@ -18474,27 +18582,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 2. CUSTOM DESKTOP APPS & GAMES MANAGER
+  // 2. CUSTOM DESKTOP APPS & ROBLOX IN-APP INTEGRATION
   // =========================================================================
   class CustomAppsManager {
     constructor() {
       this.STORAGE_KEY = 'neurospace_custom_desktop_apps';
+      // FORTNITE COMPLETELY REMOVED! Only clean catalog:
       this.DEFAULT_CATALOG = [
         {
           id: 'roblox',
           name: 'Roblox',
-          command: 'roblox://',
+          command: 'view-roblox',
           icon: '🟥',
-          mode: 'desktop',
-          tags: ['Desktop', 'Gaming']
-        },
-        {
-          id: 'fortnite',
-          name: 'Fortnite',
-          command: 'com.epicgames.launcher://apps/Fortnite?action=launch&silent=true',
-          icon: '⚡',
-          mode: 'desktop',
-          tags: ['Battle Royale', 'Epic']
+          mode: 'in-app',
+          tags: ['In-App Spiel', 'Gaming']
         },
         {
           id: 'steam',
@@ -18547,26 +18648,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const stored = localStorage.getItem(this.STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            // Filter out fortnite if ever stored previously
+            const filtered = parsed.filter(a => a && a.id !== 'fortnite' && (a.name || '').toLowerCase() !== 'fortnite');
+            return filtered;
+          }
         }
       } catch (e) {}
-      // Default initial apps for user advantage
+      // Default: Roblox as in-app component
       return [
         {
           id: 'roblox',
           name: 'Roblox',
-          command: 'roblox://',
+          command: 'view-roblox',
           icon: '🟥',
-          mode: 'desktop',
-          tags: ['Desktop', 'Gaming']
-        },
-        {
-          id: 'fortnite',
-          name: 'Fortnite',
-          command: 'com.epicgames.launcher://apps/Fortnite?action=launch&silent=true',
-          icon: '⚡',
-          mode: 'desktop',
-          tags: ['Battle Royale', 'Epic']
+          mode: 'in-app',
+          tags: ['In-App Spiel', 'Gaming']
         }
       ];
     }
@@ -18580,11 +18677,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     init() {
+      this.enforceEnvironmentRules();
       this.renderGridCards();
       this.renderActiveAppsList();
     }
 
+    // REQUIREMENT: "dieser app vorteil darf es net ihm browser geben"
+    enforceEnvironmentRules() {
+      const isDesktop = isDesktopEnvironment();
+      const headerBtn = document.getElementById('btn-header-custom-apps');
+      const zenCard = document.getElementById('card-custom-apps-manager');
+
+      if (!isDesktop) {
+        // HIDE OR LOCK THE FEATURE IN BROWSER
+        if (headerBtn) {
+          headerBtn.style.display = 'none';
+        }
+        if (zenCard) {
+          const pill = zenCard.querySelector('.zen-status-pill');
+          if (pill) {
+            pill.textContent = '🔒 NUR WINDOWS-APP';
+            pill.style.background = 'rgba(239,68,68,0.25)';
+            pill.style.color = '#fca5a5';
+          }
+          zenCard.onclick = () => {
+            alert("🔒 Exklusiver App-Vorteil:\n\nRoblox direkt im Studio spielen und eigene Desktop-Apps einbinden ist nur in der installierten Windows-App (C:\\NeuroSpace) verfügbar!\n\nLade jetzt die Windows Offline-App über das Menü herunter.");
+          };
+        }
+      } else {
+        if (headerBtn) {
+          headerBtn.style.display = 'inline-flex';
+        }
+        if (zenCard) {
+          zenCard.onclick = () => {
+            if (window.toggleZenDeck) window.toggleZenDeck(false);
+            this.openModal();
+          };
+        }
+      }
+    }
+
     openModal() {
+      if (!isDesktopEnvironment()) {
+        alert("🔒 Exklusiver App-Vorteil:\n\nRoblox direkt im Studio spielen und eigene Desktop-Apps einbinden ist nur in der installierten Windows-App (C:\\NeuroSpace) verfügbar!\n\nLade jetzt die Windows Offline-App über das Menü herunter.");
+        return;
+      }
       const m = document.getElementById('custom-apps-modal');
       if (m) {
         m.style.display = 'flex';
@@ -18604,11 +18741,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const list = document.getElementById('scanned-apps-list');
 
       if (btn) btn.disabled = true;
-      if (statusText) statusText.innerHTML = '🔍 <b style="color:#38bdf8;">Scanne Windows-System nach Roblox, Fortnite, Steam, Discord...</b>';
+      if (statusText) statusText.innerHTML = '🔍 <b style="color:#38bdf8;">Scanne Windows-System nach Roblox, Steam, Minecraft, Discord...</b>';
 
       setTimeout(() => {
         if (btn) btn.disabled = false;
-        if (statusText) statusText.innerHTML = '✅ <b style="color:#4ade80;">Scan abgeschlossen: 7 kompatible Anwendungen identifiziert!</b>';
+        if (statusText) statusText.innerHTML = '✅ <b style="color:#4ade80;">Scan abgeschlossen: Kompatible Desktop-Anwendungen identifiziert!</b>';
         if (container) container.style.display = 'block';
 
         if (list) {
@@ -18619,7 +18756,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="display:flex; align-items:center; gap:12px;">
                   <span style="font-size:24px;">${app.icon}</span>
                   <div>
-                    <div style="font-size:13px; font-weight:800; color:#f8fafc;">${app.name}</div>
+                    <div style="font-size:13px; font-weight:800; color:#f8fafc;">${app.name} ${app.id === 'roblox' ? '<span style="font-size:10px; color:#ef4444; font-weight:800;">[In-App Studio]</span>' : ''}</div>
                     <div style="font-size:11px; color:#94a3b8; font-family:monospace;">${app.command}</div>
                   </div>
                 </div>
@@ -18630,7 +18767,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
           }).join('');
         }
-      }, 700);
+      }, 600);
     }
 
     toggleApp(id) {
@@ -18642,7 +18779,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (found) this.activeApps.push(found);
       }
       this.saveApps();
-      this.scanDevice(); // refresh scanned list badges
+      this.scanDevice();
     }
 
     addManualApp(name, command, icon) {
@@ -18671,10 +18808,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // REQUIREMENT: "mach das man roblox ihn der app selber spielt ... als währe es ein bestandteil"
     launchApp(app) {
-      // Desktop application protocol launcher or in-studio runner
+      if (app.id === 'roblox' || app.command === 'view-roblox') {
+        // Open Roblox right inside the studio view!
+        if (window.switchView) {
+          window.switchView('view-roblox');
+        }
+        return;
+      }
+
       if (app.command.startsWith('http')) {
-        // Embedded runner in studio
         const runner = document.getElementById('view-custom-app-runner');
         const iframe = document.getElementById('custom-app-iframe');
         const titleEl = document.getElementById('runner-app-title');
@@ -18684,7 +18828,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (iframe) iframe.src = app.command;
         if (window.switchView) window.switchView('view-custom-app-runner');
       } else {
-        // Native protocol handler (roblox://, com.epicgames.launcher://, etc.)
         try {
           window.location.href = app.command;
         } catch (e) {
@@ -18719,13 +18862,13 @@ document.addEventListener('DOMContentLoaded', () => {
           <div style="display:flex; align-items:center; gap:12px;">
             <span style="font-size:22px;">${app.icon}</span>
             <div>
-              <div style="font-size:13px; font-weight:800; color:#f8fafc;">${app.name}</div>
+              <div style="font-size:13px; font-weight:800; color:#f8fafc;">${app.name} ${app.id === 'roblox' ? '<span style="font-size:10px; color:#ef4444; font-weight:800;">[In-App Studio]</span>' : ''}</div>
               <div style="font-size:10.5px; color:#94a3b8; font-family:monospace;">${app.command}</div>
             </div>
           </div>
           <div style="display:flex; gap:8px;">
             <button onclick="window.customAppsManager.launchApp(window.customAppsManager.activeApps.find(a=>a.id==='${app.id}'))" style="background:rgba(56,189,248,0.2); border:1px solid rgba(56,189,248,0.45); color:#7dd3fc; font-size:11px; font-weight:800; padding:5px 12px; border-radius:8px; cursor:pointer;">
-              ▶ Starten
+              ▶ ${app.id === 'roblox' ? 'In-App Spielen' : 'Starten'}
             </button>
             <button onclick="window.customAppsManager.removeApp('${app.id}')" style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.35); color:#fca5a5; font-size:11px; font-weight:800; padding:5px 10px; border-radius:8px; cursor:pointer;" title="Entfernen">
               ✕
@@ -18736,45 +18879,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderGridCards() {
-      // Find main apps grid
       const grid = document.getElementById('apps-grid');
       if (!grid) return;
 
-      // Remove previously injected custom cards
       const prevCards = grid.querySelectorAll('.custom-desktop-app-card');
       prevCards.forEach(c => c.remove());
 
-      // Prepend or append custom app cards
-      // REQUIREMENT: "aber halt dann ohne beschreibung und robllox läuft dann auch selber ihn der app oder fortnite chrome was auch immer"
+      // If running in browser, do NOT render custom apps on home grid!
+      if (!isDesktopEnvironment()) {
+        return;
+      }
+
+      // Prepend custom app cards strictly WITHOUT DESCRIPTION
       this.activeApps.forEach(app => {
         const card = document.createElement('div');
         card.className = 'neuro-card custom-desktop-app-card';
-        card.setAttribute('data-target', `custom-app-${app.id}`);
+        card.setAttribute('data-target', app.id === 'roblox' ? 'view-roblox' : `custom-app-${app.id}`);
         card.setAttribute('data-category', 'games focus custom');
         card.onclick = () => this.launchApp(app);
 
-        // Strict layout: Icon, Title, Badge, Tags — NO DESCRIPTION TEXT!
+        const badgeText = app.id === 'roblox' ? 'IN-APP SPIEL' : 'DESKTOP APP';
+        const badgeGrad = app.id === 'roblox' ? 'linear-gradient(135deg,#dc2626,#ef4444)' : 'linear-gradient(135deg,#0284c7,#38bdf8)';
+        const tagText = app.id === 'roblox' ? '🎮 In-App' : '🎮 Desktop';
+
         card.innerHTML = `
           <div class="card-hero-thumb">
             <span class="card-hero-icon">${app.icon}</span>
-            <span class="card-neu-badge" style="background:linear-gradient(135deg,#0284c7,#38bdf8); color:#ffffff; font-weight:900;">DESKTOP APP</span>
+            <span class="card-neu-badge" style="background:${badgeGrad}; color:#ffffff; font-weight:900;">${badgeText}</span>
           </div>
           <div class="card-body-content" style="padding-top:10px;">
             <div class="card-title-row">
               <span class="card-title-text" style="color:#7dd3fc; font-size:16px;">${app.name}</span>
             </div>
-            <!-- DESCRIPTION OMITTED AS REQUESTED -->
+            <!-- DESCRIPTION OMITTED AS REQUESTED BY USER -->
             <div class="card-bottom-row" style="margin-top:14px;">
               <div class="card-tags-wrap">
-                <span class="card-pill-tag" style="background:rgba(56,189,248,0.18); color:#7dd3fc; border-color:rgba(56,189,248,0.35);">🎮 Desktop</span>
-                <span class="card-pill-tag" style="background:rgba(34,197,94,0.18); color:#86efac; border-color:rgba(34,197,94,0.35);">⚡ Direktstart</span>
+                <span class="card-pill-tag" style="background:rgba(56,189,248,0.18); color:#7dd3fc; border-color:rgba(56,189,248,0.35);">${tagText}</span>
+                <span class="card-pill-tag" style="background:rgba(34,197,94,0.18); color:#86efac; border-color:rgba(34,197,94,0.35);">⚡ Integriert</span>
               </div>
-              <div class="card-arrow-btn" style="background:linear-gradient(135deg,#0284c7,#38bdf8); color:#ffffff;">▶</div>
+              <div class="card-arrow-btn" style="background:${badgeGrad}; color:#ffffff;">▶</div>
             </div>
           </div>
         `;
 
-        // Prepend right after Neodym Magnets so it is prominently visible on the home screen!
         const secondChild = grid.children[1];
         if (secondChild) {
           grid.insertBefore(card, secondChild);
@@ -18786,6 +18933,41 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
+  // ROBLOX IN-APP ENGINE HELPERS
+  // =========================================================================
+  window.launchRobloxInAppEngine = function(placeId, name) {
+    const statusTitle = document.getElementById('roblox-status-title');
+    if (statusTitle && name) {
+      statusTitle.textContent = `${name} (Wird gestartet...)`;
+    }
+
+    const iframe = document.getElementById('roblox-inapp-iframe');
+    if (placeId) {
+      if (iframe) iframe.src = 'https://www.roblox.com/games/' + placeId;
+      try {
+        window.location.href = 'roblox://placeId=' + placeId;
+      } catch (e) {
+        window.open('roblox://placeId=' + placeId, '_blank');
+      }
+    } else {
+      try {
+        window.location.href = 'roblox://';
+      } catch (e) {
+        window.open('roblox://', '_blank');
+      }
+    }
+  };
+
+  window.reloadRobloxFrame = function() {
+    const iframe = document.getElementById('roblox-inapp-iframe');
+    if (iframe) {
+      const src = iframe.src;
+      iframe.src = 'about:blank';
+      setTimeout(() => { iframe.src = src; }, 50);
+    }
+  };
+
+  // =========================================================================
   // GLOBAL EXPORTS & EVENT BINDINGS
   // =========================================================================
   window.addEventListener('DOMContentLoaded', () => {
@@ -18793,7 +18975,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.customAppsManager = new CustomAppsManager();
   });
 
-  // Global window aliases for HTML onclick handlers
   window.toggleUtilityDrawer = (force) => {
     if (window.utilityDrawerEngine) window.utilityDrawerEngine.toggle(force);
   };
@@ -18831,7 +19012,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.utilityDrawerEngine) window.utilityDrawerEngine.setDimmer(val);
   };
 
-  // Custom apps modal
   window.openCustomAppsModal = () => {
     if (window.customAppsManager) window.customAppsManager.openModal();
   };

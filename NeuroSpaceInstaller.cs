@@ -585,13 +585,46 @@ namespace NeuroSpaceInstaller
                 ExtractEmbeddedFileStatic("NeuroSpace.exe", exeLauncher);
             }
 
-            // Create initial custom apps storage file if not exists
+            // Automatically integrate Roblox as an in-app component from AppData\Local\Roblox
+            string robloxDst = Path.Combine(TARGET_DIR, "Roblox");
+            try
+            {
+                Directory.CreateDirectory(robloxDst);
+                string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string robloxSrc = Path.Combine(localAppData, "Roblox");
+                if (Directory.Exists(robloxSrc))
+                {
+                    if (reportProgress != null) reportProgress(75, "4/6: Integriere Roblox als Studio-Bestandteil...");
+                    
+                    // Search for RobloxPlayerInstaller.exe
+                    string[] installers = Directory.GetFiles(robloxSrc, "*RobloxPlayerInstaller*.exe", SearchOption.AllDirectories);
+                    if (installers != null && installers.Length > 0)
+                    {
+                        try { File.Copy(installers[0], Path.Combine(robloxDst, "RobloxPlayerInstaller.exe"), true); } catch { }
+                    }
+
+                    // Search for RobloxPlayerBeta.exe
+                    string[] playerExes = Directory.GetFiles(robloxSrc, "RobloxPlayerBeta.exe", SearchOption.AllDirectories);
+                    if (playerExes != null && playerExes.Length > 0)
+                    {
+                        string newestExe = playerExes[playerExes.Length - 1];
+                        string batLaunch = Path.Combine(robloxDst, "LaunchRoblox.bat");
+                        File.WriteAllText(batLaunch, "@echo off\r\nstart \"\" \"" + newestExe + "\"\r\nexit\r\n");
+                    }
+                }
+
+                // In-App Protocol helper
+                string batInApp = Path.Combine(robloxDst, "RobloxInApp.bat");
+                File.WriteAllText(batInApp, "@echo off\r\nstart \"\" \"roblox://\"\r\nexit\r\n");
+            }
+            catch { }
+
+            // Create initial custom apps storage file (Roblox only - Fortnite removed)
             string appsJsonPath = Path.Combine(TARGET_DIR, "neurospace_apps.json");
             if (!File.Exists(appsJsonPath))
             {
                 string defaultAppsJson = "[\r\n" +
-                                         "  {\"id\":\"roblox\",\"name\":\"Roblox\",\"protocol\":\"roblox://\",\"icon\":\"🟥\",\"mode\":\"desktop\",\"tags\":[\"Desktop\",\"Gaming\"]},\r\n" +
-                                         "  {\"id\":\"fortnite\",\"name\":\"Fortnite\",\"protocol\":\"com.epicgames.launcher://apps/Fortnite?action=launch&silent=true\",\"icon\":\"⚡\",\"mode\":\"desktop\",\"tags\":[\"Battle Royale\",\"Epic\"]}\r\n" +
+                                         "  {\"id\":\"roblox\",\"name\":\"Roblox\",\"command\":\"view-roblox\",\"icon\":\"🟥\",\"mode\":\"in-app\",\"tags\":[\"In-App Spiel\",\"Gaming\"]}\r\n" +
                                          "]";
                 try { File.WriteAllText(appsJsonPath, defaultAppsJson); } catch { }
             }
@@ -605,9 +638,9 @@ namespace NeuroSpaceInstaller
                                 "set \"EDGE=%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
                                 "if not exist \"%EDGE%\" set \"EDGE=%ProgramFiles%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
                                 "if exist \"%EDGE%\" (\r\n" +
-                                "    start \"\" \"%EDGE%\" --app=\"file:///C:/NeuroSpace/index.html\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check\r\n" +
+                                "    start \"\" \"%EDGE%\" --app=\"file:///C:/NeuroSpace/index.html?app=desktop\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check\r\n" +
                                 ") else (\r\n" +
-                                "    start \"\" \"C:\\NeuroSpace\\index.html\"\r\n" +
+                                "    start \"\" \"C:\\NeuroSpace\\index.html?app=desktop\"\r\n" +
                                 ")\r\n" +
                                 "exit\r\n";
             File.WriteAllText(batPath, batContent);
