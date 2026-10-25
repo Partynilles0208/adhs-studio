@@ -613,39 +613,11 @@ namespace NeuroSpaceInstaller
                     }
                 }
 
-                // In-App Protocol helper
+                // Prepare In-App Protocol helper
                 string batInApp = Path.Combine(robloxDst, "RobloxInApp.bat");
                 File.WriteAllText(batInApp, "@echo off\r\nstart \"\" \"roblox://\"\r\nexit\r\n");
 
-                // Automatic User-Level Roblox Installation (NO ADMIN RIGHTS REQUIRED)
-                bool isRobloxInstalled = false;
-                try
-                {
-                    string rbxDir = Path.Combine(localAppData, "Roblox");
-                    if (Directory.Exists(rbxDir))
-                    {
-                        string[] betas = Directory.GetFiles(rbxDir, "RobloxPlayerBeta.exe", SearchOption.AllDirectories);
-                        if (betas != null && betas.Length > 0) isRobloxInstalled = true;
-                    }
-                }
-                catch { }
-
-                if (!isRobloxInstalled)
-                {
-                    string instExe = Path.Combine(robloxDst, "RobloxPlayerInstaller.exe");
-                    if (File.Exists(instExe))
-                    {
-                        if (reportProgress != null) reportProgress(78, "4/6: Installiere Roblox ohne Administratorrechte...");
-                        try
-                        {
-                            ProcessStartInfo rbxPsi = new ProcessStartInfo();
-                            rbxPsi.FileName = instExe;
-                            rbxPsi.UseShellExecute = true; // User level - no admin prompt needed
-                            Process.Start(rbxPsi);
-                        }
-                        catch { }
-                    }
-                }
+                // Note: Roblox will be installed on-demand when the user clicks on Roblox in NeuroSpace
             }
             catch { }
 
