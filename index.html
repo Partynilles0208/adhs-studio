@@ -6636,32 +6636,10 @@
     display: none !important;
   }
 
-  /* === INTRO SKIP BUTTON & FALLBACK CARDS === */
+  /* === INTRO SKIP BUTTON (REMOVED - NOT SKIPPABLE) === */
   .cinematic-skip-btn {
-    position: absolute;
-    top: 24px;
-    right: 28px;
-    z-index: 1000000000;
-    background: rgba(24, 16, 12, 0.88);
-    border: 1.5px solid rgba(245, 158, 11, 0.6);
-    color: #fde047;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 800;
-    padding: 8px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    backdrop-filter: blur(8px);
-  }
-  .cinematic-skip-btn:hover {
-    background: rgba(245, 158, 11, 0.25);
-    border-color: #fbbf24;
-    transform: scale(1.05);
+    display: none !important;
+    pointer-events: none !important;
   }
 
   /* === LIVE FPS PILL (TOP-LEFT ALWAYS VISIBLE) === */
@@ -7327,8 +7305,15 @@
 <!-- CINEMATIC INTRO: EPILEPSIE-WARNUNG & NUTZUNGSBEDINGUNGEN      -->
 <!-- ============================================================== -->
 <div id="cinematic-intro-overlay">
-  <!-- Skip Button -->
-  <button class="cinematic-skip-btn" onclick="if(window.cinematicIntro) window.cinematicIntro.finishIntro();" title="Intro & Warnungen überspringen">Überspringen ⏭</button>
+  <!-- Unskippable Notice Indicator & Progress Bar -->
+  <div id="cinematic-security-badge" style="position:fixed; bottom:28px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; z-index:1000000000; pointer-events:none; user-select:none;">
+    <div style="background:rgba(20,14,10,0.92); border:1.5px solid rgba(245,158,11,0.65); padding:7px 20px; border-radius:24px; font-size:12px; font-weight:800; color:#fbbf24; letter-spacing:0.4px; box-shadow:0 4px 25px rgba(0,0,0,0.85); backdrop-filter:blur(10px); display:inline-flex; align-items:center; gap:8px;">
+      <span>⚠️</span> <span id="cinematic-badge-text">Wichtige Sicherheits- &amp; Epilepsiehinweise (Nicht überspringbar)</span>
+    </div>
+    <div style="width:280px; height:4px; background:rgba(255,255,255,0.18); border-radius:4px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.5);">
+      <div id="cinematic-progress-bar" style="width:0%; height:100%; background:linear-gradient(90deg, #f59e0b, #fbbf24); transition:width 0.1s linear;"></div>
+    </div>
+  </div>
 
   <!-- Slide 1: Epilepsie-Warnung -->
   <div class="cinematic-slide" id="intro-slide-epilepsy">
@@ -16226,15 +16211,8 @@ class SiteAccessGateController {
     if (this.overlay) {
       this.overlay.style.display = 'none';
     }
-    const intro = document.getElementById('cinematic-intro-overlay');
-    if (intro) {
-      intro.style.display = 'none';
-    }
-    // Musik beim Betreten der Website direkt starten & sanft einblenden!
-    if (window.bgMusicController) {
-      window.bgMusicController.startWithFadeIn();
-    }
-    // Daten aus Supabase Cloud im Hintergrund synchronisieren falls eingeloggt
+    // Warnungen im Intro laufen eigenständig und dürfen nicht übersprungen werden
+    // Musik & View-Wechsel erfolgen geregelt in finishIntro()
     if (window.neuroSupabase && typeof window.neuroSupabase.loadFromCloud === 'function') {
       window.neuroSupabase.loadFromCloud();
     }
@@ -16441,87 +16419,132 @@ class CinematicIntroController {
     this.overlay = document.getElementById('cinematic-intro-overlay');
     this.slideEpilepsy = document.getElementById('intro-slide-epilepsy');
     this.slideUsage = document.getElementById('intro-slide-usage');
+    this.progressBar = document.getElementById('cinematic-progress-bar');
+    this.badgeText = document.getElementById('cinematic-badge-text');
     this.timer = null;
+    this.progressInterval = null;
     this.isRunning = false;
+
+    // Tastatur-Überspringen strikt unterbinden
+    window.addEventListener('keydown', (e) => {
+      if (this.isRunning) {
+        if (['Escape', ' ', 'Enter', 'Tab', 'F11'].includes(e.key)) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    }, true);
+
+    // Klicks auf das Overlay abfangen
+    if (this.overlay) {
+      this.overlay.addEventListener('click', (e) => {
+        if (this.isRunning) {
+          e.stopPropagation();
+        }
+      });
+    }
 
     this.init();
   }
 
   init() {
-    const accessGranted = (
-      localStorage.getItem('neurospace_site_access_granted') === '020818' ||
-      localStorage.getItem('neurospace_site_access_granted') === 'true'
-    );
-    if (!accessGranted) {
-      const gate = document.getElementById('site-access-gate-overlay');
-      if (gate) {
-        gate.style.display = 'none';
-        gate.style.opacity = '0';
-      }
-      this.startIntro(false);
-    } else {
-      if (this.overlay) this.overlay.style.display = 'none';
-      const gate = document.getElementById('site-access-gate-overlay');
-      if (gate) gate.style.display = 'none';
+    // Die Warnungen tauchen IMMER auf und sind NICHT überspringbar
+    const gate = document.getElementById('site-access-gate-overlay');
+    if (gate) {
+      gate.style.display = 'none';
+      gate.style.opacity = '0';
     }
+    this.startIntro(false);
   }
 
   startIntro(isReplay = false) {
     if (!this.overlay) return;
     this.isRunning = true;
     clearTimeout(this.timer);
+    clearInterval(this.progressInterval);
 
     this.overlay.style.display = 'flex';
     this.overlay.style.opacity = '1';
 
-    // Reset slides
+    // Slides zurücksetzen
     if (this.slideEpilepsy) this.slideEpilepsy.classList.remove('active');
     if (this.slideUsage) this.slideUsage.classList.remove('active');
 
-    // Step 1: Dark screen at start ("kurz dunkel bleiben" - 1.5s)
+    const totalSlide1Ms = 10000;
+    const totalSlide2Ms = 10000;
+
+    if (this.badgeText) {
+      this.badgeText.textContent = '⚠️ Wichtige Epilepsie-Warnung (Nicht überspringbar)';
+    }
+
+    // Schritt 1: Kurzer Dunkelmoment zu Beginn (1.5s)
     this.timer = setTimeout(() => {
       if (!this.isRunning) return;
 
-      // Step 2: Fade in elepiesie warnung.jpg ("dann wirds leicht heller... in vollbild elepisie warnung.jpg für 10 sekunden in normal hell")
+      // Schritt 2: Slide 1 (Epilepsie-Warnung) einblenden
       if (this.slideEpilepsy) this.slideEpilepsy.classList.add('active');
 
-      // Hold Slide 1 for 10 seconds (normal brightness)
+      const startSlide1 = Date.now();
+      if (this.progressBar) this.progressBar.style.width = '0%';
+      this.progressInterval = setInterval(() => {
+        const elapsed = Date.now() - startSlide1;
+        const pct = Math.min(100, (elapsed / totalSlide1Ms) * 100);
+        if (this.progressBar) this.progressBar.style.width = pct.toFixed(1) + '%';
+        if (pct >= 100) clearInterval(this.progressInterval);
+      }, 100);
+
+      // Slide 1 für 10 Sekunden anzeigen
       this.timer = setTimeout(() => {
         if (!this.isRunning) return;
+        clearInterval(this.progressInterval);
 
-        // Step 3: Fade out to dark ("dann wirds wieder langsam dunkler")
+        // Schritt 3: Sanft abblenden
         if (this.slideEpilepsy) this.slideEpilepsy.classList.remove('active');
 
-        // Dark pause between slides (1.2s)
+        // Dunkle Pause zwischen den Slides (1.2s)
         this.timer = setTimeout(() => {
           if (!this.isRunning) return;
 
-          // Step 4: Fade in nutzung.jpg ("und dann wieder heller dann sieht man nutzung.jpg für 10 sekunden")
+          // Schritt 4: Slide 2 (Nutzungsbedingungen) einblenden
           if (this.slideUsage) this.slideUsage.classList.add('active');
+          if (this.badgeText) {
+            this.badgeText.textContent = '📜 Nutzungsbedingungen & Datenschutz (Nicht überspringbar)';
+          }
 
-          // Hold Slide 2 for 10 seconds (normal brightness)
+          const startSlide2 = Date.now();
+          if (this.progressBar) this.progressBar.style.width = '0%';
+          this.progressInterval = setInterval(() => {
+            const elapsed = Date.now() - startSlide2;
+            const pct = Math.min(100, (elapsed / totalSlide2Ms) * 100);
+            if (this.progressBar) this.progressBar.style.width = pct.toFixed(1) + '%';
+            if (pct >= 100) clearInterval(this.progressInterval);
+          }, 100);
+
+          // Slide 2 für 10 Sekunden anzeigen
           this.timer = setTimeout(() => {
             if (!this.isRunning) return;
+            clearInterval(this.progressInterval);
 
-            // Step 5: Fade out to dark ("dann wirds dunkler")
+            // Schritt 5: Sanft abblenden
             if (this.slideUsage) this.slideUsage.classList.remove('active');
 
-            // Dark pause before gate (0.8s)
+            // Pause vor Übergabe (0.8s)
             this.timer = setTimeout(() => {
               this.finishIntro(isReplay);
             }, 800);
-          }, 10000);
+          }, totalSlide2Ms);
         }, 1200);
-      }, 10000);
+      }, totalSlide1Ms);
     }, 1500);
   }
 
   finishIntro(isReplay = false) {
     this.isRunning = false;
     clearTimeout(this.timer);
+    clearInterval(this.progressInterval);
     if (!this.overlay) return;
 
-    // Fade out black intro overlay
+    // Intro-Overlay sanft ausblenden
     this.overlay.style.opacity = '0';
     setTimeout(() => {
       this.overlay.style.display = 'none';
@@ -16529,18 +16552,37 @@ class CinematicIntroController {
       if (this.slideUsage) this.slideUsage.classList.remove('active');
 
       if (!isReplay) {
-        // Step 6: Reveal the PIN access gate ("und dann wieder heller und dann sieht man zuganscode ding wo man ihn eingeben muss")
-        if (window.siteGateController && typeof window.siteGateController.showGate === 'function') {
-          window.siteGateController.showGate();
+        // Prüfen, ob Zugangscode zuvor bereits eingegeben wurde
+        const hasAccess = (window.siteGateController && typeof window.siteGateController.isAccessGranted === 'function')
+          ? window.siteGateController.isAccessGranted()
+          : (localStorage.getItem('neurospace_site_access_granted') === '020818' || localStorage.getItem('neurospace_site_access_granted') === 'true');
+
+        if (!hasAccess) {
+          // Zugangscode-Overlay anzeigen
+          if (window.siteGateController && typeof window.siteGateController.showGate === 'function') {
+            window.siteGateController.showGate();
+          } else {
+            const gate = document.getElementById('site-access-gate-overlay');
+            if (gate) {
+              gate.style.display = 'flex';
+              void gate.offsetWidth;
+              gate.classList.add('is-visible');
+              gate.style.opacity = '1';
+              const pinInput = document.getElementById('site-gate-pin-input');
+              if (pinInput) setTimeout(() => pinInput.focus(), 250);
+            }
+          }
         } else {
-          const gate = document.getElementById('site-access-gate-overlay');
-          if (gate) {
-            gate.style.display = 'flex';
-            void gate.offsetWidth;
-            gate.classList.add('is-visible');
-            gate.style.opacity = '1';
-            const pinInput = document.getElementById('site-gate-pin-input');
-            if (pinInput) setTimeout(() => pinInput.focus(), 250);
+          // Zugang schon gewährt: Direkt in die Zentrale und Musik starten
+          document.documentElement.classList.add('site-access-granted');
+          if (window.bgMusicController && typeof window.bgMusicController.startWithFadeIn === 'function') {
+            window.bgMusicController.startWithFadeIn();
+          }
+          if (window.switchView) {
+            window.switchView('view-hub');
+          }
+          if (window.neuroSupabase && typeof window.neuroSupabase.loadFromCloud === 'function') {
+            window.neuroSupabase.loadFromCloud();
           }
         }
       }
