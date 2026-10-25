@@ -9407,6 +9407,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (target) {
       target.classList.add('active');
       document.body.classList.toggle('in-roblox-view', targetId === 'view-roblox');
+      if (targetId === 'view-roblox') {
+        document.title = 'NeuroSpace Studio — Roblox Active';
+      } else {
+        document.title = 'NeuroSpace Studio — Herbst-Edition';
+      }
       if (targetId !== 'view-roblox' && window.utilityDrawerEngine) {
         window.utilityDrawerEngine.toggle(false);
         window.utilityDrawerEngine.toggleReticle(false);
@@ -18094,14 +18099,12 @@ document.addEventListener('DOMContentLoaded', () => {
 <div id="focus-dimmer-overlay"></div>
 
 <!-- ============================================================== -->
-<!-- VIEW: ROBLOX 3D STUDIO (100% IN-APP PROGRAMMIERTE SPIEL-ENGINE) -->
+<!-- VIEW: ROBLOX (ECHTES NORMALES ROBLOX 100% NAHTLOS IM STUDIO)   -->
 <!-- ============================================================== -->
-<div class="app-view" id="view-roblox" style="padding:0; overflow:hidden; position:relative; width:100vw; height:100vh; background:#70c5ff;">
-  <!-- 3D WebGL Canvas -->
-  <canvas id="roblox-3d-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; display:block; outline:none; cursor:grab;"></canvas>
+<div class="app-view" id="view-roblox" style="padding:0; overflow:hidden; position:relative; width:100vw; height:100vh; background:#0f0907;">
 
   <!-- Floating Minimal Auto-Hiding Top Navigation -->
-  <div id="roblox-nav-bar" class="roblox-floating-nav">
+  <div id="roblox-nav-bar" class="roblox-floating-nav" style="background:rgba(18,12,8,0.95); border:1px solid rgba(245,158,11,0.4); border-radius:18px; padding:6px 14px; display:flex; align-items:center; gap:10px; z-index:99999;">
     <button class="nav-back-btn" onclick="exitRobloxToHub();" style="background:rgba(20,14,10,0.85); color:#fef3c7; border:1px solid rgba(245,158,11,0.4); border-radius:12px; padding:6px 14px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
       <span>←</span> Zentrale (<kbd>Esc</kbd>)
     </button>
@@ -18109,34 +18112,90 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="width:22px; height:22px; border-radius:6px; background:#ef4444; display:flex; align-items:center; justify-content:center; font-size:12px; box-shadow:0 0 10px rgba(239,68,68,0.6);">
         🟥
       </div>
-      <span style="font-size:13px; font-weight:900; color:#fef3c7; letter-spacing:0.3px;">ROBLOX 3D STUDIO</span>
-      <span style="font-size:9.5px; font-weight:800; background:rgba(34,197,94,0.25); border:1px solid rgba(34,197,94,0.5); color:#86efac; padding:2px 6px; border-radius:8px;">IN-APP ENGINE</span>
+      <span style="font-size:13px; font-weight:900; color:#fef3c7; letter-spacing:0.3px;">NORMALES ROBLOX</span>
+      <span style="font-size:9.5px; font-weight:800; background:rgba(34,197,94,0.25); border:1px solid rgba(34,197,94,0.5); color:#86efac; padding:2px 6px; border-radius:8px;">🟢 SERVER-VERBINDUNG AKTIV</span>
     </div>
-    <div style="display:flex; align-items:center; gap:8px;">
-      <span id="roblox-hud-stage" class="tool-pill-btn" style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.45); color:#fde047; padding:6px 12px; border-radius:10px; font-size:11px; font-weight:800;">🚩 Stufe: 1</span>
-      <span id="roblox-hud-coins" class="tool-pill-btn" style="background:rgba(34,197,94,0.2); border:1px solid rgba(34,197,94,0.45); color:#86efac; padding:6px 12px; border-radius:10px; font-size:11px; font-weight:800;">🪙 Münzen: 0</span>
-      <button id="btn-mode-obby" class="tool-pill-btn active" onclick="if(window.roblox3DApp) window.roblox3DApp.setMode('obby')" style="background:linear-gradient(135deg,#3b82f6,#2563eb); color:#fff; border:none; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">🏃 Obby</button>
-      <button id="btn-mode-build" class="tool-pill-btn" onclick="if(window.roblox3DApp) window.roblox3DApp.setMode('build')" style="background:rgba(255,255,255,0.12); color:#fff; border:1px solid rgba(255,255,255,0.25); padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">🔨 Bauen</button>
-      <button class="tool-pill-btn" onclick="if(window.roblox3DApp) window.roblox3DApp.dieAndRespawn()" title="Respawn (R)" style="background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); color:#fca5a5; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">🔄 Respawn (R)</button>
-      <button class="tool-pill-btn" onclick="toggleRobloxFullscreen()" style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.45); color:#fde047; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">⛶ Vollbild (<kbd>F11</kbd>)</button>
+    <div style="display:flex; align-items:center; gap:6px;">
+      <button class="tool-pill-btn active" onclick="launchRobloxInAppEngine('')" style="background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; border:none; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; box-shadow:0 0 10px rgba(239,68,68,0.4);">
+        ▶ App Starten
+      </button>
+      <button class="tool-pill-btn" onclick="launchRobloxInAppEngine('4924922222')" style="background:rgba(255,255,255,0.1); color:#fef3c7; border:1px solid rgba(255,255,255,0.2); padding:6px 10px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;" title="Brookhaven RP">
+        🏡 Brookhaven
+      </button>
+      <button class="tool-pill-btn" onclick="launchRobloxInAppEngine('2753915549')" style="background:rgba(255,255,255,0.1); color:#fef3c7; border:1px solid rgba(255,255,255,0.2); padding:6px 10px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;" title="Blox Fruits">
+        ⚔️ Blox Fruits
+      </button>
+      <button class="tool-pill-btn" onclick="launchRobloxInAppEngine('1962086868')" style="background:rgba(255,255,255,0.1); color:#fef3c7; border:1px solid rgba(255,255,255,0.2); padding:6px 10px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;" title="Tower of Hell">
+        ⚡ Tower of Hell
+      </button>
+      <button class="tool-pill-btn" onclick="toggleRobloxFullscreen()" style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.45); color:#fde047; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">
+        ⛶ Vollbild (<kbd>F11</kbd>)
+      </button>
     </div>
   </div>
 
-  <!-- Building Mode Hotbar (Visible only when in Build Mode) -->
-  <div id="roblox-build-hotbar" style="display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:99990; background:rgba(18,12,8,0.92); backdrop-filter:blur(16px); border:1.5px solid rgba(245,158,11,0.4); border-radius:18px; padding:6px 12px; gap:8px; box-shadow:0 8px 30px rgba(0,0,0,0.8);">
-    <button class="tool-pill-btn roblox-hotbar-slot active" data-block="stone" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('stone')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(148,163,184,0.25); color:#f1f5f9; border:1px solid rgba(148,163,184,0.4);">⬜ Stein</button>
-    <button class="tool-pill-btn roblox-hotbar-slot" data-block="grass" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('grass')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(34,197,94,0.2); color:#86efac; border:1px solid rgba(34,197,94,0.4);">🟩 Gras</button>
-    <button class="tool-pill-btn roblox-hotbar-slot" data-block="wood" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('wood')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(180,83,9,0.25); color:#fcd34d; border:1px solid rgba(180,83,9,0.4);">🟫 Holz</button>
-    <button class="tool-pill-btn roblox-hotbar-slot" data-block="lava" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('lava')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(239,68,68,0.25); color:#fca5a5; border:1px solid rgba(239,68,68,0.4);">🟥 Lava</button>
-    <button class="tool-pill-btn roblox-hotbar-slot" data-block="jumppad" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('jumppad')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(168,85,247,0.25); color:#d8b4fe; border:1px solid rgba(168,85,247,0.4);">🟪 JumpPad</button>
-    <button class="tool-pill-btn roblox-hotbar-slot" data-block="speedpad" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('speedpad')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(6,182,212,0.25); color:#67e8f9; border:1px solid rgba(6,182,212,0.4);">🟦 SpeedPad</button>
-    <button class="tool-pill-btn roblox-hotbar-slot" data-block="checkpoint" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('checkpoint')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(234,179,8,0.25); color:#fef08a; border:1px solid rgba(234,179,8,0.4);">🟨 Checkpoint</button>
+  <!-- Real Roblox Stage & Live Launcher View -->
+  <div class="roblox-stage-fullscreen" style="width:100vw; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:radial-gradient(circle at 50% 35%, #1f110c 0%, #0a0604 100%);">
+    <div style="text-align:center; max-width:720px; padding:24px; box-sizing:border-box;">
+      <div class="roblox-hero-cube" style="font-size:56px; margin-bottom:12px; filter:drop-shadow(0 0 25px rgba(239, 68, 68, 0.7));">🟥</div>
+      <h1 style="font-size:32px; font-weight:900; color:#fef3c7; letter-spacing:0.8px; margin:0 0 8px 0;">NORMALES ROBLOX</h1>
+      <p style="font-size:14px; color:#cbd5e1; margin:0 0 24px 0; line-height:1.5;">
+        Echtes Roblox • Direkte Verbindung zu offiziellen Roblox-Servern • Kein separates Fenster
+      </p>
+
+      <div style="display:flex; gap:12px; justify-content:center; margin-bottom:28px;">
+        <button class="roblox-big-play-btn" onclick="launchRobloxInAppEngine('')" style="background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; border:none; padding:12px 28px; border-radius:14px; cursor:pointer; font-size:16px; font-weight:900; box-shadow:0 0 20px rgba(239,68,68,0.5); display:inline-flex; align-items:center; gap:8px;">
+          <span>▶</span> ROBLOX JETZT STARTEN
+        </button>
+        <button class="roblox-big-fs-btn" onclick="toggleRobloxFullscreen()" style="background:rgba(245,158,11,0.18); border:1.5px solid rgba(245,158,11,0.45); color:#fde047; padding:12px 22px; border-radius:14px; cursor:pointer; font-size:14px; font-weight:800;">
+          <span>⛶</span> Vollbild (<kbd>F11</kbd>)
+        </button>
+      </div>
+
+      <!-- Quick Join Grid for Real Experiences -->
+      <div style="background:rgba(18,12,8,0.85); border:1px solid rgba(245,158,11,0.3); border-radius:18px; padding:16px; text-align:left;">
+        <div style="font-size:12px; font-weight:800; color:#f59e0b; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">
+          ⚡ Beliebte echte Erlebnisse direkt betreten:
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px;">
+          <div onclick="launchRobloxInAppEngine('4924922222')" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:10px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+            <div style="font-size:18px;">🏡</div>
+            <div style="font-weight:800; color:#fef3c7; font-size:13px;">Brookhaven RP</div>
+            <div style="font-size:10.5px; color:#94a3b8;">500k+ Spieler</div>
+          </div>
+          <div onclick="launchRobloxInAppEngine('2753915549')" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:10px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+            <div style="font-size:18px;">⚔️</div>
+            <div style="font-weight:800; color:#fef3c7; font-size:13px;">Blox Fruits</div>
+            <div style="font-size:10.5px; color:#94a3b8;">400k+ Spieler</div>
+          </div>
+          <div onclick="launchRobloxInAppEngine('6872265039')" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:10px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+            <div style="font-size:18px;">🏰</div>
+            <div style="font-weight:800; color:#fef3c7; font-size:13px;">BedWars</div>
+            <div style="font-size:10.5px; color:#94a3b8;">50k+ Spieler</div>
+          </div>
+          <div onclick="launchRobloxInAppEngine('1962086868')" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:10px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+            <div style="font-size:18px;">⚡</div>
+            <div style="font-weight:800; color:#fef3c7; font-size:13px;">Tower of Hell</div>
+            <div style="font-size:10.5px; color:#94a3b8;">30k+ Spieler</div>
+          </div>
+        </div>
+
+        <!-- Custom place ID joiner -->
+        <div style="display:flex; gap:8px; margin-top:14px; align-items:center;">
+          <input id="rbx-custom-place" type="text" placeholder="Eigene Spiel-ID oder Link einfügen..." style="flex:1; background:rgba(0,0,0,0.5); border:1px solid rgba(245,158,11,0.3); border-radius:10px; padding:8px 12px; color:#fff; font-size:12px; outline:none;" onkeydown="if(event.key==='Enter') joinCustomRobloxPlace();" />
+          <button onclick="joinCustomRobloxPlace()" style="background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; border:none; border-radius:10px; padding:8px 16px; font-weight:800; font-size:12px; cursor:pointer;">Beitreten</button>
+        </div>
+      </div>
+
+      <div class="roblox-info-pill-row" style="margin-top:20px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+        <span class="roblox-info-pill" style="font-size:11px; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:8px; color:#cbd5e1;">⚡ Autoklicker links bereit</span>
+        <span class="roblox-info-pill" style="font-size:11px; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:8px; color:#cbd5e1;">⛶ Taste <kbd>F11</kbd> für Vollbild</span>
+        <span class="roblox-info-pill" style="font-size:11px; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:8px; color:#cbd5e1;">💨 Taste <kbd>Alt+B</kbd> für Blitz-Desktop</span>
+        <span class="roblox-info-pill" style="font-size:11px; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:8px; color:#cbd5e1;">← Taste <kbd>Esc</kbd> für Zentrale</span>
+      </div>
+    </div>
   </div>
 
-  <!-- In-Game Controls HUD Overlay -->
-  <div style="position:fixed; bottom:14px; right:16px; z-index:99980; font-size:11.5px; font-weight:700; color:#ffffff; background:rgba(15,10,8,0.78); backdrop-filter:blur(8px); padding:6px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.2); pointer-events:none; box-shadow:0 4px 16px rgba(0,0,0,0.4);">
-    <span style="color:#fde047;">WASD</span> / Pfeile: Laufen • <span style="color:#fde047;">Leertaste</span>: Springen • <span style="color:#fde047;">Maus</span>: Drehen / Bauen • <span style="color:#fde047;">R</span>: Respawn • <span style="color:#fde047;">F11</span>: Vollbild
-  </div>
 </div>
 
 
@@ -19559,19 +19618,48 @@ console.log("Roblox3DStudioEngine class loaded");
   };
 
   function enterRobloxFullscreenView() {
+    document.title = 'NeuroSpace Studio — Roblox Active';
     if (window.switchView) {
       window.switchView('view-roblox');
     }
     if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen().catch(() => {});
     }
-    window.launchRobloxInAppEngine();
+    window.launchRobloxInAppEngine('');
   }
 
-  window.launchRobloxInAppEngine = function() {
-    if (window.roblox3DApp) {
-      window.roblox3DApp.activate();
+  window.launchRobloxInAppEngine = function(placeId) {
+    document.title = 'NeuroSpace Studio — Roblox Active';
+    try {
+      if (placeId && placeId.toString().trim()) {
+        const pid = placeId.toString().trim();
+        window.location.href = 'roblox://experiences/start?placeId=' + pid;
+      } else {
+        window.location.href = 'roblox://app';
+      }
+    } catch (e) {
+      if (placeId && placeId.toString().trim()) {
+        window.open('roblox://experiences/start?placeId=' + placeId.toString().trim(), '_blank');
+      } else {
+        window.open('roblox://app', '_blank');
+      }
     }
+  };
+
+  window.joinCustomRobloxPlace = function() {
+    const input = document.getElementById('rbx-custom-place');
+    if (!input) return;
+    let val = input.value.trim();
+    if (!val) return;
+    // Extract placeId if full URL was provided
+    const match = val.match(/(?:games|experiences)\/(\d+)/);
+    if (match) {
+      val = match[1];
+    } else {
+      const matchParam = val.match(/placeId=(\d+)/i);
+      if (matchParam) val = matchParam[1];
+    }
+    window.launchRobloxInAppEngine(val);
   };
 
   window.toggleRobloxFullscreen = function() {
@@ -19587,11 +19675,9 @@ console.log("Roblox3DStudioEngine class loaded");
   };
 
   window.exitRobloxToHub = function() {
+    document.title = 'NeuroSpace Studio — Herbst-Edition';
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(() => {});
-    }
-    if (window.roblox3DApp && window.roblox3DApp.isActive) {
-      window.roblox3DApp.deactivate();
     }
     if (window.utilityDrawerEngine) {
       window.utilityDrawerEngine.toggle(false);

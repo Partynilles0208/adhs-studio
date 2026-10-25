@@ -216,7 +216,7 @@ namespace NeuroSpaceInstaller
             lblHiText.Text = "🍁 Highlights dieser Version:\n" +
                             "• 30 Sensorische Apps: Pixel-Gravitation, Sand-Kaskade, Buckyballs 3D, uvm.\n" +
                             "• Autoklicker & Live-FPS Werkzeuge: Anpassbar auf der linken Bildschirmseite\n" +
-                            "• 100% Integriertes Roblox 3D Studio: Direkt in NeuroSpace reinprogrammiert mit R6-Avatar, Obby, Sound & Bau-Modus\n" +
+                            "• Normales Roblox nahtlos im Studio: Direkte Server-Verbindung & beliebte Erlebnisse ohne separates Fenster\n" +
                             "• Autoplay ohne Klicks: Musik und Videos starten automatisch ohne Browser-Restriktionen\n" +
                             "• Privatsphäre garantiert: Daten verbleiben lokal in C:\\NeuroSpace";
             pnlHighlights.Controls.Add(lblHiText);
@@ -603,12 +603,16 @@ namespace NeuroSpaceInstaller
             // Launcher with autoplay policy bypassed & dedicated app mode
             string batPath = Path.Combine(TARGET_DIR, "NeuroSpace.bat");
             string batContent = "@echo off\r\n" +
-                                "set \"EDGE=%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
-                                "if not exist \"%EDGE%\" set \"EDGE=%ProgramFiles%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
-                                "if exist \"%EDGE%\" (\r\n" +
-                                "    start \"\" \"%EDGE%\" --app=\"file:///C:/NeuroSpace/index.html?app=desktop\" --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check\r\n" +
+                                "if exist \"C:\\NeuroSpace\\NeuroSpace.exe\" (\r\n" +
+                                "    start \"\" \"C:\\NeuroSpace\\NeuroSpace.exe\"\r\n" +
                                 ") else (\r\n" +
-                                "    start \"\" \"C:\\NeuroSpace\\index.html?app=desktop\"\r\n" +
+                                "    set \"EDGE=%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
+                                "    if not exist \"%EDGE%\" set \"EDGE=%ProgramFiles%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
+                                "    if exist \"%EDGE%\" (\r\n" +
+                                "        start \"\" \"%EDGE%\" --app=\"file:///C:/NeuroSpace/index.html?app=desktop\" --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check\r\n" +
+                                "    ) else (\r\n" +
+                                "        start \"\" \"C:\\NeuroSpace\\index.html?app=desktop\"\r\n" +
+                                "    )\r\n" +
                                 ")\r\n" +
                                 "exit\r\n";
             File.WriteAllText(batPath, batContent);

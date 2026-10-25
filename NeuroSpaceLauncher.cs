@@ -47,10 +47,16 @@ namespace NeuroSpaceLauncher
         public static extern IntPtr GetParent(IntPtr hWnd);
 
         [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
         public static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
         public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
@@ -70,19 +76,20 @@ namespace NeuroSpaceLauncher
         private const int WS_CAPTION = 0x00C00000;
         private const int WS_THICKFRAME = 0x00040000;
         private const uint SWP_SHOWWINDOW = 0x0040;
+        private const int SW_HIDE = 0;
+        private const int SW_SHOW = 5;
 
         private const int MOD_ALT = 0x0001;
         private const int VK_B = 0x42;
         private const int WM_HOTKEY = 0x0312;
         private const int HOTKEY_ID = 9920;
 
-        private Process browserProcess;
         private System.Windows.Forms.Timer embedTimer;
         private IntPtr cachedEdgeHwnd = IntPtr.Zero;
+        private bool edgeEverFound = false;
 
-        public HotkeyWatcherForm(Process proc)
+        public HotkeyWatcherForm()
         {
-            this.browserProcess = proc;
             this.ShowInTaskbar = false;
             this.WindowState = FormWindowState.Minimized;
             this.FormBorderStyle = FormBorderStyle.None;
@@ -91,29 +98,11 @@ namespace NeuroSpaceLauncher
             // Register system-wide Alt+B hotkey for instant minimize to desktop
             RegisterHotKey(this.Handle, HOTKEY_ID, MOD_ALT, VK_B);
 
-            // In-App Roblox seamless window embedder timer
+            // High-frequency in-app Roblox seamless window embedder timer (50ms for instant docking)
             embedTimer = new System.Windows.Forms.Timer();
-            embedTimer.Interval = 150;
+            embedTimer.Interval = 50;
             embedTimer.Tick += OnEmbedTimerTick;
             embedTimer.Start();
-
-            if (proc != null)
-            {
-                proc.EnableRaisingEvents = true;
-                proc.Exited += delegate
-                {
-                    try
-                    {
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            embedTimer.Stop();
-                            UnregisterHotKey(this.Handle, HOTKEY_ID);
-                            Application.Exit();
-                        });
-                    }
-                    catch { }
-                };
-            }
         }
 
         private void OnEmbedTimerTick(object sender, EventArgs e)
@@ -127,21 +116,32 @@ namespace NeuroSpaceLauncher
                 if (cachedEdgeHwnd == IntPtr.Zero || !IsWindow(cachedEdgeHwnd))
                 {
                     cachedEdgeHwnd = FindEdgeWindow();
+                    if (cachedEdgeHwnd != IntPtr.Zero)
+                    {
+                        edgeEverFound = true;
+                    }
+                }
+
+                // If Edge was previously open and now closed, exit launcher
+                if (edgeEverFound && (cachedEdgeHwnd == IntPtr.Zero || !IsWindow(cachedEdgeHwnd)))
+                {
+                    Application.Exit();
+                    return;
                 }
 
                 if (cachedEdgeHwnd == IntPtr.Zero) return;
 
-                // Find Roblox window (Class: WINDOWCLIENT, Title: Roblox)
-                IntPtr rbxHwnd = FindWindow("WINDOWSCLIENT", "Roblox");
-                if (rbxHwnd == IntPtr.Zero) return;
+                // Find normal Roblox window (Class: WINDOWCLIENT)
+                IntPtr rbxHwnd = FindWindow("WINDOWSCLIENT", null);
+                if (rbxHwnd == IntPtr.Zero || !IsWindow(rbxHwnd)) return;
 
-                RECT edgeRect;
-                GetClientRect(cachedEdgeHwnd, out edgeRect);
-                int w = edgeRect.Right - edgeRect.Left;
-                int h = edgeRect.Bottom - edgeRect.Top;
-                if (w <= 0 || h <= 0) return;
+                // Check title to determine if user is in Roblox Active mode or in Hub
+                StringBuilder sb = new StringBuilder(512);
+                GetWindowText(cachedEdgeHwnd, sb, 512);
+                string title = sb.ToString();
+                bool isRobloxActive = title.IndexOf("Roblox Active", StringComparison.OrdinalIgnoreCase) >= 0;
 
-                // If not yet reparented, embed Roblox directly inside NeuroSpace window!
+                // If not yet reparented, dock normal Roblox directly inside NeuroSpace window!
                 if (GetParent(rbxHwnd) != cachedEdgeHwnd)
                 {
                     SetParent(rbxHwnd, cachedEdgeHwnd);
@@ -150,9 +150,26 @@ namespace NeuroSpaceLauncher
                     SetWindowLong(rbxHwnd, GWL_STYLE, newStyle);
                 }
 
-                // Keep Roblox perfectly positioned inside NeuroSpace under top nav bar
-                MoveWindow(rbxHwnd, 0, 48, w, h - 48, true);
-                SetWindowPos(rbxHwnd, IntPtr.Zero, 0, 48, w, h - 48, SWP_SHOWWINDOW);
+                RECT edgeRect;
+                GetClientRect(cachedEdgeHwnd, out edgeRect);
+                int w = edgeRect.Right - edgeRect.Left;
+                int h = edgeRect.Bottom - edgeRect.Top;
+                if (w <= 0 || h <= 0) return;
+
+                if (isRobloxActive)
+                {
+                    // Show and position seamlessly inside NeuroSpace under top nav bar (48px)
+                    ShowWindow(rbxHwnd, SW_SHOW);
+                    int targetTop = 46;
+                    int targetHeight = Math.Max(100, h - targetTop);
+                    MoveWindow(rbxHwnd, 0, targetTop, w, targetHeight, true);
+                    SetWindowPos(rbxHwnd, IntPtr.Zero, 0, targetTop, w, targetHeight, SWP_SHOWWINDOW);
+                }
+                else
+                {
+                    // User is in Hub or another view -> hide Roblox child window
+                    ShowWindow(rbxHwnd, SW_HIDE);
+                }
             }
             catch { }
         }
@@ -164,13 +181,18 @@ namespace NeuroSpaceLauncher
             {
                 if (IsWindowVisible(hWnd))
                 {
-                    StringBuilder sb = new StringBuilder(512);
-                    GetWindowText(hWnd, sb, 512);
-                    string title = sb.ToString();
-                    if (title.IndexOf("NeuroSpace", StringComparison.OrdinalIgnoreCase) >= 0)
+                    StringBuilder cls = new StringBuilder(256);
+                    GetClassName(hWnd, cls, 256);
+                    if (cls.ToString() == "Chrome_WidgetWin_1")
                     {
-                        found = hWnd;
-                        return false;
+                        StringBuilder sb = new StringBuilder(512);
+                        GetWindowText(hWnd, sb, 512);
+                        string title = sb.ToString();
+                        if (title.IndexOf("NeuroSpace", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            found = hWnd;
+                            return false;
+                        }
                     }
                 }
                 return true;
@@ -272,18 +294,17 @@ namespace NeuroSpaceLauncher
                     htmlUri
                 );
 
-                Process browserProc = null;
                 if (browserExe != null)
                 {
                     ProcessStartInfo psi = new ProcessStartInfo();
                     psi.FileName = browserExe;
                     psi.Arguments = flags;
                     psi.UseShellExecute = false;
-                    browserProc = Process.Start(psi);
+                    Process.Start(psi);
                 }
                 else
                 {
-                    browserProc = Process.Start(new ProcessStartInfo
+                    Process.Start(new ProcessStartInfo
                     {
                         FileName = targetHtml,
                         UseShellExecute = true
@@ -291,7 +312,7 @@ namespace NeuroSpaceLauncher
                 }
 
                 // Run in-app embedder & hotkey watcher form
-                Application.Run(new HotkeyWatcherForm(browserProc));
+                Application.Run(new HotkeyWatcherForm());
             }
             catch (Exception ex)
             {
