@@ -2005,21 +2005,26 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(245, 158, 11, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(245, 158, 11, 0.45);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fde047;
-    font-size: 12px;
-    transition: all 0.25s ease;
+    font-size: 13px;
+    line-height: 1;
+    transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
     transform: translateZ(24px);
+    flex-shrink: 0;
+    margin-left: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
   }
   .neuro-card:hover .card-arrow-btn {
-    background: #f59e0b;
-    color: #1c1917;
-    box-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
-    transform: translateZ(42px) scale(1.15);
+    background: #f59e0b !important;
+    color: #18110a !important;
+    border-color: #fef08a !important;
+    box-shadow: 0 0 18px rgba(245, 158, 11, 0.85), 0 0 32px rgba(245, 158, 11, 0.45) !important;
+    transform: translateZ(44px) scale(1.16) !important;
   }
 
   /* AUTUMN THEME NAVIGATION - ZERO BACKGROUND BOXES ("Kein Hintergrund Ding") */
@@ -2170,23 +2175,29 @@
     border: 1px solid rgba(56, 189, 248, 0.25);
   }
   .card-arrow-btn {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(245, 158, 11, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(245, 158, 11, 0.45);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fde047;
-    font-size: 12px;
-    transition: all 0.2s;
+    font-size: 13px;
+    line-height: 1;
+    transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: translateZ(24px);
+    flex-shrink: 0;
+    margin-left: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
   }
   .neuro-card:hover .card-arrow-btn {
-    background: #f59e0b;
-    color: #1c1917;
-    box-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
-    transform: translateZ(42px) scale(1.15);
+    background: #f59e0b !important;
+    color: #18110a !important;
+    border-color: #fef08a !important;
+    box-shadow: 0 0 18px rgba(245, 158, 11, 0.85), 0 0 32px rgba(245, 158, 11, 0.45) !important;
+    transform: translateZ(44px) scale(1.16) !important;
   }
 
   /* BOTTOM AMBIENT STATUS DOCK (MATCHING USER SCREENSHOT) */
@@ -7701,6 +7712,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">⏳ Physik</span><span class="card-pill-tag">🍂 Sand-Sandbox</span><span class="card-pill-tag">🔥 Kamin-Glut</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7718,6 +7730,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🎮 Herbst-Arcade</span><span class="card-pill-tag">🍁 Retro & Action</span><span class="card-pill-tag">☕ Gemütlich</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7735,6 +7748,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🫁 Entspannung</span><span class="card-pill-tag">🍂 Herbst-Ruhe</span><span class="card-pill-tag">☕ Atem-Puls</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7752,6 +7766,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">⏳ Sand-Schichten</span><span class="card-pill-tag">🍂 Herbst-Farben</span><span class="card-pill-tag">✨ Kinetisch</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7769,6 +7784,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🫧 Amber-Glut</span><span class="card-pill-tag">🔥 Kaminfeuer-Glow</span><span class="card-pill-tag">🕯️ Beruhigend</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7786,6 +7802,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🎋 Bambus-Harke</span><span class="card-pill-tag">🍂 Ahorn-Laub</span><span class="card-pill-tag">🪨 Ruhepol</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7803,6 +7820,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🫧 Sanftes Ploppen</span><span class="card-pill-tag">🍂 Herbstbrise</span><span class="card-pill-tag">✨ Schweben</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7820,6 +7838,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🔔 432 Hz Resonanz</span><span class="card-pill-tag">🍂 Herbstwind</span><span class="card-pill-tag">✨ Pentatonik</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7837,6 +7856,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🌀 Laubwirbel</span><span class="card-pill-tag">🍂 Tiefen-Fokus</span><span class="card-pill-tag">💫 Trance</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7854,6 +7874,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🥁 D-Moll Harfe</span><span class="card-pill-tag">🍁 Warmer Klang</span><span class="card-pill-tag">☕ Meditativ</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7871,6 +7892,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🍯 Bernstein-Honig</span><span class="card-pill-tag">🍂 Taktil</span><span class="card-pill-tag">✨ Beruhigend</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7888,6 +7910,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">⚙️ Messing-Trägheit</span><span class="card-pill-tag">🍂 Amber-Glow</span><span class="card-pill-tag">💫 Endlos-Dreh</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7905,6 +7928,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🔮 Bernstein-Plasma</span><span class="card-pill-tag">⚡ Taktiler Strom</span><span class="card-pill-tag">🕯️ Kamin-Effekt</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7922,6 +7946,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🔘 Haptik-Klick</span><span class="card-pill-tag">🍂 Kupfer & Holz</span><span class="card-pill-tag">☕ Anti-Stress</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7939,6 +7964,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🎨 Herbst-Aquarell</span><span class="card-pill-tag">🌊 Fluidik</span><span class="card-pill-tag">✨ Glitzerwirbel</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7956,6 +7982,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">📜 Gedanken lösen</span><span class="card-pill-tag">🔥 Kaminfeuer</span><span class="card-pill-tag">🍂 Loslassen</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7973,6 +8000,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🖌️ Gold & Pastell</span><span class="card-pill-tag">🍂 Mandala</span><span class="card-pill-tag">🎨 Expressiv</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -7990,6 +8018,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🔘 Sanftes Ploppen</span><span class="card-pill-tag">🍂 Haptik</span><span class="card-pill-tag">✨ Taktil</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8007,6 +8036,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">✨ Goldener Sternenstaub</span><span class="card-pill-tag">🍂 Schwerkraft</span><span class="card-pill-tag">🪐 Kosmos</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8024,6 +8054,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🌧️ Herbstregen</span><span class="card-pill-tag">🔥 Kaminfeuer</span><span class="card-pill-tag">☕ Braunes Rauschen</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8041,6 +8072,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🎶 Daumenharfe</span><span class="card-pill-tag">🍁 Mahagoni</span><span class="card-pill-tag">✨ Pentatonik</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8058,6 +8090,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">⌛ Bernstein-Sand</span><span class="card-pill-tag">🍂 Ruhe-Rhythmus</span><span class="card-pill-tag">☕ Zeitlos</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8075,6 +8108,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🧠 10 Hz Alpha</span><span class="card-pill-tag">🍂 Tiefen-Fokus</span><span class="card-pill-tag">☕ Erdung</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8092,6 +8126,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">✨ Sinkender Glitzer</span><span class="card-pill-tag">🍂 Herbst-Aura</span><span class="card-pill-tag">🪔 Achtsamkeit</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8109,6 +8144,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">⚖️ Doppel-Pendel</span><span class="card-pill-tag">🍂 Lissajous-Kurven</span><span class="card-pill-tag">✨ Geometrie</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8126,6 +8162,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">✨ Goldregen</span><span class="card-pill-tag">🍂 Sanfte Funken</span><span class="card-pill-tag">🕯️ Kamin-Ruhe</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8143,6 +8180,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">💎 Bernstein & Topas</span><span class="card-pill-tag">🍂 Ordnung</span><span class="card-pill-tag">☕ Klarheit</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8160,6 +8198,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">📿 Zedernholz</span><span class="card-pill-tag">🍂 Taktil</span><span class="card-pill-tag">✨ Perlenfluss</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
@@ -8177,6 +8216,7 @@
               <div class="card-tags-wrap">
                 <span class="card-pill-tag">🌸 Herbst-Blüte</span><span class="card-pill-tag">🍂 Organisch</span><span class="card-pill-tag">✨ Balance</span>
               </div>
+              <div class="card-arrow-btn">➜</div>
             </div>
           </div>
         </div>
