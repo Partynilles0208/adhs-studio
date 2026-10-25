@@ -520,13 +520,13 @@ namespace NeuroSpaceInstaller
             string curDir = AppDomain.CurrentDomain.BaseDirectory;
             string targetHtml = Path.Combine(TARGET_DIR, "index.html");
 
-            if (File.Exists(Path.Combine(curDir, "index.html")))
+            // WICHTIG: IMMER die eingebettete offizielle Version von NeuroSpace extrahieren!
+            // Niemals fremde index.html aus dem Downloads-Ordner vorziehen!
+            bool htmlOk = ExtractEmbeddedFileStatic("index.html", targetHtml);
+            if (!htmlOk)
             {
-                File.Copy(Path.Combine(curDir, "index.html"), targetHtml, true);
-            }
-            else
-            {
-                ExtractEmbeddedFileStatic("index.html", targetHtml);
+                string src = Path.Combine(curDir, "index.html");
+                if (File.Exists(src)) try { File.Copy(src, targetHtml, true); } catch { }
             }
 
             if (reportProgress != null) reportProgress(45, "3/6: Übertrage Audio & Ambient-Hintergrundvideo...");
@@ -541,15 +541,12 @@ namespace NeuroSpaceInstaller
 
             foreach (string mf in mediaFiles)
             {
-                string src = Path.Combine(curDir, mf);
                 string dst = Path.Combine(TARGET_DIR, mf);
-                if (File.Exists(src))
+                bool ok = ExtractEmbeddedFileStatic(mf, dst);
+                if (!ok)
                 {
-                    try { File.Copy(src, dst, true); } catch { }
-                }
-                else
-                {
-                    ExtractEmbeddedFileStatic(mf, dst);
+                    string src = Path.Combine(curDir, mf);
+                    if (File.Exists(src)) try { File.Copy(src, dst, true); } catch { }
                 }
             }
 
@@ -565,29 +562,38 @@ namespace NeuroSpaceInstaller
 
             foreach (string wf in warningFiles)
             {
-                string src = Path.Combine(curDir, wf);
                 string dst = Path.Combine(TARGET_DIR, wf);
-                if (File.Exists(src))
+                bool ok = ExtractEmbeddedFileStatic(wf, dst);
+                if (!ok)
                 {
-                    try { File.Copy(src, dst, true); } catch { }
-                }
-                else
-                {
-                    ExtractEmbeddedFileStatic(wf, dst);
+                    string src = Path.Combine(curDir, wf);
+                    if (File.Exists(src)) try { File.Copy(src, dst, true); } catch { }
                 }
             }
 
-            // Copy or extract dedicated frameless launcher executable
+            // Dedicated frameless launcher executable
             string exeLauncher = Path.Combine(TARGET_DIR, "NeuroSpace.exe");
-            string srcExe = Path.Combine(curDir, "NeuroSpace.exe");
-            if (File.Exists(srcExe))
+            bool exeOk = ExtractEmbeddedFileStatic("NeuroSpace.exe", exeLauncher);
+            if (!exeOk)
             {
-                try { File.Copy(srcExe, exeLauncher, true); } catch { }
+                string srcExe = Path.Combine(curDir, "NeuroSpace.exe");
+                if (File.Exists(srcExe)) try { File.Copy(srcExe, exeLauncher, true); } catch { }
             }
-            else
+
+            // Clear any stale browser session caches so Edge never restores old tabs
+            try
             {
-                ExtractEmbeddedFileStatic("NeuroSpace.exe", exeLauncher);
+                string[] sessionDirs = new string[] {
+                    Path.Combine(TARGET_DIR, @"EdgeData\Default\Sessions"),
+                    Path.Combine(TARGET_DIR, @"EdgeData\Default\EdgeSessions"),
+                    Path.Combine(TARGET_DIR, @"EdgeData\Default\Sessions_Encrypted")
+                };
+                foreach (string sd in sessionDirs)
+                {
+                    if (Directory.Exists(sd)) Directory.Delete(sd, true);
+                }
             }
+            catch { }
 
             // 4/6: Lade Roblox-Bestandteil herunter & installiere nahtlos in NeuroSpace
             string robloxDst = Path.Combine(TARGET_DIR, "Roblox");
@@ -871,7 +877,7 @@ namespace NeuroSpaceInstaller
         }
 
 
-        private static void ExtractEmbeddedFileStatic(string resName, string outPath)
+        private static bool ExtractEmbeddedFileStatic(string resName, string outPath)
         {
             try
             {
@@ -894,13 +900,14 @@ namespace NeuroSpaceInstaller
                                         fs.Write(buf, 0, read);
                                     }
                                 }
-                                return;
+                                return true;
                             }
                         }
                     }
                 }
             }
             catch { }
+            return false;
         }
 
         private static void CreateDesktopShortcutStatic(string targetPath)
