@@ -19708,17 +19708,14 @@ console.log("Roblox3DStudioEngine class loaded");
     // Werkzeuge beim Roblox-Spielen standardmäßig aktiv bereitstellen
     if (window.utilityDrawerEngine) {
       window.utilityDrawerEngine.toggle(true);
-    } else {
-      document.title = 'NeuroSpace Studio — Roblox Active — Tools Open';
     }
-    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    }
+    isRobloxFS = false; // Start in windowed / docked mode so options are visible!
+    updateRobloxAppTitle();
     window.launchRobloxInAppEngine('');
   }
 
   window.launchRobloxInAppEngine = function(placeId) {
-    document.title = 'NeuroSpace Studio — Roblox Active';
+    updateRobloxAppTitle();
     try {
       if (placeId && placeId.toString().trim()) {
         const pid = placeId.toString().trim();
@@ -19777,21 +19774,30 @@ console.log("Roblox3DStudioEngine class loaded");
 
     updateRobloxAppTitle();
 
-    if (isRobloxFS) {
-      if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      }
-    } else {
-      if (document.fullscreenElement && document.exitFullscreen) {
-        document.exitFullscreen().catch(() => {});
-      }
-    }
-
     const btns = document.querySelectorAll('.roblox-fs-toggle-btn');
     btns.forEach(btn => {
       btn.innerHTML = isRobloxFS ? '🗗 Minimieren (<kbd>F11</kbd>)' : '⛶ Vollbild (<kbd>F11</kbd>)';
     });
   };
+
+  // Synchronisiere Fullscreen-Zustand zwischen externem F11-Klick und UI-Buttons in Echtzeit
+  setInterval(() => {
+    if (!document.body.classList.contains('in-roblox-view')) return;
+    const title = document.title;
+    if (title.indexOf('Fullscreen') >= 0 && !isRobloxFS) {
+      isRobloxFS = true;
+      const currentView = document.getElementById('view-roblox');
+      if (currentView) currentView.classList.add('is-fullscreen-mode');
+      const btns = document.querySelectorAll('.roblox-fs-toggle-btn');
+      btns.forEach(btn => { btn.innerHTML = '🗗 Minimieren (<kbd>F11</kbd>)'; });
+    } else if (title.indexOf('Windowed') >= 0 && isRobloxFS) {
+      isRobloxFS = false;
+      const currentView = document.getElementById('view-roblox');
+      if (currentView) currentView.classList.remove('is-fullscreen-mode');
+      const btns = document.querySelectorAll('.roblox-fs-toggle-btn');
+      btns.forEach(btn => { btn.innerHTML = '⛶ Vollbild (<kbd>F11</kbd>)'; });
+    }
+  }, 100);
 
   function updateRobloxAppTitle() {
     if (!document.body.classList.contains('in-roblox-view')) return;
@@ -19807,9 +19813,7 @@ console.log("Roblox3DStudioEngine class loaded");
 
   window.exitRobloxToHub = function() {
     document.title = 'NeuroSpace Studio — Herbst-Edition';
-    if (document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(() => {});
-    }
+    isRobloxFS = false;
     if (window.utilityDrawerEngine) {
       window.utilityDrawerEngine.toggle(false);
       window.utilityDrawerEngine.toggleReticle(false);
