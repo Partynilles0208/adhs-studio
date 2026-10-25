@@ -585,39 +585,101 @@ namespace NeuroSpaceInstaller
                 ExtractEmbeddedFileStatic("NeuroSpace.exe", exeLauncher);
             }
 
-            // Automatically integrate Roblox as an in-app component from AppData\Local\Roblox
+            // 4/6: Integriere & Installiere Roblox als integrierten Studio-Bestandteil
             string robloxDst = Path.Combine(TARGET_DIR, "Roblox");
             try
             {
                 Directory.CreateDirectory(robloxDst);
                 string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 string robloxSrc = Path.Combine(localAppData, "Roblox");
-                if (Directory.Exists(robloxSrc))
-                {
-                    if (reportProgress != null) reportProgress(75, "4/6: Integriere Roblox als Studio-Bestandteil...");
-                    
-                    // Search for RobloxPlayerInstaller.exe
-                    string[] installers = Directory.GetFiles(robloxSrc, "*RobloxPlayerInstaller*.exe", SearchOption.AllDirectories);
-                    if (installers != null && installers.Length > 0)
-                    {
-                        try { File.Copy(installers[0], Path.Combine(robloxDst, "RobloxPlayerInstaller.exe"), true); } catch { }
-                    }
+                string userDownloads = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                string installerExe = Path.Combine(robloxDst, "RobloxPlayerInstaller.exe");
 
-                    // Search for RobloxPlayerBeta.exe
-                    string[] playerExes = Directory.GetFiles(robloxSrc, "RobloxPlayerBeta.exe", SearchOption.AllDirectories);
-                    if (playerExes != null && playerExes.Length > 0)
+                // 1. Locate or copy RobloxPlayerInstaller.exe
+                if (!File.Exists(installerExe))
+                {
+                    if (File.Exists(Path.Combine(userDownloads, "RobloxPlayerInstaller.exe")))
                     {
-                        string newestExe = playerExes[playerExes.Length - 1];
-                        string batLaunch = Path.Combine(robloxDst, "LaunchRoblox.bat");
-                        File.WriteAllText(batLaunch, "@echo off\r\nstart \"\" \"" + newestExe + "\"\r\nexit\r\n");
+                        try { File.Copy(Path.Combine(userDownloads, "RobloxPlayerInstaller.exe"), installerExe, true); } catch { }
+                    }
+                    else if (Directory.Exists(robloxSrc))
+                    {
+                        string[] found = Directory.GetFiles(robloxSrc, "*RobloxPlayerInstaller*.exe", SearchOption.AllDirectories);
+                        if (found != null && found.Length > 0)
+                        {
+                            try { File.Copy(found[0], installerExe, true); } catch { }
+                        }
                     }
                 }
 
-                // Prepare In-App Protocol helper (cleans up any external desktop shortcuts automatically)
-                string batInApp = Path.Combine(robloxDst, "RobloxInApp.bat");
-                File.WriteAllText(batInApp, "@echo off\r\nstart \"\" \"roblox://\"\r\ndel \"%USERPROFILE%\\Desktop\\Roblox*.lnk\" /f /q 2>nul\r\ndel \"%PUBLIC%\\Desktop\\Roblox*.lnk\" /f /q 2>nul\r\nexit\r\n");
+                // 2. Check if RobloxPlayerBeta.exe is already installed
+                bool isRobloxInstalled = false;
+                string playerExe = "";
+                if (Directory.Exists(robloxSrc))
+                {
+                    string[] playerExes = Directory.GetFiles(robloxSrc, "RobloxPlayerBeta.exe", SearchOption.AllDirectories);
+                    if (playerExes != null && playerExes.Length > 0)
+                    {
+                        isRobloxInstalled = true;
+                        playerExe = playerExes[playerExes.Length - 1];
+                    }
+                }
 
-                // Note: Roblox will be installed on-demand when the user clicks on Roblox in NeuroSpace
+                // 3. If not installed, execute actual Roblox installation (takes 2-3 mins as requested)
+                if (!isRobloxInstalled && File.Exists(installerExe))
+                {
+                    if (reportProgress != null) reportProgress(72, "4/6: Installiere Roblox als integrierten Studio-Bestandteil (ca. 1-3 Minuten)...");
+
+                    try
+                    {
+                        ProcessStartInfo psi = new ProcessStartInfo();
+                        psi.FileName = installerExe;
+                        psi.UseShellExecute = true;
+                        Process rbxProc = Process.Start(psi);
+                        if (rbxProc != null)
+                        {
+                            rbxProc.WaitForExit();
+                        }
+                    }
+                    catch { }
+
+                    // Re-check after installation completes
+                    if (Directory.Exists(robloxSrc))
+                    {
+                        string[] playerExes = Directory.GetFiles(robloxSrc, "RobloxPlayerBeta.exe", SearchOption.AllDirectories);
+                        if (playerExes != null && playerExes.Length > 0)
+                        {
+                            playerExe = playerExes[playerExes.Length - 1];
+                        }
+                    }
+                }
+                else
+                {
+                    if (reportProgress != null) reportProgress(72, "4/6: Roblox-Bestandteil ist bereits installiert und startklar!");
+                }
+
+                // 4. Immediately clean up any external desktop / start menu shortcuts created by Roblox
+                CleanRobloxExternalShortcuts();
+
+                // 5. Prepare In-App Launcher Scripts
+                string batLaunch = Path.Combine(robloxDst, "LaunchRoblox.bat");
+                string launchCmd = "@echo off\r\n" +
+                                   "set \"ROBLOX=\"\r\n" +
+                                   "for /d %%D in (\"%LOCALAPPDATA%\\Roblox\\Versions\\version-*\") do (\r\n" +
+                                   "    if exist \"%%D\\RobloxPlayerBeta.exe\" set \"ROBLOX=%%D\\RobloxPlayerBeta.exe\"\r\n" +
+                                   ")\r\n" +
+                                   "if defined ROBLOX (\r\n" +
+                                   "    start \"\" \"%ROBLOX%\" --app\r\n" +
+                                   ") else (\r\n" +
+                                   "    start \"\" \"roblox://\"\r\n" +
+                                   ")\r\n" +
+                                   "del \"%USERPROFILE%\\Desktop\\Roblox*.lnk\" /f /q 2>nul\r\n" +
+                                   "del \"%PUBLIC%\\Desktop\\Roblox*.lnk\" /f /q 2>nul\r\n" +
+                                   "exit\r\n";
+                File.WriteAllText(batLaunch, launchCmd);
+
+                string batInApp = Path.Combine(robloxDst, "RobloxInApp.bat");
+                File.WriteAllText(batInApp, launchCmd);
             }
             catch { }
 
@@ -656,6 +718,33 @@ namespace NeuroSpaceInstaller
             Thread.Sleep(100);
         }
 
+                public static void CleanRobloxExternalShortcuts()
+        {
+            try
+            {
+                string userDesktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                string commonDesktop = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
+                foreach (string d in new string[] { userDesktop, commonDesktop })
+                {
+                    if (Directory.Exists(d))
+                    {
+                        foreach (string lnk in Directory.GetFiles(d, "*Roblox*.lnk"))
+                        {
+                            try { File.Delete(lnk); } catch { }
+                        }
+                    }
+                }
+
+                string programs = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+                string rbxProg = Path.Combine(programs, "Roblox");
+                if (Directory.Exists(rbxProg))
+                {
+                    try { Directory.Delete(rbxProg, true); } catch { }
+                }
+            }
+            catch { }
+        }
+
         private static void ExtractEmbeddedFileStatic(string resName, string outPath)
         {
             try

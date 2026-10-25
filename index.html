@@ -18095,30 +18095,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 
-<!-- ON-DEMAND ROBLOX INSTALLATION MODAL -->
-<div id="roblox-install-modal" class="editor-modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:99999999; align-items:center; justify-content:center; padding:16px; background:rgba(10,8,6,0.92); backdrop-filter:blur(24px);">
-  <div style="max-width:520px; width:100%; background:radial-gradient(circle at 50% 20%, rgba(35,20,15,0.98), rgba(15,10,8,0.99)); border:2px solid #ef4444; border-radius:24px; box-shadow:0 0 60px rgba(239,68,68,0.35); padding:32px; text-align:center; box-sizing:border-box;">
-    <div style="width:64px; height:64px; border-radius:16px; background:linear-gradient(135deg,#ef4444,#dc2626); display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto 18px; box-shadow:0 0 25px rgba(239,68,68,0.5);">
-      🟥
-    </div>
-    <h2 style="font-size:22px; font-weight:900; color:#fef3c7; margin:0 0 8px; letter-spacing:0.3px;">Roblox wird in NeuroSpace installiert...</h2>
-    <p style="font-size:12.5px; color:#cbd5e1; margin:0 0 20px; line-height:1.5;">
-      Wird als integrierter Studio-Bestandteil ohne Administratorrechte eingerichtet.
-    </p>
-    
-    <!-- Progress Bar -->
-    <div style="background:rgba(255,255,255,0.1); border-radius:12px; height:14px; overflow:hidden; position:relative; margin-bottom:12px; border:1px solid rgba(239,68,68,0.3);">
-      <div id="roblox-install-progress-bar" style="width:0%; height:100%; background:linear-gradient(90deg, #ef4444, #f59e0b); border-radius:12px; transition:width 0.2s ease; box-shadow:0 0 15px rgba(239,68,68,0.8);"></div>
-    </div>
-    <div id="roblox-install-status-text" style="font-size:12px; font-weight:700; color:#fbbf24; margin-bottom:18px;">
-      Starte Benutzer-Installation...
-    </div>
-    <div style="font-size:11px; color:#94a3b8;">
-      ⚡ Keine Admin-Rechte erforderlich • Startet danach direkt im Vollbild
-    </div>
-  </div>
-</div>
-
 <!-- ============================================================== -->
 <!-- VIEW: ROBLOX IN-APP STUDIO ARENA (INTEGRIERTER BESTANDTEIL)    -->
 <!-- ============================================================== -->
@@ -18639,48 +18615,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isDesktopEnvironment()) {
       return;
     }
-
-    const isInstalled = localStorage.getItem('neurospace_roblox_installed') === 'true';
-
-    if (!isInstalled) {
-      const modal = document.getElementById('roblox-install-modal');
-      const bar = document.getElementById('roblox-install-progress-bar');
-      const text = document.getElementById('roblox-install-status-text');
-
-      if (modal) modal.style.display = 'flex';
-      if (bar) bar.style.width = '10%';
-      if (text) text.textContent = 'Bereite integrierten Roblox-Emulator vor...';
-
-      try {
-        window.location.href = "file:///C:/NeuroSpace/Roblox/RobloxPlayerInstaller.exe";
-      } catch (e) {}
-
-      let progress = 10;
-      const installInterval = setInterval(() => {
-        progress += Math.floor(Math.random() * 18) + 10;
-        if (progress > 100) progress = 100;
-        if (bar) bar.style.width = `${progress}%`;
-
-        if (progress < 40) {
-          if (text) text.textContent = 'Installiere Roblox in NeuroSpace ohne Admin-Rechte...';
-        } else if (progress < 80) {
-          if (text) text.textContent = 'Entferne externe Verknüpfungen (Nur In-App Start)...';
-        } else if (progress < 100) {
-          if (text) text.textContent = 'Fast fertig! Bereite Emulator-Vollbild vor...';
-        } else {
-          clearInterval(installInterval);
-          if (text) text.textContent = 'Installiert! Roblox ist jetzt startklar.';
-          localStorage.setItem('neurospace_roblox_installed', 'true');
-
-          setTimeout(() => {
-            if (modal) modal.style.display = 'none';
-            enterRobloxFullscreenView();
-          }, 700);
-        }
-      }, 300);
-    } else {
-      enterRobloxFullscreenView();
-    }
+    enterRobloxFullscreenView();
   };
 
   function enterRobloxFullscreenView() {
