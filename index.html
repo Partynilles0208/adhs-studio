@@ -2084,6 +2084,46 @@
   .thumb-plasma { background: radial-gradient(circle at center, #f97316, #dc2626, #7f1d1d, #1f0606); }
   .thumb-switches { background: radial-gradient(circle at center, #ea580c, #b45309, #451a03, #140702); }
   .thumb-default { background: radial-gradient(circle at center, #f59e0b, #b45309, #451a03, #150802); }
+  .thumb-roblox {
+    background: radial-gradient(circle at 40% 32%, #fef08a 0%, #ea580c 36%, #c2410c 62%, #7c2d12 85%, #1f0b04 100%) !important;
+    position: relative;
+    overflow: hidden;
+  }
+  .thumb-roblox::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 35% 20%, rgba(254, 240, 138, 0.42) 0%, transparent 68%);
+    pointer-events: none;
+    transform: translateZ(14px);
+  }
+  .thumb-roblox::after {
+    content: '';
+    position: absolute;
+    right: -12px;
+    bottom: -14px;
+    width: 88px;
+    height: 88px;
+    background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 6px, transparent 6px, transparent 12px);
+    border-radius: 18px;
+    transform: rotate(18deg) translateZ(10px);
+    pointer-events: none;
+  }
+  .roblox-hero-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 54px;
+    z-index: 2;
+    transform: translateZ(36px);
+    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.82)) drop-shadow(0 0 16px rgba(245, 158, 11, 0.45));
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.28s ease;
+  }
+  .neuro-card:hover .roblox-hero-icon {
+    transform: translateZ(58px) scale(1.18);
+    filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 28px rgba(245, 158, 11, 0.75));
+  }
 
   .card-body-content {
     padding: 14px;
@@ -10248,8 +10288,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
   // 2.5D Interactive Depth & Parallax Tilt on mousemove (Stronger 3D pop)
-  const cards25d = document.querySelectorAll('.neuro-card');
-  cards25d.forEach(card => {
+  function applyCard3DTilt(card) {
+    if (!card || card._tiltBound) return;
+    card._tiltBound = true;
+    card.style.transformStyle = 'preserve-3d';
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -10263,7 +10305,39 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
     });
-  });
+  }
+  window.applyCard3DTilt = applyCard3DTilt;
+
+  const cards25d = document.querySelectorAll('.neuro-card');
+  cards25d.forEach(applyCard3DTilt);
+
+  // Delegated fallback on grid so ANY dynamically injected card (such as Roblox) tilts seamlessly
+  const appsGridEl = document.getElementById('apps-grid');
+  if (appsGridEl) {
+    appsGridEl.addEventListener('mousemove', (e) => {
+      const card = e.target.closest('.neuro-card');
+      if (!card || !appsGridEl.contains(card)) return;
+      if (!card._tiltBound) {
+        applyCard3DTilt(card);
+      }
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotX = ((y - cy) / cy) * -5.0;
+      const rotY = ((x - cx) / cx) * 5.0;
+      card.style.transform = `perspective(850px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) translateZ(28px) scale(1.025)`;
+    });
+    appsGridEl.addEventListener('mouseout', (e) => {
+      const card = e.target.closest('.neuro-card');
+      if (!card) return;
+      const related = e.relatedTarget;
+      if (!related || !card.contains(related)) {
+        card.style.transform = '';
+      }
+    });
+  }
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -18915,7 +18989,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function isDesktopEnvironment() {
     const isFile = window.location.protocol === 'file:';
     const path = (window.location.pathname || '').toLowerCase();
-    const isNeuroSpaceDir = path.includes('/neurospace/') || path.includes('\\neurospace\\');
+    const isNeuroSpaceDir = path.includes('/neurospace/') || path.includes('\\neurospace\\') || path.includes('adhs studio');
     const hasAppParam = window.location.search.includes('app=desktop') || window.location.hash.includes('app=desktop');
     return (isFile && isNeuroSpaceDir) || hasAppParam || window.isNeuroSpaceDesktop === true;
   }
@@ -20262,7 +20336,7 @@ console.log("Roblox3DStudioEngine class loaded");
       return;
     }
 
-    // In Desktop App: render Roblox in-app emulator card strictly WITHOUT DESCRIPTION
+    // In Desktop App: render Roblox in-app emulator card strictly WITHOUT DESCRIPTION with full 3D depth & parallax
     const card = document.createElement('div');
     card.className = 'neuro-card roblox-desktop-card';
     card.setAttribute('data-target', 'view-roblox');
@@ -20270,9 +20344,9 @@ console.log("Roblox3DStudioEngine class loaded");
     card.onclick = () => window.openRobloxInApp();
 
     card.innerHTML = `
-      <div class="card-hero-thumb" style="background: radial-gradient(circle at center, #ea580c, #7c2d12) !important;">
-        <span class="card-hero-icon">🍁</span>
-        <span class="card-neu-badge" style="background:linear-gradient(135deg,#d97706,#b45309); color:#ffffff; font-weight:900;">🍁 HERBST-ROBLOX</span>
+      <div class="card-hero-thumb thumb-roblox">
+        <span class="card-hero-icon roblox-hero-icon">🎮</span>
+        <span class="card-neu-badge">🍁 HERBST-ROBLOX</span>
       </div>
       <div class="card-body-content" style="padding-top:10px;">
         <div class="card-title-row">
@@ -20281,10 +20355,10 @@ console.log("Roblox3DStudioEngine class loaded");
         <!-- DESCRIPTION OMITTED AS REQUESTED BY USER -->
         <div class="card-bottom-row" style="margin-top:14px;">
           <div class="card-tags-wrap">
-            <span class="card-pill-tag" style="background:rgba(245,158,11,0.22); color:#fde047; border-color:rgba(245,158,11,0.45);">🍁 In-App</span>
-            <span class="card-pill-tag" style="background:rgba(217,119,6,0.22); color:#fed7aa; border-color:rgba(217,119,6,0.45);">⚡ Herbst-Studio</span>
+            <span class="card-pill-tag">⚡ In-App</span>
+            <span class="card-pill-tag">🍂 Herbst-Studio</span>
           </div>
-          <div class="card-arrow-btn" style="background:linear-gradient(135deg,#d97706,#b45309); color:#ffffff;">▶</div>
+          <div class="card-arrow-btn">➜</div>
         </div>
       </div>
     `;
@@ -20294,6 +20368,11 @@ console.log("Roblox3DStudioEngine class loaded");
       grid.insertBefore(card, secondChild);
     } else {
       grid.appendChild(card);
+    }
+
+    // Explicitly bind 3D tilt & parallax on the newly injected Roblox card
+    if (typeof window.applyCard3DTilt === 'function') {
+      window.applyCard3DTilt(card);
     }
   }
 
