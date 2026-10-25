@@ -5972,7 +5972,6 @@
   #view-zenhourglass,
   #view-draw,
   #view-popit,
-  #view-particles,
   #view-breathing,
   #view-kalimba,
   #view-magnets {
@@ -7517,6 +7516,361 @@
     padding: 4px 12px;
   }
 
+
+  /* ============================================================== */
+  /* PARTIKEL-GRAVITRON 3.0: PURE BLACK ARENA & 15 MODIS DRAWER     */
+  /* ============================================================== */
+  #view-particles {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #000000 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+  #view-particles canvas {
+    background: #000000 !important;
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+
+  /* HUD Active Tool Banner */
+  .particles-active-hud {
+    position: fixed;
+    top: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 45;
+    background: rgba(14, 18, 26, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: 999px;
+    padding: 6px 20px;
+    color: #fde68a;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.2);
+    pointer-events: none;
+    transition: all 0.25s ease;
+  }
+  .hud-mode-icon {
+    font-size: 16px;
+  }
+  .hud-mode-text b {
+    color: #ffffff;
+  }
+
+  /* Right-Edge Drawer Trigger Handle */
+  .particles-drawer-handle {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 55;
+    background: linear-gradient(135deg, rgba(28, 20, 14, 0.96), rgba(16, 12, 10, 0.98));
+    border: 1.5px solid rgba(245, 158, 11, 0.45);
+    border-right: none;
+    border-radius: 18px 0 0 18px;
+    padding: 12px 14px 12px 16px;
+    color: #fde68a;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    box-shadow: -6px 0 24px rgba(0, 0, 0, 0.8), 0 0 16px rgba(245, 158, 11, 0.25);
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .particles-drawer-handle:hover {
+    background: linear-gradient(135deg, rgba(42, 28, 18, 0.98), rgba(24, 16, 12, 0.99));
+    border-color: #fbbf24;
+    padding-left: 20px;
+    box-shadow: -8px 0 32px rgba(245, 158, 11, 0.4);
+  }
+  .drawer-handle-arrow {
+    font-size: 16px;
+    color: #f59e0b;
+    animation: drawerBounce 1.8s infinite ease-in-out;
+  }
+  @keyframes drawerBounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-4px); }
+  }
+  .drawer-handle-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fed7aa;
+  }
+  .drawer-handle-badge {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 2px 6px;
+    border-radius: 999px;
+  }
+
+  /* Slide-Out Side Drawer (Right to Left) */
+  .particles-side-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 360px;
+    max-width: 90vw;
+    height: 100vh;
+    z-index: 60;
+    background: rgba(12, 10, 8, 0.95);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border-left: 1.5px solid rgba(245, 158, 11, 0.35);
+    box-shadow: -15px 0 50px rgba(0, 0, 0, 0.92), 0 0 35px rgba(245, 158, 11, 0.15);
+    transform: translateX(105%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    user-select: none;
+  }
+  .particles-side-drawer.is-open {
+    transform: translateX(0);
+  }
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+    background: rgba(22, 16, 12, 0.8);
+  }
+  .drawer-header-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fde68a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .drawer-header-sub {
+    font-size: 11px;
+    color: #cbd5e1;
+    margin-top: 2px;
+  }
+  .drawer-close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: #fde68a;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .drawer-close-btn:hover {
+    background: #ea580c;
+    color: #fff;
+    transform: scale(1.1);
+  }
+
+  .drawer-scroll-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 18px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .drawer-scroll-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .drawer-scroll-body::-webkit-scrollbar-thumb {
+    background: rgba(245, 158, 11, 0.35);
+    border-radius: 4px;
+  }
+
+  .drawer-active-card {
+    background: linear-gradient(135deg, rgba(38, 26, 18, 0.85), rgba(20, 14, 10, 0.95));
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: 14px;
+    padding: 12px 14px;
+  }
+  .drawer-active-badge {
+    font-size: 9.5px;
+    font-weight: 900;
+    color: #f59e0b;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .drawer-active-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .drawer-active-hint {
+    font-size: 11.5px;
+    color: #94a3b8;
+    margin-top: 4px;
+    line-height: 1.35;
+  }
+
+  .drawer-section-title {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #fbbf24;
+    letter-spacing: 0.8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .drawer-mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .drawer-mode-btn {
+    background: rgba(24, 18, 14, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 10px 10px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    transition: all 0.22s ease;
+    color: #fff;
+  }
+  .drawer-mode-btn:hover {
+    background: rgba(45, 30, 20, 0.85);
+    border-color: rgba(245, 158, 11, 0.5);
+    transform: translateY(-2px);
+  }
+  .drawer-mode-btn.active {
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.35), rgba(124, 45, 18, 0.45));
+    border-color: #f59e0b;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+  }
+  .mode-btn-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+  .mode-btn-name {
+    font-size: 12px;
+    font-weight: 800;
+    color: #fef3c7;
+    line-height: 1.2;
+  }
+  .mode-btn-desc {
+    font-size: 9.5px;
+    color: #94a3b8;
+    line-height: 1.25;
+  }
+
+  .drawer-tools-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .drawer-tool-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 10px;
+    padding: 8px 10px;
+    color: #fde68a;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .drawer-tool-btn:hover {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: #fbbf24;
+  }
+  .drawer-tool-btn.active {
+    background: #f59e0b;
+    color: #18110a;
+    font-weight: 800;
+  }
+  .drawer-tool-btn.danger {
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+  }
+  .drawer-tool-btn.danger:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: #ef4444;
+  }
+
+  .drawer-slider-group {
+    background: rgba(20, 15, 12, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .drawer-slider-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: #cbd5e1;
+  }
+  .drawer-slider-label b {
+    color: #fbbf24;
+  }
+  .drawer-range {
+    width: 100%;
+    accent-color: #f59e0b;
+    cursor: pointer;
+  }
+  .drawer-themes-wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+  .theme-choice-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 6px 4px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #cbd5e1;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .theme-choice-btn:hover {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fff;
+  }
+  .theme-choice-btn.active {
+    background: #f59e0b;
+    color: #18110a;
+    font-weight: 800;
+    border-color: #fef08a;
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -8963,15 +9317,188 @@
 <div class="app-view" id="view-particles">
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
-    <div class="view-title-pill"><span>🪐</span> Partikel-Gravitron (3.200 Sterne)</div>
+    <div class="view-title-pill"><span>⚡</span> Partikel-Gravitron (Deep Black Arena)</div>
     <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
+
+  <!-- Active Mode HUD Pill -->
+  <div id="particles-hud" class="particles-active-hud">
+    <span class="hud-mode-icon" id="hud-icon">🔴</span>
+    <span class="hud-mode-text" id="hud-text">Modus: <b>Sanfter Repulsor</b> – Klicke in die Arena zum Platzieren!</span>
+  </div>
+
   <canvas id="particles-canvas"></canvas>
+
+  <!-- Right-to-Left Slide-out Drawer Trigger Handle -->
+  <button id="particles-drawer-toggle" class="particles-drawer-handle" onclick="if(window.particles) window.particles.toggleDrawer();" title="Gravitron Labor öffnen (15 Modis & Roboter)">
+    <span class="drawer-handle-arrow">◀</span>
+    <span class="drawer-handle-label">LABOR & MODIS</span>
+    <span class="drawer-handle-badge">15</span>
+  </button>
+
+  <!-- Sliding Drawer from Right to Left -->
+  <div id="particles-side-drawer" class="particles-side-drawer">
+    <div class="drawer-header">
+      <div class="drawer-header-left">
+        <div class="drawer-header-title">🌌 Gravitron Labor</div>
+        <div class="drawer-header-sub">15 Modis, Spawn-Objekte & Roboter</div>
+      </div>
+      <button class="drawer-close-btn" onclick="if(window.particles) window.particles.toggleDrawer(false);">✕</button>
+    </div>
+
+    <div class="drawer-scroll-body">
+      <!-- Active Tool Card -->
+      <div class="drawer-active-card">
+        <div class="drawer-active-badge">AKTIVES WERKZEUG</div>
+        <div class="drawer-active-name" id="drawer-current-mode-name">🔴 Sanfter Repulsor</div>
+        <div class="drawer-active-hint" id="drawer-current-mode-hint">Klicke auf den schwarzen Raum, um Abstoßungspunkte zu platzieren.</div>
+      </div>
+
+      <!-- Section 1: User's 5 Basis-Modis -->
+      <div class="drawer-section-title">⭐ DEINE 5 BASIS-MODIS</div>
+      <div class="drawer-mode-grid">
+        <button class="drawer-mode-btn active" data-grav-mode="repel_point" onclick="if(window.particles) window.particles.selectMode('repel_point');">
+          <span class="mode-btn-icon">🔴</span>
+          <span class="mode-btn-name">1. Repulsor-Punkt</span>
+          <span class="mode-btn-desc">Sanfte Abstoßung aus geringer Distanz</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="attract_point" onclick="if(window.particles) window.particles.selectMode('attract_point');">
+          <span class="mode-btn-icon">🔵</span>
+          <span class="mode-btn-name">2. Attraktor-Punkt</span>
+          <span class="mode-btn-desc">Sanfte Anziehung aus geringer Distanz</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="eraser" onclick="if(window.particles) window.particles.selectMode('eraser');">
+          <span class="mode-btn-icon">🧹</span>
+          <span class="mode-btn-name">3. Partikel-Löscher</span>
+          <span class="mode-btn-desc">Antimaterie & Radier-Singularität</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="emitter" onclick="if(window.particles) window.particles.selectMode('emitter');">
+          <span class="mode-btn-icon">⛲</span>
+          <span class="mode-btn-name">4. Partikel-Brunnen</span>
+          <span class="mode-btn-desc">Sprüht kontinuierlich neue Partikel</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="robot_builder" onclick="if(window.particles) window.particles.selectMode('robot_builder');">
+          <span class="mode-btn-icon">🤖</span>
+          <span class="mode-btn-name">5a. Builder-Bot</span>
+          <span class="mode-btn-desc">Läuft herum & schießt Partikel</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="robot_destroyer" onclick="if(window.particles) window.particles.selectMode('robot_destroyer');">
+          <span class="mode-btn-icon">👾</span>
+          <span class="mode-btn-name">5b. Laser-Destroyer</span>
+          <span class="mode-btn-desc">Patrouilliert & zerschießt Partikel</span>
+        </button>
+      </div>
+
+      <!-- Section 2: 10 Weitere Coole Modis -->
+      <div class="drawer-section-title">✨ 10 WEITERE KOSMISCHE MODIS</div>
+      <div class="drawer-mode-grid">
+        <button class="drawer-mode-btn" data-grav-mode="vortex" onclick="if(window.particles) window.particles.selectMode('vortex');">
+          <span class="mode-btn-icon">🌀</span>
+          <span class="mode-btn-name">6. Schwarzes Loch</span>
+          <span class="mode-btn-desc">Wirbelnde Akkretionsscheibe</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="splitter" onclick="if(window.particles) window.particles.selectMode('splitter');">
+          <span class="mode-btn-icon">⚡</span>
+          <span class="mode-btn-name">7. Partikel-Spalter</span>
+          <span class="mode-btn-desc">Laser teilt Partikel in zwei</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="timewarp" onclick="if(window.particles) window.particles.selectMode('timewarp');">
+          <span class="mode-btn-icon">⏱️</span>
+          <span class="mode-btn-name">8. Zeitlupe-Blase</span>
+          <span class="mode-btn-desc">Verlangsamt Zeit auf 15%</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="portals" onclick="if(window.particles) window.particles.selectMode('portals');">
+          <span class="mode-btn-icon">🌌</span>
+          <span class="mode-btn-name">9. Wurmloch-Portale</span>
+          <span class="mode-btn-desc">Teleportation von A nach B</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="bumper" onclick="if(window.particles) window.particles.selectMode('bumper');">
+          <span class="mode-btn-icon">🏓</span>
+          <span class="mode-btn-name">10. Bumper-Trampolin</span>
+          <span class="mode-btn-desc">Kinetischer Flipper-Prallkörper</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="prism" onclick="if(window.particles) window.particles.selectMode('prism');">
+          <span class="mode-btn-icon">🌈</span>
+          <span class="mode-btn-name">11. Regenbogen-Prisma</span>
+          <span class="mode-btn-desc">Färbt Sterne in Neon-Glanz</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="supernova" onclick="if(window.particles) window.particles.selectMode('supernova');">
+          <span class="mode-btn-icon">💣</span>
+          <span class="mode-btn-name">12. Supernova-Impuls</span>
+          <span class="mode-btn-desc">Detonierende Schockwellen</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="tornado" onclick="if(window.particles) window.particles.selectMode('tornado');">
+          <span class="mode-btn-icon">🌪️</span>
+          <span class="mode-btn-name">13. Gravitations-Tornado</span>
+          <span class="mode-btn-desc">Korkenzieher-Wirbelsturm</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="zerog" onclick="if(window.particles) window.particles.selectMode('zerog');">
+          <span class="mode-btn-icon">☁️</span>
+          <span class="mode-btn-name">14. Zero-G Nebel</span>
+          <span class="mode-btn-desc">Schwerelose beruhigende Zone</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="firework" onclick="if(window.particles) window.particles.selectMode('firework');">
+          <span class="mode-btn-icon">🎆</span>
+          <span class="mode-btn-name">15. Raketen-Werfer</span>
+          <span class="mode-btn-desc">Explodiert in Glitzer-Kaskaden</span>
+        </button>
+      </div>
+
+      <!-- Section 3: Werkzeuge & Steuerung -->
+      <div class="drawer-section-title">🔧 WERKZEUGE & ARENA</div>
+      <div class="drawer-tools-row">
+        <button class="drawer-tool-btn" data-grav-mode="drag" onclick="if(window.particles) window.particles.selectMode('drag');">
+          <span>🖐️</span> Objekt bewegen
+        </button>
+        <button class="drawer-tool-btn" data-grav-mode="remove" onclick="if(window.particles) window.particles.selectMode('remove');">
+          <span>❌</span> Einzeln löschen
+        </button>
+        <button class="drawer-tool-btn danger" onclick="if(window.particles) window.particles.clearSpawnedObjects();">
+          <span>🗑️</span> Alle Objekte löschen
+        </button>
+        <button class="drawer-tool-btn" onclick="if(window.particles) window.particles.initParticles();">
+          <span>🔄</span> Partikel neu mischen
+        </button>
+      </div>
+
+      <!-- Sliders -->
+      <div class="drawer-slider-group">
+        <div class="drawer-slider-label">
+          <span>Partikelanzahl</span>
+          <b id="lbl-part-count">3.200</b>
+        </div>
+        <input type="range" id="slider-part-count" min="800" max="6000" step="200" value="3200" class="drawer-range" oninput="if(window.particles) window.particles.setParticleCount(this.value)">
+      </div>
+
+      <div class="drawer-slider-group">
+        <div class="drawer-slider-label">
+          <span>Geschwindigkeit & Physik</span>
+          <b id="lbl-part-speed">1.0x</b>
+        </div>
+        <input type="range" id="slider-part-speed" min="0.3" max="2.5" step="0.1" value="1.0" class="drawer-range" oninput="if(window.particles) window.particles.setSimSpeed(this.value)">
+      </div>
+
+      <!-- Theme Selector -->
+      <div class="drawer-slider-group">
+        <div class="drawer-slider-label">Farbspektrum</div>
+        <div class="drawer-themes-wrap">
+          <button class="theme-choice-btn active" onclick="if(window.particles) window.particles.setTheme('nebula', this)">🌌 Nebula</button>
+          <button class="theme-choice-btn" onclick="if(window.particles) window.particles.setTheme('solar', this)">🔥 Solar</button>
+          <button class="theme-choice-btn" onclick="if(window.particles) window.particles.setTheme('cyber', this)">⚡ Cyber</button>
+          <button class="theme-choice-btn" onclick="if(window.particles) window.particles.setTheme('matrix', this)">🟢 Matrix</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Quick Dock -->
   <div class="floating-dock">
-    <button class="tool-pill-btn active" data-part-mode="attract">🧲 Anziehung</button>
-    <button class="tool-pill-btn" data-part-mode="repel">💥 Abstoßung</button>
-    <button class="tool-pill-btn" data-part-mode="vortex">🌀 Wirbelsturm</button>
-    <button class="tool-pill-btn" id="btn-particles-reset">🔄 Neu mischen</button>
+    <button class="tool-pill-btn active" data-part-quick="repel_point" onclick="if(window.particles) window.particles.selectMode('repel_point');">🔴 Repulsor</button>
+    <button class="tool-pill-btn" data-part-quick="attract_point" onclick="if(window.particles) window.particles.selectMode('attract_point');">🔵 Attraktor</button>
+    <button class="tool-pill-btn" data-part-quick="robot_builder" onclick="if(window.particles) window.particles.selectMode('robot_builder');">🤖 Roboter</button>
+    <button class="tool-pill-btn" data-part-quick="eraser" onclick="if(window.particles) window.particles.selectMode('eraser');">🧹 Löscher</button>
+    <button class="tool-pill-btn" data-part-quick="emitter" onclick="if(window.particles) window.particles.selectMode('emitter');">⛲ Brunnen</button>
+    <button class="tool-pill-btn" onclick="if(window.particles) window.particles.toggleDrawer();" style="border-color:#f59e0b; color:#fbbf24; font-weight:800;">◀ 15 Modis Labor</button>
   </div>
 </div>
 
@@ -14446,17 +14973,395 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- SCRIPT: PARTICLES GRAVITRON                                    -->
 <!-- ============================================================== -->
 <script>
+class GravitronRobot {
+  constructor(x, y, type = 'builder') {
+    this.x = x;
+    this.y = y;
+    this.type = type; // 'builder' or 'destroyer'
+    this.vx = (Math.random() - 0.5) * 1.5;
+    this.vy = (Math.random() - 0.5) * 1.5;
+    this.state = 'walk'; // 'walk', 'idle', 'shoot'
+    this.stateTimer = 60 + Math.floor(Math.random() * 80);
+    this.angle = Math.random() * Math.PI * 2;
+    this.walkPhase = 0;
+    this.laserTarget = null;
+    this.laserLife = 0;
+    this.radius = 20;
+    this.selected = false;
+  }
+
+  update(w, h, particles, addParticleCb, removeParticleCb, simSpeed = 1.0) {
+    this.stateTimer -= simSpeed;
+    if (this.stateTimer <= 0) {
+      if (this.state === 'walk') {
+        this.state = Math.random() < 0.55 ? 'idle' : 'shoot';
+        this.stateTimer = this.state === 'idle' ? 45 + Math.floor(Math.random() * 45) : 30;
+      } else if (this.state === 'idle') {
+        this.state = Math.random() < 0.5 ? 'shoot' : 'walk';
+        this.stateTimer = this.state === 'shoot' ? 30 : 70 + Math.floor(Math.random() * 70);
+      } else if (this.state === 'shoot') {
+        this.state = 'walk';
+        this.stateTimer = 80 + Math.floor(Math.random() * 80);
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.vy = (Math.random() - 0.5) * 1.5;
+      }
+    }
+
+    if (this.state === 'walk') {
+      this.x += this.vx * simSpeed;
+      this.y += this.vy * simSpeed;
+      this.walkPhase += 0.25 * simSpeed;
+      this.angle = Math.atan2(this.vy, this.vx);
+
+      if (this.x < 35) { this.x = 35; this.vx *= -1; }
+      if (this.x > w - 35) { this.x = w - 35; this.vx *= -1; }
+      if (this.y < 35) { this.y = 35; this.vy *= -1; }
+      if (this.y > h - 35) { this.y = h - 35; this.vy *= -1; }
+    } else if (this.state === 'shoot') {
+      if (Math.floor(this.stateTimer) === 14) {
+        if (this.type === 'builder') {
+          // Builder-Bot: shoots 5-7 sparkling stars into the arena
+          const shootAngle = this.angle + (Math.random() - 0.5) * 0.4;
+          for (let k = 0; k < 6; k++) {
+            const spread = (Math.random() - 0.5) * 0.7;
+            const spd = 3.5 + Math.random() * 4.0;
+            if (addParticleCb) {
+              addParticleCb(
+                this.x + Math.cos(shootAngle) * 18,
+                this.y + Math.sin(shootAngle) * 18,
+                Math.cos(shootAngle + spread) * spd,
+                Math.sin(shootAngle + spread) * spd,
+                '#38bdf8'
+              );
+            }
+          }
+          if (window.audio) audio.playPop(520);
+        } else {
+          // Destroyer-Bot: locks on nearest particle and vaporizes it with laser
+          let closest = null;
+          let minDist = 240;
+          for (let p of particles) {
+            const d = Math.hypot(p.x - this.x, p.y - this.y);
+            if (d < minDist) {
+              minDist = d;
+              closest = p;
+            }
+          }
+          if (closest) {
+            this.laserTarget = { x: closest.x, y: closest.y };
+            this.laserLife = 14;
+            if (removeParticleCb) removeParticleCb(closest);
+            if (window.audio) audio.playPop(260);
+          }
+        }
+      }
+    }
+
+    if (this.laserLife > 0) this.laserLife -= simSpeed;
+  }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+
+    // Laser beam if firing
+    if (this.laserLife > 0 && this.laserTarget) {
+      ctx.restore();
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(this.laserTarget.x, this.laserTarget.y);
+      ctx.strokeStyle = `rgba(239, 68, 68, ${Math.min(1.0, this.laserLife / 8)})`;
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#ef4444';
+      ctx.shadowBlur = 16;
+      ctx.stroke();
+
+      // Impact explosion spark
+      ctx.beginPath();
+      ctx.arc(this.laserTarget.x, this.laserTarget.y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+
+      ctx.restore();
+      ctx.save();
+      ctx.translate(this.x, this.y);
+    }
+
+    // Shadow
+    ctx.beginPath();
+    ctx.ellipse(0, 10, 14, 5, 0, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+    ctx.fill();
+
+    // Rotate to face travel angle
+    ctx.rotate(this.angle);
+
+    const isBuilder = this.type === 'builder';
+    const mainColor = isBuilder ? '#38bdf8' : '#ef4444';
+    const accentColor = isBuilder ? '#fbbf24' : '#f43f5e';
+
+    // Animated treads/legs
+    const legOffset = Math.sin(this.walkPhase) * 3;
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(-12, -10 + legOffset, 7, 4);
+    ctx.fillRect(-12, 6 - legOffset, 7, 4);
+    ctx.fillRect(5, -10 - legOffset, 7, 4);
+    ctx.fillRect(5, 6 + legOffset, 7, 4);
+
+    // Body chassis
+    ctx.beginPath();
+    ctx.roundRect(-10, -8, 20, 16, 4);
+    ctx.fillStyle = '#0f172a';
+    ctx.fill();
+    ctx.lineWidth = 1.6;
+    ctx.strokeStyle = mainColor;
+    ctx.stroke();
+
+    // Turret / Cannon barrel
+    ctx.fillStyle = accentColor;
+    ctx.fillRect(2, -2.5, 12, 5);
+
+    // Eye visor LED
+    ctx.beginPath();
+    ctx.roundRect(2, -5, 4, 10, 2);
+    ctx.fillStyle = mainColor;
+    ctx.shadowColor = mainColor;
+    ctx.shadowBlur = 8;
+    ctx.fill();
+
+    // Selection ring if active/hovered
+    if (this.selected) {
+      ctx.beginPath();
+      ctx.arc(0, 0, 22, 0, Math.PI * 2);
+      ctx.strokeStyle = '#fde047';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    ctx.restore();
+  }
+}
+
+class GravitronNode {
+  constructor(type, x, y, partnerPortal = null) {
+    this.type = type;
+    this.x = x;
+    this.y = y;
+    this.radius = 24;
+    this.pulse = Math.random() * Math.PI * 2;
+    this.angle = 0;
+    this.timer = 0;
+    this.active = true;
+    this.selected = false;
+    this.partnerPortal = partnerPortal; // for wormhole
+
+    if (type === 'repel_point') {
+      this.effectRadius = 115;
+      this.color = '#ef4444';
+      this.icon = '🔴';
+      this.title = 'Repulsor';
+    } else if (type === 'attract_point') {
+      this.effectRadius = 125;
+      this.color = '#38bdf8';
+      this.icon = '🔵';
+      this.title = 'Attraktor';
+    } else if (type === 'eraser') {
+      this.effectRadius = 45;
+      this.color = '#a855f7';
+      this.icon = '🧹';
+      this.title = 'Löscher';
+    } else if (type === 'emitter') {
+      this.effectRadius = 36;
+      this.color = '#10b981';
+      this.icon = '⛲';
+      this.title = 'Brunnen';
+    } else if (type === 'vortex') {
+      this.effectRadius = 165;
+      this.color = '#8b5cf6';
+      this.icon = '🌀';
+      this.title = 'Vortex';
+    } else if (type === 'splitter') {
+      this.effectRadius = 50;
+      this.color = '#f59e0b';
+      this.icon = '⚡';
+      this.title = 'Spalter';
+    } else if (type === 'timewarp') {
+      this.effectRadius = 135;
+      this.color = '#06b6d4';
+      this.icon = '⏱️';
+      this.title = 'Zeitlupe';
+    } else if (type === 'bumper') {
+      this.effectRadius = 38;
+      this.color = '#ec4899';
+      this.icon = '🏓';
+      this.title = 'Bumper';
+    } else if (type === 'prism') {
+      this.effectRadius = 45;
+      this.color = '#f43f5e';
+      this.icon = '🌈';
+      this.title = 'Prisma';
+    } else if (type === 'supernova') {
+      this.effectRadius = 260;
+      this.color = '#f97316';
+      this.icon = '💣';
+      this.title = 'Supernova';
+      this.fuse = 180; // 3 seconds
+    } else if (type === 'tornado') {
+      this.effectRadius = 140;
+      this.color = '#14b8a6';
+      this.icon = '🌪️';
+      this.title = 'Tornado';
+    } else if (type === 'zerog') {
+      this.effectRadius = 140;
+      this.color = '#6366f1';
+      this.icon = '☁️';
+      this.title = 'Zero-G';
+    } else if (type === 'firework') {
+      this.effectRadius = 42;
+      this.color = '#eab308';
+      this.icon = '🎆';
+      this.title = 'Feuerwerk';
+      this.launchTimer = 60;
+    } else if (type === 'portal_a' || type === 'portal_b') {
+      this.effectRadius = 40;
+      this.color = type === 'portal_a' ? '#3b82f6' : '#f97316';
+      this.icon = '🌌';
+      this.title = type === 'portal_a' ? 'Portal A' : 'Portal B';
+    }
+  }
+
+  update(particles, addParticleCb, removeParticleCb, triggerShockwaveCb, simSpeed = 1.0) {
+    this.pulse += 0.05 * simSpeed;
+    this.angle += 0.03 * simSpeed;
+    this.timer += simSpeed;
+
+    if (this.type === 'emitter') {
+      if (Math.floor(this.timer) % 3 === 0 && addParticleCb) {
+        const a = Math.random() * Math.PI * 2;
+        const spd = 2 + Math.random() * 3.8;
+        addParticleCb(this.x, this.y, Math.cos(a) * spd, Math.sin(a) * spd, '#34d399');
+      }
+    } else if (this.type === 'supernova') {
+      this.fuse -= simSpeed;
+      if (this.fuse <= 0 && this.active) {
+        this.active = false;
+        if (triggerShockwaveCb) triggerShockwaveCb(this.x, this.y, 280);
+      }
+    } else if (this.type === 'firework') {
+      this.launchTimer -= simSpeed;
+      if (this.launchTimer <= 0) {
+        this.launchTimer = 80 + Math.floor(Math.random() * 60);
+        if (triggerShockwaveCb) triggerShockwaveCb(this.x + (Math.random()-0.5)*80, Math.max(80, this.y - 160), 160);
+        if (window.audio) audio.playPop(580);
+      }
+    }
+  }
+
+  draw(ctx) {
+    if (!this.active) return;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+
+    const glowPulse = Math.sin(this.pulse) * 4;
+    const effR = this.effectRadius;
+
+    // Outer Aura Field
+    ctx.beginPath();
+    ctx.arc(0, 0, effR, 0, Math.PI * 2);
+    ctx.strokeStyle = this.color;
+    ctx.globalAlpha = 0.18 + Math.sin(this.pulse) * 0.08;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Faint Radial Field Fill
+    const grad = ctx.createRadialGradient(0, 0, 4, 0, 0, effR);
+    grad.addColorStop(0, this.color);
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.globalAlpha = 0.12;
+    ctx.fill();
+
+    ctx.globalAlpha = 1.0;
+
+    // Node Center Core
+    ctx.beginPath();
+    ctx.arc(0, 0, this.radius + glowPulse * 0.4, 0, Math.PI * 2);
+    ctx.fillStyle = '#0f172a';
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 18;
+    ctx.fill();
+    ctx.lineWidth = 2.2;
+    ctx.strokeStyle = this.color;
+    ctx.stroke();
+
+    // Center Glyph / Icon
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(this.icon, 0, 1);
+
+    // Supernova Fuse ring
+    if (this.type === 'supernova' && this.fuse > 0) {
+      ctx.beginPath();
+      ctx.arc(0, 0, this.radius + 6, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * (this.fuse / 180)));
+      ctx.strokeStyle = '#ef4444';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    // Portal link indicator line
+    if (this.partnerPortal) {
+      ctx.restore();
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(this.partnerPortal.x, this.partnerPortal.y);
+      ctx.strokeStyle = 'rgba(168, 85, 247, 0.35)';
+      ctx.setLineDash([6, 6]);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+      ctx.save();
+      ctx.translate(this.x, this.y);
+    }
+
+    // Selection ring
+    if (this.selected) {
+      ctx.beginPath();
+      ctx.arc(0, 0, this.radius + 10, 0, Math.PI * 2);
+      ctx.strokeStyle = '#fde047';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+}
+
 class ParticleGravitron {
   constructor() {
     this.canvas = document.getElementById('particles-canvas');
     this.ctx = this.canvas ? this.canvas.getContext('2d') : null;
     this.particles = [];
-    this.mouse = { x: 0, y: 0, down: false, active: false, mode: 'attract' };
-    this.colorTheme = 'nebula'; // 'nebula' | 'solar' | 'cyber' | 'matrix'
+    this.nodes = [];
+    this.robots = [];
     this.shockwaves = [];
+    this.sparks = [];
+
+    this.mouse = { x: 0, y: 0, down: false, active: false, draggingObj: null };
+    this.currentMode = 'repel_point'; // Default to user's 1st mode
+    this.colorTheme = 'nebula';
+    this.particleCount = 3200;
+    this.simSpeed = 1.0;
+    this.isDrawerOpen = false;
+
     this.humOsc = null;
     this.humGain = null;
-    this.particleCount = 4200;
 
     if (this.canvas) {
       this.resize();
@@ -14481,7 +15386,7 @@ class ParticleGravitron {
     } else if (this.colorTheme === 'cyber') {
       return ['#ec4899', '#f43f5e', '#a855f7', '#38bdf8', '#00e676', '#fbbf24'];
     }
-    // Default: Deep Nebula
+    // Nebula default
     return ['#38bdf8', '#818cf8', '#c084fc', '#a855f7', '#67e8f9', '#f472b6', '#3b82f6'];
   }
 
@@ -14504,146 +15409,332 @@ class ParticleGravitron {
         baseSize: Math.random() * 2.2 + 0.9
       });
     }
+
+    if (window.audio) audio.playPop(480);
   }
 
-  bindEvents() {
-    if (!this.canvas) return;
-
-    const setMouse = (e, isDown) => {
-      const rect = this.canvas.getBoundingClientRect();
-      const x = e.touches ? e.touches[0].clientX : e.clientX;
-      const y = e.touches ? e.touches[0].clientY : e.clientY;
-      this.mouse.x = x - rect.left;
-      this.mouse.y = y - rect.top;
-      this.mouse.active = true;
-      if (isDown !== undefined) {
-        this.mouse.down = isDown;
-        if (isDown) {
-          this.startCosmicSound();
-          if (window.dopamineEngine) window.dopamineEngine.registerAction();
-        } else {
-          this.stopCosmicSound();
-        }
-      }
-    };
-
-    this.canvas.addEventListener('mousedown', (e) => setMouse(e, true));
-    window.addEventListener('mousemove', (e) => setMouse(e));
-    window.addEventListener('mouseup', () => {
-      this.mouse.down = false;
-      this.stopCosmicSound();
+  addParticle(x, y, vx, vy, color) {
+    if (this.particles.length >= 7500) return;
+    const colors = this.getPalette();
+    this.particles.push({
+      x,
+      y,
+      vx,
+      vy,
+      color: color || colors[Math.floor(Math.random() * colors.length)],
+      size: Math.random() * 2.4 + 1.2,
+      baseSize: Math.random() * 2.4 + 1.2
     });
-
-    this.canvas.addEventListener('touchstart', (e) => { setMouse(e, true); }, { passive: true });
-    this.canvas.addEventListener('touchmove', (e) => { setMouse(e, true); }, { passive: true });
-    window.addEventListener('touchend', () => {
-      this.mouse.down = false;
-      this.mouse.active = false;
-      this.stopCosmicSound();
-    });
-
-    // Double click triggers Supernova shockwave burst!
-    this.canvas.addEventListener('dblclick', (e) => {
-      const rect = this.canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      this.triggerSupernova(x, y);
-    });
-
-    // Mode Buttons
-    document.querySelectorAll('[data-part-mode]').forEach(b => {
-      b.addEventListener('click', () => {
-        document.querySelectorAll('[data-part-mode]').forEach(btn => btn.classList.remove('active'));
-        b.classList.add('active');
-        this.mouse.mode = b.dataset.partMode || 'attract';
-        if (window.audio) audio.playPop(350);
-      });
-    });
-
-    // Theme Toggle
-    const themeBtn = document.getElementById('btn-part-theme-toggle');
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const themes = ['nebula', 'solar', 'cyber', 'matrix'];
-        const curIdx = themes.indexOf(this.colorTheme);
-        this.colorTheme = themes[(curIdx + 1) % themes.length];
-        themeBtn.textContent = '🎨 ' + this.colorTheme.toUpperCase();
-        this.initParticles();
-        if (window.audio) audio.playPop(480);
-      });
-    }
-
-    // Turbo Particle Count
-    const turboBtn = document.getElementById('btn-part-turbo');
-    if (turboBtn) {
-      turboBtn.addEventListener('click', () => {
-        this.particleCount = (this.particleCount === 4200) ? 6500 : 4200;
-        turboBtn.textContent = '⚡ ' + this.particleCount + ' Sterne';
-        this.initParticles();
-        if (window.audio) audio.playLevelUpChime();
-      });
-    }
-
-    // Reset Button
-    const resetBtn = document.getElementById('btn-particles-reset');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        this.initParticles();
-        if (window.audio) audio.playPop(500);
-      });
-    }
   }
 
-  triggerSupernova(x, y) {
-    this.shockwaves.push({ x, y, r: 10, maxR: 260, alpha: 1.0 });
+  removeParticle(p) {
+    p._destroyed = true;
+    this.sparks.push({
+      x: p.x,
+      y: p.y,
+      r: 3,
+      alpha: 1.0,
+      color: '#ef4444'
+    });
+  }
+
+  triggerSupernova(x, y, maxR = 260) {
+    this.shockwaves.push({ x, y, r: 8, maxR, alpha: 1.0 });
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
       const dx = p.x - x;
       const dy = p.y - y;
       const dist = Math.hypot(dx, dy) + 1;
-      if (dist < 300) {
-        const force = (300 - dist) / 12;
-        p.vx += (dx / dist) * force * 4;
-        p.vy += (dy / dist) * force * 4;
+      if (dist < maxR) {
+        const force = (maxR - dist) / 10;
+        p.vx += (dx / dist) * force * 3.5;
+        p.vy += (dy / dist) * force * 3.5;
       }
     }
     if (window.audio) audio.playLootDropSound(true);
-    if (window.masteryEngine) window.masteryEngine.addXp(30, '💥 SUPERNOVA');
   }
 
-  startCosmicSound() {
-    if (!window.audio || !window.audio.ctx) return;
-    try {
-      if (this.humOsc) return;
-      const ctx = window.audio.ctx;
-      this.humOsc = ctx.createOscillator();
-      this.humGain = ctx.createGain();
-      this.humOsc.type = 'sine';
-      this.humOsc.frequency.setValueAtTime(110, ctx.currentTime);
-      this.humGain.gain.setValueAtTime(0.001, ctx.currentTime);
-      this.humGain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.3);
-      this.humOsc.connect(this.humGain);
-      this.humGain.connect(ctx.destination);
-      this.humOsc.start();
-    } catch(e) {}
+  toggleDrawer(force) {
+    const drawer = document.getElementById('particles-side-drawer');
+    const toggleBtn = document.getElementById('particles-drawer-toggle');
+    if (!drawer) return;
+
+    if (force !== undefined) {
+      this.isDrawerOpen = force;
+    } else {
+      this.isDrawerOpen = !this.isDrawerOpen;
+    }
+
+    drawer.classList.toggle('is-open', this.isDrawerOpen);
+    if (toggleBtn) {
+      const arrow = toggleBtn.querySelector('.drawer-handle-arrow');
+      if (arrow) arrow.textContent = this.isDrawerOpen ? '▶' : '◀';
+    }
+    if (window.audio) audio.playPop(420);
   }
 
-  stopCosmicSound() {
-    if (!this.humGain) return;
-    try {
-      const ctx = window.audio ? window.audio.ctx : null;
-      if (ctx) {
-        this.humGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
-        setTimeout(() => {
-          if (this.humOsc) {
-            this.humOsc.stop();
-            this.humOsc.disconnect();
-            this.humOsc = null;
-            this.humGain = null;
-          }
-        }, 320);
+  selectMode(modeKey) {
+    this.currentMode = modeKey;
+
+    // Update Mode Buttons in Drawer
+    document.querySelectorAll('.drawer-mode-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.gravMode === modeKey);
+    });
+
+    // Update Tool Buttons in Drawer
+    document.querySelectorAll('.drawer-tool-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.gravMode === modeKey);
+    });
+
+    // Update Quick Dock Buttons
+    document.querySelectorAll('[data-part-quick]').forEach(b => {
+      b.classList.toggle('active', b.dataset.partQuick === modeKey);
+    });
+
+    // Descriptions & HUD Metadata
+    const modeMeta = {
+      'repel_point': { icon: '🔴', name: 'Sanfter Repulsor', hint: 'Klicke auf den schwarzen Raum, um Abstoßungspunkte zu platzieren.' },
+      'attract_point': { icon: '🔵', name: 'Sanfter Attraktor', hint: 'Klicke auf den schwarzen Raum, um Anziehungspunkte zu platzieren.' },
+      'eraser': { icon: '🧹', name: 'Partikel-Löscher', hint: 'Klicke, um Antimaterie-Knoten zu platzieren, oder ziehe die Maus zum Radieren.' },
+      'emitter': { icon: '⛲', name: 'Partikel-Brunnen', hint: 'Platziere endlose Partikel-Generatoren überall auf dem Schirm.' },
+      'robot_builder': { icon: '🤖', name: 'Builder-Bot', hint: 'Spawne Roboter, die herumlaufen, stoppen und neue Partikel schießen!' },
+      'robot_destroyer': { icon: '👾', name: 'Laser-Destroyer-Bot', hint: 'Spawne Kampf-Roboter, die patrouillieren und Partikel per Laser zerstören!' },
+      'vortex': { icon: '🌀', name: 'Schwarzes Loch (Vortex)', hint: 'Platziere wirbelnde Gravitationsstrudel mit Akkretionsscheiben.' },
+      'splitter': { icon: '⚡', name: 'Partikel-Spalter', hint: 'Platziere Laser-Prismen, die durchfliegende Partikel in zwei teilen.' },
+      'timewarp': { icon: '⏱️', name: 'Zeitlupe-Blase', hint: 'Platziere Chrono-Sphären, die Zeit auf 15% verlangsamen.' },
+      'portals': { icon: '🌌', name: 'Wurmloch-Portale', hint: 'Klicke für Portal A und Portal B zum sofortigen Teleportieren.' },
+      'bumper': { icon: '🏓', name: 'Bumper-Trampolin', hint: 'Platziere elastische Flipper-Kissen, die Partikel katapultieren.' },
+      'prism': { icon: '🌈', name: 'Regenbogen-Prisma', hint: 'Platziere Kristalle, die Partikel in bunte Neonfarben tauchen.' },
+      'supernova': { icon: '💣', name: 'Supernova-Bombe', hint: 'Platziere eine Bombe, die nach 3s in einer Schockwelle detoniert.' },
+      'tornado': { icon: '🌪️', name: 'Gravitations-Tornado', hint: 'Platziere Korkenzieher-Wirbelstürme.' },
+      'zerog': { icon: '☁️', name: 'Zero-G Nebel', hint: 'Platziere schwerelose Zonen für sanftes, beruhigendes Driften.' },
+      'firework': { icon: '🎆', name: 'Raketen-Werfer', hint: 'Platziere Abschussrampen für funkelnde Feuerwerkskaskaden.' },
+      'drag': { icon: '🖐️', name: 'Objekt bewegen', hint: 'Klicke auf platzierte Punkte oder Roboter und ziehe sie umher.' },
+      'remove': { icon: '❌', name: 'Objekt löschen', hint: 'Klicke auf ein platziertes Objekt, um es einzeln zu entfernen.' }
+    };
+
+    const meta = modeMeta[modeKey] || { icon: '⚡', name: modeKey, hint: 'Klicke in die Arena zum Interagieren.' };
+
+    // Update HUD
+    const hudIcon = document.getElementById('hud-icon');
+    const hudText = document.getElementById('hud-text');
+    if (hudIcon) hudIcon.textContent = meta.icon;
+    if (hudText) hudText.innerHTML = `Modus: <b>${meta.name}</b> – ${meta.hint}`;
+
+    // Update Drawer Active Card
+    const nameEl = document.getElementById('drawer-current-mode-name');
+    const hintEl = document.getElementById('drawer-current-mode-hint');
+    if (nameEl) nameEl.textContent = `${meta.icon} ${meta.name}`;
+    if (hintEl) hintEl.textContent = meta.hint;
+
+    if (window.audio) audio.playPop(380);
+  }
+
+  placeAt(x, y) {
+    const mode = this.currentMode;
+
+    if (mode === 'robot_builder') {
+      const bot = new GravitronRobot(x, y, 'builder');
+      this.robots.push(bot);
+      if (window.audio) audio.playPop(480);
+      return;
+    }
+
+    if (mode === 'robot_destroyer') {
+      const bot = new GravitronRobot(x, y, 'destroyer');
+      this.robots.push(bot);
+      if (window.audio) audio.playPop(340);
+      return;
+    }
+
+    if (mode === 'portals') {
+      // Place paired portals A and B
+      const pA = new GravitronNode('portal_a', x, y);
+      const pB = new GravitronNode('portal_b', Math.min(window.innerWidth - 60, x + 160), Math.max(60, y - 100));
+      pA.partnerPortal = pB;
+      pB.partnerPortal = pA;
+      this.nodes.push(pA);
+      this.nodes.push(pB);
+      if (window.audio) audio.playPop(540);
+      return;
+    }
+
+    // Standard placement of nodes
+    const validModes = [
+      'repel_point', 'attract_point', 'eraser', 'emitter', 'vortex',
+      'splitter', 'timewarp', 'bumper', 'prism', 'supernova',
+      'tornado', 'zerog', 'firework'
+    ];
+
+    if (validModes.includes(mode)) {
+      const node = new GravitronNode(mode, x, y);
+      this.nodes.push(node);
+      if (window.audio) audio.playPop(440);
+    }
+  }
+
+  clearSpawnedObjects() {
+    this.nodes = [];
+    this.robots = [];
+    if (window.audio) audio.playPop(300);
+  }
+
+  setParticleCount(val) {
+    this.particleCount = parseInt(val, 10) || 3200;
+    const lbl = document.getElementById('lbl-part-count');
+    if (lbl) lbl.textContent = this.particleCount.toLocaleString('de-DE');
+    this.initParticles();
+  }
+
+  setSimSpeed(val) {
+    this.simSpeed = parseFloat(val) || 1.0;
+    const lbl = document.getElementById('lbl-part-speed');
+    if (lbl) lbl.textContent = this.simSpeed.toFixed(1) + 'x';
+  }
+
+  setTheme(themeName, btnEl) {
+    this.colorTheme = themeName;
+    document.querySelectorAll('.theme-choice-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    this.initParticles();
+  }
+
+  findObjectAt(x, y) {
+    // Check robots first
+    for (let r of this.robots) {
+      if (Math.hypot(r.x - x, r.y - y) <= r.radius + 6) return r;
+    }
+    // Check nodes
+    for (let n of this.nodes) {
+      if (Math.hypot(n.x - x, n.y - y) <= n.radius + 6) return n;
+    }
+    return null;
+  }
+
+  bindEvents() {
+    if (!this.canvas) return;
+
+    const getPos = (e) => {
+      const rect = this.canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    };
+
+    this.canvas.addEventListener('mousedown', (e) => {
+      const pos = getPos(e);
+      this.mouse.x = pos.x;
+      this.mouse.y = pos.y;
+      this.mouse.down = true;
+
+      // Check if clicking existing object
+      const hitObj = this.findObjectAt(pos.x, pos.y);
+
+      // Mode: Remove
+      if (this.currentMode === 'remove') {
+        if (hitObj) {
+          this.robots = this.robots.filter(r => r !== hitObj);
+          this.nodes = this.nodes.filter(n => n !== hitObj && n.partnerPortal !== hitObj);
+          if (window.audio) audio.playPop(300);
+        }
+        return;
       }
-    } catch(e) {}
+
+      // Dragging existing object
+      if (hitObj || this.currentMode === 'drag') {
+        if (hitObj) {
+          this.mouse.draggingObj = hitObj;
+          hitObj.selected = true;
+          return;
+        }
+      }
+
+      // If clicking directly in placement mode
+      this.placeAt(pos.x, pos.y);
+    });
+
+    this.canvas.addEventListener('mousemove', (e) => {
+      const pos = getPos(e);
+      this.mouse.x = pos.x;
+      this.mouse.y = pos.y;
+
+      if (this.mouse.down && this.mouse.draggingObj) {
+        this.mouse.draggingObj.x = pos.x;
+        this.mouse.draggingObj.y = pos.y;
+      }
+
+      // If in eraser mode and dragging, delete nearby particles
+      if (this.mouse.down && this.currentMode === 'eraser') {
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          if (Math.hypot(p.x - pos.x, p.y - pos.y) < 35) {
+            this.removeParticle(p);
+          }
+        }
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      this.mouse.down = false;
+      if (this.mouse.draggingObj) {
+        this.mouse.draggingObj.selected = false;
+        this.mouse.draggingObj = null;
+      }
+    });
+
+    // Touch support
+    this.canvas.addEventListener('touchstart', (e) => {
+      const pos = getPos(e);
+      this.mouse.x = pos.x;
+      this.mouse.y = pos.y;
+      this.mouse.down = true;
+      const hitObj = this.findObjectAt(pos.x, pos.y);
+      if (hitObj) {
+        this.mouse.draggingObj = hitObj;
+        hitObj.selected = true;
+      } else {
+        this.placeAt(pos.x, pos.y);
+      }
+    }, { passive: true });
+
+    this.canvas.addEventListener('touchmove', (e) => {
+      const pos = getPos(e);
+      this.mouse.x = pos.x;
+      this.mouse.y = pos.y;
+      if (this.mouse.draggingObj) {
+        this.mouse.draggingObj.x = pos.x;
+        this.mouse.draggingObj.y = pos.y;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+      this.mouse.down = false;
+      if (this.mouse.draggingObj) {
+        this.mouse.draggingObj.selected = false;
+        this.mouse.draggingObj = null;
+      }
+    });
+
+    // Right-click removes any node/robot
+    this.canvas.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      const pos = getPos(e);
+      const hitObj = this.findObjectAt(pos.x, pos.y);
+      if (hitObj) {
+        this.robots = this.robots.filter(r => r !== hitObj);
+        this.nodes = this.nodes.filter(n => n !== hitObj);
+        if (window.audio) audio.playPop(300);
+      }
+    });
+
+    // Double-click triggers massive Supernova shockwave
+    this.canvas.addEventListener('dblclick', (e) => {
+      const pos = getPos(e);
+      this.triggerSupernova(pos.x, pos.y, 300);
+    });
   }
 
   loop() {
@@ -14655,100 +15746,170 @@ class ParticleGravitron {
         this.resize();
       }
 
-      // Smooth cosmic trail persistence
-      this.ctx.clearRect(0, 0, w, h);
+      const spdMult = this.simSpeed;
 
-      const mx = this.mouse.x;
-      const my = this.mouse.y;
-      const isInteracting = this.mouse.down;
-      const mode = this.mouse.mode || 'attract';
+      // Pure deep black canvas background (No transparency bleed)
+      this.ctx.fillStyle = '#000000';
+      this.ctx.fillRect(0, 0, w, h);
 
-      // Accretion disk event horizon glow around cursor
-      if (isInteracting && mx > 0 && my > 0) {
-        this.ctx.save();
-        this.ctx.beginPath();
-        this.ctx.arc(mx, my, mode === 'repel' ? 45 : 32, 0, Math.PI * 2);
-        this.ctx.strokeStyle = mode === 'repel' ? 'rgba(239, 68, 68, 0.6)' : 'rgba(56, 189, 248, 0.6)';
-        this.ctx.lineWidth = 2.5;
-        this.ctx.shadowColor = mode === 'repel' ? '#ef4444' : '#38bdf8';
-        this.ctx.shadowBlur = 18;
-        this.ctx.stroke();
+      // Clean up dead nodes
+      this.nodes = this.nodes.filter(n => n.active);
 
-        this.ctx.beginPath();
-        this.ctx.arc(mx, my, 8, 0, Math.PI * 2);
-        this.ctx.fillStyle = '#ffffff';
-        this.ctx.fill();
-        this.ctx.restore();
-
-        // Modulate sound pitch based on mouse interaction
-        if (this.humOsc && window.audio && window.audio.ctx) {
-          const targetFreq = mode === 'vortex' ? 220 : (mode === 'repel' ? 140 : 180);
-          this.humOsc.frequency.setTargetAtTime(targetFreq, window.audio.ctx.currentTime, 0.1);
-        }
+      // Update & Render Placed Nodes
+      for (let n of this.nodes) {
+        n.update(
+          this.particles,
+          (x, y, vx, vy, col) => this.addParticle(x, y, vx, vy, col),
+          (p) => this.removeParticle(p),
+          (x, y, r) => this.triggerSupernova(x, y, r),
+          spdMult
+        );
+        n.draw(this.ctx);
       }
 
-      // Render shockwaves
+      // Update & Render Robots
+      for (let r of this.robots) {
+        r.update(
+          w, h,
+          this.particles,
+          (x, y, vx, vy, col) => this.addParticle(x, y, vx, vy, col),
+          (p) => this.removeParticle(p),
+          spdMult
+        );
+        r.draw(this.ctx);
+      }
+
+      // Render Shockwaves
       for (let sIdx = this.shockwaves.length - 1; sIdx >= 0; sIdx--) {
         const sw = this.shockwaves[sIdx];
-        sw.r += 12;
+        sw.r += 12 * spdMult;
         sw.alpha *= 0.94;
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
-        this.ctx.strokeStyle = 'rgba(56, 189, 248, ' + sw.alpha + ')';
-        this.ctx.lineWidth = 3;
+        this.ctx.strokeStyle = `rgba(245, 158, 11, ${sw.alpha})`;
+        this.ctx.lineWidth = 3.5;
+        this.ctx.shadowColor = '#f59e0b';
+        this.ctx.shadowBlur = 18;
         this.ctx.stroke();
         this.ctx.restore();
-        if (sw.alpha < 0.05) this.shockwaves.splice(sIdx, 1);
+        if (sw.alpha < 0.04) this.shockwaves.splice(sIdx, 1);
       }
 
-      // Physics loop
-      for (let i = 0; i < this.particles.length; i++) {
+      // Render Sparks / Dissolves
+      for (let sIdx = this.sparks.length - 1; sIdx >= 0; sIdx--) {
+        const sp = this.sparks[sIdx];
+        sp.r += 0.8 * spdMult;
+        sp.alpha *= 0.88;
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(sp.x, sp.y, sp.r, 0, Math.PI * 2);
+        this.ctx.fillStyle = sp.color || '#ef4444';
+        this.ctx.globalAlpha = sp.alpha;
+        this.ctx.fill();
+        this.ctx.restore();
+        if (sp.alpha < 0.05) this.sparks.splice(sIdx, 1);
+      }
+
+      // Physics Loop on Particles
+      for (let i = this.particles.length - 1; i >= 0; i--) {
         const p = this.particles[i];
+        if (p._destroyed) {
+          this.particles.splice(i, 1);
+          continue;
+        }
 
-        if (isInteracting) {
-          const dx = mx - p.x;
-          const dy = my - p.y;
-          const dist = Math.hypot(dx, dy) + 12;
-          const force = (650 / (dist * dist));
+        // Apply Forces from Placed Nodes
+        for (let n of this.nodes) {
+          const dx = n.x - p.x;
+          const dy = n.y - p.y;
+          const dist = Math.hypot(dx, dy) + 0.1;
 
-          if (mode === 'attract') {
-            // Relativistic black hole pull with light swirl
-            p.vx += (dx / dist) * force * 22;
-            p.vy += (dy / dist) * force * 22;
-          } else if (mode === 'repel') {
-            // Explosive Supernova
-            p.vx -= (dx / dist) * force * 32;
-            p.vy -= (dy / dist) * force * 32;
-          } else if (mode === 'vortex') {
-            // Galactic spiral vortex (tangential speed + inward pull)
-            p.vx += (-dy / dist) * force * 28 + (dx / dist) * 2.2;
-            p.vy += (dx / dist) * force * 28 + (dy / dist) * 2.2;
-          } else if (mode === 'quantum') {
-            // Harmonic wave undulation
-            const wave = Math.sin(p.x * 0.02 + Date.now() * 0.003) * 1.8;
-            p.vx += (dx / dist) * force * 14 + wave;
-            p.vy += (dy / dist) * force * 14 - wave;
+          if (dist < n.effectRadius) {
+            if (n.type === 'repel_point') {
+              // Gentle repulsion at short distance
+              const force = ((n.effectRadius - dist) / n.effectRadius) * 2.2 * spdMult;
+              p.vx -= (dx / dist) * force;
+              p.vy -= (dy / dist) * force;
+            } else if (n.type === 'attract_point') {
+              // Gentle attraction at short distance
+              const force = ((n.effectRadius - dist) / n.effectRadius) * 1.9 * spdMult;
+              p.vx += (dx / dist) * force;
+              p.vy += (dy / dist) * force;
+            } else if (n.type === 'eraser') {
+              // Antimatter dissolution
+              this.removeParticle(p);
+              break;
+            } else if (n.type === 'vortex') {
+              // Galactic spiral vortex
+              const force = ((n.effectRadius - dist) / n.effectRadius) * 3.0 * spdMult;
+              p.vx += (-dy / dist) * force * 1.8 + (dx / dist) * force * 0.7;
+              p.vy += (dx / dist) * force * 1.8 + (dy / dist) * force * 0.7;
+            } else if (n.type === 'splitter') {
+              // Split particle into 2 if near center
+              if (dist < 18 && !p._splitCooldown && this.particles.length < 6500) {
+                p._splitCooldown = 40;
+                this.addParticle(p.x, p.y, -p.vy * 1.2, p.vx * 1.2, '#f59e0b');
+              }
+            } else if (n.type === 'timewarp') {
+              // Time dilation: slow down speed inside bubble
+              p.vx *= 0.86;
+              p.vy *= 0.86;
+            } else if (n.type === 'bumper') {
+              // Kinetic trampoline bounce
+              if (dist < 28) {
+                p.vx = -p.vx * 1.6;
+                p.vy = -p.vy * 1.6;
+                p.x += p.vx * 2;
+                p.y += p.vy * 2;
+              }
+            } else if (n.type === 'prism') {
+              // Chromatic neon tint
+              p.color = ['#f43f5e', '#38bdf8', '#fbbf24', '#a855f7', '#00e676'][Math.floor(Math.random() * 5)];
+            } else if (n.type === 'tornado') {
+              // Upward corkscrew storm
+              p.vx += (-dy / dist) * 3.5 * spdMult;
+              p.vy -= 2.2 * spdMult;
+            } else if (n.type === 'zerog') {
+              // Damped zero-g float
+              p.vx *= 0.92;
+              p.vy *= 0.92;
+            } else if (n.type === 'portal_a' && n.partnerPortal) {
+              if (dist < 22 && !p._portalCooldown) {
+                p.x = n.partnerPortal.x + (dx / dist) * 26;
+                p.y = n.partnerPortal.y + (dy / dist) * 26;
+                p._portalCooldown = 30;
+              }
+            } else if (n.type === 'portal_b' && n.partnerPortal) {
+              if (dist < 22 && !p._portalCooldown) {
+                p.x = n.partnerPortal.x + (dx / dist) * 26;
+                p.y = n.partnerPortal.y + (dy / dist) * 26;
+                p._portalCooldown = 30;
+              }
+            }
           }
         }
 
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vx *= 0.978;
-        p.vy *= 0.978;
+        if (p._splitCooldown > 0) p._splitCooldown--;
+        if (p._portalCooldown > 0) p._portalCooldown--;
 
-        // Wrap boundaries
+        p.x += p.vx * spdMult;
+        p.y += p.vy * spdMult;
+        p.vx *= 0.982;
+        p.vy *= 0.982;
+
+        // Wrap around boundaries
         if (p.x < 0) p.x = w;
         if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h;
         if (p.y > h) p.y = 0;
 
-        // Speed-based dynamic radiant heat map
+        // Dynamic radiant color based on speed
         const spd = Math.hypot(p.vx, p.vy);
         if (spd > 7) {
-          this.ctx.fillStyle = '#ffffff'; // White singularity
+          this.ctx.fillStyle = '#ffffff';
         } else if (spd > 4) {
-          this.ctx.fillStyle = '#fbbf24'; // Radiant gold
+          this.ctx.fillStyle = '#fbbf24';
         } else {
           this.ctx.fillStyle = p.color;
         }
@@ -14756,11 +15917,26 @@ class ParticleGravitron {
         const sz = spd > 5 ? p.size * 1.5 : p.size;
         this.ctx.fillRect(p.x, p.y, sz, sz);
       }
+
+      // Draw Cursor Placement Preview when not dragging
+      if (!this.mouse.down && this.mouse.x > 0 && this.mouse.y > 0 && !this.isDrawerOpen) {
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(this.mouse.x, this.mouse.y, 14, 0, Math.PI * 2);
+        this.ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+        this.ctx.lineWidth = 1.5;
+        this.ctx.setLineDash([3, 3]);
+        this.ctx.stroke();
+        this.ctx.restore();
+      }
     }
+
     requestAnimationFrame(() => this.loop());
   }
 }
+
 window.particles = new ParticleGravitron();
+
 
 </script>
 
