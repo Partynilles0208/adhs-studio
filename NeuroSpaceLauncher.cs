@@ -175,23 +175,38 @@ namespace NeuroSpaceLauncher
                     }
                 }
 
-                // If Edge was previously open and now closed, exit launcher
+                // If Edge was previously open and now closed, kill Roblox and exit launcher
                 if (edgeEverFound && (cachedEdgeHwnd == IntPtr.Zero || !IsWindow(cachedEdgeHwnd)))
                 {
+                    KillRobloxProcess();
                     Application.Exit();
                     return;
                 }
 
                 if (cachedEdgeHwnd == IntPtr.Zero) return;
 
+                // Check title to determine if user is in Roblox Active mode or requested closing
+                StringBuilder sb = new StringBuilder(512);
+                GetWindowText(cachedEdgeHwnd, sb, 512);
+                string title = sb.ToString();
+
+                if (title.IndexOf("Close Roblox", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    title.IndexOf("Exit App", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    KillRobloxProcess();
+                    lastAppliedVisible = false;
+                    lastAppliedX = -99999;
+                    lastAppliedY = -99999;
+                    lastAppliedW = -99999;
+                    lastAppliedH = -99999;
+                    lastOwnerSet = IntPtr.Zero;
+                    return;
+                }
+
                 // Find normal Roblox window (Class: WINDOWCLIENT)
                 IntPtr rbxHwnd = FindWindow("WINDOWSCLIENT", null);
                 if (rbxHwnd == IntPtr.Zero || !IsWindow(rbxHwnd)) return;
 
-                // Check title to determine if user is in Roblox Active mode or in Hub
-                StringBuilder sb = new StringBuilder(512);
-                GetWindowText(cachedEdgeHwnd, sb, 512);
-                string title = sb.ToString();
                 bool isRobloxActive = title.IndexOf("Roblox Active", StringComparison.OrdinalIgnoreCase) >= 0;
 
                 // 1. Detach from Edge if previously reparented as WS_CHILD
@@ -451,10 +466,66 @@ namespace NeuroSpaceLauncher
             catch { }
         }
 
+        public static void KillRobloxProcess()
+        {
+            try
+            {
+                string[] processNames = new string[] {
+                    "RobloxPlayerBeta",
+                    "RobloxCrashHandler",
+                    "RobloxPlayerLauncher",
+                    "RobloxPlayerInstaller"
+                };
+
+                foreach (string procName in processNames)
+                {
+                    try
+                    {
+                        Process[] procs = Process.GetProcessesByName(procName);
+                        foreach (Process p in procs)
+                        {
+                            try
+                            {
+                                if (!p.HasExited)
+                                {
+                                    p.Kill();
+                                    p.WaitForExit(500);
+                                }
+                            }
+                            catch { }
+                            finally
+                            {
+                                try { p.Dispose(); } catch { }
+                            }
+                        }
+                    }
+                    catch { }
+                }
+
+                // Extra safety taskkill fallback to ensure zero lingering background instances
+                try
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    psi.FileName = "cmd.exe";
+                    psi.Arguments = "/c taskkill /F /IM RobloxPlayerBeta.exe /IM RobloxCrashHandler.exe /IM RobloxPlayerLauncher.exe /T >nul 2>&1";
+                    psi.CreateNoWindow = true;
+                    psi.UseShellExecute = false;
+                    psi.WindowStyle = ProcessWindowStyle.Hidden;
+                    using (Process tk = Process.Start(psi))
+                    {
+                        if (tk != null) tk.WaitForExit(800);
+                    }
+                }
+                catch { }
+            }
+            catch { }
+        }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             try
             {
+                KillRobloxProcess();
                 if (embedTimer != null) embedTimer.Stop();
                 UnregisterHotKey(this.Handle, HOTKEY_ID);
             }
@@ -470,6 +541,10 @@ namespace NeuroSpaceLauncher
         {
             try
             {
+                AppDomain.CurrentDomain.ProcessExit += (s, ev) => { HotkeyWatcherForm.KillRobloxProcess(); };
+                Application.ApplicationExit += (s, ev) => { HotkeyWatcherForm.KillRobloxProcess(); };
+
+                HotkeyWatcherForm.KillRobloxProcess();
                 HotkeyWatcherForm.CleanRobloxDesktopShortcuts();
                 HotkeyWatcherForm.RemoveRobloxAutostart();
                 string targetHtml = @"C:\NeuroSpace\index.html";

@@ -7326,9 +7326,9 @@
     <img src="nutzung.jpg" alt="Nutzungsbedingungen" class="cinematic-img" onerror="this.style.display='none';document.getElementById('usage-text-card').style.display='flex';">
     <div id="usage-text-card" style="display:none; max-width:680px; padding:36px; background:rgba(20,14,10,0.96); border:2px solid #f59e0b; border-radius:22px; color:#fef3c7; text-align:center; box-shadow:0 0 60px rgba(0,0,0,0.95); margin:20px; flex-direction:column; align-items:center;">
       <div style="font-size:48px; margin-bottom:14px;">📜</div>
-      <h2 style="font-size:24px; font-weight:800; color:#fbbf24; margin:0 0 12px; letter-spacing:0.5px;">NUTZUNGSBEDINGUNGEN & DATENSCHUTZ</h2>
-      <p style="font-size:14px; line-height:1.6; color:#e2e8f0; margin-bottom:14px;">NeuroSpace Studio dient der sensorischen Entspannung und Fokussierung. Alle Daten verbleiben lokal auf Ihrem Computer. Die Nutzung erfolgt auf eigene Verantwortung.</p>
-      <div style="font-size:12px; color:#f59e0b; font-weight:700;">100% Offline • Keine Weitergabe von Daten • DSGVO-konform</div>
+      <h2 style="font-size:24px; font-weight:800; color:#fbbf24; margin:0 0 12px; letter-spacing:0.5px;">NUTZUNGSBEDINGUNGEN &amp; DATENSCHUTZ</h2>
+      <p style="font-size:14px; line-height:1.6; color:#e2e8f0; margin-bottom:14px;">NeuroSpace Studio dient der sensorischen Entspannung und Fokussierung. <b>Wichtig:</b> Bestimmungen können sich durch Updates ändern. Bei Herzrhythmusstörungen, Herzkrankheiten oder Reizüberempfindlichkeit bitte vorsichtig sein. Alle Daten verbleiben 100% lokal auf Ihrem Computer.</p>
+      <div style="font-size:12px; color:#f59e0b; font-weight:700;">100% Offline • Gesundheitsschutz • Keine Weitergabe • DSGVO-konform</div>
     </div>
   </div>
 </div>
@@ -7423,6 +7423,9 @@
           </button>
           <button class="header-pill-btn" id="btn-toggle-muted-header" title="Reizarm-Modus umschalten" style="background:rgba(234,88,12,0.14); border-color:rgba(234,88,12,0.38); color:#fed7aa;">
             <span>🍂</span> Reizarm
+          </button>
+          <button class="header-pill-btn" onclick="if(window.trustEngine) window.trustEngine.openModal();" title="Nutzungsbedingungen, Gesundheit &amp; Datenschutz (Update Herbst 2026)" style="background:rgba(16,185,129,0.18); border-color:rgba(16,185,129,0.45); color:#6ee7b7; font-weight:800;">
+            <span>🛡️</span> Datenschutz &amp; Bedingungen
           </button>
         </div>
       </header>
@@ -7958,6 +7961,22 @@
           </div>
         </div>
       </section>
+
+      <!-- Herbst Studio Footer mit Nutzungsbedingungen & Datenschutz -->
+      <footer style="margin:40px 0 20px 0; padding:22px; border-radius:20px; background:rgba(20,13,9,0.78); border:1px solid rgba(245,158,11,0.25); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="font-size:28px;">🍁</div>
+          <div>
+            <div style="font-size:13.5px; font-weight:800; color:#fef3c7;">NeuroSpace Studio — Herbst-Edition</div>
+            <div style="font-size:11.5px; color:#cbd5e1; margin-top:2px;">100% Offline • Reizarm &amp; Fokussiert • Maximale Datensicherheit &amp; Gesundheitsschutz</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button onclick="if(window.trustEngine) window.trustEngine.openModal();" style="background:rgba(245,158,11,0.22); border:1.5px solid rgba(245,158,11,0.5); color:#fde047; padding:9px 18px; border-radius:12px; font-weight:800; font-size:12px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+            <span>📜</span> Nutzungsbedingungen &amp; Gesundheitshinweise
+          </button>
+        </div>
+      </footer>
 
       <!-- HIDDEN CONTAINER FOR STREAK & QUESTS (FOR LOGICAL JS BINDINGS) -->
       <div style="display:none;">
@@ -16263,6 +16282,11 @@ class SiteAccessGateController {
 
             // Direkt zur sauberen, reizarmen Zentrale ohne nervige Popups!
             if (window.switchView) window.switchView('view-hub');
+            setTimeout(() => {
+              if (window.trustEngine && typeof window.trustEngine.openStartupModal === 'function') {
+                window.trustEngine.openStartupModal();
+              }
+            }, 600);
           }, 500);
         }
       }, 500);
@@ -16288,57 +16312,73 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
-  <!-- MODAL: DATENSCHUTZ, ETHIK & VERTRAUENS-VERSPRECHEN              -->
+  <!-- MODAL: DATENSCHUTZ, GESUNDHEIT & AKTUELLE NUTZUNGSBEDINGUNGEN      -->
   <!-- ============================================================== -->
   <div id="trust-privacy-modal">
-    <div class="trust-modal-card">
-      <button style="position:absolute; top:20px; right:22px; background:transparent; border:none; color:#94a3b8; font-size:24px; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.closeModal();">✕</button>
+    <div class="trust-modal-card" style="background: radial-gradient(circle at 50% 0%, rgba(32, 22, 14, 0.98), rgba(12, 8, 6, 0.99)); border: 1.5px solid rgba(245, 158, 11, 0.55); box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(245, 158, 11, 0.25); border-radius: 28px; max-width: 680px;">
+      <button style="position:absolute; top:20px; right:22px; background:rgba(255,255,255,0.08); border:1px solid rgba(245,158,11,0.3); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; color:#fde68a; font-size:18px; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.closeModal();" title="Schließen">✕</button>
 
-      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
-        <div style="font-size:32px;">🛡️</div>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+        <div style="font-size:36px; filter:drop-shadow(0 0 16px rgba(245,158,11,0.6));">🛡️</div>
         <div>
-          <div style="font-size:11px; font-weight:900; color:#10b981; letter-spacing:1px; text-transform:uppercase;">UNSER VERSPRECHEN AN DICH</div>
-          <h2 style="font-size:22px; font-weight:900; color:#fff; margin:0;">Datenschutz & Vertrauen</h2>
+          <div style="font-size:11px; font-weight:900; color:#fbbf24; letter-spacing:1px; text-transform:uppercase;">🍁 SICHERHEITS-UPDATE HERBST 2026 • AKTUELLE BESTIMMUNGEN</div>
+          <h2 style="font-size:22px; font-weight:900; color:#fef3c7; margin:0;">Nutzungsbedingungen, Gesundheit &amp; Datenschutz</h2>
         </div>
       </div>
-      <p style="font-size:13px; color:#cbd5e1; margin-bottom:20px; line-height:1.5;">
-        NeuroSpace wurde geschaffen, um Menschen mit NeuroSpace, Autismus und hoher Reizsensibilität einen sicheren, respektvollen und ehrlichen Rückzugsort zu bieten.
+      <p style="font-size:13px; color:#fed7aa; margin-bottom:20px; line-height:1.55;">
+        Willkommen im NeuroSpace Herbst-Studio. Dein Wohlbefinden, deine körperliche Sicherheit und deine Privatsphäre stehen für uns stets an allererster Stelle. Bitte beachte die folgenden verbindlichen Hinweise:
       </p>
 
-      <div class="trust-pillar-box">
-        <h4><span>🔒</span> 1. Deine Privatsphäre ist unantastbar</h4>
-        <p>Alle deine Notizen, Einstellungen, Spielstände, XP-Fortschritte und Chat-Verläufe werden <b>zu 100% lokal auf deinem eigenen Gerät</b> im Browser gespeichert. Es gibt kein Tracking, keine Weitergabe an Werbenetzwerke und keine Benutzerprofile.</p>
+      <!-- 1. Änderungsvorbehalt -->
+      <div class="trust-pillar-box" style="border-left: 3px solid #f59e0b; background:rgba(245,158,11,0.06);">
+        <h4 style="color:#fbbf24;"><span>⚠️</span> 1. Wichtiger Hinweis: Bestimmungen &amp; Funktionen können sich ändern</h4>
+        <p><b>Änderungsvorbehalt bei Updates:</b> Diese Nutzungsbedingungen, Sicherheitsrichtlinien sowie sämtliche Features und Spiele des NeuroSpace Studios können sich durch fortlaufende Updates, Weiterentwicklungen oder gesetzliche Anpassungen jederzeit ändern. Wir empfehlen, die Bestimmungen regelmäßig einzusehen.</p>
       </div>
 
-      <div class="trust-pillar-box">
-        <h4><span>🌿</span> 2. Werbefrei & Absolut Kostenlos</h4>
-        <p>Hier gibt es keine versteckten Kosten, keine Abofallen und keine blinkenden Werbe-Banner. Wir möchten dein Nervensystem entlasten – nicht überreizen.</p>
+      <!-- 2. Gesundheit: Herzrhythmusstörungen & Herzkrankheiten -->
+      <div class="trust-pillar-box" style="border-left: 3px solid #ef4444; background:rgba(239,68,68,0.08); border-color:rgba(239,68,68,0.3);">
+        <h4 style="color:#fca5a5;"><span>❤️</span> 2. Herz-Kreislauf-Vorsicht bei Herzrhythmusstörungen &amp; Herzkrankheiten</h4>
+        <p><b>Besondere Vorsicht &amp; Achtsamkeit:</b> Bei bekannten <b>Herzrhythmusstörungen</b>, <b>Herzerkrankungen</b>, Herzschrittmachern, Kreislaufinstabilitäten oder sonstigen kardiovaskulären Vorerkrankungen sollte das Studio mit erhöhter Achtsamkeit genutzt werden. Schnelle visuelle Effekte, 3D-Simulationen, dynamische Spielsequenzen (z. B. Roblox) und akustische Reize können das vegetative Nervensystem stimulieren und Puls sowie Kreislauf belasten.<br>
+        <span style="display:inline-block; margin-top:6px; color:#fde68a;">👉 <i>Solltest du Herzrasen, Schwindel, Unwohlsein, Druckgefühl in der Brust oder Kurzatmigkeit verspüren: Pausiere die Nutzung sofort, schalte in den Reizarm-Modus (Taste Tab) und ziehe im Zweifel ärztlichen Rat hinzu.</i></span></p>
       </div>
 
-      <div class="trust-pillar-box">
-        <h4><span>🧠</span> 3. Wissenschaftliche Basis statt leere Versprechen</h4>
-        <p>Die sensorischen Werkzeuge und XP Kick-Mechanismen basieren auf etablierter neuropsychologischer Forschung (u. a. Delay Discounting nach Dr. Russell Barkley und PET-Studien von Dr. Nora Volkow). Sie dienen als digitaler Fidget- und Regulationsraum.</p>
+      <!-- 3. Epilepsie & Photosensibilität -->
+      <div class="trust-pillar-box" style="border-left: 3px solid #eab308; background:rgba(234,179,8,0.06);">
+        <h4 style="color:#fde047;"><span>⚡</span> 3. Photosensibilität &amp; Epilepsie-Prävention</h4>
+        <p>Einige 3D-Simulationen und Spiele enthalten wechselnde Kontraste und Lichtmuster. Personen mit diagnostizierter photosensibler Epilepsie oder hoher visueller Sensibilität sollten die Helligkeit über das Zen-Deck (<kbd style="background:rgba(0,0,0,0.5); padding:1px 5px; border-radius:4px;">Tab</kbd>) dimmen oder den Reizarm-Modus aktivieren.</p>
       </div>
 
-      <div class="trust-pillar-box">
-        <h4><span>⚡</span> 4. Keine leeren Sprüche & Echter Nutzen</h4>
-        <p>Keine abgedroschenen Motivationsfloskeln oder ungefragtes Coaching. NeuroSpace liefert direkte Werkzeuge für den Alltag: reizarme Sensorik, Fokus-Hilfen und Spiele ohne Bevormundung.</p>
+      <!-- 4. Absolute Datensicherheit -->
+      <div class="trust-pillar-box" style="border-left: 3px solid #10b981; background:rgba(16,185,129,0.06);">
+        <h4 style="color:#6ee7b7;"><span>🔒</span> 4. Absolute Datensicherheit &amp; 100% Offline-Garantie</h4>
+        <p>Deine Privatsphäre ist absolut geschützt: Sämtliche Notizen, Audio-Settings, Entspannungsprofile und XP-Punkte verbleiben <b>zu 100% lokal auf deinem eigenen Rechner</b>. Es gibt keinerlei Werbetracker, keine Analyse-Pixel, keine Weitergabe an Werbenetzwerke und keine Server-Profile. Volle DSGVO-Konformität.</p>
+      </div>
+
+      <!-- 5. Pausen & Eigenverantwortung -->
+      <div class="trust-pillar-box" style="border-left: 3px solid #06b6d4; background:rgba(6,182,212,0.06);">
+        <h4 style="color:#67e8f9;"><span>🧘</span> 5. Gesunde Pausen &amp; Eigenverantwortung</h4>
+        <p>Gönne deinem Geist und deinen Augen regelmäßige Erholung (z. B. nach 20 Minuten 20 Sekunden in die Weite blicken und Wasser trinken). NeuroSpace Studio dient der Entspannung und Fokussierung – es ist kein Medizinprodukt und ersetzt keine ärztliche oder psychologische Behandlung.</p>
       </div>
 
       <!-- Krisen- & Notfall-Hilfe (Sicherheit für akute Notfälle) -->
-      <div class="crisis-support-box">
-        <h4><span>🤝</span> Du fühlst dich überfordert? Du bist nicht allein.</h4>
-        <p>Wenn die Gedanken zu laut werden oder du jemanden zum Reden brauchst, gibt es kostenlose, vertrauliche und professionelle Hilfe:</p>
+      <div class="crisis-support-box" style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.35);">
+        <h4 style="color:#fde68a;"><span>🤝</span> Du fühlst dich überfordert? Du bist nicht allein.</h4>
+        <p style="color:#e2e8f0;">Wenn die Gedanken zu laut werden oder du Unterstützung brauchst, gibt es kostenlose, vertrauliche und professionelle Hilfe:</p>
         <div class="crisis-numbers-row">
           <a href="tel:08001110111" class="crisis-pill-btn">📞 Telefonseelsorge (0800 111 0 111)</a>
           <a href="tel:116123" class="crisis-pill-btn">📞 Krisentelefon (116 123)</a>
-          <a href="https://www.adhs-deutschland.de" target="_blank" rel="noopener noreferrer" class="crisis-pill-btn">🌐 NeuroSpace Deutschland e.V. (ADHS-Hilfe) ↗</a>
+          <a href="https://www.adhs-deutschland.de" target="_blank" rel="noopener noreferrer" class="crisis-pill-btn">🌐 ADHS Deutschland e.V. ↗</a>
         </div>
       </div>
 
-      <button style="margin-top:20px; width:100%; padding:14px; border-radius:16px; background:linear-gradient(135deg, #10b981, #0284c7); border:none; color:#fff; font-size:14.5px; font-weight:900; cursor:pointer;" onclick="if(window.trustEngine) window.trustEngine.closeModal();">
-        Schließen
-      </button>
+      <div style="margin-top:22px; display:flex; flex-direction:column; gap:8px;">
+        <button class="trust-accept-btn" onclick="if(window.trustEngine) window.trustEngine.acceptAndClose();" style="width:100%; padding:15px; border-radius:16px; background:linear-gradient(135deg, #d97706, #10b981); border:none; color:#fff; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 0 25px rgba(245,158,11,0.4); display:flex; align-items:center; justify-content:center; gap:8px; transition:transform 0.15s;">
+          <span>🍁</span> Ich habe die Bestimmungen gelesen &amp; stimme zu
+        </button>
+        <button onclick="if(window.trustEngine) window.trustEngine.closeModal();" style="width:100%; padding:10px; border-radius:12px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#cbd5e1; font-size:12px; font-weight:700; cursor:pointer;">
+          Später im Hub erneut nachlesen
+        </button>
+      </div>
     </div>
   </div>
 
@@ -16356,6 +16396,20 @@ class TrustAndWarmthEngine {
     if (this.modal) this.modal.classList.add('active');
     if (window.audio && typeof window.audio.playPop === 'function') {
       window.audio.playPop(520);
+    }
+  }
+
+  openStartupModal() {
+    this.openModal();
+  }
+
+  acceptAndClose() {
+    try {
+      localStorage.setItem('neurospace_terms_update_accepted_v2', 'true');
+    } catch(e) {}
+    this.closeModal();
+    if (window.audio && typeof window.audio.playChime === 'function') {
+      window.audio.playChime();
     }
   }
 
@@ -16542,6 +16596,11 @@ class CinematicIntroController {
           if (window.neuroSupabase && typeof window.neuroSupabase.loadFromCloud === 'function') {
             window.neuroSupabase.loadFromCloud();
           }
+          setTimeout(() => {
+            if (window.trustEngine && typeof window.trustEngine.openStartupModal === 'function') {
+              window.trustEngine.openStartupModal();
+            }
+          }, 600);
         }
       }
     }, 800);
@@ -18109,8 +18168,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     <!-- Top-Left: Prominent Zurück Button & NeuroSpace Optionen -->
     <div style="display:flex; align-items:center; gap:10px;">
-      <button class="nav-back-btn" onclick="exitRobloxToHub();" style="background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(217,119,6,0.4)); color:#fef3c7; border:1.5px solid rgba(245,158,11,0.65); border-radius:12px; padding:6px 16px; font-weight:900; font-size:12.5px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 3px 12px rgba(245,158,11,0.3); transition:transform 0.15s;">
+      <button class="nav-back-btn" onclick="exitRobloxToHub(true);" style="background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(217,119,6,0.4)); color:#fef3c7; border:1.5px solid rgba(245,158,11,0.65); border-radius:12px; padding:6px 16px; font-weight:900; font-size:12.5px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 3px 12px rgba(245,158,11,0.3); transition:transform 0.15s;" title="Zurück zur Zentrale">
         <span style="font-size:15px;">←</span> Zurück (<kbd style="background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.3); padding:1px 5px; border-radius:4px; font-size:10.5px;">Esc</kbd>)
+      </button>
+
+      <button onclick="exitRobloxToHub(true);" class="tool-pill-btn" style="background:rgba(239,68,68,0.22); border:1.5px solid rgba(239,68,68,0.55); color:#fca5a5; border-radius:12px; padding:6px 12px; font-weight:800; font-size:11.5px; cursor:pointer; display:inline-flex; align-items:center; gap:5px;" title="Roblox sofort sauber schließen &amp; zur Zentrale">
+        <span>🛑</span> Roblox beenden
       </button>
 
       <button onclick="toggleRobloxOptionsDropdown()" class="tool-pill-btn" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.22); color:#fef3c7; border-radius:12px; padding:6px 12px; font-weight:800; font-size:11.5px; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
@@ -18158,8 +18221,11 @@ document.addEventListener('DOMContentLoaded', () => {
       <span>🍁</span> NeuroSpace Herbst-Optionen
     </div>
     <div style="display:flex; flex-direction:column; gap:6px;">
-      <button onclick="exitRobloxToHub(); toggleRobloxOptionsDropdown(false);" class="tool-pill-btn" style="text-align:left; padding:8px 12px; font-weight:800; background:rgba(255,255,255,0.06); border:1px solid rgba(245,158,11,0.25); color:#fef3c7; border-radius:8px; cursor:pointer;">
+      <button onclick="exitRobloxToHub(true); toggleRobloxOptionsDropdown(false);" class="tool-pill-btn" style="text-align:left; padding:8px 12px; font-weight:800; background:rgba(255,255,255,0.06); border:1px solid rgba(245,158,11,0.25); color:#fef3c7; border-radius:8px; cursor:pointer;">
         🏠 Zurück zur Zentrale (<kbd>Esc</kbd>)
+      </button>
+      <button onclick="exitRobloxToHub(true); toggleRobloxOptionsDropdown(false);" class="tool-pill-btn" style="text-align:left; padding:8px 12px; font-weight:800; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.5); color:#fca5a5; border-radius:8px; cursor:pointer;">
+        🛑 Roblox komplett beenden
       </button>
       <button onclick="toggleUtilityDrawer(); toggleRobloxOptionsDropdown(false);" class="tool-pill-btn" style="text-align:left; padding:8px 12px; font-weight:800; background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.45); color:#fde047; border-radius:8px; cursor:pointer;">
         🍂 Herbst-Werkzeuge &amp; Autoklicker
@@ -19750,8 +19816,12 @@ console.log("Roblox3DStudioEngine class loaded");
     }
   }
 
-  window.exitRobloxToHub = function() {
-    document.title = 'NeuroSpace Studio — Herbst-Edition';
+  window.exitRobloxToHub = function(kill = true) {
+    if (kill) {
+      document.title = 'NeuroSpace Studio — Close Roblox — Herbst-Edition';
+    } else {
+      document.title = 'NeuroSpace Studio — Herbst-Edition';
+    }
     isRobloxFS = false;
     if (window.utilityDrawerEngine) {
       window.utilityDrawerEngine.toggle(false);
@@ -19762,6 +19832,14 @@ console.log("Roblox3DStudioEngine class loaded");
       window.switchView('view-hub');
     }
   };
+
+  // Ensure Roblox process is cleanly terminated whenever user exits or closes window
+  window.addEventListener('beforeunload', () => {
+    document.title = 'NeuroSpace Studio — Close Roblox — Exit App';
+  });
+  window.addEventListener('unload', () => {
+    document.title = 'NeuroSpace Studio — Close Roblox — Exit App';
+  });
 
   // Keyboard shortcut F11 for Roblox fullscreen toggle
   window.addEventListener('keydown', (e) => {
