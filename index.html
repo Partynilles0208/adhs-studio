@@ -5460,6 +5460,22 @@
     box-shadow: 0 0 15px rgba(236, 72, 153, 0.35);
     animation: overdriveBtnPulse 2.5s infinite;
   }
+
+  /* REIZARM-MODUS & GESUNDHEITSSCHUTZ (Schonend für Augen, Nervensystem & Herz-Kreislauf) */
+  body:not(.sensory-overdrive-active) .neuro-card {
+    transition: transform 0.22s ease, box-shadow 0.22s ease !important;
+  }
+  body:not(.sensory-overdrive-active) .neuro-card:hover {
+    transform: translateY(-4px) scale(1.015) !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   @keyframes overdriveBtnPulse {
     0%, 100% { box-shadow: 0 0 10px rgba(236, 72, 153, 0.3); }
     50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.6); }
@@ -7582,6 +7598,15 @@
       <!-- APP CARDS GRID WITH GORGEOUS 3D HERO THUMBNAILS (MATCHING SCREENSHOT) -->
       
       <section class="neuro-cards-grid" id="apps-grid">
+        <!-- Sympathischer Herbst-Leerzustand bei erfolgloser Suche -->
+        <div id="hub-no-results" style="display:none; grid-column:1/-1; padding:48px 24px; text-align:center; background:rgba(28,18,12,0.85); border:1.5px dashed rgba(245,158,11,0.4); border-radius:24px; color:#fde68a; margin:20px 0; backdrop-filter:blur(8px);">
+          <div style="font-size:42px; margin-bottom:12px;">🍁</div>
+          <div style="font-size:18px; font-weight:800; color:#fbbf24; margin-bottom:6px;">Keine Apps oder Simulationen gefunden</div>
+          <div style="font-size:13px; color:#e2e8f0; max-width:440px; margin:0 auto 16px; line-height:1.5;">Wir konnten zu deiner Suche nichts finden. Probier es mit "Sand", "3D", "Roblox", "Zeichnen" oder leere das Suchfeld.</div>
+          <button onclick="const s = document.getElementById('hub-search'); if (s) { s.value=''; s.dispatchEvent(new Event('input')); }" style="background:linear-gradient(135deg, #d97706, #b45309); border:1px solid #fbbf24; color:#fff; padding:8px 20px; border-radius:12px; font-weight:800; font-size:12px; cursor:pointer;">
+            Suche zurücksetzen ✕
+          </button>
+        </div>
         <div class="neuro-card" data-target="view-magnets" data-category="tactile sensory focus" onclick="if(window.switchView) window.switchView('view-magnets');">
           <div class="card-hero-thumb thumb-magnets">
             <span class="card-hero-icon">🧲</span>
@@ -9530,6 +9555,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let dissolveTimeout = null;
 
   function pauseAppViewEngines(viewId) {
+    if (viewId === 'view-games' && window.arcadeEngine) {
+      window.arcadeEngine.closePlayer();
+    }
     if (viewId === 'view-magnets' && window.buckyballsApp && typeof window.buckyballsApp.deactivate === 'function') {
       window.buckyballsApp.deactivate();
     }
@@ -10180,11 +10208,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
-      const allHubCards = document.querySelectorAll('.neuro-card, .app-card');
+      const allHubCards = document.querySelectorAll('#apps-grid .neuro-card, #apps-grid .app-card');
+      let visibleCount = 0;
       allHubCards.forEach(card => {
+        if (card.id === 'hub-no-results') return;
         const text = card.innerText.toLowerCase();
-        card.style.display = (q === '' || text.includes(q)) ? 'flex' : 'none';
+        const match = (q === '' || text.includes(q));
+        card.style.display = match ? 'flex' : 'none';
+        if (match) visibleCount++;
       });
+      const noRes = document.getElementById('hub-no-results');
+      if (noRes) {
+        noRes.style.display = (visibleCount === 0 && q !== '') ? 'block' : 'none';
+      }
     });
   }
 
@@ -10208,7 +10244,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') switchView('view-hub');
+    if (e.key === 'Escape') {
+      // 1. Wenn ein Spiel im Arcade-Player läuft, zuerst das Spiel schließen
+      if (window.arcadeEngine && window.arcadeEngine.playerModal && window.arcadeEngine.playerModal.classList.contains('active')) {
+        window.arcadeEngine.closePlayer();
+        return;
+      }
+      // 2. Wenn das Zen-Deck geöffnet ist, schließen
+      if (typeof window.toggleZenDeck === 'function' && document.body.classList.contains('zen-deck-open')) {
+        window.toggleZenDeck(false);
+        return;
+      }
+      // 3. Wenn ein Textfeld fokussiert ist, Fokus entfernen
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
+        activeEl.blur();
+        return;
+      }
+      // 4. Zurück zur Zentrale (Hub)
+      switchView('view-hub');
+    }
   });
 });
 </script>
@@ -17811,7 +17866,7 @@ document.addEventListener('DOMContentLoaded', () => {
 class NeodymMagnets3DApp {
   constructor() {
     this.canvas = document.getElementById('buckyballs-canvas');
-    if (!this.canvas) return;
+    if (!this.canvas || typeof THREE === 'undefined') return;
 
     this.isActive = false;
     this.animId = null;
@@ -19241,7 +19296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 class Roblox3DStudioEngine {
   constructor() {
     this.canvas = document.getElementById('roblox-3d-canvas');
-    if (!this.canvas) return;
+    if (!this.canvas || typeof THREE === 'undefined') return;
 
     this.isActive = false;
     this.animId = null;
