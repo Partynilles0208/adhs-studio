@@ -94,6 +94,8 @@ namespace NeuroSpaceLauncher
         private System.Windows.Forms.Timer embedTimer;
         private IntPtr cachedEdgeHwnd = IntPtr.Zero;
         private bool edgeEverFound = false;
+        private bool isRobloxFullscreen = false;
+        private bool prevF11Down = false;
 
         public HotkeyWatcherForm()
         {
@@ -165,29 +167,46 @@ namespace NeuroSpaceLauncher
                 if (w <= 0 || h <= 0) return;
 
                 bool isToolsOpen = title.IndexOf("Tools Open", StringComparison.OrdinalIgnoreCase) >= 0;
+                bool isExplicitFullscreen = title.IndexOf("Fullscreen", StringComparison.OrdinalIgnoreCase) >= 0;
+                bool isExplicitWindowed = title.IndexOf("Windowed", StringComparison.OrdinalIgnoreCase) >= 0;
 
-                // F11 global toggle forwarding to Edge
-                short f11State = GetAsyncKeyState(0x7A); // VK_F11
-                if ((f11State & 1) != 0)
+                if (isExplicitFullscreen) isRobloxFullscreen = true;
+                else if (isExplicitWindowed) isRobloxFullscreen = false;
+
+                // F11 global toggle: detects key transition reliably anywhere on the system
+                bool f11Down = (GetAsyncKeyState(0x7A) & 0x8000) != 0; // VK_F11
+                if (f11Down && !prevF11Down)
                 {
+                    isRobloxFullscreen = !isRobloxFullscreen;
                     PostMessage(cachedEdgeHwnd, 0x0100, (IntPtr)0x7A, IntPtr.Zero);
                     PostMessage(cachedEdgeHwnd, 0x0101, (IntPtr)0x7A, IntPtr.Zero);
                 }
+                prevF11Down = f11Down;
 
                 if (isRobloxActive)
                 {
-                    // Show and position seamlessly inside NeuroSpace between top nav bar (46px) and bottom bar (26px)
                     ShowWindow(rbxHwnd, SW_SHOW);
-                    int targetTop = 46;
-                    int targetBottom = 26;
-                    int targetHeight = Math.Max(100, h - targetTop - targetBottom);
 
-                    // If Tools Drawer is open on the left, offset Roblox by 340px so tools are 100% visible and interactive!
-                    int leftOffset = isToolsOpen ? 340 : 0;
-                    int targetWidth = Math.Max(100, w - leftOffset);
+                    if (isRobloxFullscreen)
+                    {
+                        // VOLLBILD: Roblox covers entire screen
+                        MoveWindow(rbxHwnd, 0, 0, w, h, true);
+                        SetWindowPos(rbxHwnd, IntPtr.Zero, 0, 0, w, h, SWP_SHOWWINDOW);
+                    }
+                    else
+                    {
+                        // MINIMIERT / STUDIO-MODUS: Roblox docked below NeuroSpace options bar
+                        int targetTop = 48;
+                        int targetBottom = 26;
+                        int targetHeight = Math.Max(100, h - targetTop - targetBottom);
 
-                    MoveWindow(rbxHwnd, leftOffset, targetTop, targetWidth, targetHeight, true);
-                    SetWindowPos(rbxHwnd, IntPtr.Zero, leftOffset, targetTop, targetWidth, targetHeight, SWP_SHOWWINDOW);
+                        // If Tools Drawer is open on the left, offset Roblox by 340px so tools are 100% visible and interactive!
+                        int leftOffset = isToolsOpen ? 340 : 0;
+                        int targetWidth = Math.Max(100, w - leftOffset);
+
+                        MoveWindow(rbxHwnd, leftOffset, targetTop, targetWidth, targetHeight, true);
+                        SetWindowPos(rbxHwnd, IntPtr.Zero, leftOffset, targetTop, targetWidth, targetHeight, SWP_SHOWWINDOW);
+                    }
                 }
                 else
                 {
