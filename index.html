@@ -6678,7 +6678,7 @@
     font-size: 11.5px;
     font-weight: 800;
     color: #4ade80;
-    display: flex;
+    display: none;
     align-items: center;
     gap: 6px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.6);
@@ -6701,6 +6701,18 @@
     background: currentColor;
     box-shadow: 0 0 8px currentColor;
     display: inline-block;
+  }
+
+    /* === LEFT TOOLS & AUTOKLICKER DRAWER: ONLY VISIBLE WHEN PLAYING ROBLOX === */
+  #utility-drawer-toggle,
+  #app-utility-drawer {
+    display: none !important;
+  }
+  body.in-roblox-view #utility-drawer-toggle {
+    display: flex !important;
+  }
+  body.in-roblox-view #app-utility-drawer {
+    display: flex !important;
   }
 
   /* === LEFT-EDGE UTILITY DRAWER HANDLE === */
@@ -9394,6 +9406,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const target = document.getElementById(targetId);
     if (target) {
       target.classList.add('active');
+      document.body.classList.toggle('in-roblox-view', targetId === 'view-roblox');
+      if (targetId !== 'view-roblox' && window.utilityDrawerEngine) {
+        window.utilityDrawerEngine.toggle(false);
+        window.utilityDrawerEngine.toggleReticle(false);
+      }
       window.dispatchEvent(new Event('resize'));
       if (window.bgMusicController) {
         window.bgMusicController.checkViewMusic();
@@ -18001,7 +18018,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="drawer-control-row">
         <label class="drawer-toggle-label">
           <span>FPS-Anzeige oben links</span>
-          <input type="checkbox" id="chk-fps-badge" checked onchange="toggleFPSBadge(this.checked)">
+          <input type="checkbox" id="chk-fps-badge" onchange="toggleFPSBadge(this.checked)">
           <span class="toggle-slider"></span>
         </label>
       </div>
@@ -18210,7 +18227,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.testBestScore = 0;
 
       // FPS Monitoring
-      this.fpsVisible = true;
+      this.fpsVisible = false;
       this.fpsMode = 'max';
       this.fpsTarget = 60;
       this.fpsHistory = [];
@@ -18284,6 +18301,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     toggle(force) {
+      if (!document.body.classList.contains('in-roblox-view') && force !== false) {
+        this.isOpen = false;
+        const d = document.getElementById('app-utility-drawer');
+        if (d) d.classList.remove('is-open');
+        document.body.classList.remove('utility-drawer-open');
+        return;
+      }
       this.isOpen = (typeof force === 'boolean') ? force : !this.isOpen;
       const drawer = document.getElementById('app-utility-drawer');
       if (drawer) {
@@ -18518,6 +18542,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pill.classList.remove('fps-medium', 'fps-low');
         if (fps < 30) pill.classList.add('fps-low');
         else if (fps < 50) pill.classList.add('fps-medium');
+        pill.style.display = this.fpsVisible ? 'flex' : 'none';
       }
     }
 
@@ -18652,6 +18677,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(() => {});
     }
+    if (window.utilityDrawerEngine) {
+      window.utilityDrawerEngine.toggle(false);
+      window.utilityDrawerEngine.toggleReticle(false);
+    }
+    document.body.classList.remove('in-roblox-view');
     if (window.switchView) {
       window.switchView('view-hub');
     }
