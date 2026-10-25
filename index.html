@@ -4238,7 +4238,8 @@
   /* ============================================================== */
   /* SITE ACCESS GATE OVERLAY (ZUGANGSCODE: 020818)                 */
   /* ============================================================== */
-  html.site-access-granted #site-access-gate-overlay {
+  html.site-access-granted #site-access-gate-overlay,
+  body.is-desktop-app #site-access-gate-overlay {
     display: none !important;
   }
 
@@ -4437,11 +4438,20 @@
     z-index: 1000000;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), backdrop-filter 1.4s ease;
   }
   #trust-privacy-modal.active {
     opacity: 1;
     pointer-events: auto;
+  }
+  #trust-privacy-modal.fading-out {
+    opacity: 0 !important;
+    backdrop-filter: blur(0px) !important;
+    pointer-events: none !important;
+  }
+  #trust-privacy-modal.fading-out .trust-modal-card {
+    opacity: 0 !important;
+    transform: scale(0.95) translateY(12px) !important;
   }
 
   .trust-modal-card {
@@ -4456,7 +4466,80 @@
     padding: 32px 30px;
     position: relative;
     transform: scale(0.94);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease;
+  }
+
+  /* === SERENE FLOATING AUTUMN LEAF LOADER & MOVING DOTS === */
+  @keyframes sereneAutumnLeafFloat {
+    0% {
+      transform: translateY(0px) rotate(0deg) scale(1);
+      filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.55));
+    }
+    25% {
+      transform: translateY(-14px) rotate(8deg) scale(1.05);
+      filter: drop-shadow(0 0 28px rgba(245, 158, 11, 0.85));
+    }
+    50% {
+      transform: translateY(0px) rotate(-6deg) scale(1);
+      filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.65));
+    }
+    75% {
+      transform: translateY(12px) rotate(5deg) scale(0.97);
+      filter: drop-shadow(0 0 26px rgba(245, 158, 11, 0.75));
+    }
+    100% {
+      transform: translateY(0px) rotate(0deg) scale(1);
+      filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.55));
+    }
+  }
+
+  .autumn-dot-wave {
+    display: inline-flex;
+    width: 24px;
+    margin-left: 2px;
+  }
+  .autumn-dot-wave span {
+    opacity: 0;
+    display: inline-block;
+    color: #fbbf24;
+    font-size: 26px;
+    line-height: 0.8;
+    animation: autumnDotCycle 1.4s infinite;
+  }
+  .autumn-dot-wave .adot-1 { animation-delay: 0.0s; }
+  .autumn-dot-wave .adot-2 { animation-delay: 0.25s; }
+  .autumn-dot-wave .adot-3 { animation-delay: 0.5s; }
+
+  @keyframes autumnDotCycle {
+    0%, 15% { opacity: 0; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-4px); }
+    85%, 100% { opacity: 0; transform: translateY(0); }
+  }
+
+  /* When initial deep loading is active: hide hub header, filter row and apps grid */
+  body.is-initial-deep-loading #view-hub .neuro-app-shell {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* Animated entrance of hub and apps after 3-minute load */
+  @keyframes autumnAppsCascadeEntrance {
+    0% {
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+    }
+    60% {
+      opacity: 0.85;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .autumn-apps-entrance {
+    animation: autumnAppsCascadeEntrance 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
   }
   #trust-privacy-modal.active .trust-modal-card {
     transform: scale(1);
@@ -16186,7 +16269,21 @@ class SiteAccessGateController {
     this.init();
   }
 
+  isDesktopApp() {
+    return window.location.protocol === 'file:' ||
+           window.location.search.includes('app=desktop') ||
+           navigator.userAgent.includes('NeuroSpace') ||
+           window.location.hostname === 'localhost' ||
+           window.location.hostname === '127.0.0.1';
+  }
+
   init() {
+    // In der App erst gar kein Zugangscode – nur in der reinen Web-Version!
+    if (this.isDesktopApp()) {
+      this.unlockImmediately();
+      return;
+    }
+
     if (this.isAccessGranted()) {
       this.unlockImmediately();
       return;
@@ -16210,8 +16307,9 @@ class SiteAccessGateController {
     }
   }
 
-  // Dauerhaft im localStorage gespeichert – kein erneutes Eingeben nötig!
+  // In der Desktop-App gar kein Zugangscode, im Web dauerhaft speicherbar
   isAccessGranted() {
+    if (this.isDesktopApp()) return true;
     try {
       const saved = localStorage.getItem(this.storageKey);
       return saved === this.correctCode || saved === '020818' || saved === 'true';
@@ -16222,8 +16320,10 @@ class SiteAccessGateController {
 
   unlockImmediately() {
     document.documentElement.classList.add('site-access-granted');
+    document.body.classList.add('is-desktop-app');
     if (this.overlay) {
       this.overlay.style.display = 'none';
+      this.overlay.style.pointerEvents = 'none';
     }
     // Warnungen im Intro laufen eigenständig und dürfen nicht übersprungen werden
     // Musik & View-Wechsel erfolgen geregelt in finishIntro()
@@ -16233,7 +16333,7 @@ class SiteAccessGateController {
   }
 
   showGate() {
-    if (this.isAccessGranted()) {
+    if (this.isDesktopApp() || this.isAccessGranted()) {
       this.unlockImmediately();
       return;
     }
@@ -16310,6 +16410,30 @@ document.addEventListener('DOMContentLoaded', () => {
   window.siteGateController = new SiteAccessGateController();
 });
 </script>
+
+
+  <!-- ============================================================== -->
+  <!-- INITIAL TRANQUIL 3-MINUTE AUTUMN DEEP LOADER                   -->
+  <!-- ============================================================== -->
+  <div id="initial-autumn-deep-loader" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:90000; flex-direction:column; align-items:center; justify-content:center; pointer-events:all; opacity:0; transition:opacity 1.2s ease;">
+    
+    <!-- Floating & Swaying Autumn Leaf (clickable 5x for dev test bypass) -->
+    <div class="autumn-serene-leaf-icon" style="font-size:78px; user-select:none; cursor:default; animation:sereneAutumnLeafFloat 4.2s ease-in-out infinite;">
+      🍁
+    </div>
+
+    <!-- Animated 'Wird geladen...' with Moving Wave Dots -->
+    <div class="autumn-loader-text-row" style="margin-top:24px; font-size:21px; font-weight:800; color:#fef3c7; letter-spacing:1px; text-shadow:0 2px 18px rgba(0,0,0,0.9); display:flex; align-items:center; gap:2px;">
+      <span>Wird geladen</span>
+      <span class="autumn-dot-wave">
+        <span class="adot-1">.</span><span class="adot-2">.</span><span class="adot-3">.</span>
+      </span>
+    </div>
+
+    <div style="margin-top:10px; font-size:13px; color:#fde68a; opacity:0.85; text-shadow:0 1px 8px rgba(0,0,0,0.8); letter-spacing:0.4px;">
+      🍁 Genieße die herbstliche Atmosphäre &amp; Musik...
+    </div>
+  </div>
 
 
   <!-- MODAL: DATENSCHUTZ, GESUNDHEIT & AKTUELLE NUTZUNGSBEDINGUNGEN      -->
@@ -16391,7 +16515,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <!-- ============================================================== -->
-<!-- SCRIPT: TRUST & WARMTH ENGINE (AFFIRMATIONS & PRIVACY CONTROLLER)-->
+<!-- SCRIPT: TRUST & WARMTH ENGINE & 3-MINUTE DEEP LOADER           -->
 <!-- ============================================================== -->
 <script>
 class TrustAndWarmthEngine {
@@ -16400,7 +16524,12 @@ class TrustAndWarmthEngine {
   }
 
   openModal() {
-    if (this.modal) this.modal.classList.add('active');
+    if (this.modal) {
+      this.modal.style.display = 'flex';
+      this.modal.classList.remove('fading-out');
+      void this.modal.offsetWidth;
+      this.modal.classList.add('active');
+    }
     if (window.audio && typeof window.audio.playPop === 'function') {
       window.audio.playPop(520);
     }
@@ -16414,23 +16543,176 @@ class TrustAndWarmthEngine {
     try {
       localStorage.setItem('neurospace_terms_update_accepted_v2', 'true');
     } catch(e) {}
-    this.closeModal();
+
+    // Nach Klick auf Bestimmungen: Modal wird langsam komplett transparent und geht dann weg
+    if (this.modal) {
+      this.modal.classList.add('fading-out');
+      this.modal.classList.remove('active');
+    }
+
     if (window.audio && typeof window.audio.playChime === 'function') {
       window.audio.playChime();
     }
+
+    setTimeout(() => {
+      if (this.modal) {
+        this.modal.style.display = 'none';
+        this.modal.classList.remove('fading-out');
+      }
+      // Erstes Mal: 3-Minuten-Ladezyklus mit Blatt & wandernden Punkten
+      // Danach: Nie wieder, Apps sofort da!
+      if (window.deepLoaderEngine) {
+        window.deepLoaderEngine.onTermsAccepted();
+      }
+    }, 1400);
   }
 
   closeModal() {
-    if (this.modal) this.modal.classList.remove('active');
+    if (this.modal) {
+      this.modal.classList.add('fading-out');
+      this.modal.classList.remove('active');
+      setTimeout(() => {
+        if (this.modal) {
+          this.modal.style.display = 'none';
+          this.modal.classList.remove('fading-out');
+        }
+      }, 1400);
+    }
     if (window.audio && typeof window.audio.playPop === 'function') {
       window.audio.playPop(340);
     }
+    if (window.deepLoaderEngine) {
+      window.deepLoaderEngine.onTermsAccepted();
+    }
+  }
+}
+
+class DeepLoaderEngine {
+  constructor() {
+    this.storageKey = 'neurospace_initial_3min_load_completed';
+    this.loader = document.getElementById('initial-autumn-deep-loader');
+    this.durationMs = 180000; // Genau 3 Minuten (180 Sekunden)
+    this.timer = null;
+    this.isCurrentlyLoading = false;
+    this.initLeafBypass();
+  }
+
+  hasCompletedInitialLoad() {
+    try {
+      return localStorage.getItem(this.storageKey) === 'true';
+    } catch(e) {
+      return false;
+    }
+  }
+
+  prepareHubStateBeforeTerms() {
+    // Wenn der 3-Minuten-Ladezyklus noch nie absolviert wurde,
+    // halten wir die Apps und Hub-Elemente im Hintergrund unsichtbar,
+    // damit zunächst nur Hintergrund, Musik und Blatt sichtbar sind.
+    if (!this.hasCompletedInitialLoad()) {
+      document.body.classList.add('is-initial-deep-loading');
+    }
+  }
+
+  onTermsAccepted() {
+    if (this.hasCompletedInitialLoad()) {
+      // Wurde bereits einmal absolviert: Direkt Apps einblenden, nie wieder 3 Minuten warten!
+      document.body.classList.remove('is-initial-deep-loading');
+      const shell = document.querySelector('#view-hub .neuro-app-shell');
+      if (shell) {
+        shell.classList.remove('autumn-apps-entrance');
+        void shell.offsetWidth;
+        shell.classList.add('autumn-apps-entrance');
+      }
+      return;
+    }
+
+    this.startDeepLoad();
+  }
+
+  startDeepLoad() {
+    if (this.isCurrentlyLoading) return;
+    this.isCurrentlyLoading = true;
+    document.body.classList.add('is-initial-deep-loading');
+
+    // Hintergrundmusik starten & sanft einblenden, damit der Nutzer sie genießen kann
+    if (window.bgMusicController && typeof window.bgMusicController.startWithFadeIn === 'function') {
+      window.bgMusicController.startWithFadeIn();
+    }
+
+    // Loader anzeigen
+    if (this.loader) {
+      this.loader.style.display = 'flex';
+      void this.loader.offsetWidth;
+      this.loader.style.opacity = '1';
+    }
+
+    // Genau 3 Minuten warten (180.000 ms)
+    this.timer = setTimeout(() => {
+      this.finishDeepLoad();
+    }, this.durationMs);
+  }
+
+  finishDeepLoad() {
+    this.isCurrentlyLoading = false;
+    clearTimeout(this.timer);
+
+    // Dauerhaft merken: Kommt NIE WIEDER!
+    try {
+      localStorage.setItem(this.storageKey, 'true');
+    } catch(e) {}
+
+    // Loader sanft ausblenden
+    if (this.loader) {
+      this.loader.style.opacity = '0';
+      setTimeout(() => {
+        this.loader.style.display = 'none';
+      }, 1300);
+    }
+
+    // Nach 3 Minuten: Apps tauchen nun animiert auf!
+    setTimeout(() => {
+      document.body.classList.remove('is-initial-deep-loading');
+      const shell = document.querySelector('#view-hub .neuro-app-shell');
+      if (shell) {
+        shell.classList.remove('autumn-apps-entrance');
+        void shell.offsetWidth;
+        shell.classList.add('autumn-apps-entrance');
+      }
+
+      if (window.audio && typeof window.audio.playChime === 'function') {
+        window.audio.playChime();
+      }
+    }, 400);
+  }
+
+  initLeafBypass() {
+    // Diskreter Test-Bypass (5x Klick auf das Blatt überspringt für Entwickler)
+    setTimeout(() => {
+      const leaf = document.querySelector('.autumn-serene-leaf-icon');
+      let clickCount = 0;
+      if (leaf) {
+        leaf.addEventListener('click', () => {
+          clickCount++;
+          if (clickCount >= 5) {
+            this.finishDeepLoad();
+          }
+        });
+      }
+    }, 500);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   window.trustEngine = new TrustAndWarmthEngine();
+  window.deepLoaderEngine = new DeepLoaderEngine();
 });
+
+// Hilfsfunktion zum Zurücksetzen für Tests (im DevTools-Console aufrufbar)
+window.resetInitial3MinLoad = function() {
+  localStorage.removeItem('neurospace_initial_3min_load_completed');
+  console.log('🍁 Initialer 3-Minuten-Ladezyklus zurückgesetzt.');
+};
 </script>
 
 
@@ -16571,13 +16853,17 @@ class CinematicIntroController {
       if (this.slideUsage) this.slideUsage.classList.remove('active');
 
       if (!isReplay) {
-        // Prüfen, ob Zugangscode zuvor bereits eingegeben wurde
-        const hasAccess = (window.siteGateController && typeof window.siteGateController.isAccessGranted === 'function')
+        // In der Desktop-App gibt es erst gar keinen Zugangscode (nur Web-Version!)
+        const isApp = (window.siteGateController && typeof window.siteGateController.isDesktopApp === 'function')
+          ? window.siteGateController.isDesktopApp()
+          : (window.location.protocol === 'file:' || window.location.search.includes('app=desktop') || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+        const hasAccess = isApp || ((window.siteGateController && typeof window.siteGateController.isAccessGranted === 'function')
           ? window.siteGateController.isAccessGranted()
-          : (localStorage.getItem('neurospace_site_access_granted') === '020818' || localStorage.getItem('neurospace_site_access_granted') === 'true');
+          : (localStorage.getItem('neurospace_site_access_granted') === '020818' || localStorage.getItem('neurospace_site_access_granted') === 'true'));
 
         if (!hasAccess) {
-          // Zugangscode-Overlay anzeigen
+          // Zugangscode-Overlay nur für reine Web-Version anzeigen
           if (window.siteGateController && typeof window.siteGateController.showGate === 'function') {
             window.siteGateController.showGate();
           } else {
@@ -16592,7 +16878,7 @@ class CinematicIntroController {
             }
           }
         } else {
-          // Zugang schon gewährt: Direkt in die Zentrale und Musik starten
+          // Zugang schon gewährt (oder Desktop-App): Direkt in die Zentrale und Musik starten
           document.documentElement.classList.add('site-access-granted');
           if (window.bgMusicController && typeof window.bgMusicController.startWithFadeIn === 'function') {
             window.bgMusicController.startWithFadeIn();
@@ -16603,6 +16889,12 @@ class CinematicIntroController {
           if (window.neuroSupabase && typeof window.neuroSupabase.loadFromCloud === 'function') {
             window.neuroSupabase.loadFromCloud();
           }
+
+          // Hub vorbereiten: Falls 3-Minuten-Ladezyklus noch nie absolviert wurde, Apps zunächst ausblenden
+          if (window.deepLoaderEngine) {
+            window.deepLoaderEngine.prepareHubStateBeforeTerms();
+          }
+
           setTimeout(() => {
             if (window.trustEngine && typeof window.trustEngine.openStartupModal === 'function') {
               window.trustEngine.openStartupModal();
