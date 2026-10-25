@@ -91,41 +91,31 @@
   }
 
   .nav-back-btn {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    padding: 8px 16px;
-    border-radius: 20px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #fef3c7;
+    padding: 6px 12px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 8px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(0, 0, 0, 0.8);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   }
 
   .nav-back-btn:hover {
-    background: rgba(30, 41, 59, 0.95);
-    border-color: var(--accent);
-    color: var(--accent);
+    background: transparent;
+    border: none;
+    color: #fbbf24;
+    text-shadow: 0 0 12px rgba(245, 158, 11, 0.9);
     transform: translateX(-2px);
   }
 
   .view-title-pill {
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #e2e8f0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: none !important;
   }
 
   /* App Views Router */
@@ -1997,37 +1987,32 @@
     transform: translateZ(42px) scale(1.15);
   }
 
-      /* AUTUMN THEME NAVIGATION & INNER APP CARDS UPGRADE */
+  /* AUTUMN THEME NAVIGATION - ZERO BACKGROUND BOXES ("Kein Hintergrund Ding") */
   .nav-back-btn {
-    background: rgba(28, 20, 16, 0.88) !important;
-    backdrop-filter: blur(14px) !important;
-    border: 1px solid rgba(245, 158, 11, 0.38) !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
     color: #fef3c7 !important;
-    padding: 8px 18px !important;
-    border-radius: 20px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
+    padding: 6px 12px !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
     cursor: pointer !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 2px 12px rgba(0, 0, 0, 0.85) !important;
+    transition: color 0.18s ease, transform 0.18s ease, text-shadow 0.18s ease !important;
   }
   .nav-back-btn:hover {
-    background: rgba(42, 28, 20, 0.95) !important;
-    border-color: #f59e0b !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     color: #fbbf24 !important;
+    text-shadow: 0 0 14px rgba(245, 158, 11, 0.95), 0 1px 4px rgba(0, 0, 0, 0.95) !important;
     transform: translateX(-3px) !important;
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35) !important;
   }
   .view-title-pill {
-    background: rgba(28, 20, 16, 0.82) !important;
-    backdrop-filter: blur(14px) !important;
-    border: 1px solid rgba(245, 158, 11, 0.28) !important;
-    padding: 8px 18px !important;
-    border-radius: 20px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    color: #fde047 !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+    display: none !important;
   }
   .breath-circle {
     background: radial-gradient(circle, rgba(245, 158, 11, 0.65) 0%, rgba(234, 88, 12, 0.18) 70%) !important;
@@ -3923,7 +3908,10 @@
   .games-hub-wrapper {
     max-width: 1380px;
     margin: 0 auto;
-    padding: 84px 24px 60px;
+    padding: 78px 24px 130px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 6;
   }
 
   /* HERO BANNER */
@@ -5670,20 +5658,26 @@
     pointer-events: auto !important;
   }
   .nav-music-toggle-btn {
-    background: rgba(245, 158, 11, 0.18) !important;
-    border: 1px solid rgba(245, 158, 11, 0.45) !important;
-    color: #fbbf24 !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    padding: 7px 14px !important;
-    border-radius: 20px !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #fef3c7 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    padding: 6px 12px !important;
+    border-radius: 0 !important;
     cursor: pointer !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 2px 10px rgba(0, 0, 0, 0.8) !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   }
   .nav-music-toggle-btn:hover {
-    background: rgba(245, 158, 11, 0.3) !important;
-    border-color: #f59e0b !important;
-    box-shadow: 0 0 12px rgba(245, 158, 11, 0.4) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #fbbf24 !important;
+    text-shadow: 0 0 14px rgba(245, 158, 11, 0.95), 0 1px 4px rgba(0, 0, 0, 0.95) !important;
     transform: translateY(-1px) !important;
   }
   .card-pill-tag {
@@ -5757,8 +5751,6 @@
   #view-draw,
   #view-popit,
   #view-particles,
-  #view-games,
-  #view-soundscape,
   #view-breathing,
   #view-kalimba,
   #view-magnets {
@@ -5771,6 +5763,23 @@
     overflow: hidden !important;
     box-sizing: border-box !important;
   }
+
+  /* Full vertical scrolling enabled for Games & Content views */
+  #view-games,
+  #view-soundscape {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: transparent !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+    overscroll-behavior-y: contain !important;
+    box-sizing: border-box !important;
+  }
   .app-view.active {
     display: flex !important;
     flex-direction: column !important;
@@ -5778,7 +5787,7 @@
 
   /* Sleek Floating Glass Nav Bar - Zero Collision & Guaranteed Separation */
   .view-nav {
-    position: absolute !important;
+    position: fixed !important;
     top: 14px !important;
     left: 18px !important;
     right: 18px !important;
@@ -5802,81 +5811,48 @@
     pointer-events: auto !important;
   }
 
-  .nav-back-btn {
+  /* Pure Clean Typography Navigation at Top - ZERO Background Boxes ("Kein Hintergrund Ding") */
+  .nav-back-btn,
+  .nav-music-toggle-btn,
+  .view-nav button,
+  .view-nav .action-btn,
+  .view-nav .tool-pill-btn {
     flex-shrink: 0 !important;
     white-space: nowrap !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 7px !important;
-    background: rgba(255, 255, 255, 0.08) !important;
-    backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(245, 158, 11, 0.32) !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
     color: #fef3c7 !important;
-    padding: 8px 18px !important;
-    border-radius: 12px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-  }
-  .nav-back-btn:hover {
-    background: rgba(245, 158, 11, 0.25) !important;
-    border-color: #f59e0b !important;
-    color: #ffffff !important;
-    transform: translateX(-3px) !important;
-    box-shadow: 0 0 16px rgba(245, 158, 11, 0.4) !important;
-  }
-
-  .view-title-pill {
-    position: static !important;
-    transform: none !important;
-    margin: 0 auto !important;
-    flex-shrink: 1 !important;
-    min-width: 0 !important;
-    max-width: 44vw !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    background: rgba(245, 158, 11, 0.12) !important;
-    backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(245, 158, 11, 0.25) !important;
-    padding: 7px 20px !important;
-    border-radius: 999px !important;
-    font-size: 14px !important;
+    font-size: 13.5px !important;
     font-weight: 800 !important;
-    color: #fde047 !important;
-    letter-spacing: 0.3px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    padding: 6px 12px !important;
+    cursor: pointer !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 2px 12px rgba(0, 0, 0, 0.85) !important;
+    transition: color 0.18s ease, transform 0.18s ease, text-shadow 0.18s ease !important;
   }
 
-  .nav-music-toggle-btn {
-    flex-shrink: 0 !important;
-    white-space: nowrap !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    background: rgba(245, 158, 11, 0.18) !important;
-    backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(245, 158, 11, 0.45) !important;
+  .nav-back-btn:hover,
+  .nav-music-toggle-btn:hover,
+  .view-nav button:hover,
+  .view-nav .action-btn:hover,
+  .view-nav .tool-pill-btn:hover {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     color: #fbbf24 !important;
-    padding: 8px 18px !important;
-    border-radius: 12px !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-  }
-  .nav-music-toggle-btn:hover {
-    background: rgba(245, 158, 11, 0.32) !important;
-    border-color: #f59e0b !important;
+    text-shadow: 0 0 14px rgba(245, 158, 11, 0.95), 0 1px 4px rgba(0, 0, 0, 0.95) !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 0 16px rgba(245, 158, 11, 0.45) !important;
+  }
+
+  /* Completely Hide Disturbing App Title Pill Across Every App View */
+  .view-title-pill {
+    display: none !important;
   }
 
   /* Safe Top & Bottom Padding for App Views */
@@ -6092,12 +6068,7 @@
       font-size: 12px !important;
     }
     .view-title-pill {
-      padding: 5px 12px !important;
-      font-size: 12px !important;
-      max-width: 160px !important;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
+      display: none !important;
     }
     .nav-music-toggle-btn {
       padding: 6px 10px !important;
@@ -8065,7 +8036,7 @@
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🎮</span> NeuroArcade (2.000+ Spiele)</div>
     <div style="display:flex; align-items:center; gap:10px;">
-      <button class="tool-pill-btn" id="btn-random-game" style="background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; border:none; box-shadow:0 0 12px rgba(245,158,11,0.4);">
+      <button class="tool-pill-btn" id="btn-random-game" style="background:transparent; color:#fef3c7; border:none; box-shadow:none; text-shadow:0 1px 4px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8); cursor:pointer;">
         🎲 Zufälliges Spiel
       </button>
       <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
