@@ -7482,6 +7482,21 @@
   </div>
 </div>
 
+  <!-- HUD: ESCAPE GEDRÜCKT HALTEN ZUM BEENDEN -->
+  <div id="hold-esc-hud" style="position:fixed; top:28px; left:50%; transform:translateX(-50%) translateY(-15px); z-index:99999999; display:flex; align-items:center; gap:14px; background:rgba(20, 13, 8, 0.94); border:1.5px solid rgba(245, 158, 11, 0.65); box-shadow:0 15px 45px rgba(0,0,0,0.85), 0 0 25px rgba(245, 158, 11, 0.25); border-radius:28px; padding:10px 22px; pointer-events:none; opacity:0; transition:opacity 0.22s ease, transform 0.22s ease; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);">
+    <div style="position:relative; width:32px; height:32px; display:flex; align-items:center; justify-content:center;">
+      <svg viewBox="0 0 36 36" style="width:32px; height:32px; transform:rotate(-90deg);">
+        <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="3.5"></circle>
+        <circle id="hold-esc-ring" cx="18" cy="18" r="14" fill="none" stroke="#f59e0b" stroke-width="3.5" stroke-dasharray="87.96" stroke-dashoffset="87.96" stroke-linecap="round"></circle>
+      </svg>
+      <span style="position:absolute; font-size:13px; line-height:1;">🍁</span>
+    </div>
+    <div style="display:flex; flex-direction:column;">
+      <span id="hold-esc-label" style="font-size:13px; font-weight:800; color:#fef3c7; letter-spacing:0.3px;">Escape halten zum Beenden...</span>
+      <span id="hold-esc-hint" style="font-size:10.5px; color:#fed7aa; opacity:0.8;">Loslassen für Zurück zur Zentrale</span>
+    </div>
+  </div>
+
 <div id="site-access-gate-overlay">
   <div class="site-gate-card">
     <div class="site-gate-logo">
@@ -7551,11 +7566,11 @@
             <!-- TOP HEADER -->
       <header class="neuro-top-header">
         <div class="neuro-brand-col">
-          <div class="neuro-brand-logo" style="cursor:default; user-select:none; font-size:32px;">🍁</div>
+          <div class="neuro-brand-logo" id="btn-autumn-mascot" title="🍁 Klick mich für einen kleinen Wohlfühl-Gedanken!" onclick="if(window.triggerAutumnAffirmation) window.triggerAutumnAffirmation();" style="cursor:pointer; user-select:none; font-size:32px; transition:transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);">🍁</div>
           <div class="neuro-brand-text">
             <h1>NeuroSpace <span style="font-weight:700; opacity:0.95; font-size:16px; color:#fbbf24; margin-left:8px;">Herbst-Studio</span></h1>
-            <p style="color:#d6d3d1; font-size:13px; margin-top:2px;">
-              🍁 Herbst-Edition – Gemütliche sensorische Tools, Fokus & Entspannung.
+            <p id="hub-greeting-sub" style="color:#fed7aa; font-size:13px; margin-top:2px; line-height:1.4;">
+              <span>🍁 <b>Willkommen!</b></span> <span style="opacity:0.88; margin-left:6px;">Gemütliche sensorische Tools, Fokus &amp; Entspannung ohne Leistungsdruck.</span>
             </p>
           </div>
         </div>
@@ -8127,6 +8142,15 @@
           <div>
             <div style="font-size:13.5px; font-weight:800; color:#fef3c7;">NeuroSpace Studio — Herbst-Edition</div>
             <div style="font-size:11.5px; color:#cbd5e1; margin-top:2px;">100% Offline • Reizarm &amp; Fokussiert • Maximale Datensicherheit &amp; Gesundheitsschutz</div>
+            <div style="font-size:11px; color:#fde68a; margin-top:4px; opacity:0.9; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span>🍁 <kbd style="background:rgba(0,0,0,0.5); border:1px solid rgba(245,158,11,0.4); padding:1px 5px; border-radius:4px; color:#fde047;">Escape halten</kbd> zum Beenden</span>
+              <span>•</span>
+              <span>☕ <kbd style="background:rgba(0,0,0,0.5); border:1px solid rgba(245,158,11,0.4); padding:1px 5px; border-radius:4px; color:#fde047;">Tab</kbd> Zen-Deck</span>
+              <span>•</span>
+              <span>🍂 <kbd style="background:rgba(0,0,0,0.5); border:1px solid rgba(245,158,11,0.4); padding:1px 5px; border-radius:4px; color:#fde047;">Esc kurz</kbd> Zentrale</span>
+              <span>•</span>
+              <span>🕯️ Kein Leistungsdruck – Dein Wohlfühl-Ort</span>
+            </div>
           </div>
         </div>
         <div style="display:flex; gap:10px;">
@@ -10243,28 +10267,165 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      // 1. Wenn ein Spiel im Arcade-Player läuft, zuerst das Spiel schließen
+  // ==============================================================
+  // HOLD ESCAPE TO EXIT APP & SHORT TAP ESCAPE TO RETURN TO HUB
+  // ==============================================================
+  (function initEscapeHoldEngine() {
+    let holdTimer = null;
+    const HOLD_DURATION = 1050; // ms to hold before exit
+    let isHolding = false;
+    let isCompleted = false;
+
+    const hud = document.getElementById('hold-esc-hud');
+    const ring = document.getElementById('hold-esc-ring');
+    const label = document.getElementById('hold-esc-label');
+    const hint = document.getElementById('hold-esc-hint');
+
+    function resetHud() {
+      if (!hud) return;
+      hud.style.opacity = '0';
+      hud.style.transform = 'translateX(-50%) translateY(-15px)';
+      if (ring) {
+        ring.style.transition = 'none';
+        ring.style.strokeDashoffset = '87.96';
+      }
+      if (label) label.textContent = 'Escape halten zum Beenden...';
+      if (hint) hint.textContent = 'Loslassen für Zurück zur Zentrale';
+      isCompleted = false;
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+
+      // Nicht unterbrechen während der unüberspringbaren Intro-Warnung
+      if (window.cinematicIntro && window.cinematicIntro.isRunning) return;
+
+      if (e.repeat) return; // Betriebssystem-Wiederholung ignorieren
+
+      isHolding = true;
+      isCompleted = false;
+
+      // HUD flüssig einblenden
+      if (hud) {
+        hud.style.opacity = '1';
+        hud.style.transform = 'translateX(-50%) translateY(0)';
+      }
+      if (ring) {
+        void ring.offsetWidth;
+        ring.style.transition = `stroke-dashoffset ${HOLD_DURATION}ms linear`;
+        ring.style.strokeDashoffset = '0';
+      }
+
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(() => {
+        if (!isHolding) return;
+        isCompleted = true;
+
+        if (label) label.textContent = 'Studio wird beendet... Auf Wiedersehen 🍂';
+        if (hint) hint.textContent = 'Bis zum nächsten Mal!';
+        if (hud) hud.style.borderColor = '#10b981';
+
+        // Launcher signalisieren, App und Prozesse sauber zu beenden
+        document.title = 'NeuroSpace Studio — Exit App — Close Studio';
+
+        setTimeout(() => {
+          try { window.close(); } catch(err) {}
+        }, 180);
+      }, HOLD_DURATION);
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.key !== 'Escape') return;
+      if (!isHolding) return;
+
+      isHolding = false;
+      clearTimeout(holdTimer);
+
+      if (isCompleted) return; // Wurde bereits beendet
+
+      resetHud();
+
+      // Kurzer Tastendruck (Tap): Saubere Navigation zurück
       if (window.arcadeEngine && window.arcadeEngine.playerModal && window.arcadeEngine.playerModal.classList.contains('active')) {
         window.arcadeEngine.closePlayer();
         return;
       }
-      // 2. Wenn das Zen-Deck geöffnet ist, schließen
       if (typeof window.toggleZenDeck === 'function' && document.body.classList.contains('zen-deck-open')) {
         window.toggleZenDeck(false);
         return;
       }
-      // 3. Wenn ein Textfeld fokussiert ist, Fokus entfernen
       const activeEl = document.activeElement;
       if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
         activeEl.blur();
         return;
       }
-      // 4. Zurück zur Zentrale (Hub)
-      switchView('view-hub');
+      if (window.switchView) {
+        window.switchView('view-hub');
+      }
+    });
+
+    window.addEventListener('blur', () => {
+      if (isHolding && !isCompleted) {
+        isHolding = false;
+        clearTimeout(holdTimer);
+        resetHud();
+      }
+    });
+  })();
+
+  // ==============================================================
+  // WOHLFÜHL-ATMOSPHÄRE & TAGESZEIT-BEGRÜSSUNG (SYMPATHISCH)
+  // ==============================================================
+  function updateAutumnGreeting() {
+    const sub = document.getElementById('hub-greeting-sub');
+    if (!sub) return;
+    const hour = new Date().getHours();
+    let greeting = 'Guten Tag';
+    let icon = '🍁';
+    let motto = 'Komm zur Ruhe, atme durch und fühl dich wohl.';
+    if (hour >= 5 && hour < 12) {
+      greeting = 'Guten Morgen';
+      icon = '☕';
+      motto = 'Starte entspannt und ohne Druck in deinen Tag.';
+    } else if (hour >= 12 && hour < 17) {
+      greeting = 'Schönen Nachmittag';
+      icon = '🍂';
+      motto = 'Gönn deinem Kopf eine wohlverdiente, gemütliche Auszeit.';
+    } else if (hour >= 17 && hour < 22) {
+      greeting = 'Gemütlichen Abend';
+      icon = '🕯️';
+      motto = 'Zeit zum Abschalten, Entspannen und Durchatmen.';
+    } else {
+      greeting = 'Gute Nacht';
+      icon = '🌙';
+      motto = 'Sanfte Klänge und vollkommene Ruhe für die Nacht.';
     }
-  });
+    sub.innerHTML = `<span>${icon} <b>${greeting}!</b></span> <span style="opacity:0.88; margin-left:6px;">${motto}</span>`;
+  }
+  updateAutumnGreeting();
+
+  // Kleines liebevolles Herbst-Orakel beim Klick auf das 🍁 Logo
+  const affirmations = [
+    '🍁 Du machst das prima. Nimm dir heute alle Zeit, die du brauchst.',
+    '☕ Atme einmal tief ein und wieder aus. Du bist hier sicher.',
+    '🍂 Es gibt hier keinen Leistungsdruck – einfach sein und entspannen.',
+    '🕯️ Kleine Schritte sind auch Schritte. Sei stolz auf dich.',
+    '🍵 Mach dir eine warme Tasse Tee oder nimm dir ein Glas Wasser.',
+    '✨ Dein Tempo ist genau richtig. Alles darf leicht sein.'
+  ];
+  let affIndex = 0;
+  window.triggerAutumnAffirmation = function() {
+    const logo = document.getElementById('btn-autumn-mascot');
+    if (logo) {
+      logo.style.transform = 'scale(1.25) rotate(15deg)';
+      setTimeout(() => { logo.style.transform = ''; }, 300);
+    }
+    const msg = affirmations[affIndex % affirmations.length];
+    affIndex++;
+    if (typeof window.showZenToast === 'function') {
+      window.showZenToast(msg, '🍁');
+    }
+  };
 });
 </script>
 
