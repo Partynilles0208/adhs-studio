@@ -9419,6 +9419,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (bgVid) {
         bgVid.play().catch(() => {});
       }
+      if (targetId === 'view-roblox' && window.roblox3DApp) {
+        setTimeout(() => window.roblox3DApp.activate(), 50);
+      } else if (window.roblox3DApp && window.roblox3DApp.isActive && targetId !== 'view-roblox') {
+        window.roblox3DApp.deactivate();
+      }
       if (targetId === 'view-magnets' && window.buckyballsApp) {
         setTimeout(() => window.buckyballsApp.activate(), 50);
       } else if (window.buckyballsApp && window.buckyballsApp.isActive && targetId !== 'view-magnets') {
@@ -18089,78 +18094,48 @@ document.addEventListener('DOMContentLoaded', () => {
 <div id="focus-dimmer-overlay"></div>
 
 <!-- ============================================================== -->
-<!-- VIEW: ROBLOX IN-APP STUDIO ARENA (INTEGRIERTER BESTANDTEIL)    -->
+<!-- VIEW: ROBLOX 3D STUDIO (100% IN-APP PROGRAMMIERTE SPIEL-ENGINE) -->
 <!-- ============================================================== -->
+<div class="app-view" id="view-roblox" style="padding:0; overflow:hidden; position:relative; width:100vw; height:100vh; background:#70c5ff;">
+  <!-- 3D WebGL Canvas -->
+  <canvas id="roblox-3d-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; display:block; outline:none; cursor:grab;"></canvas>
 
-<!-- BOSS-KEY DISCREET DESKTOP CAMOUFLAGE OVERLAY (ALT + B) -->
-<div id="boss-key-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#0f172a; color:#cbd5e1; z-index:9999999999; flex-direction:column; padding:32px; box-sizing:border-box; font-family:system-ui, sans-serif;">
-  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #334155; padding-bottom:12px; margin-bottom:20px;">
-    <div style="font-size:14px; font-weight:700; color:#94a3b8;">📄 Arbeitsentwurf &amp; Notizen — WordPad</div>
-    <button onclick="window.triggerBossKeyPrivacy(false)" style="background:transparent; border:1px solid #475569; color:#94a3b8; border-radius:6px; padding:4px 12px; font-size:12px; cursor:pointer;" title="Zurückkehren (Alt+B)">
-      ✕ Schließen (<kbd>Alt+B</kbd>)
-    </button>
-  </div>
-  <div style="max-width:800px; line-height:1.6; font-size:13px; color:#94a3b8;">
-    <p style="margin:0 0 12px;">Projektnotizen &amp; Dokumentation:</p>
-    <p style="margin:0 0 8px; color:#64748b;">• Recherche zu aktuellen Arbeitsmodellen und Strukturierung von Aufgaben.</p>
-    <p style="margin:0 0 8px; color:#64748b;">• Zeitplan für die kommenden Wochen und Vorbereitung des Meetings.</p>
-    <p style="margin:0 0 8px; color:#64748b;">• Analyse der Kernbereiche zur Verbesserung der täglichen Fokussierung.</p>
-  </div>
-  <div style="position:absolute; bottom:16px; right:20px; font-size:11px; color:#475569;">
-    Drücke <kbd style="background:#1e293b; padding:2px 6px; border-radius:4px; border:1px solid #334155; color:#94a3b8;">Alt + B</kbd> um sofort zurückzukehren
-  </div>
-</div>
-
-
-<!-- ============================================================== -->
-<!-- VIEW: ROBLOX IN-APP STUDIO ARENA (INTEGRIERTER BESTANDTEIL)    -->
-<!-- ============================================================== -->
-<div class="app-view" id="view-roblox" style="padding:0; overflow:hidden;">
   <!-- Floating Minimal Auto-Hiding Top Navigation -->
   <div id="roblox-nav-bar" class="roblox-floating-nav">
     <button class="nav-back-btn" onclick="exitRobloxToHub();" style="background:rgba(20,14,10,0.85); color:#fef3c7; border:1px solid rgba(245,158,11,0.4); border-radius:12px; padding:6px 14px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
       <span>←</span> Zentrale (<kbd>Esc</kbd>)
     </button>
     <div style="display:flex; align-items:center; gap:8px;">
-      <div style="width:22px; height:22px; border-radius:6px; background:#ef4444; display:flex; align-items:center; justify-content:center; font-size:12px;">
+      <div style="width:22px; height:22px; border-radius:6px; background:#ef4444; display:flex; align-items:center; justify-content:center; font-size:12px; box-shadow:0 0 10px rgba(239,68,68,0.6);">
         🟥
       </div>
-      <span style="font-size:13px; font-weight:900; color:#fef3c7; letter-spacing:0.3px;">ROBLOX EMULATOR</span>
-      <span style="font-size:9.5px; font-weight:800; background:rgba(239,68,68,0.25); border:1px solid rgba(239,68,68,0.5); color:#fca5a5; padding:2px 6px; border-radius:8px;">VOLLBILD</span>
+      <span style="font-size:13px; font-weight:900; color:#fef3c7; letter-spacing:0.3px;">ROBLOX 3D STUDIO</span>
+      <span style="font-size:9.5px; font-weight:800; background:rgba(34,197,94,0.25); border:1px solid rgba(34,197,94,0.5); color:#86efac; padding:2px 6px; border-radius:8px;">IN-APP ENGINE</span>
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
-      <button class="tool-pill-btn" onclick="toggleRobloxFullscreen()" style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.45); color:#fde047; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">
-        ⛶ Vollbild (<kbd>F11</kbd>)
-      </button>
-      <button class="tool-pill-btn" onclick="launchRobloxInAppEngine()" style="background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; border:none; padding:6px 14px; border-radius:10px; cursor:pointer; font-size:11.5px; font-weight:800; box-shadow:0 0 12px rgba(239,68,68,0.4);">
-        ▶ Starten
-      </button>
+      <span id="roblox-hud-stage" class="tool-pill-btn" style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.45); color:#fde047; padding:6px 12px; border-radius:10px; font-size:11px; font-weight:800;">🚩 Stufe: 1</span>
+      <span id="roblox-hud-coins" class="tool-pill-btn" style="background:rgba(34,197,94,0.2); border:1px solid rgba(34,197,94,0.45); color:#86efac; padding:6px 12px; border-radius:10px; font-size:11px; font-weight:800;">🪙 Münzen: 0</span>
+      <button id="btn-mode-obby" class="tool-pill-btn active" onclick="if(window.roblox3DApp) window.roblox3DApp.setMode('obby')" style="background:linear-gradient(135deg,#3b82f6,#2563eb); color:#fff; border:none; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">🏃 Obby</button>
+      <button id="btn-mode-build" class="tool-pill-btn" onclick="if(window.roblox3DApp) window.roblox3DApp.setMode('build')" style="background:rgba(255,255,255,0.12); color:#fff; border:1px solid rgba(255,255,255,0.25); padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">🔨 Bauen</button>
+      <button class="tool-pill-btn" onclick="if(window.roblox3DApp) window.roblox3DApp.dieAndRespawn()" title="Respawn (R)" style="background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.45); color:#fca5a5; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">🔄 Respawn (R)</button>
+      <button class="tool-pill-btn" onclick="toggleRobloxFullscreen()" style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.45); color:#fde047; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">⛶ Vollbild (<kbd>F11</kbd>)</button>
     </div>
   </div>
 
-  <!-- Pure Full-Screen Stage -->
-  <div class="roblox-stage-fullscreen">
-    <div class="roblox-clean-hero">
-      <div class="roblox-hero-cube">🟥</div>
-      <h1 class="roblox-hero-title">ROBLOX IN-APP EMULATOR</h1>
-      <p class="roblox-hero-sub">Integrierter Studio-Bestandteil • 100% Vollbild • Keine externe Verknüpfung</p>
-      
-      <div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
-        <button class="roblox-big-play-btn" onclick="launchRobloxInAppEngine()">
-          <span>▶</span> SPIEL STARTEN
-        </button>
-        <button class="roblox-big-fs-btn" onclick="toggleRobloxFullscreen()">
-          <span>⛶</span> Vollbild (<kbd>F11</kbd>)
-        </button>
-      </div>
+  <!-- Building Mode Hotbar (Visible only when in Build Mode) -->
+  <div id="roblox-build-hotbar" style="display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:99990; background:rgba(18,12,8,0.92); backdrop-filter:blur(16px); border:1.5px solid rgba(245,158,11,0.4); border-radius:18px; padding:6px 12px; gap:8px; box-shadow:0 8px 30px rgba(0,0,0,0.8);">
+    <button class="tool-pill-btn roblox-hotbar-slot active" data-block="stone" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('stone')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(148,163,184,0.25); color:#f1f5f9; border:1px solid rgba(148,163,184,0.4);">⬜ Stein</button>
+    <button class="tool-pill-btn roblox-hotbar-slot" data-block="grass" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('grass')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(34,197,94,0.2); color:#86efac; border:1px solid rgba(34,197,94,0.4);">🟩 Gras</button>
+    <button class="tool-pill-btn roblox-hotbar-slot" data-block="wood" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('wood')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(180,83,9,0.25); color:#fcd34d; border:1px solid rgba(180,83,9,0.4);">🟫 Holz</button>
+    <button class="tool-pill-btn roblox-hotbar-slot" data-block="lava" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('lava')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(239,68,68,0.25); color:#fca5a5; border:1px solid rgba(239,68,68,0.4);">🟥 Lava</button>
+    <button class="tool-pill-btn roblox-hotbar-slot" data-block="jumppad" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('jumppad')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(168,85,247,0.25); color:#d8b4fe; border:1px solid rgba(168,85,247,0.4);">🟪 JumpPad</button>
+    <button class="tool-pill-btn roblox-hotbar-slot" data-block="speedpad" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('speedpad')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(6,182,212,0.25); color:#67e8f9; border:1px solid rgba(6,182,212,0.4);">🟦 SpeedPad</button>
+    <button class="tool-pill-btn roblox-hotbar-slot" data-block="checkpoint" onclick="if(window.roblox3DApp) window.roblox3DApp.setBlockType('checkpoint')" style="padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; background:rgba(234,179,8,0.25); color:#fef08a; border:1px solid rgba(234,179,8,0.4);">🟨 Checkpoint</button>
+  </div>
 
-      <div class="roblox-info-pill-row">
-        <span class="roblox-info-pill">⚡ Autoklicker links bereit</span>
-        <span class="roblox-info-pill">⛶ Taste <kbd>F11</kbd> für Vollbild</span>
-        <span class="roblox-info-pill">💨 Taste <kbd>Alt+B</kbd> für Blitz-Desktop</span>
-        <span class="roblox-info-pill">← Taste <kbd>Esc</kbd> für Zentrale</span>
-      </div>
-    </div>
+  <!-- In-Game Controls HUD Overlay -->
+  <div style="position:fixed; bottom:14px; right:16px; z-index:99980; font-size:11.5px; font-weight:700; color:#ffffff; background:rgba(15,10,8,0.78); backdrop-filter:blur(8px); padding:6px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.2); pointer-events:none; box-shadow:0 4px 16px rgba(0,0,0,0.4);">
+    <span style="color:#fde047;">WASD</span> / Pfeile: Laufen • <span style="color:#fde047;">Leertaste</span>: Springen • <span style="color:#fde047;">Maus</span>: Drehen / Bauen • <span style="color:#fde047;">R</span>: Respawn • <span style="color:#fde047;">F11</span>: Vollbild
   </div>
 </div>
 
@@ -18586,7 +18561,947 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 2. ROBLOX IN-APP EMULATOR (DESKTOP EXCLUSIVE)
+  // 2. ROBLOX 3D STUDIO ENGINE (100% IN-APP PROGRAMMIERTE SPIEL-ENGINE)
+  // =========================================================================
+// =========================================================================
+// NEUROSPACE 3D IN-APP ROBLOX ENGINE (100% PROGRAMMED DIRECTLY IN STUDIO)
+// =========================================================================
+
+class Roblox3DStudioEngine {
+  constructor() {
+    this.canvas = document.getElementById('roblox-3d-canvas');
+    if (!this.canvas) return;
+
+    this.isActive = false;
+    this.animId = null;
+
+    // Game state
+    this.mode = 'obby'; // 'obby' or 'build'
+    this.coins = 0;
+    this.stage = 1;
+    this.spawnPoint = { x: 0, y: 3, z: 0 };
+    this.isDead = false;
+    this.deathTimer = null;
+    this.selectedBlockType = 'stone';
+
+    // Physics & movement
+    this.keys = { forward: false, backward: false, left: false, right: false, jump: false };
+    this.avatarPos = { x: 0, y: 3, z: 0 };
+    this.avatarVel = { x: 0, y: 0, z: 0 };
+    this.avatarRotation = 0;
+    this.isGrounded = false;
+    this.walkPhase = 0;
+    this.moveSpeed = 12.0;
+    this.jumpForce = 15.0;
+    this.gravity = 32.0;
+
+    // Camera orbit
+    this.camDistance = 9.0;
+    this.camAngleX = 0;
+    this.camAngleY = 0.35;
+    this.isMouseDown = false;
+    this.prevMouseX = 0;
+    this.prevMouseY = 0;
+
+    // World objects
+    this.colliders = [];
+    this.killBricks = [];
+    this.jumpPads = [];
+    this.speedPads = [];
+    this.checkpoints = [];
+    this.collectibles = [];
+    this.builtBlocks = [];
+
+    // Audio
+    this.audioCtx = null;
+    this.lastStepTime = 0;
+
+    this.initThree();
+    this.buildWorld();
+    this.buildAvatar();
+    this.bindEvents();
+  }
+
+  // --- AUDIO SYNTHESIS (100% OFFLINE PROCEDURAL SOUNDS) ---
+  initAudio() {
+    if (!this.audioCtx) {
+      try {
+        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      } catch (e) {}
+    }
+    if (this.audioCtx && this.audioCtx.state === 'suspended') {
+      this.audioCtx.resume();
+    }
+  }
+
+  playOof() {
+    this.initAudio();
+    if (!this.audioCtx) return;
+    try {
+      const t = this.audioCtx.currentTime;
+      const osc1 = this.audioCtx.createOscillator();
+      const osc2 = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      const filter = this.audioCtx.createBiquadFilter();
+
+      osc1.type = 'sawtooth';
+      osc2.type = 'sine';
+
+      // Iconic Roblox vocal pitch drop from 280Hz to 130Hz
+      osc1.frequency.setValueAtTime(285, t);
+      osc1.frequency.exponentialRampToValueAtTime(130, t + 0.18);
+      osc2.frequency.setValueAtTime(275, t);
+      osc2.frequency.exponentialRampToValueAtTime(125, t + 0.18);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(850, t);
+      filter.frequency.exponentialRampToValueAtTime(380, t + 0.18);
+
+      gain.gain.setValueAtTime(0.3, t);
+      gain.gain.exponentialRampToValueAtTime(0.01, t + 0.22);
+
+      osc1.connect(filter);
+      osc2.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.audioCtx.destination);
+
+      osc1.start(t);
+      osc2.start(t);
+      osc1.stop(t + 0.23);
+      osc2.stop(t + 0.23);
+    } catch (e) {}
+  }
+
+  playJump() {
+    this.initAudio();
+    if (!this.audioCtx) return;
+    try {
+      const t = this.audioCtx.currentTime;
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(180, t);
+      osc.frequency.exponentialRampToValueAtTime(380, t + 0.12);
+      gain.gain.setValueAtTime(0.12, t);
+      gain.gain.linearRampToValueAtTime(0.001, t + 0.13);
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.14);
+    } catch (e) {}
+  }
+
+  playStep() {
+    this.initAudio();
+    if (!this.audioCtx) return;
+    try {
+      const t = this.audioCtx.currentTime;
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(160, t);
+      osc.frequency.exponentialRampToValueAtTime(45, t + 0.04);
+      gain.gain.setValueAtTime(0.08, t);
+      gain.gain.linearRampToValueAtTime(0.001, t + 0.04);
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.045);
+    } catch (e) {}
+  }
+
+  playCoinChime() {
+    this.initAudio();
+    if (!this.audioCtx) return;
+    try {
+      const t = this.audioCtx.currentTime;
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(987, t); // B5
+      osc.frequency.setValueAtTime(1318, t + 0.07); // E6
+      gain.gain.setValueAtTime(0.15, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.26);
+    } catch (e) {}
+  }
+
+  playCheckpointChime() {
+    this.initAudio();
+    if (!this.audioCtx) return;
+    try {
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      notes.forEach((freq, idx) => {
+        const t = this.audioCtx.currentTime + idx * 0.07;
+        const osc = this.audioCtx.createOscillator();
+        const gain = this.audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0.12, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+        osc.connect(gain);
+        gain.connect(this.audioCtx.destination);
+        osc.start(t);
+        osc.stop(t + 0.22);
+      });
+    } catch (e) {}
+  }
+
+  // --- THREE.JS INITIALIZATION ---
+  initThree() {
+    if (typeof THREE === 'undefined') return;
+
+    this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0x70c5ff); // Roblox classic bright sky blue
+    this.scene.fog = new THREE.FogExp2(0x70c5ff, 0.005);
+
+    const width = this.canvas.clientWidth || window.innerWidth;
+    const height = this.canvas.clientHeight || window.innerHeight;
+
+    this.camera = new THREE.PerspectiveCamera(65, width / height, 0.1, 1000);
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    this.renderer.setSize(width, height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    // Lighting
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.65);
+    this.scene.add(ambLight);
+
+    const sunLight = new THREE.DirectionalLight(0xfffaed, 1.2);
+    sunLight.position.set(40, 70, 30);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.width = 2048;
+    sunLight.shadow.mapSize.height = 2048;
+    sunLight.shadow.camera.near = 0.5;
+    sunLight.shadow.camera.far = 250;
+    const d = 50;
+    sunLight.shadow.camera.left = -d;
+    sunLight.shadow.camera.right = d;
+    sunLight.shadow.camera.top = d;
+    sunLight.shadow.camera.bottom = -d;
+    this.scene.add(sunLight);
+
+    // Procedural textures
+    this.studTexture = this.generateStudTexture();
+    this.faceTexture = this.generateFaceTexture();
+
+    // Create realistic cartoon clouds in the sky
+    this.createClouds();
+  }
+
+  generateStudTexture() {
+    const c = document.createElement('canvas');
+    c.width = 64;
+    c.height = 64;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, 64, 64);
+    // Outer shadow ring
+    ctx.fillStyle = 'rgba(0,0,0,0.12)';
+    ctx.beginPath();
+    ctx.arc(32, 33, 16, 0, Math.PI * 2);
+    ctx.fill();
+    // Inner stud body
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(32, 31, 14, 0, Math.PI * 2);
+    ctx.fill();
+    // Highlight ring
+    ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.arc(32, 31, 11, 0, Math.PI * 2);
+    ctx.stroke();
+
+    const tex = new THREE.CanvasTexture(c);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    return tex;
+  }
+
+  generateFaceTexture() {
+    const c = document.createElement('canvas');
+    c.width = 128;
+    c.height = 128;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#facc15'; // yellow head color
+    ctx.fillRect(0, 0, 128, 128);
+
+    // Classic Roblox round eyes
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(42, 54, 9, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(86, 54, 9, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Classic Roblox curved smile
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 7;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.arc(64, 62, 32, 0.25 * Math.PI, 0.75 * Math.PI, false);
+    ctx.stroke();
+
+    return new THREE.CanvasTexture(c);
+  }
+
+  createClouds() {
+    const cloudMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85 });
+    for (let i = 0; i < 20; i++) {
+      const cloudGroup = new THREE.Group();
+      const count = 4 + Math.floor(Math.random() * 4);
+      for (let j = 0; j < count; j++) {
+        const sx = 10 + Math.random() * 8;
+        const sy = 4 + Math.random() * 3;
+        const sz = 8 + Math.random() * 6;
+        const puff = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), cloudMat);
+        puff.position.set(j * 6 - 10, Math.random() * 2, Math.random() * 4);
+        cloudGroup.add(puff);
+      }
+      cloudGroup.position.set(
+        (Math.random() - 0.5) * 350,
+        50 + Math.random() * 25,
+        (Math.random() - 0.5) * 350
+      );
+      this.scene.add(cloudGroup);
+    }
+  }
+
+  // --- AVATAR BUILDER (CLASSIC ROBLOX NOOB R6) ---
+  buildAvatar() {
+    this.avatarGroup = new THREE.Group();
+
+    // Materials
+    const yellowMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 });
+    const blueMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.4 });
+    const greenMat = new THREE.MeshStandardMaterial({ color: 0x16a34a, roughness: 0.4 });
+
+    // Head with face texture
+    const headMatArray = [
+      yellowMat, yellowMat, yellowMat, yellowMat,
+      new THREE.MeshStandardMaterial({ map: this.faceTexture, roughness: 0.4 }), // Front face
+      yellowMat
+    ];
+    this.head = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 1.2), headMatArray);
+    this.head.position.set(0, 2.6, 0);
+    this.head.castShadow = true;
+    this.avatarGroup.add(this.head);
+
+    // Torso (2x2x1)
+    this.torso = new THREE.Mesh(new THREE.BoxGeometry(2.0, 2.0, 1.0), blueMat);
+    this.torso.position.set(0, 1.0, 0);
+    this.torso.castShadow = true;
+    this.avatarGroup.add(this.torso);
+
+    // Left Arm Pivot & Mesh
+    this.leftArmPivot = new THREE.Group();
+    this.leftArmPivot.position.set(1.5, 1.9, 0);
+    this.leftArm = new THREE.Mesh(new THREE.BoxGeometry(1.0, 2.0, 1.0), yellowMat);
+    this.leftArm.position.set(0, -0.9, 0); // center relative to pivot
+    this.leftArm.castShadow = true;
+    this.leftArmPivot.add(this.leftArm);
+    this.avatarGroup.add(this.leftArmPivot);
+
+    // Right Arm Pivot & Mesh
+    this.rightArmPivot = new THREE.Group();
+    this.rightArmPivot.position.set(-1.5, 1.9, 0);
+    this.rightArm = new THREE.Mesh(new THREE.BoxGeometry(1.0, 2.0, 1.0), yellowMat);
+    this.rightArm.position.set(0, -0.9, 0);
+    this.rightArm.castShadow = true;
+    this.rightArmPivot.add(this.rightArm);
+    this.avatarGroup.add(this.rightArmPivot);
+
+    // Left Leg Pivot & Mesh
+    this.leftLegPivot = new THREE.Group();
+    this.leftLegPivot.position.set(0.5, 0.0, 0);
+    this.leftLeg = new THREE.Mesh(new THREE.BoxGeometry(1.0, 2.0, 1.0), greenMat);
+    this.leftLeg.position.set(0, -1.0, 0);
+    this.leftLeg.castShadow = true;
+    this.leftLegPivot.add(this.leftLeg);
+    this.avatarGroup.add(this.leftLegPivot);
+
+    // Right Leg Pivot & Mesh
+    this.rightLegPivot = new THREE.Group();
+    this.rightLegPivot.position.set(-0.5, 0.0, 0);
+    this.rightLeg = new THREE.Mesh(new THREE.BoxGeometry(1.0, 2.0, 1.0), greenMat);
+    this.rightLeg.position.set(0, -1.0, 0);
+    this.rightLeg.castShadow = true;
+    this.rightLegPivot.add(this.rightLeg);
+    this.avatarGroup.add(this.rightLegPivot);
+
+    this.scene.add(this.avatarGroup);
+    this.avatarGroup.position.set(this.avatarPos.x, this.avatarPos.y, this.avatarPos.z);
+  }
+
+  // --- WORLD BUILDER (OBBY & ARENA) ---
+  createStudMaterial(colorHex, repeatX, repeatZ) {
+    const tex = this.studTexture.clone();
+    tex.repeat.set(repeatX, repeatZ);
+    tex.needsUpdate = true;
+    return new THREE.MeshStandardMaterial({
+      color: colorHex,
+      map: tex,
+      roughness: 0.45
+    });
+  }
+
+  addBlock(x, y, z, w, h, d, type, colorHex) {
+    let mat;
+    if (type === 'lava') {
+      mat = new THREE.MeshStandardMaterial({
+        color: 0xef4444,
+        emissive: 0xdc2626,
+        emissiveIntensity: 0.8,
+        roughness: 0.2
+      });
+    } else if (type === 'jumppad') {
+      mat = new THREE.MeshStandardMaterial({
+        color: 0xa855f7,
+        emissive: 0x7e22ce,
+        emissiveIntensity: 0.6,
+        roughness: 0.3
+      });
+    } else if (type === 'speedpad') {
+      mat = new THREE.MeshStandardMaterial({
+        color: 0x06b6d4,
+        emissive: 0x0891b2,
+        emissiveIntensity: 0.6,
+        roughness: 0.3
+      });
+    } else if (type === 'checkpoint') {
+      mat = new THREE.MeshStandardMaterial({
+        color: 0xfacc15,
+        emissive: 0xeab308,
+        emissiveIntensity: 0.5,
+        roughness: 0.3
+      });
+    } else {
+      mat = this.createStudMaterial(colorHex || 0x64748b, Math.max(1, Math.round(w / 2)), Math.max(1, Math.round(d / 2)));
+    }
+
+    const geo = new THREE.BoxGeometry(w, h, d);
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(x, y, z);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    this.scene.add(mesh);
+
+    const box = {
+      minX: x - w / 2, maxX: x + w / 2,
+      minY: y - h / 2, maxY: y + h / 2,
+      minZ: z - d / 2, maxZ: z + d / 2,
+      mesh, type, w, h, d
+    };
+
+    if (type === 'lava') {
+      this.killBricks.push(box);
+    } else if (type === 'jumppad') {
+      this.jumpPads.push(box);
+      this.colliders.push(box);
+    } else if (type === 'speedpad') {
+      this.speedPads.push(box);
+      this.colliders.push(box);
+    } else if (type === 'checkpoint') {
+      this.checkpoints.push(box);
+      this.colliders.push(box);
+    } else {
+      this.colliders.push(box);
+    }
+
+    return mesh;
+  }
+
+  addCoin(x, y, z) {
+    const geo = new THREE.CylinderGeometry(0.7, 0.7, 0.18, 16);
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0xfbbf24,
+      metalness: 0.8,
+      roughness: 0.2,
+      emissive: 0xd97706,
+      emissiveIntensity: 0.3
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.rotation.x = Math.PI / 2;
+    mesh.position.set(x, y, z);
+    mesh.castShadow = true;
+    this.scene.add(mesh);
+    this.collectibles.push({ mesh, x, y, z, collected: false });
+  }
+
+  buildWorld() {
+    // 1. Classic Green Baseplate
+    this.addBlock(0, 0, 0, 36, 2, 36, 'solid', 0x22c55e);
+
+    // Spawn Pad (Grey with yellow checkpoint ring)
+    this.addBlock(0, 1.1, 0, 8, 0.3, 8, 'checkpoint', 0x3b82f6);
+    this.spawnPoint = { x: 0, y: 3.5, z: 0 };
+
+    // Stage 1: Stepping Stones (Rainbow Obby)
+    const rainbowColors = [0xef4444, 0xf97316, 0xfacc15, 0x22c55e, 0x06b6d4, 0x3b82f6, 0xa855f7];
+    for (let i = 0; i < 7; i++) {
+      const zPos = 24 + i * 8;
+      const xOffset = Math.sin(i * 1.2) * 5;
+      const yPos = 1.5 + i * 0.8;
+      this.addBlock(xOffset, yPos, zPos, 4, 1.2, 4, 'solid', rainbowColors[i]);
+      this.addCoin(xOffset, yPos + 2.2, zPos);
+    }
+
+    // Checkpoint 1
+    this.addBlock(0, 8, 84, 12, 1.5, 12, 'checkpoint', 0xfacc15);
+
+    // Stage 2: Neon Red Kill-Bricks (Lava Jump)
+    this.addBlock(0, 8, 102, 8, 1.2, 8, 'solid', 0x475569);
+    // Red Lava Bar
+    this.addBlock(0, 9.1, 102, 8, 0.6, 1.5, 'lava');
+
+    this.addBlock(0, 8, 118, 8, 1.2, 8, 'solid', 0x475569);
+    this.addBlock(0, 9.1, 118, 8, 0.6, 1.5, 'lava');
+
+    // Stage 3: Super Jump Pad & High Tower
+    this.addBlock(0, 8, 134, 8, 1.2, 8, 'jumppad', 0xa855f7);
+    this.addCoin(0, 19, 134);
+
+    // Floating High Platform
+    this.addBlock(0, 22, 150, 12, 1.5, 12, 'checkpoint', 0x3b82f6);
+
+    // Stage 4: Speed Pad Run
+    this.addBlock(0, 22, 172, 6, 1.2, 20, 'speedpad', 0x06b6d4);
+    for (let c = 0; c < 3; c++) {
+      this.addCoin(0, 24, 166 + c * 6);
+    }
+
+    // Stage 5: Winners Island (Golden Trophy Platform)
+    this.addBlock(0, 22, 208, 20, 2, 20, 'solid', 0xf59e0b);
+
+    // Golden Trophy Cup
+    const trophyGeo = new THREE.CylinderGeometry(1.5, 0.6, 2.5, 16);
+    const trophyMat = new THREE.MeshStandardMaterial({
+      color: 0xfacc15,
+      metalness: 0.9,
+      roughness: 0.15,
+      emissive: 0xd97706,
+      emissiveIntensity: 0.4
+    });
+    this.trophyMesh = new THREE.Mesh(trophyGeo, trophyMat);
+    this.trophyMesh.position.set(0, 25.5, 208);
+    this.scene.add(this.trophyMesh);
+  }
+
+  // --- CONTROLS & EVENT BINDINGS ---
+  bindEvents() {
+    window.addEventListener('keydown', (e) => {
+      if (!this.isActive) return;
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') this.keys.forward = true;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') this.keys.backward = true;
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft') this.keys.left = true;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') this.keys.right = true;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        this.keys.jump = true;
+      }
+      if (e.code === 'KeyR') {
+        this.dieAndRespawn();
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') this.keys.forward = false;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') this.keys.backward = false;
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft') this.keys.left = false;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') this.keys.right = false;
+      if (e.code === 'Space') this.keys.jump = false;
+    });
+
+    this.canvas.addEventListener('pointerdown', (e) => {
+      this.isMouseDown = true;
+      this.prevMouseX = e.clientX;
+      this.prevMouseY = e.clientY;
+      this.initAudio();
+
+      if (this.mode === 'build') {
+        this.handleBuildClick(e);
+      }
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!this.isMouseDown || !this.isActive) return;
+      const deltaX = e.clientX - this.prevMouseX;
+      const deltaY = e.clientY - this.prevMouseY;
+      this.prevMouseX = e.clientX;
+      this.prevMouseY = e.clientY;
+
+      this.camAngleX -= deltaX * 0.007;
+      this.camAngleY = Math.max(-0.2, Math.min(1.2, this.camAngleY + deltaY * 0.007));
+    });
+
+    window.addEventListener('pointerup', () => {
+      this.isMouseDown = false;
+    });
+
+    this.canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    this.canvas.addEventListener('wheel', (e) => {
+      if (!this.isActive) return;
+      e.preventDefault();
+      this.camDistance = Math.max(3.0, Math.min(22.0, this.camDistance + e.deltaY * 0.01));
+    }, { passive: false });
+
+    window.addEventListener('resize', () => {
+      if (!this.isActive || !this.renderer || !this.camera) return;
+      const w = this.canvas.clientWidth || window.innerWidth;
+      const h = this.canvas.clientHeight || window.innerHeight;
+      this.camera.aspect = w / h;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(w, h);
+    });
+  }
+
+  // --- BUILDING MODE ---
+  handleBuildClick(e) {
+    if (typeof THREE === 'undefined' || !this.camera) return;
+    const rect = this.canvas.getBoundingClientRect();
+    const mouse = new THREE.Vector2(
+      ((e.clientX - rect.left) / rect.width) * 2 - 1,
+      -((e.clientY - rect.top) / rect.height) * 2 + 1
+    );
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, this.camera);
+    const meshes = this.colliders.map(c => c.mesh).concat(this.killBricks.map(c => c.mesh));
+    const hits = raycaster.intersectObjects(meshes);
+
+    if (hits.length > 0) {
+      const hit = hits[0];
+      if (e.button === 2 || e.shiftKey) {
+        // Delete block
+        const idx = this.colliders.findIndex(c => c.mesh === hit.object);
+        if (idx !== -1 && this.colliders[idx].mesh !== this.colliders[0].mesh) { // Don't delete baseplate
+          this.scene.remove(hit.object);
+          this.colliders.splice(idx, 1);
+          this.playOof();
+        }
+      } else {
+        // Place new block adjacent to normal
+        const n = hit.face.normal;
+        const p = hit.object.position;
+        const newX = Math.round((p.x + n.x * 3) / 2) * 2;
+        const newY = Math.round((p.y + n.y * 3) / 2) * 2;
+        const newZ = Math.round((p.z + n.z * 3) / 2) * 2;
+
+        const colors = {
+          stone: 0x64748b, grass: 0x22c55e, wood: 0xb45309,
+          lava: 0xef4444, jumppad: 0xa855f7, speedpad: 0x06b6d4, checkpoint: 0xfacc15
+        };
+        const c = colors[this.selectedBlockType] || 0x64748b;
+        this.addBlock(newX, newY, newZ, 3, 2, 3, this.selectedBlockType === 'lava' ? 'lava' : 'solid', c);
+        this.playStep();
+      }
+    }
+  }
+
+  // --- DEATH & RESPAWN (OOF!) ---
+  dieAndRespawn() {
+    if (this.isDead) return;
+    this.isDead = true;
+    this.playOof();
+
+    // Scatter avatar parts
+    if (this.head) this.head.position.y += 0.8;
+    if (this.leftArm) this.leftArm.position.x += 1.5;
+    if (this.rightArm) this.rightArm.position.x -= 1.5;
+
+    clearTimeout(this.deathTimer);
+    this.deathTimer = setTimeout(() => {
+      this.respawn();
+    }, 900);
+  }
+
+  respawn() {
+    this.isDead = false;
+    this.avatarPos.x = this.spawnPoint.x;
+    this.avatarPos.y = this.spawnPoint.y;
+    this.avatarPos.z = this.spawnPoint.z;
+    this.avatarVel.x = 0;
+    this.avatarVel.y = 0;
+    this.avatarVel.z = 0;
+
+    // Reset avatar limb positions
+    if (this.head) this.head.position.set(0, 2.6, 0);
+    if (this.torso) this.torso.position.set(0, 1.0, 0);
+    if (this.leftArm) this.leftArm.position.set(0, -0.9, 0);
+    if (this.rightArm) this.rightArm.position.set(0, -0.9, 0);
+    if (this.leftArmPivot) this.leftArmPivot.rotation.x = 0;
+    if (this.rightArmPivot) this.rightArmPivot.rotation.x = 0;
+    if (this.leftLegPivot) this.leftLegPivot.rotation.x = 0;
+    if (this.rightLegPivot) this.rightLegPivot.rotation.x = 0;
+  }
+
+  // --- GAME TICK & PHYSICS ---
+  update(dt) {
+    if (!this.isActive || this.isDead) return;
+
+    // Rotate collectibles
+    this.collectibles.forEach(c => {
+      if (!c.collected && c.mesh) {
+        c.mesh.rotation.z += dt * 3;
+      }
+    });
+
+    if (this.trophyMesh) {
+      this.trophyMesh.rotation.y += dt * 1.5;
+    }
+
+    // Input direction relative to camera angle
+    let moveX = 0;
+    let moveZ = 0;
+    if (this.keys.forward) moveZ -= 1;
+    if (this.keys.backward) moveZ += 1;
+    if (this.keys.left) moveX -= 1;
+    if (this.keys.right) moveX += 1;
+
+    let isMoving = false;
+    if (moveX !== 0 || moveZ !== 0) {
+      isMoving = true;
+      const len = Math.hypot(moveX, moveZ);
+      moveX /= len;
+      moveZ /= len;
+
+      // Rotate move vector by camera angle X
+      const cosA = Math.cos(this.camAngleX);
+      const sinA = Math.sin(this.camAngleX);
+      const worldMoveX = moveX * cosA - moveZ * sinA;
+      const worldMoveZ = moveX * sinA + moveZ * cosA;
+
+      this.avatarVel.x = worldMoveX * this.moveSpeed;
+      this.avatarVel.z = worldMoveZ * this.moveSpeed;
+
+      this.avatarRotation = Math.atan2(worldMoveX, worldMoveZ);
+    } else {
+      this.avatarVel.x *= 0.7;
+      this.avatarVel.z *= 0.7;
+    }
+
+    // Jump
+    if (this.keys.jump && this.isGrounded) {
+      this.avatarVel.y = this.jumpForce;
+      this.isGrounded = false;
+      this.playJump();
+    }
+
+    // Gravity
+    this.avatarVel.y -= this.gravity * dt;
+
+    // Next proposed position
+    const nextX = this.avatarPos.x + this.avatarVel.x * dt;
+    const nextY = this.avatarPos.y + this.avatarVel.y * dt;
+    const nextZ = this.avatarPos.z + this.avatarVel.z * dt;
+
+    // Avatar bounding box (Radius 1.0, Height 3.2)
+    const avatarH = 3.2;
+    const avatarR = 0.9;
+
+    this.isGrounded = false;
+
+    // Check Kill-Bricks (Lava)
+    for (const b of this.killBricks) {
+      if (
+        nextX + avatarR > b.minX && nextX - avatarR < b.maxX &&
+        nextY + avatarH > b.minY && nextY < b.maxY &&
+        nextZ + avatarR > b.minZ && nextZ - avatarR < b.maxZ
+      ) {
+        this.dieAndRespawn();
+        return;
+      }
+    }
+
+    // Check Colliders & Platforms
+    for (const b of this.colliders) {
+      // Check vertical landing on top of block
+      if (
+        nextX + avatarR > b.minX && nextX - avatarR < b.maxX &&
+        nextZ + avatarR > b.minZ && nextZ - avatarR < b.maxZ
+      ) {
+        if (this.avatarPos.y >= b.maxY - 0.2 && nextY <= b.maxY + 0.1) {
+          this.avatarPos.y = b.maxY;
+          this.avatarVel.y = 0;
+          this.isGrounded = true;
+
+          // Special platform triggers
+          if (b.type === 'jumppad') {
+            this.avatarVel.y = this.jumpForce * 1.8;
+            this.isGrounded = false;
+            this.playJump();
+          } else if (b.type === 'speedpad') {
+            this.avatarVel.x *= 1.6;
+            this.avatarVel.z *= 1.6;
+          } else if (b.type === 'checkpoint') {
+            if (this.spawnPoint.z < b.mesh.position.z) {
+              this.spawnPoint = { x: b.mesh.position.x, y: b.mesh.position.y + 2, z: b.mesh.position.z };
+              this.stage += 1;
+              this.updateHUD();
+              this.playCheckpointChime();
+            }
+          }
+        }
+      }
+    }
+
+    // Apply positions
+    if (!this.isGrounded) {
+      this.avatarPos.y = nextY;
+    }
+    this.avatarPos.x = nextX;
+    this.avatarPos.z = nextZ;
+
+    // Fell off the world
+    if (this.avatarPos.y < -15) {
+      this.dieAndRespawn();
+      return;
+    }
+
+    // Check Collectible Coins
+    this.collectibles.forEach(c => {
+      if (!c.collected) {
+        const dist = Math.hypot(this.avatarPos.x - c.x, this.avatarPos.z - c.z);
+        if (dist < 1.8 && Math.abs(this.avatarPos.y + 1.5 - c.y) < 2.5) {
+          c.collected = true;
+          this.scene.remove(c.mesh);
+          this.coins += 10;
+          this.updateHUD();
+          this.playCoinChime();
+        }
+      }
+    });
+
+    // Animate limbs
+    if (this.isGrounded && isMoving) {
+      this.walkPhase += dt * 13;
+      const swing = Math.sin(this.walkPhase) * 0.7;
+      if (this.leftArmPivot) this.leftArmPivot.rotation.x = swing;
+      if (this.rightArmPivot) this.rightArmPivot.rotation.x = -swing;
+      if (this.leftLegPivot) this.leftLegPivot.rotation.x = -swing;
+      if (this.rightLegPivot) this.rightLegPivot.rotation.x = swing;
+
+      // Footstep sound cadence
+      if (performance.now() - this.lastStepTime > 260) {
+        this.playStep();
+        this.lastStepTime = performance.now();
+      }
+    } else if (!this.isGrounded) {
+      // Jump pose
+      if (this.leftArmPivot) this.leftArmPivot.rotation.x = -1.2;
+      if (this.rightArmPivot) this.rightArmPivot.rotation.x = -1.2;
+      if (this.leftLegPivot) this.leftLegPivot.rotation.x = 0.4;
+      if (this.rightLegPivot) this.rightLegPivot.rotation.x = -0.4;
+    } else {
+      // Idle
+      if (this.leftArmPivot) this.leftArmPivot.rotation.x *= 0.8;
+      if (this.rightArmPivot) this.rightArmPivot.rotation.x *= 0.8;
+      if (this.leftLegPivot) this.leftLegPivot.rotation.x *= 0.8;
+      if (this.rightLegPivot) this.rightLegPivot.rotation.x *= 0.8;
+    }
+
+    // Update avatar mesh position and rotation
+    if (this.avatarGroup) {
+      this.avatarGroup.position.set(this.avatarPos.x, this.avatarPos.y, this.avatarPos.z);
+      this.avatarGroup.rotation.y = this.avatarRotation;
+    }
+
+    // Camera follow avatar smoothly
+    const targetCamX = this.avatarPos.x + Math.sin(this.camAngleX) * this.camDistance * Math.cos(this.camAngleY);
+    const targetCamY = this.avatarPos.y + 2.4 + Math.sin(this.camAngleY) * this.camDistance;
+    const targetCamZ = this.avatarPos.z + Math.cos(this.camAngleX) * this.camDistance * Math.cos(this.camAngleY);
+
+    this.camera.position.set(targetCamX, targetCamY, targetCamZ);
+    this.camera.lookAt(this.avatarPos.x, this.avatarPos.y + 1.8, this.avatarPos.z);
+  }
+
+  updateHUD() {
+    const stageEl = document.getElementById('roblox-hud-stage');
+    const coinsEl = document.getElementById('roblox-hud-coins');
+    if (stageEl) stageEl.textContent = `🚩 Stufe: ${this.stage}`;
+    if (coinsEl) coinsEl.textContent = `🪙 Münzen: ${this.coins}`;
+  }
+
+  setMode(m) {
+    this.mode = m;
+    const btnObby = document.getElementById('btn-mode-obby');
+    const btnBuild = document.getElementById('btn-mode-build');
+    const hotbar = document.getElementById('roblox-build-hotbar');
+
+    if (btnObby) btnObby.classList.toggle('active', m === 'obby');
+    if (btnBuild) btnBuild.classList.toggle('active', m === 'build');
+    if (hotbar) hotbar.style.display = m === 'build' ? 'flex' : 'none';
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.toggleReticle(m === 'build');
+  }
+
+  setBlockType(type) {
+    this.selectedBlockType = type;
+    document.querySelectorAll('.roblox-hotbar-slot').forEach(s => {
+      s.classList.toggle('active', s.dataset.block === type);
+    });
+  }
+
+  activate() {
+    this.isActive = true;
+    if (this.canvas) {
+      const w = this.canvas.clientWidth || window.innerWidth;
+      const h = this.canvas.clientHeight || window.innerHeight;
+      if (this.renderer && this.camera) {
+        this.camera.aspect = w / h;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(w, h);
+      }
+    }
+    this.respawn();
+    this.loop();
+  }
+
+  deactivate() {
+    this.isActive = false;
+    if (this.animId) {
+      cancelAnimationFrame(this.animId);
+      this.animId = null;
+    }
+  }
+
+  loop() {
+    if (!this.isActive) return;
+    const now = performance.now();
+    const dt = Math.min((now - (this.lastTime || now)) / 1000, 0.05);
+    this.lastTime = now;
+
+    this.update(dt);
+    if (this.renderer && this.scene && this.camera) {
+      this.renderer.render(this.scene, this.camera);
+    }
+    this.animId = requestAnimationFrame(() => this.loop());
+  }
+}
+
+console.log("Roblox3DStudioEngine class loaded");
+
+
+  // Initialisiere Roblox 3D Studio Engine
+  try {
+    window.roblox3DApp = new Roblox3DStudioEngine();
+  } catch (err) {
+    console.error('Failed to init Roblox3DStudioEngine:', err);
+  }
+
+  // =========================================================================
+  // ROBLOX DESKTOP CARD & VIEW LIFECYCLE
   // =========================================================================
   function renderDesktopRobloxCard() {
     const grid = document.getElementById('apps-grid');
@@ -18654,10 +19569,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.launchRobloxInAppEngine = function() {
-    try {
-      window.location.href = 'roblox://app';
-    } catch (e) {
-      window.open('roblox://app', '_blank');
+    if (window.roblox3DApp) {
+      window.roblox3DApp.activate();
     }
   };
 
@@ -18676,6 +19589,9 @@ document.addEventListener('DOMContentLoaded', () => {
   window.exitRobloxToHub = function() {
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(() => {});
+    }
+    if (window.roblox3DApp && window.roblox3DApp.isActive) {
+      window.roblox3DApp.deactivate();
     }
     if (window.utilityDrawerEngine) {
       window.utilityDrawerEngine.toggle(false);
