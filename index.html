@@ -2,6 +2,17 @@
 <html lang="de">
 <head>
 <script>
+  // Global SafeGuard against uncaught errors and promise rejections
+  window.addEventListener('error', function(e) {
+    if (window.console && window.console.warn) {
+      window.console.warn('[NeuroSpace SafeGuard] Handled error:', e && e.message ? e.message : e);
+    }
+  });
+  window.addEventListener('unhandledrejection', function(e) {
+    if (window.console && window.console.warn) {
+      window.console.warn('[NeuroSpace SafeGuard] Handled rejection:', e && e.reason ? e.reason : e);
+    }
+  });
   (function() {
     try {
       if (localStorage.getItem('neurospace_site_access_granted') === '020818' && sessionStorage.getItem('neurospace_gate_entered')) {
@@ -9126,7 +9137,7 @@ class SensoryAudioEngine {
       if (AudioCtx) this.ctx = new AudioCtx();
     }
     if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
+      this.ctx.resume().catch(() => {});
     }
   }
 
@@ -9528,6 +9539,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (viewId === 'view-roblox' && window.roblox3DApp && typeof window.roblox3DApp.deactivate === 'function') {
       window.roblox3DApp.deactivate();
     }
+    if (viewId === 'view-glitterjar' && window.glitterJarApp) {
+      window.glitterJarApp.isPaused = true;
+    }
+    if (viewId === 'view-plasma' && window.plasmaApp) {
+      window.plasmaApp.isPaused = true;
+    }
   }
 
   function activateTargetViewEngines(targetId) {
@@ -9582,6 +9599,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (targetId === 'view-windchimes' && window.chimesApp && typeof window.chimesApp.resize === 'function') {
         window.chimesApp.resize();
+      }
+      if (targetId === 'view-glitterjar' && window.glitterJarApp) {
+        window.glitterJarApp.isPaused = false;
+        if (typeof window.glitterJarApp.resume === 'function') window.glitterJarApp.resume();
+        if (typeof window.glitterJarApp.resize === 'function') window.glitterJarApp.resize();
+      }
+      if (targetId === 'view-plasma' && window.plasmaApp) {
+        window.plasmaApp.isPaused = false;
+        if (typeof window.plasmaApp.resume === 'function') window.plasmaApp.resume();
+        if (typeof window.plasmaApp.resize === 'function') window.plasmaApp.resize();
       }
     }, 60);
   }
@@ -12839,7 +12866,18 @@ class PlasmaApp {
       this.ctx.shadowBlur = 25;
       this.ctx.fill();
     }
-    requestAnimationFrame(() => this.loop());
+    if (!this.isPaused && document.getElementById('view-plasma') && document.getElementById('view-plasma').classList.contains('active')) {
+      this.isLooping = true;
+      requestAnimationFrame(() => this.loop());
+    } else {
+      this.isLooping = false;
+    }
+  }
+  resume() {
+    if (!this.isLooping) {
+      this.isLooping = true;
+      requestAnimationFrame(() => this.loop());
+    }
   }
 }
 window.plasmaApp = new PlasmaApp();
@@ -13195,28 +13233,38 @@ class GlitterJarApp {
       });
     });
   }
+  resume() {
+    if (!this.isLooping) {
+      this.isLooping = true;
+      requestAnimationFrame(() => this.loop());
+    }
+  }
   loop() {
-    if (document.getElementById('view-glitterjar').classList.contains('active')) {
-      const w = this.canvas.width, h = this.canvas.height;
-      this.ctx.clearRect(0, 0, w, h);
+    const view = document.getElementById('view-glitterjar');
+    if (this.isPaused || !view || !view.classList.contains('active')) {
+      this.isLooping = false;
+      return;
+    }
+    this.isLooping = true;
+    const w = this.canvas.width, h = this.canvas.height;
+    this.ctx.clearRect(0, 0, w, h);
 
-      let col = '#fbbf24';
-      if (this.style === 'galaxy') col = '#c084fc';
-      else if (this.style === 'aurora') col = '#00e676';
+    let col = '#fbbf24';
+    if (this.style === 'galaxy') col = '#c084fc';
+    else if (this.style === 'aurora') col = '#00e676';
 
-      for (let p of this.particles) {
-        p.y += p.vy;
-        p.x += p.vx * 0.98;
-        p.twinkle += 0.05;
-        if (p.y > h - 10) p.vy = 0;
+    for (let p of this.particles) {
+      p.y += p.vy;
+      p.x += p.vx * 0.98;
+      p.twinkle += 0.05;
+      if (p.y > h - 10) p.vy = 0;
 
-        this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.r * (0.8 + Math.sin(p.twinkle) * 0.3), 0, Math.PI * 2);
-        this.ctx.fillStyle = col;
-        this.ctx.shadowColor = col;
-        this.ctx.shadowBlur = 8;
-        this.ctx.fill();
-      }
+      this.ctx.beginPath();
+      this.ctx.arc(p.x, p.y, p.r * (0.8 + Math.sin(p.twinkle) * 0.3), 0, Math.PI * 2);
+      this.ctx.fillStyle = col;
+      this.ctx.shadowColor = col;
+      this.ctx.shadowBlur = 8;
+      this.ctx.fill();
     }
     requestAnimationFrame(() => this.loop());
   }
@@ -17115,10 +17163,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1800);
   };
 
+  const safeGet = (key, fallback = null) => {
+    try {
+      const v = localStorage.getItem(key);
+      return v !== null ? v : fallback;
+    } catch(e) {
+      return fallback;
+    }
+  };
+  const safeSet = (key, val) => {
+    try {
+      localStorage.setItem(key, val);
+    } catch(e) {}
+  };
+  const safeRemove = (key) => {
+    try {
+      localStorage.removeItem(key);
+    } catch(e) {}
+  };
+
   let isZenOpen = false;
-  let isPenMode = localStorage.getItem('neuro_pen_mode') === 'true';
-  let activePlot = parseInt(localStorage.getItem('neuro_active_plot') || '1');
-  let leafDensity = localStorage.getItem('neuro_leaf_density') || 'golden';
+  let isPenMode = safeGet('neuro_pen_mode') === 'true';
+  let activePlot = parseInt(safeGet('neuro_active_plot', '1'));
+  let leafDensity = safeGet('neuro_leaf_density', 'golden');
 
   // Apply saved pen mode on load
   if (isPenMode) {

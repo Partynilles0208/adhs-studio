@@ -252,16 +252,18 @@ namespace NeuroSpaceInstaller
                 "===========================================\r\n" +
                 "• NeuroSpace Studio respektiert Ihre Privatsphäre zu 100%.\r\n" +
                 "• Es werden KEINE personenbezogenen Daten, Surf-Gewohnheiten oder Passwörter erfasst oder an Server übermittelt.\r\n" +
-                "• Alle Konfigurationen und Spielstände werden ausschließlich lokal auf Ihrem Rechner (unter C:\\NeuroSpace) gespeichert.\r\n" +
-                "• Die integrierte Spiele-Arcade ruft im Online-Modus öffentliche Spielefeeds ab. Wenn keine Internetverbindung vorhanden ist, bleibt die App voll funktionsfähig im Offline-Modus.\r\n\r\n" +
-                "2. NUTZUNGSBEDINGUNGEN (TERMS OF USE)\r\n" +
-                "=====================================\r\n" +
+                "• Alle Konfigurationen, Profile und Spielstände verbleiben ausschließlich lokal auf Ihrem Rechner (unter C:\\NeuroSpace).\r\n" +
+                "• 100% Offline-Garantie, DSGVO-konform, keine Werbe-Tracker, keine Weitergabe an Dritte.\r\n\r\n" +
+                "2. WICHTIGE NUTZUNGSBEDINGUNGEN & ÄNDERUNGSVORBEHALT\r\n" +
+                "====================================================\r\n" +
                 "• Die Software wird für den privaten, therapeutischen und pädagogischen Gebrauch zur Verfügung gestellt.\r\n" +
-                "• Das Studio dient der Entspannung, Reizminderung und dem Fokus bei ADHS und Autismus-Spektrum-Bedingungen.\r\n\r\n" +
-                "3. EPILEPSIE- & GESUNDHEITSHINWEIS\r\n" +
-                "==================================\r\n" +
-                "• Einige visuelle Simulationen (z. B. Partikel-Gravitron, Pop-It, Plasma) enthalten bewegte Licht-, Farb- und Animationseffekte.\r\n" +
-                "• Personen, die zu photosensitiver Epilepsie neigen, sollten bei der Nutzung visueller Effekte Pausen einlegen und bei Unwohlsein die Nutzung sofort beenden.";
+                "• Das Studio dient der Entspannung, Reizminderung und dem Fokus bei ADHS und Autismus-Spektrum-Bedingungen.\r\n" +
+                "• WICHTIGER ÄNDERUNGSVORBEHALT: Sämtliche Bestimmungen, Sicherheitsrichtlinien sowie Spiele und Features können sich durch fortlaufende Updates jederzeit ändern.\r\n\r\n" +
+                "3. GESUNDHEITSSCHUTZ & HERZ-KREISLAUF-SICHERHEIT\r\n" +
+                "================================================\r\n" +
+                "• EPILEPSIE: Dynamische 3D-Simulationen enthalten Licht- und Kontrastwechsel. Personen mit photosensibler Epilepsie sollten Pausen einlegen und bei Unwohlsein die Nutzung sofort stoppen.\r\n" +
+                "• HERZRHYTHMUSSTÖRUNGEN: Bei bekannten Herzrhythmusstörungen oder kardiovaskulären Vorerkrankungen ist das Studio mit besonderer Achtsamkeit zu nutzen. Schnelle Reize und Gaming-Szenen (z. B. Roblox) können Puls und Kreislauf belasten.\r\n" +
+                "• REALE GEFAHR BEI NOCH UNENTDECKTEN HERZKRANKHEITEN: Auch bei Personen ohne diagnostizierte Herzerkrankung können unentdeckte oder symptomlose Vorerkrankungen vorliegen. Bei Schreckmomenten oder Reizüberflutung besteht eine reale Gefahr für plötzliche Adrenalinausschüttung und Herzrasen. Bei Herzklopfen, Schwindel, Engegefühl oder Unwohlsein Nutzung sofort stoppen und ärztlich abklären!";
             stepTerms.Controls.Add(txtTerms);
 
             chkAcceptTerms = new CheckBox();
