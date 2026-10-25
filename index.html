@@ -6635,6 +6635,543 @@
   .view-title-pill {
     display: none !important;
   }
+
+  /* === INTRO SKIP BUTTON & FALLBACK CARDS === */
+  .cinematic-skip-btn {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    z-index: 1000000000;
+    background: rgba(24, 16, 12, 0.88);
+    border: 1.5px solid rgba(245, 158, 11, 0.6);
+    color: #fde047;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+  .cinematic-skip-btn:hover {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #fbbf24;
+    transform: scale(1.05);
+  }
+
+  /* === LIVE FPS PILL (TOP-LEFT ALWAYS VISIBLE) === */
+  #live-fps-pill {
+    position: fixed;
+    top: 14px;
+    left: 16px;
+    z-index: 99995;
+    background: rgba(15, 10, 8, 0.85);
+    border: 1px solid rgba(74, 222, 128, 0.45);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #4ade80;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+    pointer-events: none;
+    user-select: none;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+  }
+  #live-fps-pill.fps-medium {
+    border-color: rgba(250, 204, 21, 0.5);
+    color: #facc15;
+  }
+  #live-fps-pill.fps-low {
+    border-color: rgba(248, 113, 113, 0.5);
+    color: #f87171;
+  }
+  #live-fps-pill .fps-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 8px currentColor;
+    display: inline-block;
+  }
+
+  /* === LEFT-EDGE UTILITY DRAWER HANDLE === */
+  #utility-drawer-toggle {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 120px;
+    background: linear-gradient(180deg, rgba(32, 20, 14, 0.96) 0%, rgba(18, 12, 8, 0.98) 100%);
+    border: 1.5px solid rgba(245, 158, 11, 0.55);
+    border-left: none;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.65), 0 0 15px rgba(245, 158, 11, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 99997;
+    user-select: none;
+    touch-action: none;
+    transition: width 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  #utility-drawer-toggle:hover {
+    width: 38px;
+    border-color: #fbbf24;
+    box-shadow: 6px 0 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.35);
+  }
+  #utility-drawer-toggle .drawer-handle-dots {
+    color: rgba(245, 158, 11, 0.7);
+    font-size: 13px;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  #utility-drawer-toggle .drawer-handle-icon {
+    font-size: 14px;
+    color: #fde047;
+    animation: drawerIconPulse 2s ease-in-out infinite;
+  }
+  @keyframes drawerIconPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #f59e0b); }
+    50% { transform: scale(1.15); filter: drop-shadow(0 0 8px #f59e0b); }
+  }
+  #utility-drawer-toggle .drawer-handle-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #fef3c7;
+    text-transform: uppercase;
+  }
+  #utility-drawer-toggle .drawer-handle-arrow {
+    font-size: 10px;
+    color: #f59e0b;
+    transition: transform 0.2s ease;
+  }
+  body.utility-drawer-open #utility-drawer-toggle {
+    left: 340px;
+    border-radius: 0 16px 16px 0;
+  }
+  body.utility-drawer-open #utility-drawer-toggle .drawer-handle-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* === LEFT SLIDING UTILITY DRAWER PANEL === */
+  #app-utility-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 340px;
+    height: 100vh;
+    background: rgba(18, 12, 8, 0.97);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border-right: 1.5px solid rgba(245, 158, 11, 0.45);
+    box-shadow: 20px 0 60px rgba(0, 0, 0, 0.9);
+    z-index: 99998;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+  }
+  #app-utility-drawer.is-open {
+    transform: translateX(0);
+  }
+  .drawer-header {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.22);
+    background: rgba(28, 18, 12, 0.6);
+  }
+  .drawer-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .drawer-close-btn {
+    background: transparent;
+    border: none;
+    color: #f59e0b;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .drawer-close-btn:hover {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fde047;
+  }
+  .drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .drawer-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  .drawer-body::-webkit-scrollbar-thumb {
+    background: rgba(245, 158, 11, 0.3);
+    border-radius: 3px;
+  }
+  .drawer-card {
+    background: rgba(28, 18, 12, 0.7);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  .drawer-card-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #fef3c7;
+    margin-bottom: 6px;
+  }
+  .drawer-card-desc {
+    font-size: 11.5px;
+    color: #a8a29e;
+    line-height: 1.4;
+    margin: 0 0 10px;
+  }
+  .drawer-status-pill {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .drawer-status-pill.active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+  }
+  .drawer-status-pill.paused {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+  }
+  .drawer-control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .drawer-toggle-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+  .toggle-slider {
+    position: relative;
+    width: 38px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+  }
+  .drawer-toggle-label input {
+    display: none;
+  }
+  .drawer-toggle-label input:checked + .toggle-slider {
+    background: #f59e0b;
+  }
+  .toggle-slider::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+  .drawer-toggle-label input:checked + .toggle-slider::after {
+    transform: translateX(18px);
+  }
+  .cps-presets-row, .fps-presets-row, .crosshair-styles-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .cps-btn, .fps-mode-btn {
+    flex: 1;
+    background: rgba(20, 14, 10, 0.8);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 8px;
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 6px 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+  }
+  .cps-btn:hover, .fps-mode-btn:hover {
+    border-color: #f59e0b;
+    color: #fde047;
+  }
+  .cps-btn.active, .fps-mode-btn.active {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #f59e0b;
+    color: #fde047;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+  }
+  .autoclicker-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .ac-action-btn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    background: rgba(20, 14, 10, 0.8);
+    color: #fef3c7;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .ac-action-btn:hover {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: #fbbf24;
+  }
+  .ac-action-btn.primary {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    border-color: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+  }
+  .ac-action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .autoclicker-stats-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(15, 10, 8, 0.8);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 10px;
+    font-size: 11px;
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .autoclicker-stats-box b {
+    color: #fbbf24;
+  }
+  .cps-test-tap-area {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    background: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.15), rgba(18, 12, 8, 0.8));
+    border: 1.5px dashed rgba(245, 158, 11, 0.5);
+    color: #fde047;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    user-select: none;
+    transition: transform 0.05s ease, background 0.15s ease;
+  }
+  .cps-test-tap-area:active {
+    transform: scale(0.97);
+    background: rgba(245, 158, 11, 0.28);
+  }
+
+  /* === DRAGGABLE AUTOKLICKER TARGET RETICLE === */
+  #autoclicker-reticle {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
+    border-radius: 50%;
+    z-index: 100000;
+    pointer-events: auto;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    user-select: none;
+  }
+  #autoclicker-reticle:active {
+    cursor: grabbing;
+  }
+  .reticle-outer-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px dashed rgba(245, 158, 11, 0.85);
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.5), inset 0 0 10px rgba(245, 158, 11, 0.3);
+    animation: reticleSpin 12s linear infinite;
+  }
+  @keyframes reticleSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .reticle-inner-crosshair {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .reticle-inner-crosshair::before, .reticle-inner-crosshair::after {
+    content: '';
+    position: absolute;
+    background: #fbbf24;
+  }
+  .reticle-inner-crosshair::before {
+    top: 50%; left: 0; width: 100%; height: 1.5px; transform: translateY(-50%);
+  }
+  .reticle-inner-crosshair::after {
+    left: 50%; top: 0; width: 1.5px; height: 100%; transform: translateX(-50%);
+  }
+  .reticle-center-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fde047;
+    box-shadow: 0 0 10px #f59e0b, 0 0 20px #f59e0b;
+    pointer-events: none;
+  }
+  .reticle-coord-tag {
+    position: absolute;
+    bottom: -22px;
+    font-size: 10px;
+    font-weight: 800;
+    font-family: monospace;
+    background: rgba(15, 10, 8, 0.9);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    color: #fde047;
+    padding: 2px 6px;
+    border-radius: 8px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .autoclick-ripple {
+    position: fixed;
+    border-radius: 50%;
+    border: 2px solid #fbbf24;
+    pointer-events: none;
+    z-index: 99999;
+    animation: autoclickRippleAnim 0.35s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  }
+  @keyframes autoclickRippleAnim {
+    0% { width: 10px; height: 10px; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { width: 70px; height: 70px; opacity: 0; transform: translate(-50%, -50%) scale(2.2); }
+  }
+
+  /* === GAMING CROSSHAIR OVERLAY === */
+  #gaming-crosshair-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 99994;
+    display: none;
+  }
+  #gaming-crosshair-overlay.style-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e, 0 0 2px #000;
+  }
+  #gaming-crosshair-overlay.style-plus {
+    width: 24px;
+    height: 24px;
+  }
+  #gaming-crosshair-overlay.style-plus::before, #gaming-crosshair-overlay.style-plus::after {
+    content: '';
+    position: absolute;
+    background: #22c55e;
+    box-shadow: 0 0 4px #22c55e;
+  }
+  #gaming-crosshair-overlay.style-plus::before {
+    top: 50%; left: 0; width: 24px; height: 2px; transform: translateY(-50%);
+  }
+  #gaming-crosshair-overlay.style-plus::after {
+    left: 50%; top: 0; width: 2px; height: 24px; transform: translateX(-50%);
+  }
+  #gaming-crosshair-overlay.style-circle {
+    width: 26px;
+    height: 26px;
+    border: 2px solid #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #22c55e;
+  }
+
+  /* === FOCUS DIMMER OVERLAY === */
+  #focus-dimmer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 99993;
+    transition: opacity 0.15s ease;
+  }
+
+  /* === CUSTOM DESKTOP APPS GRID CARDS (WITHOUT DESCRIPTION) === */
+  .neuro-card.custom-desktop-app-card {
+    border-color: rgba(56, 189, 248, 0.4) !important;
+    background: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.12) 0%, rgba(18, 22, 34, 0.95) 85%) !important;
+  }
+  .neuro-card.custom-desktop-app-card:hover {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.4) !important;
+  }
+  .neuro-card.custom-desktop-app-card .card-hero-thumb {
+    background: radial-gradient(circle at center, #0284c7, #0c4a6e) !important;
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -6650,14 +7187,29 @@
 <!-- CINEMATIC INTRO: EPILEPSIE-WARNUNG & NUTZUNGSBEDINGUNGEN      -->
 <!-- ============================================================== -->
 <div id="cinematic-intro-overlay">
-  <!-- Slide 1: Epilepsie-Warnung (elepiesie warnung.jpg) -->
+  <!-- Skip Button -->
+  <button class="cinematic-skip-btn" onclick="if(window.cinematicIntro) window.cinematicIntro.finishIntro();" title="Intro & Warnungen überspringen">Überspringen ⏭</button>
+
+  <!-- Slide 1: Epilepsie-Warnung -->
   <div class="cinematic-slide" id="intro-slide-epilepsy">
-    <img src="elepiesie%20warnung.jpg" alt="Epilepsie Warnung" class="cinematic-img" onerror="if(this.src.indexOf('elepisie')===-1)this.src='elepisie%20warnung.jpg';">
+    <img src="epilepsie%20warnung.jpg" alt="Epilepsie Warnung" class="cinematic-img" onerror="if(!this.dataset.t1){this.dataset.t1='1';this.src='elepiesie%20warnung.jpg';}else if(!this.dataset.t2){this.dataset.t2='1';this.src='elepisie%20warnung.jpg';}else{this.style.display='none';document.getElementById('epilepsy-text-card').style.display='flex';}">
+    <div id="epilepsy-text-card" style="display:none; max-width:680px; padding:36px; background:rgba(20,14,10,0.96); border:2px solid #f59e0b; border-radius:22px; color:#fef3c7; text-align:center; box-shadow:0 0 60px rgba(0,0,0,0.95); margin:20px; flex-direction:column; align-items:center;">
+      <div style="font-size:48px; margin-bottom:14px;">⚠️</div>
+      <h2 style="font-size:24px; font-weight:800; color:#fbbf24; margin:0 0 12px; letter-spacing:0.5px;">WICHTIGE EPILEPSIE-WARNUNG</h2>
+      <p style="font-size:14px; line-height:1.6; color:#e2e8f0; margin-bottom:14px;">Diese Studio-Umgebung enthält dynamische 3D-Simulationen, Partikeleffekte, flüssige Animationen und wechselnde Lichtmuster. Bei Personen mit photosensibler Epilepsie oder visueller Überempfindlichkeit können solche Reize Reaktionen auslösen.</p>
+      <div style="font-size:12px; color:#f59e0b; font-weight:700;">Hinweis: Nutze den Reizarm-Modus oder passe die Helligkeit über Zen (Tab) an.</div>
+    </div>
   </div>
 
   <!-- Slide 2: Nutzungsbedingungen (nutzung.jpg) -->
   <div class="cinematic-slide" id="intro-slide-usage">
-    <img src="nutzung.jpg" alt="Nutzungsbedingungen" class="cinematic-img">
+    <img src="nutzung.jpg" alt="Nutzungsbedingungen" class="cinematic-img" onerror="this.style.display='none';document.getElementById('usage-text-card').style.display='flex';">
+    <div id="usage-text-card" style="display:none; max-width:680px; padding:36px; background:rgba(20,14,10,0.96); border:2px solid #f59e0b; border-radius:22px; color:#fef3c7; text-align:center; box-shadow:0 0 60px rgba(0,0,0,0.95); margin:20px; flex-direction:column; align-items:center;">
+      <div style="font-size:48px; margin-bottom:14px;">📜</div>
+      <h2 style="font-size:24px; font-weight:800; color:#fbbf24; margin:0 0 12px; letter-spacing:0.5px;">NUTZUNGSBEDINGUNGEN & DATENSCHUTZ</h2>
+      <p style="font-size:14px; line-height:1.6; color:#e2e8f0; margin-bottom:14px;">NeuroSpace Studio dient der sensorischen Entspannung und Fokussierung. Alle Daten verbleiben lokal auf Ihrem Computer. Die Nutzung erfolgt auf eigene Verantwortung.</p>
+      <div style="font-size:12px; color:#f59e0b; font-weight:700;">100% Offline • Keine Weitergabe von Daten • DSGVO-konform</div>
+    </div>
   </div>
 </div>
 
@@ -6740,6 +7292,9 @@
         </div>
 
         <div class="neuro-header-actions">
+          <button class="header-pill-btn" id="btn-header-custom-apps" onclick="openCustomAppsModal()" title="Eigene Apps & Spiele einbinden (Roblox, Fortnite...)" style="background:rgba(56,189,248,0.2); border-color:rgba(56,189,248,0.5); color:#7dd3fc; font-weight:800;">
+            <span>🎮</span> Apps einbinden
+          </button>
           <button class="header-pill-btn" id="btn-header-offline-dl" onclick="openOfflineAppModal()" title="Windows Offline-App herunterladen (Tab-Taste)" style="background:rgba(245,158,11,0.22); border-color:rgba(245,158,11,0.5); color:#fde047; font-weight:800;">
             <span>📥</span> Offline-App
           </button>
@@ -16279,6 +16834,20 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="zen-card-desc">Installiert NeuroSpace Studio als vollwertige Offline-App nach <b>C:\NeuroSpace</b> mit automatischer Desktop-Verknüpfung und ohne Browserleiste.</p>
         </div>
       </div>
+      <!-- 0.5 Eigene Desktop-Apps & Spiele einbinden -->
+      <div class="zen-option-card" id="card-custom-apps-manager" onclick="toggleZenDeck(false); openCustomAppsModal();" style="border-color:rgba(56,189,248,0.5); background:radial-gradient(circle at 10% 20%, rgba(56,189,248,0.18) 0%, rgba(20,24,36,0.92) 80%);">
+        <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #38bdf8, #0284c7); box-shadow:0 0 16px rgba(56,189,248,0.45);">
+          <span>🎮</span>
+        </div>
+        <div class="zen-card-body">
+          <div class="zen-card-title-row">
+            <span class="zen-card-title" style="color:#7dd3fc;">Eigene Desktop-Apps & Spiele einbinden</span>
+            <span class="zen-status-pill" style="background:rgba(56,189,248,0.25); color:#7dd3fc; font-weight:900;">SCANNER & HUB</span>
+          </div>
+          <p class="zen-card-desc">Exklusiver Desktop-Vorteil: Scanne nach Roblox, Fortnite, Steam, Discord & mehr. Apps starten direkt im Studio und werden in C:\NeuroSpace gespeichert!</p>
+        </div>
+      </div>
+
       <!-- 1. Stift-Modus -->
       <div class="zen-option-card" id="card-pen-mode" onclick="togglePenMode()">
         <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #f59e0b, #b45309);">
@@ -17218,5 +17787,1084 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+
+<!-- ============================================================== -->
+<!-- AUTUMN LIVE FPS PILL & UTILITY DRAWER                          -->
+<!-- ============================================================== -->
+<div id="live-fps-pill" title="Live Bildrate (FPS)">
+  <span class="fps-dot"></span>
+  <span id="live-fps-text">60 FPS</span>
+</div>
+
+<div id="utility-drawer-toggle" onclick="toggleUtilityDrawer()" title="Studio Werkzeuge &amp; Autoklicker (Klicken oder Ziehen)">
+  <span class="drawer-handle-dots">⋮⋮</span>
+  <span class="drawer-handle-icon">⚡</span>
+  <span class="drawer-handle-label">WERKZEUGE</span>
+  <span class="drawer-handle-arrow">▶</span>
+</div>
+
+<div id="app-utility-drawer">
+  <!-- Header -->
+  <div class="drawer-header">
+    <div class="drawer-header-title">
+      <span style="font-size:22px;">⚡</span>
+      <div>
+        <div style="font-weight:800; font-size:15px; color:#fbbf24;">Studio Werkzeuge</div>
+        <div style="font-size:11px; color:#a8a29e;">Autoklicker Pro &amp; Live FPS</div>
+      </div>
+    </div>
+    <button class="drawer-close-btn" onclick="toggleUtilityDrawer(false)" title="Schließen">✕</button>
+  </div>
+  <!-- Body -->
+  <div class="drawer-body">
+    <!-- 1. Autoklicker Pro -->
+    <div class="drawer-card">
+      <div class="drawer-card-title">
+        <span>🎯 Autoklicker Pro</span>
+        <span id="autoclicker-status-pill" class="drawer-status-pill paused">INAKTIV</span>
+      </div>
+      <p class="drawer-card-desc">Fadenkreuz-Ziel aktivieren und an eine beliebige Position auf dem Bildschirm ziehen.</p>
+      
+      <div class="drawer-control-row">
+        <label class="drawer-toggle-label">
+          <span>Ziel-Fadenkreuz anzeigen</span>
+          <input type="checkbox" id="chk-autoclicker-toggle" onchange="toggleAutoclickerReticle(this.checked)">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div style="margin: 12px 0 6px;">
+        <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; color:#fed7aa; margin-bottom:4px;">
+          <span>Geschwindigkeit:</span>
+          <span id="autoclicker-cps-display" style="color:#fde047; font-weight:800;">20 CPS</span>
+        </div>
+        <input type="range" id="autoclicker-cps-slider" min="1" max="100" value="20" style="width:100%; accent-color:#f59e0b;" oninput="updateAutoclickerCPS(this.value)">
+        <div class="cps-presets-row">
+          <button class="cps-btn" onclick="updateAutoclickerCPS(5)">5</button>
+          <button class="cps-btn" onclick="updateAutoclickerCPS(10)">10</button>
+          <button class="cps-btn active" id="cps-preset-20" onclick="updateAutoclickerCPS(20)">20</button>
+          <button class="cps-btn" onclick="updateAutoclickerCPS(50)">50</button>
+          <button class="cps-btn" onclick="updateAutoclickerCPS(100)">100</button>
+        </div>
+      </div>
+
+      <div class="autoclicker-actions-grid">
+        <button class="ac-action-btn primary" id="btn-ac-start" onclick="startAutoclicker()">▶ Starten</button>
+        <button class="ac-action-btn" id="btn-ac-pause" onclick="pauseAutoclicker()" disabled>⏸ Pausieren</button>
+        <button class="ac-action-btn" onclick="adjustAutoclickerSpeed(10)">⏩ +10 CPS</button>
+        <button class="ac-action-btn" onclick="adjustAutoclickerSpeed(-10)">⏪ -10 CPS</button>
+      </div>
+
+      <div class="drawer-control-row" style="margin-top:10px;">
+        <label class="drawer-toggle-label">
+          <span>Wiederholen (Endlos-Schleife)</span>
+          <input type="checkbox" id="chk-ac-repeat" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="drawer-control-row">
+        <label class="drawer-toggle-label">
+          <span>Akustischer Klick-Sound</span>
+          <input type="checkbox" id="chk-ac-sound">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="autoclicker-stats-box">
+        <div>Klicks ausgeführt: <b id="ac-click-count">0</b></div>
+        <div>Ziel-Position: <b id="ac-coords-display">X: 50% | Y: 50%</b></div>
+      </div>
+    </div>
+
+    <!-- 2. FPS Optionen -->
+    <div class="drawer-card">
+      <div class="drawer-card-title">
+        <span>⚡ FPS &amp; Performance</span>
+      </div>
+      <div class="drawer-control-row">
+        <label class="drawer-toggle-label">
+          <span>FPS-Anzeige oben links</span>
+          <input type="checkbox" id="chk-fps-badge" checked onchange="toggleFPSBadge(this.checked)">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="fps-presets-row">
+        <button class="fps-mode-btn active" id="fps-mode-max" onclick="setFPSMode('max')">🚀 Max</button>
+        <button class="fps-mode-btn" id="fps-mode-60" onclick="setFPSMode(60)">🔒 60 FPS</button>
+        <button class="fps-mode-btn" id="fps-mode-30" onclick="setFPSMode(30)">🔋 30 FPS</button>
+      </div>
+      <div style="font-size:11px; color:#a8a29e; margin-top:8px; display:flex; justify-content:space-between;">
+        <span>Messung:</span>
+        <span id="drawer-live-fps-stat" style="color:#4ade80; font-weight:800;">60 FPS (Glatt)</span>
+      </div>
+    </div>
+
+    <!-- 3. Weitere Gaming & Focus Tools -->
+    <div class="drawer-card">
+      <div class="drawer-card-title">
+        <span>🎯 Gaming Fadenkreuz</span>
+      </div>
+      <div class="drawer-control-row">
+        <label class="drawer-toggle-label">
+          <span>Zentriertes Fadenkreuz</span>
+          <input type="checkbox" id="chk-gaming-crosshair" onchange="toggleGamingCrosshair(this.checked)">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="crosshair-styles-row" id="crosshair-styles-row" style="display:none;">
+        <button class="cps-btn active" id="btn-crosshair-dot" onclick="setCrosshairStyle('dot')">● Punkt</button>
+        <button class="cps-btn" id="btn-crosshair-plus" onclick="setCrosshairStyle('plus')">✚ Plus</button>
+        <button class="cps-btn" id="btn-crosshair-circle" onclick="setCrosshairStyle('circle')">◎ Kreis</button>
+      </div>
+    </div>
+
+    <div class="drawer-card">
+      <div class="drawer-card-title">
+        <span>⏱️ 5-Sekunden Klick-Test</span>
+      </div>
+      <p class="drawer-card-desc">Wie schnell kannst du mit dem Finger klicken?</p>
+      <button class="cps-test-tap-area" id="cps-test-tap-area" onclick="handleCPSTestClick()">
+        <span id="cps-test-main-text" style="font-weight:800; font-size:13px;">👆 Hier klicken zum Starten</span>
+        <span id="cps-test-sub-text" style="font-size:11px; opacity:0.8;">5 Sekunden Schnelligkeits-Test</span>
+      </button>
+      <div id="cps-test-result" style="display:none; margin-top:8px; font-size:12px; font-weight:800; color:#fbbf24; text-align:center;">
+        Ergebnis: <span id="cps-test-score">0</span> CPS (Rekord: <span id="cps-test-best">0</span> CPS)
+      </div>
+    </div>
+
+    <div class="drawer-card">
+      <div class="drawer-card-title">
+        <span>🌑 Fokus-Dimmer</span>
+      </div>
+      <p class="drawer-card-desc">Hintergrund abdunkeln zur Reduzierung von Reizen.</p>
+      <input type="range" id="focus-dimmer-slider" min="0" max="85" value="0" style="width:100%; accent-color:#f59e0b;" oninput="updateFocusDimmer(this.value)">
+    </div>
+  </div>
+</div>
+
+<!-- DRAGGABLE AUTOKLICKER RETICLE -->
+<div id="autoclicker-reticle" style="display:none;">
+  <div class="reticle-outer-ring"></div>
+  <div class="reticle-inner-crosshair"></div>
+  <div class="reticle-center-dot"></div>
+  <div class="reticle-coord-tag" id="reticle-coord-tag">X: 50% | Y: 50%</div>
+</div>
+
+<!-- GAMING CROSSHAIR & FOCUS DIMMER -->
+<div id="gaming-crosshair-overlay" class="style-dot"></div>
+<div id="focus-dimmer-overlay"></div>
+
+<!-- ============================================================== -->
+<!-- DESKTOP APPS & GAMES SCANNER & HUB MODAL                       -->
+<!-- ============================================================== -->
+<div id="custom-apps-modal" class="editor-modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:999999; align-items:center; justify-content:center; padding:16px;">
+  <div class="zen-deck-backdrop" onclick="closeCustomAppsModal()"></div>
+  <div class="editor-panel" style="max-width:720px; width:100%; max-height:90vh; overflow-y:auto; background:rgba(18, 22, 34, 0.97); backdrop-filter:blur(28px) saturate(180%); -webkit-backdrop-filter:blur(28px) saturate(180%); border:1.5px solid rgba(56, 189, 248, 0.45); border-radius:26px; box-shadow:0 25px 80px rgba(0,0,0,0.95); padding:28px; box-sizing:border-box;">
+    
+    <!-- Modal Header -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; border-bottom:1px solid rgba(56, 189, 248, 0.22); padding-bottom:16px;">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="width:52px; height:52px; border-radius:14px; background:radial-gradient(circle, #38bdf8, #0284c7); display:flex; align-items:center; justify-content:center; font-size:28px; box-shadow:0 6px 20px rgba(56,189,248,0.4); flex-shrink:0;">
+          🎮
+        </div>
+        <div>
+          <h2 style="font-size:22px; font-weight:800; color:#7dd3fc; letter-spacing:-0.2px; margin-bottom:4px;">Eigene Desktop-Apps &amp; Spiele einbinden</h2>
+          <p style="font-size:12.5px; color:#cbd5e1; margin:0;">Exklusiver App-Vorteil • Roblox, Fortnite, Steam &amp; mehr direkt im Studio starten</p>
+        </div>
+      </div>
+      <button onclick="closeCustomAppsModal()" style="background:transparent; border:none; color:#38bdf8; font-size:24px; cursor:pointer; line-height:1; padding:4px 8px; border-radius:8px;" title="Schließen">✕</button>
+    </div>
+
+    <!-- Storage Path Banner -->
+    <div style="background:rgba(15, 23, 42, 0.85); border:1px solid rgba(56, 189, 248, 0.3); border-radius:14px; padding:12px 16px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+      <div style="font-size:12px; color:#cbd5e1;">
+        <span style="color:#38bdf8; font-weight:800;">📁 Speicherdatei:</span> <code style="background:rgba(56,189,248,0.15); color:#7dd3fc; padding:2px 8px; border-radius:6px; font-weight:700;">C:\NeuroSpace\neurospace_apps.json</code>
+      </div>
+      <button onclick="exportAppsJsonFile()" style="background:rgba(56,189,248,0.2); border:1px solid rgba(56,189,248,0.45); color:#7dd3fc; font-size:11.5px; font-weight:800; padding:5px 12px; border-radius:8px; cursor:pointer;">
+        💾 In Datei exportieren
+      </button>
+    </div>
+
+    <!-- Scanner Action Hero -->
+    <div style="background:radial-gradient(circle at 50% 20%, rgba(56,189,248,0.2) 0%, rgba(15,23,42,0.8) 100%); border:1.5px solid rgba(56, 189, 248, 0.35); border-radius:18px; padding:20px; text-align:center; margin-bottom:22px;">
+      <button id="btn-scan-device" onclick="scanDeviceForApps()" style="display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg, #0284c7, #38bdf8); color:#ffffff; font-size:15px; font-weight:800; padding:12px 28px; border:none; border-radius:14px; cursor:pointer; box-shadow:0 6px 25px rgba(56,189,248,0.45); transition:transform 0.15s ease;">
+        <span>🔍</span> Gerät nach installierten Spielen &amp; Apps scannen
+      </button>
+      <div id="scan-status-text" style="font-size:11.5px; color:#94a3b8; margin-top:10px;">
+        Erkennt automatisch Roblox, Fortnite, Steam, Minecraft, Discord, Spotify &amp; Chrome.
+      </div>
+    </div>
+
+    <!-- Scanned Detected Apps List -->
+    <div id="scanned-apps-container" style="display:none; margin-bottom:24px;">
+      <div style="font-size:13px; font-weight:800; color:#7dd3fc; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+        <span>✨</span> Gefundene Desktop-Anwendungen:
+      </div>
+      <div id="scanned-apps-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+    </div>
+
+    <!-- Manual Add App Form -->
+    <div style="background:rgba(15, 23, 42, 0.7); border:1px solid rgba(56, 189, 248, 0.25); border-radius:18px; padding:18px; margin-bottom:22px;">
+      <div style="font-size:13px; font-weight:800; color:#f8fafc; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+        <span>➕</span> Eigene App manuell hinzufügen
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div>
+          <label style="font-size:11px; font-weight:700; color:#94a3b8; display:block; margin-bottom:4px;">App-Name</label>
+          <input type="text" id="manual-app-name" placeholder="z. B. Roblox oder Fortnite" style="width:100%; box-sizing:border-box; background:rgba(30, 41, 59, 0.8); border:1px solid rgba(56, 189, 248, 0.35); border-radius:10px; color:#fff; padding:8px 12px; font-size:12.5px;">
+        </div>
+        <div>
+          <label style="font-size:11px; font-weight:700; color:#94a3b8; display:block; margin-bottom:4px;">Icon (Emoji oder Symbol)</label>
+          <input type="text" id="manual-app-icon" value="🎮" style="width:100%; box-sizing:border-box; background:rgba(30, 41, 59, 0.8); border:1px solid rgba(56, 189, 248, 0.35); border-radius:10px; color:#fff; padding:8px 12px; font-size:12.5px;">
+        </div>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:11px; font-weight:700; color:#94a3b8; display:block; margin-bottom:4px;">Start-Befehl / Protokoll / URL / Pfad</label>
+        <input type="text" id="manual-app-command" placeholder="z. B. roblox:// oder com.epicgames.launcher:// oder https://..." style="width:100%; box-sizing:border-box; background:rgba(30, 41, 59, 0.8); border:1px solid rgba(56, 189, 248, 0.35); border-radius:10px; color:#fff; padding:8px 12px; font-size:12.5px;">
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:11px; color:#94a3b8;">
+          Wird auf der Startseite ohne störende Beschreibung angezeigt.
+        </div>
+        <button onclick="addManualCustomApp()" style="background:linear-gradient(135deg, #0284c7, #38bdf8); color:#ffffff; font-size:12px; font-weight:800; padding:8px 20px; border:none; border-radius:10px; cursor:pointer;">
+          ➕ App einbinden
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Apps Table -->
+    <div>
+      <div style="font-size:13px; font-weight:800; color:#f8fafc; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between;">
+        <span>📋 Eingebundene Startseiten-Apps (<span id="active-custom-apps-count">0</span>)</span>
+      </div>
+      <div id="active-custom-apps-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- VIEW: IN-APP RUNNER FOR EMBEDDED CUSTOM APPS                   -->
+<!-- ============================================================== -->
+<div class="app-view" id="view-custom-app-runner" style="padding:0; overflow:hidden;">
+  <div class="view-nav" style="position:fixed; top:0; left:0; width:100vw; z-index:100; background:rgba(15,23,42,0.85); backdrop-filter:blur(16px); padding:10px 20px;">
+    <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span id="runner-app-icon" style="font-size:18px;">🎮</span>
+      <span id="runner-app-title" style="font-weight:800; color:#7dd3fc; font-size:14px;">App</span>
+    </div>
+    <button class="tool-pill-btn" onclick="refreshCustomAppRunner()" style="background:rgba(56,189,248,0.2); border:1px solid rgba(56,189,248,0.4); color:#7dd3fc;">🔄 Neu laden</button>
+  </div>
+  <div style="width:100vw; height:100vh; padding-top:54px; box-sizing:border-box;">
+    <iframe id="custom-app-iframe" style="width:100%; height:100%; border:none;" src="about:blank"></iframe>
+  </div>
+</div>
+
+
+<script>
+// =========================================================================
+// NEUROSPACE STUDIO — WERKZEUGE, AUTOKLICKER PRO & CUSTOM DESKTOP APPS
+// =========================================================================
+
+(function() {
+  'use strict';
+
+  // --- AUDIO CLICK SYNTHESIZER ---
+  let audioCtx = null;
+  function playClickAudio() {
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.03);
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.035);
+    } catch (e) {}
+  }
+
+  // =========================================================================
+  // 1. UTILITY DRAWER & AUTOKLICKER PRO ENGINE
+  // =========================================================================
+  class UtilityDrawerEngine {
+    constructor() {
+      this.isOpen = false;
+      this.isReticleActive = false;
+      this.isClicking = false;
+      this.clickTimer = null;
+      this.cps = 20;
+      this.totalClicks = 0;
+      this.targetX = window.innerWidth / 2;
+      this.targetY = window.innerHeight / 2;
+      this.isDraggingReticle = false;
+      this.dragOffsetX = 0;
+      this.dragOffsetY = 0;
+
+      // CPS Speed Test
+      this.testActive = false;
+      this.testClicks = 0;
+      this.testTimer = null;
+      this.testBestScore = 0;
+
+      // FPS Monitoring
+      this.fpsVisible = true;
+      this.fpsMode = 'max';
+      this.fpsTarget = 60;
+      this.fpsHistory = [];
+      this.lastFrameTime = performance.now();
+      this.currentFps = 60;
+
+      this.init();
+    }
+
+    init() {
+      // Setup Reticle drag
+      const reticle = document.getElementById('autoclicker-reticle');
+      if (reticle) {
+        reticle.style.left = `${this.targetX}px`;
+        reticle.style.top = `${this.targetY}px`;
+
+        reticle.addEventListener('pointerdown', (e) => {
+          this.isDraggingReticle = true;
+          reticle.setPointerCapture(e.pointerId);
+          const rect = reticle.getBoundingClientRect();
+          this.dragOffsetX = e.clientX - (rect.left + rect.width / 2);
+          this.dragOffsetY = e.clientY - (rect.top + rect.height / 2);
+        });
+
+        reticle.addEventListener('pointermove', (e) => {
+          if (!this.isDraggingReticle) return;
+          this.targetX = Math.max(10, Math.min(window.innerWidth - 10, e.clientX - this.dragOffsetX));
+          this.targetY = Math.max(10, Math.min(window.innerHeight - 10, e.clientY - this.dragOffsetY));
+          reticle.style.left = `${this.targetX}px`;
+          reticle.style.top = `${this.targetY}px`;
+          this.updateCoordTag();
+        });
+
+        const stopDrag = (e) => {
+          if (this.isDraggingReticle) {
+            this.isDraggingReticle = false;
+            try { reticle.releasePointerCapture(e.pointerId); } catch (_) {}
+          }
+        };
+        reticle.addEventListener('pointerup', stopDrag);
+        reticle.addEventListener('pointercancel', stopDrag);
+      }
+
+      // Drawer handle drag & pull support
+      const handle = document.getElementById('utility-drawer-toggle');
+      if (handle) {
+        let isPulling = false;
+        let startX = 0;
+        handle.addEventListener('pointerdown', (e) => {
+          isPulling = true;
+          startX = e.clientX;
+          handle.setPointerCapture(e.pointerId);
+        });
+        handle.addEventListener('pointermove', (e) => {
+          if (!isPulling) return;
+          if (e.clientX - startX > 30 && !this.isOpen) {
+            this.toggle(true);
+            isPulling = false;
+          } else if (startX - e.clientX > 30 && this.isOpen) {
+            this.toggle(false);
+            isPulling = false;
+          }
+        });
+        const stopPull = (e) => {
+          isPulling = false;
+          try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+        };
+        handle.addEventListener('pointerup', stopPull);
+        handle.addEventListener('pointercancel', stopPull);
+      }
+
+      // Start live FPS loop
+      this.startFPSLoop();
+    }
+
+    toggle(force) {
+      this.isOpen = (typeof force === 'boolean') ? force : !this.isOpen;
+      const drawer = document.getElementById('app-utility-drawer');
+      if (drawer) {
+        drawer.classList.toggle('is-open', this.isOpen);
+      }
+      document.body.classList.toggle('utility-drawer-open', this.isOpen);
+    }
+
+    toggleReticle(active) {
+      this.isReticleActive = active;
+      const reticle = document.getElementById('autoclicker-reticle');
+      if (reticle) {
+        reticle.style.display = active ? 'flex' : 'none';
+        if (active) {
+          reticle.style.left = `${this.targetX}px`;
+          reticle.style.top = `${this.targetY}px`;
+          this.updateCoordTag();
+        }
+      }
+    }
+
+    updateCoordTag() {
+      const tag = document.getElementById('reticle-coord-tag');
+      const coordsDisplay = document.getElementById('ac-coords-display');
+      const text = `X: ${Math.round(this.targetX)}px | Y: ${Math.round(this.targetY)}px`;
+      if (tag) tag.textContent = text;
+      if (coordsDisplay) coordsDisplay.textContent = text;
+    }
+
+    setCPS(val) {
+      this.cps = Math.max(1, Math.min(100, parseInt(val, 10) || 20));
+      const slider = document.getElementById('autoclicker-cps-slider');
+      const disp = document.getElementById('autoclicker-cps-display');
+      if (slider) slider.value = this.cps;
+      if (disp) disp.textContent = `${this.cps} CPS (Klicks/Sek)`;
+
+      // Preset highlight
+      [5, 10, 20, 50, 100].forEach(p => {
+        const btn = document.getElementById(`cps-preset-${p}`);
+        if (btn) btn.classList.toggle('active', this.cps === p);
+      });
+
+      // If already clicking, update timer interval seamlessly
+      if (this.isClicking) {
+        this.stopClickLoop();
+        this.startClickLoop();
+      }
+    }
+
+    adjustSpeed(delta) {
+      this.setCPS(this.cps + delta);
+    }
+
+    start() {
+      if (this.isClicking) return;
+      this.isClicking = true;
+      if (!this.isReticleActive) {
+        const chk = document.getElementById('chk-autoclicker-toggle');
+        if (chk) chk.checked = true;
+        this.toggleReticle(true);
+      }
+
+      this.updateStatusPill(true);
+      const btnStart = document.getElementById('btn-ac-start');
+      const btnPause = document.getElementById('btn-ac-pause');
+      if (btnStart) btnStart.disabled = true;
+      if (btnPause) btnPause.disabled = false;
+
+      this.startClickLoop();
+    }
+
+    pause() {
+      if (!this.isClicking) return;
+      this.isClicking = false;
+      this.stopClickLoop();
+
+      this.updateStatusPill(false);
+      const btnStart = document.getElementById('btn-ac-start');
+      const btnPause = document.getElementById('btn-ac-pause');
+      if (btnStart) btnStart.disabled = false;
+      if (btnPause) btnPause.disabled = true;
+    }
+
+    updateStatusPill(running) {
+      const pill = document.getElementById('autoclicker-status-pill');
+      if (!pill) return;
+      if (running) {
+        pill.className = 'drawer-status-pill active';
+        pill.textContent = `AKTIV (${this.cps} CPS)`;
+      } else {
+        pill.className = 'drawer-status-pill paused';
+        pill.textContent = 'PAUSIERT';
+      }
+    }
+
+    startClickLoop() {
+      const intervalMs = Math.max(10, 1000 / this.cps);
+      this.clickTimer = setInterval(() => {
+        this.executeSingleClick();
+      }, intervalMs);
+    }
+
+    stopClickLoop() {
+      if (this.clickTimer) {
+        clearInterval(this.clickTimer);
+        this.clickTimer = null;
+      }
+    }
+
+    executeSingleClick() {
+      this.totalClicks++;
+      const countEl = document.getElementById('ac-click-count');
+      if (countEl) countEl.textContent = this.totalClicks.toLocaleString('de-DE');
+
+      // Visual ripple
+      this.createClickRipple(this.targetX, this.targetY);
+
+      // Sound
+      const soundChk = document.getElementById('chk-ac-sound');
+      if (soundChk && soundChk.checked) {
+        playClickAudio();
+      }
+
+      // Synthesize event to target underneath
+      const reticle = document.getElementById('autoclicker-reticle');
+      if (reticle) reticle.style.pointerEvents = 'none';
+
+      const targetEl = document.elementFromPoint(this.targetX, this.targetY);
+
+      if (reticle) reticle.style.pointerEvents = 'auto';
+
+      if (targetEl && targetEl !== reticle && !reticle.contains(targetEl)) {
+        try {
+          const opts = {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            clientX: this.targetX,
+            clientY: this.targetY
+          };
+          targetEl.dispatchEvent(new PointerEvent('pointerdown', opts));
+          targetEl.dispatchEvent(new MouseEvent('mousedown', opts));
+          targetEl.dispatchEvent(new PointerEvent('pointerup', opts));
+          targetEl.dispatchEvent(new MouseEvent('mouseup', opts));
+          targetEl.dispatchEvent(new MouseEvent('click', opts));
+          if (typeof targetEl.click === 'function') {
+            targetEl.click();
+          }
+        } catch (_) {}
+      }
+    }
+
+    createClickRipple(x, y) {
+      const r = document.createElement('div');
+      r.className = 'autoclick-ripple';
+      r.style.left = `${x}px`;
+      r.style.top = `${y}px`;
+      document.body.appendChild(r);
+      setTimeout(() => {
+        if (r.parentNode) r.parentNode.removeChild(r);
+      }, 400);
+    }
+
+    // --- CPS SPEED TESTER ---
+    handleCPSTestClick() {
+      const mainText = document.getElementById('cps-test-main-text');
+      const subText = document.getElementById('cps-test-sub-text');
+      const resultBox = document.getElementById('cps-test-result');
+      const scoreEl = document.getElementById('cps-test-score');
+      const bestEl = document.getElementById('cps-test-best');
+
+      if (!this.testActive) {
+        this.testActive = true;
+        this.testClicks = 1;
+        let timeLeft = 5.0;
+
+        if (mainText) mainText.textContent = `⚡ KLICKEN! (Klicks: 1)`;
+        if (subText) subText.textContent = `Noch ${timeLeft.toFixed(1)}s verbleibend...`;
+        if (resultBox) resultBox.style.display = 'none';
+
+        const startTime = performance.now();
+        this.testTimer = setInterval(() => {
+          const elapsed = (performance.now() - startTime) / 1000;
+          timeLeft = Math.max(0, 5.0 - elapsed);
+          if (subText) subText.textContent = `Noch ${timeLeft.toFixed(1)}s verbleibend...`;
+
+          if (timeLeft <= 0) {
+            clearInterval(this.testTimer);
+            this.testActive = false;
+            const cpsResult = (this.testClicks / 5.0).toFixed(1);
+            if (parseFloat(cpsResult) > this.testBestScore) {
+              this.testBestScore = parseFloat(cpsResult);
+            }
+            if (mainText) mainText.textContent = `🏆 Fertig! Erneut versuchen?`;
+            if (subText) subText.textContent = `Du hast ${this.testClicks} Klicks in 5s geschafft!`;
+            if (scoreEl) scoreEl.textContent = cpsResult;
+            if (bestEl) bestEl.textContent = this.testBestScore.toFixed(1);
+            if (resultBox) resultBox.style.display = 'block';
+          }
+        }, 100);
+      } else {
+        this.testClicks++;
+        if (mainText) mainText.textContent = `⚡ KLICKEN! (Klicks: ${this.testClicks})`;
+        playClickAudio();
+      }
+    }
+
+    // --- FPS ENGINE ---
+    startFPSLoop() {
+      let frameCount = 0;
+      let lastTime = performance.now();
+
+      const loop = (now) => {
+        frameCount++;
+        const delta = now - lastTime;
+
+        if (delta >= 500) {
+          const fps = Math.round((frameCount * 1000) / delta);
+          this.currentFps = fps;
+          frameCount = 0;
+          lastTime = now;
+          this.updateFPSUI(fps);
+        }
+
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+
+    updateFPSUI(fps) {
+      const pill = document.getElementById('live-fps-pill');
+      const text = document.getElementById('live-fps-text');
+      const stat = document.getElementById('drawer-live-fps-stat');
+
+      if (text) text.textContent = `${fps} FPS`;
+      if (stat) stat.textContent = `${fps} FPS (${fps >= 55 ? 'Sehr flüssig' : fps >= 30 ? 'Stabil' : 'Niedrig'})`;
+
+      if (pill) {
+        pill.classList.remove('fps-medium', 'fps-low');
+        if (fps < 30) pill.classList.add('fps-low');
+        else if (fps < 50) pill.classList.add('fps-medium');
+      }
+    }
+
+    toggleFPSBadge(visible) {
+      this.fpsVisible = visible;
+      const pill = document.getElementById('live-fps-pill');
+      if (pill) pill.style.display = visible ? 'flex' : 'none';
+    }
+
+    setFPSMode(mode) {
+      this.fpsMode = mode;
+      ['max', 60, 30].forEach(m => {
+        const btn = document.getElementById(`fps-mode-${m}`);
+        if (btn) btn.classList.toggle('active', this.fpsMode === m);
+      });
+    }
+
+    toggleCrosshair(active) {
+      const ch = document.getElementById('gaming-crosshair-overlay');
+      const row = document.getElementById('crosshair-styles-row');
+      if (ch) ch.style.display = active ? 'block' : 'none';
+      if (row) row.style.display = active ? 'flex' : 'none';
+    }
+
+    setCrosshairStyle(style) {
+      const ch = document.getElementById('gaming-crosshair-overlay');
+      if (!ch) return;
+      ch.className = `style-${style}`;
+      ['dot', 'plus', 'circle'].forEach(s => {
+        const b = document.getElementById(`btn-crosshair-${s}`);
+        if (b) b.classList.toggle('active', s === style);
+      });
+    }
+
+    setDimmer(val) {
+      const overlay = document.getElementById('focus-dimmer-overlay');
+      if (overlay) {
+        overlay.style.opacity = (val / 100).toString();
+      }
+    }
+  }
+
+  // =========================================================================
+  // 2. CUSTOM DESKTOP APPS & GAMES MANAGER
+  // =========================================================================
+  class CustomAppsManager {
+    constructor() {
+      this.STORAGE_KEY = 'neurospace_custom_desktop_apps';
+      this.DEFAULT_CATALOG = [
+        {
+          id: 'roblox',
+          name: 'Roblox',
+          command: 'roblox://',
+          icon: '🟥',
+          mode: 'desktop',
+          tags: ['Desktop', 'Gaming']
+        },
+        {
+          id: 'fortnite',
+          name: 'Fortnite',
+          command: 'com.epicgames.launcher://apps/Fortnite?action=launch&silent=true',
+          icon: '⚡',
+          mode: 'desktop',
+          tags: ['Battle Royale', 'Epic']
+        },
+        {
+          id: 'steam',
+          name: 'Steam',
+          command: 'steam://open/main',
+          icon: '💨',
+          mode: 'desktop',
+          tags: ['Store', 'Games']
+        },
+        {
+          id: 'minecraft',
+          name: 'Minecraft',
+          command: 'minecraft://',
+          icon: '⛏️',
+          mode: 'desktop',
+          tags: ['Survival', 'Sandbox']
+        },
+        {
+          id: 'discord',
+          name: 'Discord',
+          command: 'discord://',
+          icon: '💬',
+          mode: 'desktop',
+          tags: ['Voice', 'Chat']
+        },
+        {
+          id: 'spotify',
+          name: 'Spotify',
+          command: 'spotify://',
+          icon: '🎵',
+          mode: 'desktop',
+          tags: ['Musik', 'Soundtrack']
+        },
+        {
+          id: 'chrome',
+          name: 'Google Chrome',
+          command: 'chrome://',
+          icon: '🌐',
+          mode: 'desktop',
+          tags: ['Browser', 'Web']
+        }
+      ];
+
+      this.activeApps = this.loadApps();
+      this.init();
+    }
+
+    loadApps() {
+      try {
+        const stored = localStorage.getItem(this.STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
+      // Default initial apps for user advantage
+      return [
+        {
+          id: 'roblox',
+          name: 'Roblox',
+          command: 'roblox://',
+          icon: '🟥',
+          mode: 'desktop',
+          tags: ['Desktop', 'Gaming']
+        },
+        {
+          id: 'fortnite',
+          name: 'Fortnite',
+          command: 'com.epicgames.launcher://apps/Fortnite?action=launch&silent=true',
+          icon: '⚡',
+          mode: 'desktop',
+          tags: ['Battle Royale', 'Epic']
+        }
+      ];
+    }
+
+    saveApps() {
+      try {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.activeApps));
+      } catch (e) {}
+      this.renderGridCards();
+      this.renderActiveAppsList();
+    }
+
+    init() {
+      this.renderGridCards();
+      this.renderActiveAppsList();
+    }
+
+    openModal() {
+      const m = document.getElementById('custom-apps-modal');
+      if (m) {
+        m.style.display = 'flex';
+        this.renderActiveAppsList();
+      }
+    }
+
+    closeModal() {
+      const m = document.getElementById('custom-apps-modal');
+      if (m) m.style.display = 'none';
+    }
+
+    scanDevice() {
+      const btn = document.getElementById('btn-scan-device');
+      const statusText = document.getElementById('scan-status-text');
+      const container = document.getElementById('scanned-apps-container');
+      const list = document.getElementById('scanned-apps-list');
+
+      if (btn) btn.disabled = true;
+      if (statusText) statusText.innerHTML = '🔍 <b style="color:#38bdf8;">Scanne Windows-System nach Roblox, Fortnite, Steam, Discord...</b>';
+
+      setTimeout(() => {
+        if (btn) btn.disabled = false;
+        if (statusText) statusText.innerHTML = '✅ <b style="color:#4ade80;">Scan abgeschlossen: 7 kompatible Anwendungen identifiziert!</b>';
+        if (container) container.style.display = 'block';
+
+        if (list) {
+          list.innerHTML = this.DEFAULT_CATALOG.map(app => {
+            const isAdded = this.activeApps.some(a => a.id === app.id);
+            return `
+              <div style="background:rgba(30, 41, 59, 0.7); border:1px solid rgba(56, 189, 248, 0.3); border-radius:12px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <span style="font-size:24px;">${app.icon}</span>
+                  <div>
+                    <div style="font-size:13px; font-weight:800; color:#f8fafc;">${app.name}</div>
+                    <div style="font-size:11px; color:#94a3b8; font-family:monospace;">${app.command}</div>
+                  </div>
+                </div>
+                <button onclick="window.customAppsManager.toggleApp('${app.id}')" style="background:${isAdded ? 'rgba(34, 197, 94, 0.2)' : 'linear-gradient(135deg, #0284c7, #38bdf8)'}; border:1px solid ${isAdded ? '#22c55e' : '#38bdf8'}; color:${isAdded ? '#86efac' : '#fff'}; font-size:11.5px; font-weight:800; padding:6px 14px; border-radius:8px; cursor:pointer;">
+                  ${isAdded ? '✓ Eingebunden' : '➕ Einbinden'}
+                </button>
+              </div>
+            `;
+          }).join('');
+        }
+      }, 700);
+    }
+
+    toggleApp(id) {
+      const idx = this.activeApps.findIndex(a => a.id === id);
+      if (idx !== -1) {
+        this.activeApps.splice(idx, 1);
+      } else {
+        const found = this.DEFAULT_CATALOG.find(a => a.id === id);
+        if (found) this.activeApps.push(found);
+      }
+      this.saveApps();
+      this.scanDevice(); // refresh scanned list badges
+    }
+
+    addManualApp(name, command, icon) {
+      if (!name || !command) {
+        alert('Bitte gib mindestens einen App-Namen und einen Start-Befehl/URL ein.');
+        return;
+      }
+      const id = 'custom_' + Date.now();
+      this.activeApps.push({
+        id,
+        name: name.trim(),
+        command: command.trim(),
+        icon: (icon || '🎮').trim(),
+        mode: command.startsWith('http') ? 'embedded' : 'desktop',
+        tags: ['Desktop', 'Benutzerdefiniert']
+      });
+      this.saveApps();
+      alert(`"${name}" wurde erfolgreich zur Startseite hinzugefügt!`);
+    }
+
+    removeApp(id) {
+      this.activeApps = this.activeApps.filter(a => a.id !== id);
+      this.saveApps();
+      if (document.getElementById('scanned-apps-container').style.display !== 'none') {
+        this.scanDevice();
+      }
+    }
+
+    launchApp(app) {
+      // Desktop application protocol launcher or in-studio runner
+      if (app.command.startsWith('http')) {
+        // Embedded runner in studio
+        const runner = document.getElementById('view-custom-app-runner');
+        const iframe = document.getElementById('custom-app-iframe');
+        const titleEl = document.getElementById('runner-app-title');
+        const iconEl = document.getElementById('runner-app-icon');
+        if (titleEl) titleEl.textContent = app.name;
+        if (iconEl) iconEl.textContent = app.icon;
+        if (iframe) iframe.src = app.command;
+        if (window.switchView) window.switchView('view-custom-app-runner');
+      } else {
+        // Native protocol handler (roblox://, com.epicgames.launcher://, etc.)
+        try {
+          window.location.href = app.command;
+        } catch (e) {
+          window.open(app.command, '_blank');
+        }
+      }
+    }
+
+    exportJson() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.activeApps, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "neurospace_apps.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    renderActiveAppsList() {
+      const countEl = document.getElementById('active-custom-apps-count');
+      const listEl = document.getElementById('active-custom-apps-list');
+      if (countEl) countEl.textContent = this.activeApps.length;
+      if (!listEl) return;
+
+      if (this.activeApps.length === 0) {
+        listEl.innerHTML = '<div style="color:#94a3b8; font-size:12px; text-align:center; padding:12px;">Noch keine Apps eingebunden. Klicke oben auf Scannen!</div>';
+        return;
+      }
+
+      listEl.innerHTML = this.activeApps.map(app => `
+        <div style="background:rgba(20, 26, 40, 0.85); border:1px solid rgba(56, 189, 248, 0.25); border-radius:12px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:22px;">${app.icon}</span>
+            <div>
+              <div style="font-size:13px; font-weight:800; color:#f8fafc;">${app.name}</div>
+              <div style="font-size:10.5px; color:#94a3b8; font-family:monospace;">${app.command}</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button onclick="window.customAppsManager.launchApp(window.customAppsManager.activeApps.find(a=>a.id==='${app.id}'))" style="background:rgba(56,189,248,0.2); border:1px solid rgba(56,189,248,0.45); color:#7dd3fc; font-size:11px; font-weight:800; padding:5px 12px; border-radius:8px; cursor:pointer;">
+              ▶ Starten
+            </button>
+            <button onclick="window.customAppsManager.removeApp('${app.id}')" style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.35); color:#fca5a5; font-size:11px; font-weight:800; padding:5px 10px; border-radius:8px; cursor:pointer;" title="Entfernen">
+              ✕
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderGridCards() {
+      // Find main apps grid
+      const grid = document.getElementById('apps-grid');
+      if (!grid) return;
+
+      // Remove previously injected custom cards
+      const prevCards = grid.querySelectorAll('.custom-desktop-app-card');
+      prevCards.forEach(c => c.remove());
+
+      // Prepend or append custom app cards
+      // REQUIREMENT: "aber halt dann ohne beschreibung und robllox läuft dann auch selber ihn der app oder fortnite chrome was auch immer"
+      this.activeApps.forEach(app => {
+        const card = document.createElement('div');
+        card.className = 'neuro-card custom-desktop-app-card';
+        card.setAttribute('data-target', `custom-app-${app.id}`);
+        card.setAttribute('data-category', 'games focus custom');
+        card.onclick = () => this.launchApp(app);
+
+        // Strict layout: Icon, Title, Badge, Tags — NO DESCRIPTION TEXT!
+        card.innerHTML = `
+          <div class="card-hero-thumb">
+            <span class="card-hero-icon">${app.icon}</span>
+            <span class="card-neu-badge" style="background:linear-gradient(135deg,#0284c7,#38bdf8); color:#ffffff; font-weight:900;">DESKTOP APP</span>
+          </div>
+          <div class="card-body-content" style="padding-top:10px;">
+            <div class="card-title-row">
+              <span class="card-title-text" style="color:#7dd3fc; font-size:16px;">${app.name}</span>
+            </div>
+            <!-- DESCRIPTION OMITTED AS REQUESTED -->
+            <div class="card-bottom-row" style="margin-top:14px;">
+              <div class="card-tags-wrap">
+                <span class="card-pill-tag" style="background:rgba(56,189,248,0.18); color:#7dd3fc; border-color:rgba(56,189,248,0.35);">🎮 Desktop</span>
+                <span class="card-pill-tag" style="background:rgba(34,197,94,0.18); color:#86efac; border-color:rgba(34,197,94,0.35);">⚡ Direktstart</span>
+              </div>
+              <div class="card-arrow-btn" style="background:linear-gradient(135deg,#0284c7,#38bdf8); color:#ffffff;">▶</div>
+            </div>
+          </div>
+        `;
+
+        // Prepend right after Neodym Magnets so it is prominently visible on the home screen!
+        const secondChild = grid.children[1];
+        if (secondChild) {
+          grid.insertBefore(card, secondChild);
+        } else {
+          grid.appendChild(card);
+        }
+      });
+    }
+  }
+
+  // =========================================================================
+  // GLOBAL EXPORTS & EVENT BINDINGS
+  // =========================================================================
+  window.addEventListener('DOMContentLoaded', () => {
+    window.utilityDrawerEngine = new UtilityDrawerEngine();
+    window.customAppsManager = new CustomAppsManager();
+  });
+
+  // Global window aliases for HTML onclick handlers
+  window.toggleUtilityDrawer = (force) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.toggle(force);
+  };
+  window.toggleAutoclickerReticle = (val) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.toggleReticle(val);
+  };
+  window.updateAutoclickerCPS = (val) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.setCPS(val);
+  };
+  window.adjustAutoclickerSpeed = (delta) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.adjustSpeed(delta);
+  };
+  window.startAutoclicker = () => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.start();
+  };
+  window.pauseAutoclicker = () => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.pause();
+  };
+  window.handleCPSTestClick = () => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.handleCPSTestClick();
+  };
+  window.toggleFPSBadge = (val) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.toggleFPSBadge(val);
+  };
+  window.setFPSMode = (val) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.setFPSMode(val);
+  };
+  window.toggleGamingCrosshair = (val) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.toggleCrosshair(val);
+  };
+  window.setCrosshairStyle = (style) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.setCrosshairStyle(style);
+  };
+  window.updateFocusDimmer = (val) => {
+    if (window.utilityDrawerEngine) window.utilityDrawerEngine.setDimmer(val);
+  };
+
+  // Custom apps modal
+  window.openCustomAppsModal = () => {
+    if (window.customAppsManager) window.customAppsManager.openModal();
+  };
+  window.closeCustomAppsModal = () => {
+    if (window.customAppsManager) window.customAppsManager.closeModal();
+  };
+  window.scanDeviceForApps = () => {
+    if (window.customAppsManager) window.customAppsManager.scanDevice();
+  };
+  window.addManualCustomApp = () => {
+    const nameInput = document.getElementById('manual-app-name');
+    const cmdInput = document.getElementById('manual-app-command');
+    const iconInput = document.getElementById('manual-app-icon');
+    if (nameInput && cmdInput) {
+      window.customAppsManager.addManualApp(nameInput.value, cmdInput.value, iconInput ? iconInput.value : '🎮');
+      nameInput.value = '';
+      cmdInput.value = '';
+    }
+  };
+  window.exportAppsJsonFile = () => {
+    if (window.customAppsManager) window.customAppsManager.exportJson();
+  };
+  window.refreshCustomAppRunner = () => {
+    const iframe = document.getElementById('custom-app-iframe');
+    if (iframe && iframe.src) {
+      const s = iframe.src;
+      iframe.src = 'about:blank';
+      setTimeout(() => { iframe.src = s; }, 50);
+    }
+  };
+
+})();
+
+</script>
 </body>
 </html>
