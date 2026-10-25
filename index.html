@@ -8231,20 +8231,8 @@
         </div>
 
         <div class="neuro-header-actions">
-          <button class="header-pill-btn" id="btn-header-offline-dl" onclick="openOfflineAppModal()" title="Frische Windows Offline-App herunterladen (Setup.exe)" style="background:linear-gradient(135deg, rgba(245,158,11,0.3), rgba(234,88,12,0.3)); border:1.5px solid rgba(245,158,11,0.65); color:#fde047; font-weight:800; box-shadow:0 0 16px rgba(245,158,11,0.3);">
-            <span>📥</span> Frische Setup.exe (7.4 MB)
-          </button>
-          <button class="header-pill-btn" id="btn-header-zen" onclick="toggleZenDeck(true)" title="Zen Command Deck & Stift-Modus (Tab-Taste)" style="background:rgba(245,158,11,0.18); border-color:rgba(245,158,11,0.45); color:#fde047;">
-            <span>✨</span> Zen (Tab)
-          </button>
-          <button class="header-pill-btn" id="btn-toggle-bg-music" title="Hintergrundmusik an/aus (background.mp3)" style="background:rgba(245,158,11,0.14); border-color:rgba(245,158,11,0.38); color:#fde047;">
-            <span>🎵</span> Musik: AN
-          </button>
-          <button class="header-pill-btn" id="btn-toggle-muted-header" title="Reizarm-Modus umschalten" style="background:rgba(234,88,12,0.14); border-color:rgba(234,88,12,0.38); color:#fed7aa;">
-            <span>🍂</span> Reizarm
-          </button>
-          <button class="header-pill-btn" onclick="if(window.trustEngine) window.trustEngine.openModal();" title="Nutzungsbedingungen, Gesundheit &amp; Datenschutz (Update Herbst 2026)" style="background:rgba(16,185,129,0.18); border-color:rgba(16,185,129,0.45); color:#6ee7b7; font-weight:800;">
-            <span>🛡️</span> Datenschutz &amp; Bedingungen
+          <button class="header-pill-btn" id="btn-header-zen" onclick="toggleZenDeck(true)" title="Tab-Menü & alle Optionen öffnen (oder Tab-Taste drücken)" style="background:rgba(245,158,11,0.18); border:1.5px solid rgba(245,158,11,0.5); color:#fde047; font-weight:800; padding:8px 18px; border-radius:999px; box-shadow:0 0 16px rgba(245,158,11,0.25); display:inline-flex; align-items:center; gap:8px; cursor:pointer;">
+            <span>✨</span> Tab-Menü <kbd class="zen-kbd" style="font-size:11px; padding:2px 7px; background:rgba(0,0,0,0.6); border:1px solid rgba(245,158,11,0.45); border-radius:6px; color:#fef3c7;">Tab</kbd>
           </button>
         </div>
       </header>
@@ -10871,19 +10859,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Reizarm mode toggle on sidebar & header
+  // Reizarm mode toggle on sidebar, header & Zen Tab Deck
   function toggleMutedMode() {
     document.body.classList.toggle('muted-mode');
     const isMuted = document.body.classList.contains('muted-mode');
     const sidebarMutedBtn = document.getElementById('btn-toggle-muted-sidebar');
     const headerMutedBtn = document.getElementById('btn-toggle-muted-header');
+    const deckMutedStatus = document.getElementById('zen-deck-muted-status');
+    const footerMutedBtn = document.getElementById('zen-footer-muted-btn');
     if (sidebarMutedBtn) {
       sidebarMutedBtn.innerHTML = isMuted ? '<span>🌈</span> Standard-Farben' : '<span>🌱</span> Reizarm-Modus';
     }
     if (headerMutedBtn) {
       headerMutedBtn.innerHTML = isMuted ? '<span>🌈</span> Standard' : '<span>🌱</span> Reizarm';
     }
+    if (deckMutedStatus) {
+      deckMutedStatus.textContent = isMuted ? 'AKTIV' : 'AUS';
+      deckMutedStatus.style.color = isMuted ? '#4ade80' : '#cbd5e1';
+      deckMutedStatus.style.background = isMuted ? 'rgba(74, 222, 128, 0.25)' : 'rgba(255, 255, 255, 0.1)';
+    }
+    if (footerMutedBtn) {
+      footerMutedBtn.innerHTML = isMuted ? '<span>🌈</span> Reizarm: AKTIV' : '<span>🍂</span> Reizarm: AUS';
+    }
   }
+  window.toggleMutedMode = toggleMutedMode;
 
   const sidebarMutedBtn = document.getElementById('btn-toggle-muted-sidebar');
   if (sidebarMutedBtn) sidebarMutedBtn.addEventListener('click', toggleMutedMode);
@@ -18712,6 +18711,16 @@ class BackgroundMusicController {
         btn.style.boxShadow = 'none';
       }
     });
+    const deckMusicStatus = document.getElementById('zen-deck-music-status');
+    if (deckMusicStatus) {
+      deckMusicStatus.textContent = playing ? 'AN' : 'PAUSE';
+      deckMusicStatus.style.color = playing ? '#fbbf24' : '#cbd5e1';
+      deckMusicStatus.style.background = playing ? 'rgba(245, 158, 11, 0.25)' : 'rgba(255, 255, 255, 0.1)';
+    }
+    const footerMusicBtn = document.getElementById('zen-footer-music-btn');
+    if (footerMusicBtn) {
+      footerMusicBtn.innerHTML = playing ? '<span>🎵</span> Musik: AN' : '<span>🔇</span> Musik: PAUSE';
+    }
   }
 
   initObserver() {
@@ -19819,52 +19828,93 @@ document.addEventListener('DOMContentLoaded', () => {
       <button class="zen-deck-close-btn" onclick="toggleZenDeck(false)" title="Schließen (Tab)">✕</button>
     </div>
 
-    <!-- Main Deck Options Grid -->
+    <!-- Main Deck Options Grid (All 5 Header Options + Zen Tools) -->
     <div class="zen-deck-options-grid">
-      <!-- 0. Windows Offline-App Download (Setup.exe) -->
-      <div class="zen-option-card" id="card-offline-app-dl" onclick="toggleZenDeck(false); openOfflineAppModal();" style="border-color:rgba(245,158,11,0.5); background:radial-gradient(circle at 10% 20%, rgba(245,158,11,0.18) 0%, rgba(30,18,12,0.92) 80%);">
+      <!-- 1. Windows Offline-App Download (Setup.exe) -->
+      <div class="zen-option-card" id="card-offline-app-dl" onclick="toggleZenDeck(false); openOfflineAppModal();" style="border-color:rgba(245,158,11,0.55); background:radial-gradient(circle at 10% 20%, rgba(245,158,11,0.2) 0%, rgba(30,18,12,0.92) 80%);">
         <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #f59e0b, #ea580c); box-shadow:0 0 16px rgba(245,158,11,0.45);">
           <span>🍁</span>
         </div>
         <div class="zen-card-body">
           <div class="zen-card-title-row">
-            <span class="zen-card-title" style="color:#fde047;">Windows Offline-App (Download Setup.exe)</span>
-            <span class="zen-status-pill" style="background:rgba(245,158,11,0.25); color:#fde047; font-weight:900;">C:\NEUROSPACE</span>
+            <span class="zen-card-title" style="color:#fde047;">Windows Offline-App (Setup.exe)</span>
+            <span class="zen-status-pill" style="background:rgba(245,158,11,0.25); color:#fde047; font-weight:900;">⬇️ 7.4 MB</span>
           </div>
           <p class="zen-card-desc">Installiert NeuroSpace Studio als vollwertige Offline-App nach <b>C:\NeuroSpace</b> mit automatischer Desktop-Verknüpfung und ohne Browserleiste.</p>
         </div>
       </div>
-      
 
-      <!-- 1. Stift-Modus -->
+      <!-- 2. Hintergrundmusik an/aus -->
+      <div class="zen-option-card" id="card-music-toggle" onclick="if(window.bgMusicController) window.bgMusicController.toggle();">
+        <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #f59e0b, #d97706);">
+          <span>🎵</span>
+        </div>
+        <div class="zen-card-body">
+          <div class="zen-card-title-row">
+            <span class="zen-card-title">Hintergrundmusik</span>
+            <span class="zen-status-pill" id="zen-deck-music-status" style="background:rgba(245,158,11,0.25); color:#fbbf24; font-weight:900;">AN</span>
+          </div>
+          <p class="zen-card-desc">Entspannende Ambient-Musik (background.mp3) für Fokus und Entspannung umschalten.</p>
+        </div>
+      </div>
+
+      <!-- 3. Reizarm-Modus an/aus -->
+      <div class="zen-option-card" id="card-muted-toggle" onclick="toggleMutedMode();">
+        <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #ea580c, #9a3412);">
+          <span>🍂</span>
+        </div>
+        <div class="zen-card-body">
+          <div class="zen-card-title-row">
+            <span class="zen-card-title">Reizarm-Modus (Sanfte Farben)</span>
+            <span class="zen-status-pill" id="zen-deck-muted-status" style="background:rgba(255,255,255,0.1); color:#cbd5e1; font-weight:800;">AUS</span>
+          </div>
+          <p class="zen-card-desc">Schaltet auf reizarme, sanfte Herbstfarben um, um Reizüberflutung bei ADHS &amp; Autismus sofort zu reduzieren.</p>
+        </div>
+      </div>
+
+      <!-- 4. Datenschutz & Bedingungen -->
+      <div class="zen-option-card" onclick="toggleZenDeck(false); if(window.trustEngine) window.trustEngine.openModal();">
+        <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #10b981, #047857);">
+          <span>🛡️</span>
+        </div>
+        <div class="zen-card-body">
+          <div class="zen-card-title-row">
+            <span class="zen-card-title">Datenschutz &amp; Bedingungen</span>
+            <span class="zen-status-pill" style="background:rgba(16,185,129,0.2); color:#6ee7b7; font-weight:800;">INFO</span>
+          </div>
+          <p class="zen-card-desc">Nutzungsbedingungen, Gesundheitshinweise zur Photosensibilität und lokale Datenspeicherung einsehen.</p>
+        </div>
+      </div>
+
+      <!-- 5. Stift-Modus -->
       <div class="zen-option-card" id="card-pen-mode" onclick="togglePenMode()">
         <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #f59e0b, #b45309);">
           <span>✏️</span>
         </div>
         <div class="zen-card-body">
           <div class="zen-card-title-row">
-            <span class="zen-card-title">Stift-Modus (Stylus & Pen)</span>
+            <span class="zen-card-title">Stift-Modus (Stylus &amp; Pen)</span>
             <span class="zen-status-pill" id="pen-status-pill">AUS</span>
           </div>
-          <p class="zen-card-desc">Optimiert alles für Stylus- & Laptop-Stifte (Apple Pencil, Surface Pen). Handballenerkennung, Drucksensitivität & feine Linien.</p>
+          <p class="zen-card-desc">Optimiert alles für Stylus- &amp; Laptop-Stifte (Apple Pencil, Surface Pen). Handballenerkennung, Drucksensitivität &amp; feine Linien.</p>
         </div>
       </div>
 
-      <!-- 2. Editor-Modus -->
+      <!-- 6. Editor-Modus -->
       <div class="zen-option-card" id="card-editor-mode" onclick="openStartseitenEditor()">
         <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #ea580c, #78350f);">
           <span>🛠️</span>
         </div>
         <div class="zen-card-body">
           <div class="zen-card-title-row">
-            <span class="zen-card-title">Startseiten-Editor & Save-Plots</span>
+            <span class="zen-card-title">Startseiten-Editor &amp; Save-Plots</span>
             <span class="zen-status-pill" style="background:rgba(234,88,12,0.2); color:#fb923c;">LAYOUT</span>
           </div>
           <p class="zen-card-desc">Startseite selbst gestalten: Apps sortieren, ausblenden, Kartengrößen ändern und in Save-Plots (1, 2, 3) dauerhaft speichern.</p>
         </div>
       </div>
 
-      <!-- 3. Vollbild Umschalten -->
+      <!-- 7. Vollbild Umschalten -->
       <div class="zen-option-card" onclick="toggleFullscreen()">
         <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #38bdf8, #0369a1);">
           <span>⛶</span>
@@ -19878,14 +19928,14 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
-      <!-- 4. Herbst-Ambiente & Laub-Dichte -->
+      <!-- 8. Herbst-Ambiente & Laub-Dichte -->
       <div class="zen-option-card" onclick="cycleAutumnAmbience()">
         <div class="zen-card-icon-wrap" style="background: radial-gradient(circle, #eab308, #854d0e);">
           <span>🍂</span>
         </div>
         <div class="zen-card-body">
           <div class="zen-card-title-row">
-            <span class="zen-card-title">Herbst-Ambiente & Laub-Dichte</span>
+            <span class="zen-card-title">Herbst-Ambiente &amp; Laub-Dichte</span>
             <span class="zen-status-pill" id="leaves-status-pill">GOLDEN</span>
           </div>
           <p class="zen-card-desc">Steuert die Intensität der fallenden Blätter (Sanft, Goldener Sturm, Dezent oder Aus) und Kaminfeuer-Stimmung.</p>
@@ -19896,10 +19946,13 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- Quick Action Footer in Deck -->
     <div class="zen-deck-footer">
       <button class="zen-deck-action-btn primary" onclick="toggleZenDeck(false)">
-        <span>👁️</span> Zurück zur Zentrale
+        <span>👁️</span> Zurück zur Zentrale (Tab / Esc)
       </button>
-      <button class="zen-deck-action-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle()">
-        <span>🎵</span> Musik an/aus
+      <button class="zen-deck-action-btn" id="zen-footer-music-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle()">
+        <span>🎵</span> Musik: AN
+      </button>
+      <button class="zen-deck-action-btn" id="zen-footer-muted-btn" onclick="toggleMutedMode()">
+        <span>🍂</span> Reizarm: AUS
       </button>
     </div>
   </div>
