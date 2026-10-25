@@ -1213,7 +1213,7 @@
   /* === NEW CYBER NEUROSPACE DASHBOARD LAYOUT (MATCHING TARGET IMAGE) === */
     /* AMBIENT SILENT BACKGROUND VIDEO (backround.mp4) */
   .neuro-bg-video-wrap {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -5716,7 +5716,38 @@
   #view-hub {
     background: transparent !important;
   }
-  .app-view {
+  .app-view,
+  #view-hub,
+  #view-fluid,
+  #view-lavalamp,
+  #view-zensand,
+  #view-bubbles,
+  #view-windchimes,
+  #view-hypnotunnel,
+  #view-tonguedrum,
+  #view-slime,
+  #view-spinner,
+  #view-plasma,
+  #view-switches,
+  #view-worryshredder,
+  #view-binaural,
+  #view-sorting,
+  #view-glitterjar,
+  #view-abacus,
+  #view-fireworks,
+  #view-harmonograph,
+  #view-patternzen,
+  #view-pixelgravity,
+  #view-thisissand,
+  #view-zenhourglass,
+  #view-draw,
+  #view-popit,
+  #view-particles,
+  #view-games,
+  #view-soundscape,
+  #view-breathing,
+  #view-kalimba,
+  #view-magnets {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
@@ -6625,15 +6656,16 @@
 
 <!-- Auth & Supabase modals removed for clean direct entry -->
 
+<!-- GLOBAL AMBIENT SILENT BACKGROUND VIDEO & AUTUMN LEAVES (backround.mp4) FOR ALL APPS -->
+<div class="neuro-bg-video-wrap" id="neuro-global-bg-video-wrap">
+  <video id="neuro-bg-video" class="neuro-bg-video" autoplay loop muted playsinline preload="auto">
+    <source src="backround.mp4" type="video/mp4">
+  </video>
+  <canvas id="autumn-leaves-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; opacity:0.65;"></canvas>
+  <div class="neuro-bg-video-overlay"></div>
+</div>
+
 <div class="app-view active" id="view-hub" style="padding:0; overflow:hidden;">
-    <!-- AMBIENT SILENT BACKGROUND VIDEO (backround.mp4 - ZERO SOUND / 100% MUTED) -->
-  <div class="neuro-bg-video-wrap">
-    <video id="neuro-bg-video" class="neuro-bg-video" autoplay loop muted playsinline preload="auto">
-      <source src="backround.mp4" type="video/mp4">
-    </video>
-        <canvas id="autumn-leaves-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; opacity:0.65;"></canvas>
-    <div class="neuro-bg-video-overlay"></div>
-  </div>
 
   <div class="neuro-app-shell">
 
@@ -8054,7 +8086,7 @@
 <!-- ============================================================== -->
 <!-- 30. NEODYM MAGNET-KUGELN 3D (BUCKYBALLS)                       -->
 <!-- ============================================================== -->
-<div class="app-view" id="view-magnets" style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 40%, #15100d 0%, #080504 100%);">
+<div class="app-view" id="view-magnets" style="position:relative; overflow:hidden; background:transparent;">
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🧲</span> Neodym Magnet-Kugeln 3D</div>
@@ -8868,7 +8900,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isHub = hub && hub.classList.contains('active');
       const isZen = document.body.classList.contains('zen-deck-open');
 
-      if (isHub || isZen) {
+      if (true) { // Global autumn leaves across Hub and all apps
         ctx.clearRect(0, 0, width, height);
 
         // Adjust leaf count dynamically if settings changed
@@ -9704,7 +9736,7 @@ function render (target) {
     if (config.BLOOM) applyBloom(dye.read, bloom);
     if (config.SUNRAYS) { applySunrays(dye.read, dye.write, sunrays); blur(sunrays, sunraysTemp, 1); }
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); gl.enable(gl.BLEND);
-    drawColor(target, normalizeColor(config.BACK_COLOR));
+    gl.clearColor(0.0, 0.0, 0.0, 0.0); gl.clear(gl.COLOR_BUFFER_BIT);
     drawDisplay(target);
 }
 
@@ -10186,8 +10218,7 @@ class LavaLampApp {
   loop() {
     if (document.getElementById('view-lavalamp').classList.contains('active')) {
       const w = this.canvas.width, h = this.canvas.height;
-      this.ctx.fillStyle = '#05030a';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.clearRect(0, 0, w, h);
 
       let col1 = 'rgba(192, 132, 252, 0.75)', col2 = 'rgba(236, 72, 153, 0.4)';
       if (this.theme === 'fire') { col1 = 'rgba(251, 146, 60, 0.8)'; col2 = 'rgba(239, 68, 68, 0.4)'; }
@@ -10587,8 +10618,7 @@ class BubblesApp {
   loop() {
     if (document.getElementById('view-bubbles').classList.contains('active')) {
       const w = this.canvas.width, h = this.canvas.height;
-      this.ctx.fillStyle = '#060a12';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.clearRect(0, 0, w, h);
 
       for (let i = this.bubbles.length - 1; i >= 0; i--) {
         const b = this.bubbles[i];
@@ -11159,8 +11189,7 @@ class HypnoTunnelApp {
     if (document.getElementById('view-hypnotunnel').classList.contains('active')) {
       const w = this.canvas.width, h = this.canvas.height, cx = w / 2, cy = h / 2;
       this.time += 0.02 * this.speed * this.dir;
-      this.ctx.fillStyle = '#05070a';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.clearRect(0, 0, w, h);
 
       if (this.mode === 'tunnel') {
         const rings = 28;
@@ -11388,8 +11417,7 @@ class SlimeApp {
         this.initSlime();
       }
 
-      this.ctx.fillStyle = '#060910';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.clearRect(0, 0, w, h);
 
       const cx = w / 2;
       const cy = h / 2;
@@ -11576,8 +11604,7 @@ class PlasmaApp {
   loop() {
     if (document.getElementById('view-plasma').classList.contains('active')) {
       const w = this.canvas.width, h = this.canvas.height, cx = w / 2, cy = h / 2;
-      this.ctx.fillStyle = '#030408';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.clearRect(0, 0, w, h);
 
       const targetX = this.touching ? this.touchX : cx + (Math.random() - 0.5) * 160;
       const targetY = this.touching ? this.touchY : cy + (Math.random() - 0.5) * 160;
@@ -11977,8 +12004,7 @@ class GlitterJarApp {
   loop() {
     if (document.getElementById('view-glitterjar').classList.contains('active')) {
       const w = this.canvas.width, h = this.canvas.height;
-      this.ctx.fillStyle = '#060810';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.clearRect(0, 0, w, h);
 
       let col = '#fbbf24';
       if (this.style === 'galaxy') col = '#c084fc';
@@ -12072,8 +12098,7 @@ class FireworksApp {
   loop() {
     if (document.getElementById('view-fireworks').classList.contains('active')) {
       const w = this.canvas.width, h = this.canvas.height;
-      this.ctx.fillStyle = 'rgba(5, 7, 12, 0.2)';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.clearRect(0, 0, w, h);
 
       for (let i = this.sparks.length - 1; i >= 0; i--) {
         const s = this.sparks[i];
@@ -12120,8 +12145,7 @@ class HarmonographApp {
       });
     });
     document.getElementById('btn-harm-clear').addEventListener('click', () => {
-      this.ctx.fillStyle = '#05070a';
-      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.t = 0;
     });
   }
@@ -12228,8 +12252,7 @@ class ThisIsSandApp {
     this.heights = newHeights;
 
     if (oldImg) {
-      this.ctx.fillStyle = '#0a0d16';
-      this.ctx.fillRect(0, 0, this.width, this.height);
+      this.ctx.clearRect(0, 0, this.width, this.height);
       this.ctx.putImageData(oldImg, 0, 0);
     } else {
       this.clear(false);
@@ -12238,8 +12261,7 @@ class ThisIsSandApp {
 
   clear(playSound = true) {
     if (!this.canvas || !this.ctx) return;
-    this.ctx.fillStyle = '#0a0d16';
-    this.ctx.fillRect(0, 0, this.width, this.height);
+    this.ctx.clearRect(0, 0, this.width, this.height);
 
     if (this.fxCtx) {
       this.fxCtx.clearRect(0, 0, this.width, this.height);
@@ -12488,8 +12510,6 @@ class HourglassApp {
   loop() {
     if (document.getElementById('view-zenhourglass').classList.contains('active')) {
       this.ctx.clearRect(0, 0, 220, 340);
-      this.ctx.fillStyle = '#0a0e17';
-      this.ctx.fillRect(0, 0, 220, 340);
 
       // Glass Hourglass Outline
       this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
@@ -12589,8 +12609,7 @@ class CreativeDrawingStudio {
 
   clearCanvas() {
     this.saveState();
-    this.ctx.fillStyle = '#0f131a';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     if (this.showGuides) this.drawGuides();
   }
 
@@ -13130,8 +13149,7 @@ class ParticleGravitron {
       }
 
       // Smooth cosmic trail persistence
-      this.ctx.fillStyle = 'rgba(4, 7, 16, 0.2)';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.clearRect(0, 0, w, h);
 
       const mx = this.mouse.x;
       const my = this.mouse.y;
@@ -14566,7 +14584,7 @@ class PixelGravityEngine {
     const buf = this.buf32;
 
     for (let i = 0; i < W * H; i++) {
-      buf[i] = g[i] !== 0 ? c[i] : 0xff070a12; // dark void background
+      buf[i] = g[i] !== 0 ? c[i] : 0x00000000; // transparent void for global background video
     }
 
     this.ctx.putImageData(this.imgData, 0, 0);
