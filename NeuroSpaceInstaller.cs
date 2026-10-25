@@ -613,9 +613,9 @@ namespace NeuroSpaceInstaller
                     }
                 }
 
-                // Prepare In-App Protocol helper
+                // Prepare In-App Protocol helper (cleans up any external desktop shortcuts automatically)
                 string batInApp = Path.Combine(robloxDst, "RobloxInApp.bat");
-                File.WriteAllText(batInApp, "@echo off\r\nstart \"\" \"roblox://\"\r\nexit\r\n");
+                File.WriteAllText(batInApp, "@echo off\r\nstart \"\" \"roblox://\"\r\ndel \"%USERPROFILE%\\Desktop\\Roblox*.lnk\" /f /q 2>nul\r\ndel \"%PUBLIC%\\Desktop\\Roblox*.lnk\" /f /q 2>nul\r\nexit\r\n");
 
                 // Note: Roblox will be installed on-demand when the user clicks on Roblox in NeuroSpace
             }

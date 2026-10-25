@@ -64,11 +64,32 @@ namespace NeuroSpaceLauncher
         {
             try
             {
+                CleanRobloxDesktopShortcuts();
                 Type shellType = Type.GetTypeFromProgID("Shell.Application");
                 if (shellType != null)
                 {
                     object shell = Activator.CreateInstance(shellType);
                     shellType.InvokeMember("MinimizeAll", BindingFlags.InvokeMethod, null, shell, null);
+                }
+            }
+            catch { }
+        }
+
+        public static void CleanRobloxDesktopShortcuts()
+        {
+            try
+            {
+                string userDesktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                string commonDesktop = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
+                foreach (string d in new string[] { userDesktop, commonDesktop })
+                {
+                    if (Directory.Exists(d))
+                    {
+                        foreach (string lnk in Directory.GetFiles(d, "*Roblox*.lnk"))
+                        {
+                            try { File.Delete(lnk); } catch { }
+                        }
+                    }
                 }
             }
             catch { }
@@ -88,6 +109,7 @@ namespace NeuroSpaceLauncher
         {
             try
             {
+                HotkeyWatcherForm.CleanRobloxDesktopShortcuts();
                 string targetHtml = @"C:\NeuroSpace\index.html";
                 if (!File.Exists(targetHtml))
                 {
