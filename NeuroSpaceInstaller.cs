@@ -671,7 +671,7 @@ namespace NeuroSpaceInstaller
                                    "if defined ROBLOX (\r\n" +
                                    "    start \"\" \"%ROBLOX%\" --app\r\n" +
                                    ") else (\r\n" +
-                                   "    start \"\" \"roblox://\"\r\n" +
+                                   "    start \"\" \"roblox://app\"\r\n" +
                                    ")\r\n" +
                                    "del \"%USERPROFILE%\\Desktop\\Roblox*.lnk\" /f /q 2>nul\r\n" +
                                    "del \"%PUBLIC%\\Desktop\\Roblox*.lnk\" /f /q 2>nul\r\n" +
@@ -744,7 +744,8 @@ namespace NeuroSpaceInstaller
             }
             catch { }
         }
-
+
+
         private static void ExtractEmbeddedFileStatic(string resName, string outPath)
         {
             try
