@@ -127,6 +127,8 @@
     height: 100%;
     display: none;
     overflow: hidden;
+    will-change: opacity, transform;
+    backface-visibility: hidden;
   }
   .app-view.active {
     display: flex;
@@ -9489,69 +9491,164 @@ document.addEventListener('DOMContentLoaded', () => {
   let isTransitioningView = false;
   let dissolveTimeout = null;
 
-  function executeActualSwitch(targetId) {
-    // In Web Browser: Roblox does NOT exist and cannot be opened
-    if (targetId === 'view-roblox' && typeof window.isDesktopEnvironment === 'function' && !window.isDesktopEnvironment()) {
-      targetId = 'view-hub';
+  function pauseAppViewEngines(viewId) {
+    if (viewId === 'view-magnets' && window.buckyballsApp && typeof window.buckyballsApp.deactivate === 'function') {
+      window.buckyballsApp.deactivate();
     }
-    document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
-    const target = document.getElementById(targetId);
-    if (target) {
-      target.classList.add('active');
-      document.body.classList.toggle('in-roblox-view', targetId === 'view-roblox');
-      if (targetId === 'view-roblox') {
-        const isOpen = window.utilityDrawerEngine ? window.utilityDrawerEngine.isOpen : true;
-        document.title = isOpen ? 'NeuroSpace Studio — Roblox Active — Tools Open' : 'NeuroSpace Studio — Roblox Active';
-      } else {
-        document.title = 'NeuroSpace Studio — Herbst-Edition';
-      }
-      if (targetId !== 'view-roblox' && window.utilityDrawerEngine) {
-        window.utilityDrawerEngine.toggle(false);
-        window.utilityDrawerEngine.toggleReticle(false);
-      }
-      window.dispatchEvent(new Event('resize'));
-      if (window.bgMusicController) {
-        window.bgMusicController.checkViewMusic();
-      }
-      const bgVid = document.getElementById('neuro-bg-video');
-      if (bgVid) {
-        bgVid.play().catch(() => {});
-      }
+    if (viewId === 'view-pixelgravity' && window.pixelGravity) {
+      window.pixelGravity.isPaused = true;
+    }
+    if (viewId === 'view-roblox' && window.roblox3DApp && typeof window.roblox3DApp.deactivate === 'function') {
+      window.roblox3DApp.deactivate();
+    }
+  }
+
+  function activateTargetViewEngines(targetId) {
+    document.body.classList.toggle('in-roblox-view', targetId === 'view-roblox');
+    if (targetId === 'view-roblox') {
+      const isOpen = window.utilityDrawerEngine ? window.utilityDrawerEngine.isOpen : true;
+      document.title = isOpen ? 'NeuroSpace Studio — Roblox Active — Tools Open' : 'NeuroSpace Studio — Roblox Active';
+    } else {
+      document.title = 'NeuroSpace Studio — Herbst-Edition';
+    }
+    if (targetId !== 'view-roblox' && window.utilityDrawerEngine) {
+      window.utilityDrawerEngine.toggle(false);
+      window.utilityDrawerEngine.toggleReticle(false);
+    }
+    if (window.bgMusicController) {
+      window.bgMusicController.checkViewMusic();
+    }
+    const bgVid = document.getElementById('neuro-bg-video');
+    if (bgVid && bgVid.paused) {
+      bgVid.play().catch(() => {});
+    }
+
+    // Sanfte Aktivierung nach der Transition (60ms), um Frame-Drops zu verhindern
+    setTimeout(() => {
       if (targetId === 'view-roblox' && window.roblox3DApp) {
-        setTimeout(() => window.roblox3DApp.activate(), 50);
-      } else if (window.roblox3DApp && window.roblox3DApp.isActive && targetId !== 'view-roblox') {
-        window.roblox3DApp.deactivate();
+        window.roblox3DApp.activate();
       }
       if (targetId === 'view-magnets' && window.buckyballsApp) {
-        setTimeout(() => window.buckyballsApp.activate(), 50);
-      } else if (window.buckyballsApp && window.buckyballsApp.isActive && targetId !== 'view-magnets') {
-        window.buckyballsApp.deactivate();
+        window.buckyballsApp.activate();
       }
       if (targetId === 'view-games' && window.arcadeEngine) {
         window.arcadeEngine.filterAndRender();
       }
       if (targetId === 'view-pixelgravity' && window.pixelGravity) {
         window.pixelGravity.isPaused = false;
-        setTimeout(() => window.pixelGravity.resize(), 50);
+        if (typeof window.pixelGravity.resize === 'function') window.pixelGravity.resize();
       }
-      if (targetId === 'view-draw' && window.drawStudio) {
-        setTimeout(() => window.drawStudio.resize(), 50);
+      if (targetId === 'view-draw' && window.drawStudio && typeof window.drawStudio.resize === 'function') {
+        window.drawStudio.resize();
       }
-      if (targetId === 'view-particles' && window.particles) {
-        setTimeout(() => window.particles.resize(), 50);
+      if (targetId === 'view-particles' && window.particles && typeof window.particles.resize === 'function') {
+        window.particles.resize();
       }
-      if (targetId === 'view-slime' && window.slimeApp) {
-        setTimeout(() => { window.slimeApp.resize(); window.slimeApp.initSlime(); }, 50);
+      if (targetId === 'view-slime' && window.slimeApp && typeof window.slimeApp.resize === 'function') {
+        window.slimeApp.resize();
       }
-      if (targetId === 'view-zensand' && window.zenSandApp) {
-        setTimeout(() => { window.zenSandApp.resize(); window.zenSandApp.clearSand(); }, 50);
+      if (targetId === 'view-zensand' && window.zenSandApp && typeof window.zenSandApp.resize === 'function') {
+        window.zenSandApp.resize();
       }
-      if (targetId === 'view-thisissand' && window.thisIsSandApp) {
-        setTimeout(() => window.thisIsSandApp.resize(), 50);
+      if (targetId === 'view-thisissand' && window.thisIsSandApp && typeof window.thisIsSandApp.resize === 'function') {
+        window.thisIsSandApp.resize();
       }
-      if (targetId === 'view-windchimes' && window.chimesApp) {
-        setTimeout(() => { window.chimesApp.resize(); window.chimesApp.initChimes(); }, 50);
+      if (targetId === 'view-windchimes' && window.chimesApp && typeof window.chimesApp.resize === 'function') {
+        window.chimesApp.resize();
       }
+    }, 60);
+  }
+
+  function executeViewSwitchWithCrossfade(currentView, targetView, targetId) {
+    if (!currentView || currentView === targetView) {
+      executeActualSwitch(targetId);
+      return;
+    }
+
+    isTransitioningView = true;
+
+    // Schwere Loops der alten App sofort pausieren für 60 FPS
+    pauseAppViewEngines(currentView.id);
+
+    const isHub = targetId === 'view-hub';
+    targetView.style.display = isHub ? 'block' : 'flex';
+    targetView.style.position = 'absolute';
+    targetView.style.top = '0';
+    targetView.style.left = '0';
+    targetView.style.width = '100%';
+    targetView.style.height = '100%';
+    targetView.style.opacity = '0';
+    targetView.style.transform = 'scale(0.985) translateY(10px)';
+    targetView.style.filter = 'blur(4px)';
+    targetView.style.transition = 'none';
+    targetView.classList.add('active');
+
+    currentView.style.position = 'absolute';
+    currentView.style.top = '0';
+    currentView.style.left = '0';
+    currentView.style.width = '100%';
+    currentView.style.height = '100%';
+    currentView.style.opacity = '1';
+    currentView.style.transform = 'scale(1) translateY(0)';
+    currentView.style.filter = 'none';
+
+    void targetView.offsetWidth; // Einmaliger Layout-Flush
+
+    const duration = 240; // ms
+    currentView.style.transition = `opacity ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), filter ${duration}ms ease`;
+    targetView.style.transition = `opacity ${duration + 50}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${duration + 50}ms cubic-bezier(0.16, 1, 0.3, 1), filter ${duration + 50}ms ease`;
+
+    requestAnimationFrame(() => {
+      currentView.style.opacity = '0';
+      currentView.style.transform = 'scale(0.985) translateY(-10px)';
+      currentView.style.filter = 'blur(4px)';
+
+      targetView.style.opacity = '1';
+      targetView.style.transform = 'scale(1) translateY(0)';
+      targetView.style.filter = 'none';
+    });
+
+    setTimeout(() => {
+      currentView.classList.remove('active');
+      currentView.style.display = 'none';
+      currentView.style.position = '';
+      currentView.style.top = '';
+      currentView.style.left = '';
+      currentView.style.width = '';
+      currentView.style.height = '';
+      currentView.style.opacity = '';
+      currentView.style.transform = '';
+      currentView.style.filter = '';
+      currentView.style.transition = '';
+
+      targetView.style.position = '';
+      targetView.style.top = '';
+      targetView.style.left = '';
+      targetView.style.width = '';
+      targetView.style.height = '';
+      targetView.style.opacity = '';
+      targetView.style.transform = '';
+      targetView.style.filter = '';
+      targetView.style.transition = '';
+
+      activateTargetViewEngines(targetId);
+      isTransitioningView = false;
+    }, duration + 60);
+  }
+
+  function executeActualSwitch(targetId) {
+    if (targetId === 'view-roblox' && typeof window.isDesktopEnvironment === 'function' && !window.isDesktopEnvironment()) {
+      targetId = 'view-hub';
+    }
+    const currentActive = document.querySelector('.app-view.active');
+    if (currentActive) {
+      pauseAppViewEngines(currentActive.id);
+      currentActive.classList.remove('active');
+    }
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.classList.add('active');
+      activateTargetViewEngines(targetId);
     }
   }
 
@@ -9562,7 +9659,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const isLeavingHub = currentHub && currentHub.classList.contains('active') && targetId !== 'view-hub';
 
     if (!isLeavingHub) {
-      executeActualSwitch(targetId);
+      const activeView = document.querySelector('.app-view.active');
+      const targetView = document.getElementById(targetId);
+      if (activeView && targetView && activeView !== targetView) {
+        executeViewSwitchWithCrossfade(activeView, targetView, targetId);
+      } else {
+        executeActualSwitch(targetId);
+      }
       return;
     }
 
