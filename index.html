@@ -6714,9 +6714,17 @@
 
 <!-- Auth & Supabase modals removed for clean direct entry -->
 
-<!-- CINEMATIC BLACK APP PORTAL TRANSITION (EXPANDS TO COVER SCREEN, SHRINKS SMALL & VANISHES) -->
-<div id="cinematic-portal-transition" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:9999999; display:none; overflow:hidden;">
-  <div id="cinematic-portal-disc" style="position:absolute; width:280vmax; height:280vmax; border-radius:50%; background:#000000; top:50%; left:50%; transform:translate(-50%, -50%) scale(0); box-shadow:0 0 100px rgba(0,0,0,1); will-change:transform, opacity;"></div>
+<!-- CINEMATIC EXPANDING APP CARD OVERLAY (EXPANDS FROM CARD TO COVER SCREEN IN BLACK, WAITS 3s, SHRINKS & DISSOLVES) -->
+<div id="app-card-expansion-overlay" style="position:fixed; z-index:9999999; display:none; overflow:hidden; background:#000000; border:1px solid rgba(245, 158, 11, 0.35); box-shadow:0 25px 80px rgba(0,0,0,0.95); will-change:top, left, width, height, transform, opacity, border-radius;">
+  <div id="expansion-card-content" style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px; box-sizing:border-box; user-select:none; cursor:pointer;">
+    <div id="expansion-card-badge" style="font-size:11px; font-weight:800; color:#f59e0b; background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.35); padding:5px 14px; border-radius:999px; margin-bottom:20px; letter-spacing:0.5px; text-transform:uppercase;"></div>
+    <div id="expansion-card-icon" style="font-size:80px; line-height:1; margin-bottom:18px; filter:drop-shadow(0 12px 30px rgba(245,158,11,0.35));"></div>
+    <div id="expansion-card-title" style="font-size:28px; font-weight:800; color:#fef3c7; letter-spacing:-0.2px; margin-bottom:10px;"></div>
+    <div style="font-size:13px; color:#94a3b8; font-weight:600; opacity:0.85;">Wird geladen...</div>
+    <div style="width:160px; height:3px; background:rgba(255,255,255,0.08); border-radius:3px; margin-top:22px; overflow:hidden; position:relative;">
+      <div id="expansion-progress-bar" style="position:absolute; top:0; left:0; height:100%; width:0%; background:linear-gradient(90deg, #f59e0b, #ea580c); border-radius:3px;"></div>
+    </div>
+  </div>
 </div>
 
 <!-- GLOBAL AMBIENT SILENT BACKGROUND VIDEO & AUTUMN LEAVES (backround.mp4) FOR ALL APPS -->
@@ -8635,6 +8643,7 @@ window.audio = audio;
 document.addEventListener('DOMContentLoaded', () => {
   const views = document.querySelectorAll('.app-view');
   let isTransitioningView = false;
+  let dissolveTimeout = null;
 
   function executeActualSwitch(targetId) {
     document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
@@ -8693,83 +8702,121 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // CINEMATIC BLACK APP LAUNCH TRANSITION:
-    // 1. Grows huge from clicked card & covers the whole screen in black
-    // 2. Switches app underneath
-    // 3. Shrinks small into center & dissolves away into the new app
+    // CINEMATIC EXPANDING APP CARD TRANSITION:
+    // 1. App Card expands from its grid position until it covers the entire screen in black
+    // 2. Holds on screen for 3 seconds (as requested by user)
+    // 3. Shrinks smaller and dissolves away, revealing the interactive app
     isTransitioningView = true;
 
-    const portalWrap = document.getElementById('cinematic-portal-transition');
-    const portalDisc = document.getElementById('cinematic-portal-disc');
+    const overlay = document.getElementById('app-card-expansion-overlay');
+    const cardBadge = document.getElementById('expansion-card-badge');
+    const cardIcon = document.getElementById('expansion-card-icon');
+    const cardTitle = document.getElementById('expansion-card-title');
+    const progressBar = document.getElementById('expansion-progress-bar');
 
-    if (!portalWrap || !portalDisc) {
+    if (!overlay) {
       executeActualSwitch(targetId);
       isTransitioningView = false;
       return;
     }
 
-    // Determine launch origin: from mouse click, or center of the clicked card
-    let originX = window.innerWidth / 2;
-    let originY = window.innerHeight / 2;
+    // Find the clicked card
+    const card = document.querySelector(`.neuro-card[data-target="${targetId}"]`);
+    const rect = card ? card.getBoundingClientRect() : {
+      top: window.innerHeight / 2 - 100,
+      left: window.innerWidth / 2 - 140,
+      width: 280,
+      height: 200
+    };
 
-    const ev = clickEvent || window.event;
-    if (ev && typeof ev.clientX === 'number' && ev.clientX > 0) {
-      originX = ev.clientX;
-      originY = ev.clientY;
-    } else {
-      const card = document.querySelector(`.neuro-card[data-target="${targetId}"]`);
-      if (card) {
-        const rect = card.getBoundingClientRect();
-        originX = rect.left + rect.width / 2;
-        originY = rect.top + rect.height / 2;
-      }
+    // Extract card contents
+    const icon = card && card.querySelector('.card-hero-icon') ? card.querySelector('.card-hero-icon').textContent : '🍁';
+    const title = card && card.querySelector('.card-title-text') ? card.querySelector('.card-title-text').textContent : 'NeuroSpace Studio';
+    const badge = card && card.querySelector('.card-neu-badge') ? card.querySelector('.card-neu-badge').textContent : 'HERBST-APP';
+
+    if (cardBadge) cardBadge.textContent = badge;
+    if (cardIcon) cardIcon.textContent = icon;
+    if (cardTitle) cardTitle.textContent = title;
+    if (progressBar) {
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
     }
 
-    // Subtle audio feedback pop
+    // Sound effect
     if (window.audio && typeof window.audio.playPop === 'function') {
-      try { window.audio.playPop(180); } catch(e) {}
+      try { window.audio.playPop(160); } catch(e) {}
     }
 
-    // Phase 1: Expand from click point to 100% full screen black
-    portalDisc.style.transition = 'none';
-    portalDisc.style.left = originX + 'px';
-    portalDisc.style.top = originY + 'px';
-    portalDisc.style.transform = 'translate(-50%, -50%) scale(0)';
-    portalDisc.style.opacity = '1';
-    portalWrap.style.display = 'block';
-    portalWrap.style.pointerEvents = 'all';
+    // Phase 1: Position overlay EXACTLY on top of the clicked card
+    overlay.style.transition = 'none';
+    overlay.style.transform = 'none';
+    overlay.style.opacity = '1';
+    overlay.style.filter = 'none';
+    overlay.style.top = rect.top + 'px';
+    overlay.style.left = rect.left + 'px';
+    overlay.style.width = rect.width + 'px';
+    overlay.style.height = rect.height + 'px';
+    overlay.style.borderRadius = '20px';
+    overlay.style.display = 'block';
+    overlay.style.pointerEvents = 'all';
 
-    portalDisc.offsetHeight; // force reflow
+    overlay.offsetHeight; // Force reflow
 
-    portalDisc.style.transition = 'transform 0.28s cubic-bezier(0.22, 1, 0.36, 1)';
-    portalDisc.style.transform = 'translate(-50%, -50%) scale(1)';
+    // Phase 2: Grow big until it covers the entire screen in black
+    overlay.style.transition = 'top 0.52s cubic-bezier(0.16, 1, 0.3, 1), left 0.52s cubic-bezier(0.16, 1, 0.3, 1), width 0.52s cubic-bezier(0.16, 1, 0.3, 1), height 0.52s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.52s cubic-bezier(0.16, 1, 0.3, 1)';
+    overlay.style.top = '0px';
+    overlay.style.left = '0px';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.borderRadius = '0px';
 
-    // Phase 2: At peak coverage, switch view and shrink down to small point & vanish
+    if (progressBar) {
+      setTimeout(() => {
+        progressBar.style.transition = 'width 2.6s cubic-bezier(0.1, 0.8, 0.25, 1)';
+        progressBar.style.width = '100%';
+      }, 50);
+    }
+
+    // Switch the underlying view silently in background once covered (at 550ms)
     setTimeout(() => {
       executeActualSwitch(targetId);
+    }, 550);
 
-      portalDisc.style.transition = 'none';
-      portalDisc.style.left = '50%';
-      portalDisc.style.top = '50%';
-      portalDisc.style.transform = 'translate(-50%, -50%) scale(1)';
-      portalDisc.offsetHeight; // force reflow
-
-      // "dann klein und dann verschwindet es"
-      portalDisc.style.transition = 'transform 0.32s cubic-bezier(0.4, 0, 0.15, 1), opacity 0.26s cubic-bezier(0.4, 0, 0.2, 1) 0.05s';
-      portalDisc.style.transform = 'translate(-50%, -50%) scale(0)';
-      portalDisc.style.opacity = '0';
+    // Fast-forward dissolve function if user clicks or when 3 seconds elapse
+    let hasDissolved = false;
+    const triggerDissolve = () => {
+      if (hasDissolved) return;
+      hasDissolved = true;
 
       if (window.audio && typeof window.audio.playPop === 'function') {
         try { window.audio.playPop(340); } catch(e) {}
       }
 
+      // "dann kleiner und dann löst sich auf"
+      overlay.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.15, 1), opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.08s, filter 0.45s ease';
+      overlay.style.transform = 'scale(0.2)';
+      overlay.style.opacity = '0';
+      overlay.style.filter = 'blur(10px)';
+      overlay.style.borderRadius = '32px';
+
       setTimeout(() => {
-        portalWrap.style.display = 'none';
-        portalWrap.style.pointerEvents = 'none';
-        portalDisc.style.transition = 'none';
+        overlay.style.display = 'none';
+        overlay.style.transform = 'none';
+        overlay.style.filter = 'none';
         isTransitioningView = false;
-      }, 340);
-    }, 280);
+      }, 550);
+    };
+
+    // User can click to fast-forward if they want
+    overlay.onclick = () => {
+      clearTimeout(dissolveTimeout);
+      triggerDissolve();
+    };
+
+    // "nach 3 sekunden wirds kleiner und löst sich auf"
+    dissolveTimeout = setTimeout(() => {
+      triggerDissolve();
+    }, 3000);
   }
   window.switchView = switchView;
 
