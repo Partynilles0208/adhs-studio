@@ -9323,17 +9323,17 @@
 
   <!-- Active Mode HUD Pill -->
   <div id="particles-hud" class="particles-active-hud">
-    <span class="hud-mode-icon" id="hud-icon">🔴</span>
-    <span class="hud-mode-text" id="hud-text">Modus: <b>Sanfter Repulsor</b> – Klicke in die Arena zum Platzieren!</span>
+    <span class="hud-mode-icon" id="hud-icon">🧲</span>
+    <span class="hud-mode-text" id="hud-text">Modus: <b>Cursor-Anziehung (Klassisch)</b> – Maus gedrückt halten: Zieht Sterne magisch an deinen Zeiger.</span>
   </div>
 
   <canvas id="particles-canvas"></canvas>
 
   <!-- Right-to-Left Slide-out Drawer Trigger Handle -->
-  <button id="particles-drawer-toggle" class="particles-drawer-handle" onclick="if(window.particles) window.particles.toggleDrawer();" title="Gravitron Labor öffnen (15 Modis & Roboter)">
+  <button id="particles-drawer-toggle" class="particles-drawer-handle" onclick="if(window.particles) window.particles.toggleDrawer();" title="Gravitron Labor öffnen (15 Spawn-Modis & Roboter)">
     <span class="drawer-handle-arrow">◀</span>
     <span class="drawer-handle-label">LABOR & MODIS</span>
-    <span class="drawer-handle-badge">15</span>
+    <span class="drawer-handle-badge">15+</span>
   </button>
 
   <!-- Sliding Drawer from Right to Left -->
@@ -9341,7 +9341,7 @@
     <div class="drawer-header">
       <div class="drawer-header-left">
         <div class="drawer-header-title">🌌 Gravitron Labor</div>
-        <div class="drawer-header-sub">15 Modis, Spawn-Objekte & Roboter</div>
+        <div class="drawer-header-sub">Alle Vorherigen & 15 Neuen Modis</div>
       </div>
       <button class="drawer-close-btn" onclick="if(window.particles) window.particles.toggleDrawer(false);">✕</button>
     </div>
@@ -9350,22 +9350,47 @@
       <!-- Active Tool Card -->
       <div class="drawer-active-card">
         <div class="drawer-active-badge">AKTIVES WERKZEUG</div>
-        <div class="drawer-active-name" id="drawer-current-mode-name">🔴 Sanfter Repulsor</div>
-        <div class="drawer-active-hint" id="drawer-current-mode-hint">Klicke auf den schwarzen Raum, um Abstoßungspunkte zu platzieren.</div>
+        <div class="drawer-active-name" id="drawer-current-mode-name">🧲 Cursor-Anziehung (Klassisch)</div>
+        <div class="drawer-active-hint" id="drawer-current-mode-hint">Maus gedrückt halten & bewegen: Zieht Sterne magisch an deinen Zeiger.</div>
+      </div>
+
+      <!-- Section 0: Die 4 Vorherigen / Klassischen Cursor-Modis -->
+      <div class="drawer-section-title">🕹️ DEINE 4 VORHERIGEN CURSOR-MODIS</div>
+      <div class="drawer-mode-grid">
+        <button class="drawer-mode-btn active" data-grav-mode="attract" onclick="if(window.particles) window.particles.selectMode('attract');">
+          <span class="mode-btn-icon">🧲</span>
+          <span class="mode-btn-name">Cursor-Anziehung</span>
+          <span class="mode-btn-desc">Zieht Sterne magisch an die Maus</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="repel" onclick="if(window.particles) window.particles.selectMode('repel');">
+          <span class="mode-btn-icon">⚡</span>
+          <span class="mode-btn-name">Cursor-Abstoßung</span>
+          <span class="mode-btn-desc">Stößt Sterne vom Zeiger weg</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="vortex_cursor" onclick="if(window.particles) window.particles.selectMode('vortex_cursor');">
+          <span class="mode-btn-icon">🌀</span>
+          <span class="mode-btn-name">Cursor-Wirbelsturm</span>
+          <span class="mode-btn-desc">Wirbelnder Hurrikan am Zeiger</span>
+        </button>
+        <button class="drawer-mode-btn" data-grav-mode="quantum" onclick="if(window.particles) window.particles.selectMode('quantum');">
+          <span class="mode-btn-icon">🌊</span>
+          <span class="mode-btn-name">Quanten-Welle</span>
+          <span class="mode-btn-desc">Harmonische Wellen-Schwingung</span>
+        </button>
       </div>
 
       <!-- Section 1: User's 5 Basis-Modis -->
-      <div class="drawer-section-title">⭐ DEINE 5 BASIS-MODIS</div>
+      <div class="drawer-section-title">⭐ DEINE 5 NEUEN BASIS-SPAWN-MODIS</div>
       <div class="drawer-mode-grid">
-        <button class="drawer-mode-btn active" data-grav-mode="repel_point" onclick="if(window.particles) window.particles.selectMode('repel_point');">
+        <button class="drawer-mode-btn" data-grav-mode="repel_point" onclick="if(window.particles) window.particles.selectMode('repel_point');">
           <span class="mode-btn-icon">🔴</span>
           <span class="mode-btn-name">1. Repulsor-Punkt</span>
-          <span class="mode-btn-desc">Sanfte Abstoßung aus geringer Distanz</span>
+          <span class="mode-btn-desc">Sanfte Abstoßung auf Distanz</span>
         </button>
         <button class="drawer-mode-btn" data-grav-mode="attract_point" onclick="if(window.particles) window.particles.selectMode('attract_point');">
           <span class="mode-btn-icon">🔵</span>
           <span class="mode-btn-name">2. Attraktor-Punkt</span>
-          <span class="mode-btn-desc">Sanfte Anziehung aus geringer Distanz</span>
+          <span class="mode-btn-desc">Sanfte Anziehung auf Distanz</span>
         </button>
         <button class="drawer-mode-btn" data-grav-mode="eraser" onclick="if(window.particles) window.particles.selectMode('eraser');">
           <span class="mode-btn-icon">🧹</span>
@@ -9375,17 +9400,17 @@
         <button class="drawer-mode-btn" data-grav-mode="emitter" onclick="if(window.particles) window.particles.selectMode('emitter');">
           <span class="mode-btn-icon">⛲</span>
           <span class="mode-btn-name">4. Partikel-Brunnen</span>
-          <span class="mode-btn-desc">Sprüht kontinuierlich neue Partikel</span>
+          <span class="mode-btn-desc">Sprüht kontinuierlich neue Sterne</span>
         </button>
         <button class="drawer-mode-btn" data-grav-mode="robot_builder" onclick="if(window.particles) window.particles.selectMode('robot_builder');">
           <span class="mode-btn-icon">🤖</span>
           <span class="mode-btn-name">5a. Builder-Bot</span>
-          <span class="mode-btn-desc">Läuft herum & schießt Partikel</span>
+          <span class="mode-btn-desc">Läuft herum & schießt Sterne</span>
         </button>
         <button class="drawer-mode-btn" data-grav-mode="robot_destroyer" onclick="if(window.particles) window.particles.selectMode('robot_destroyer');">
           <span class="mode-btn-icon">👾</span>
           <span class="mode-btn-name">5b. Laser-Destroyer</span>
-          <span class="mode-btn-desc">Patrouilliert & zerschießt Partikel</span>
+          <span class="mode-btn-desc">Patrouilliert & zerschießt Sterne</span>
         </button>
       </div>
 
@@ -9400,7 +9425,7 @@
         <button class="drawer-mode-btn" data-grav-mode="splitter" onclick="if(window.particles) window.particles.selectMode('splitter');">
           <span class="mode-btn-icon">⚡</span>
           <span class="mode-btn-name">7. Partikel-Spalter</span>
-          <span class="mode-btn-desc">Laser teilt Partikel in zwei</span>
+          <span class="mode-btn-desc">Laser teilt Sterne in zwei</span>
         </button>
         <button class="drawer-mode-btn" data-grav-mode="timewarp" onclick="if(window.particles) window.particles.selectMode('timewarp');">
           <span class="mode-btn-icon">⏱️</span>
@@ -9444,7 +9469,7 @@
         </button>
       </div>
 
-      <!-- Section 3: Werkzeuge & Steuerung -->
+      <!-- Section 4: Werkzeuge & Steuerung -->
       <div class="drawer-section-title">🔧 WERKZEUGE & ARENA</div>
       <div class="drawer-tools-row">
         <button class="drawer-tool-btn" data-grav-mode="drag" onclick="if(window.particles) window.particles.selectMode('drag');">
@@ -9491,14 +9516,14 @@
     </div>
   </div>
 
-  <!-- Bottom Quick Dock -->
+  <!-- Bottom Quick Dock with the 4 Classic Cursor Modes + Labor Drawer -->
   <div class="floating-dock">
-    <button class="tool-pill-btn active" data-part-quick="repel_point" onclick="if(window.particles) window.particles.selectMode('repel_point');">🔴 Repulsor</button>
-    <button class="tool-pill-btn" data-part-quick="attract_point" onclick="if(window.particles) window.particles.selectMode('attract_point');">🔵 Attraktor</button>
-    <button class="tool-pill-btn" data-part-quick="robot_builder" onclick="if(window.particles) window.particles.selectMode('robot_builder');">🤖 Roboter</button>
-    <button class="tool-pill-btn" data-part-quick="eraser" onclick="if(window.particles) window.particles.selectMode('eraser');">🧹 Löscher</button>
-    <button class="tool-pill-btn" data-part-quick="emitter" onclick="if(window.particles) window.particles.selectMode('emitter');">⛲ Brunnen</button>
-    <button class="tool-pill-btn" onclick="if(window.particles) window.particles.toggleDrawer();" style="border-color:#f59e0b; color:#fbbf24; font-weight:800;">◀ 15 Modis Labor</button>
+    <button class="tool-pill-btn active" data-part-quick="attract" onclick="if(window.particles) window.particles.selectMode('attract');">🧲 Cursor-Anziehung</button>
+    <button class="tool-pill-btn" data-part-quick="repel" onclick="if(window.particles) window.particles.selectMode('repel');">⚡ Cursor-Abstoßung</button>
+    <button class="tool-pill-btn" data-part-quick="vortex_cursor" onclick="if(window.particles) window.particles.selectMode('vortex_cursor');">🌀 Cursor-Wirbelsturm</button>
+    <button class="tool-pill-btn" data-part-quick="quantum" onclick="if(window.particles) window.particles.selectMode('quantum');">🌊 Quanten-Welle</button>
+    <button class="tool-pill-btn" onclick="if(window.particles) window.particles.toggleDrawer();" style="border-color:#f59e0b; color:#fbbf24; font-weight:800; background:rgba(245,158,11,0.22); box-shadow:0 0 16px rgba(245,158,11,0.35);">◀ 15 Spawn-Modis & Roboter</button>
+    <button class="tool-pill-btn" onclick="if(window.particles) window.particles.initParticles();">🔄 Neu mischen</button>
   </div>
 </div>
 
@@ -15354,7 +15379,7 @@ class ParticleGravitron {
     this.sparks = [];
 
     this.mouse = { x: 0, y: 0, down: false, active: false, draggingObj: null };
-    this.currentMode = 'repel_point'; // Default to user's 1st mode
+    this.currentMode = 'attract'; // Start with classic Cursor-Anziehung as familiar default
     this.colorTheme = 'nebula';
     this.particleCount = 3200;
     this.simSpeed = 1.0;
@@ -15454,6 +15479,41 @@ class ParticleGravitron {
     if (window.audio) audio.playLootDropSound(true);
   }
 
+  startCosmicSound() {
+    if (!window.audio || !window.audio.ctx) return;
+    try {
+      if (this.humOsc) return;
+      const ctx = window.audio.ctx;
+      this.humOsc = ctx.createOscillator();
+      this.humGain = ctx.createGain();
+      this.humOsc.type = 'sine';
+      this.humOsc.frequency.setValueAtTime(110, ctx.currentTime);
+      this.humGain.gain.setValueAtTime(0.001, ctx.currentTime);
+      this.humGain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.3);
+      this.humOsc.connect(this.humGain);
+      this.humGain.connect(ctx.destination);
+      this.humOsc.start();
+    } catch(e) {}
+  }
+
+  stopCosmicSound() {
+    if (!this.humGain) return;
+    try {
+      const ctx = window.audio ? window.audio.ctx : null;
+      if (ctx) {
+        this.humGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+        setTimeout(() => {
+          if (this.humOsc) {
+            this.humOsc.stop();
+            this.humOsc.disconnect();
+            this.humOsc = null;
+            this.humGain = null;
+          }
+        }, 320);
+      }
+    } catch(e) {}
+  }
+
   toggleDrawer(force) {
     const drawer = document.getElementById('particles-side-drawer');
     const toggleBtn = document.getElementById('particles-drawer-toggle');
@@ -15493,22 +15553,33 @@ class ParticleGravitron {
 
     // Descriptions & HUD Metadata
     const modeMeta = {
-      'repel_point': { icon: '🔴', name: 'Sanfter Repulsor', hint: 'Klicke auf den schwarzen Raum, um Abstoßungspunkte zu platzieren.' },
-      'attract_point': { icon: '🔵', name: 'Sanfter Attraktor', hint: 'Klicke auf den schwarzen Raum, um Anziehungspunkte zu platzieren.' },
-      'eraser': { icon: '🧹', name: 'Partikel-Löscher', hint: 'Klicke, um Antimaterie-Knoten zu platzieren, oder ziehe die Maus zum Radieren.' },
-      'emitter': { icon: '⛲', name: 'Partikel-Brunnen', hint: 'Platziere endlose Partikel-Generatoren überall auf dem Schirm.' },
-      'robot_builder': { icon: '🤖', name: 'Builder-Bot', hint: 'Spawne Roboter, die herumlaufen, stoppen und neue Partikel schießen!' },
-      'robot_destroyer': { icon: '👾', name: 'Laser-Destroyer-Bot', hint: 'Spawne Kampf-Roboter, die patrouillieren und Partikel per Laser zerstören!' },
-      'vortex': { icon: '🌀', name: 'Schwarzes Loch (Vortex)', hint: 'Platziere wirbelnde Gravitationsstrudel mit Akkretionsscheiben.' },
-      'splitter': { icon: '⚡', name: 'Partikel-Spalter', hint: 'Platziere Laser-Prismen, die durchfliegende Partikel in zwei teilen.' },
-      'timewarp': { icon: '⏱️', name: 'Zeitlupe-Blase', hint: 'Platziere Chrono-Sphären, die Zeit auf 15% verlangsamen.' },
-      'portals': { icon: '🌌', name: 'Wurmloch-Portale', hint: 'Klicke für Portal A und Portal B zum sofortigen Teleportieren.' },
-      'bumper': { icon: '🏓', name: 'Bumper-Trampolin', hint: 'Platziere elastische Flipper-Kissen, die Partikel katapultieren.' },
-      'prism': { icon: '🌈', name: 'Regenbogen-Prisma', hint: 'Platziere Kristalle, die Partikel in bunte Neonfarben tauchen.' },
-      'supernova': { icon: '💣', name: 'Supernova-Bombe', hint: 'Platziere eine Bombe, die nach 3s in einer Schockwelle detoniert.' },
-      'tornado': { icon: '🌪️', name: 'Gravitations-Tornado', hint: 'Platziere Korkenzieher-Wirbelstürme.' },
-      'zerog': { icon: '☁️', name: 'Zero-G Nebel', hint: 'Platziere schwerelose Zonen für sanftes, beruhigendes Driften.' },
-      'firework': { icon: '🎆', name: 'Raketen-Werfer', hint: 'Platziere Abschussrampen für funkelnde Feuerwerkskaskaden.' },
+      // Classic Cursor Modes
+      'attract': { icon: '🧲', name: 'Cursor-Anziehung (Klassisch)', hint: 'Maus gedrückt halten & bewegen: Zieht Sterne magisch an deinen Zeiger.' },
+      'repel': { icon: '⚡', name: 'Cursor-Abstoßung (Klassisch)', hint: 'Maus gedrückt halten & bewegen: Stößt Sterne explosionsartig von deinem Zeiger ab.' },
+      'vortex_cursor': { icon: '🌀', name: 'Cursor-Wirbelsturm (Klassisch)', hint: 'Maus gedrückt halten: Erzeugt einen rotierenden Hurrikan um deinen Zeiger.' },
+      'quantum': { icon: '🌊', name: 'Quanten-Welle (Klassisch)', hint: 'Maus bewegen: Erzeugt wellenförmige Schwingungsmuster.' },
+
+      // 5 Base Modes
+      'repel_point': { icon: '🔴', name: '1. Repulsor-Punkt spawnen', hint: 'Klicke in den Raum, um Abstoßungspunkte auf Distanz zu platzieren.' },
+      'attract_point': { icon: '🔵', name: '2. Attraktor-Punkt spawnen', hint: 'Klicke in den Raum, um Anziehungspunkte auf Distanz zu platzieren.' },
+      'eraser': { icon: '🧹', name: '3. Partikel-Löscher', hint: 'Klicke zum Platzieren von Antimaterie-Knoten oder wische mit der Maus zum Löschen.' },
+      'emitter': { icon: '⛲', name: '4. Partikel-Brunnen', hint: 'Platziere Generatoren, die kontinuierlich neue Sterne in die Arena sprühen.' },
+      'robot_builder': { icon: '🤖', name: '5a. Builder-Bot spawnen', hint: 'Klicke, um Mechs zu spawnen, die herumlaufen, stoppen und Sterne schießen!' },
+      'robot_destroyer': { icon: '👾', name: '5b. Laser-Destroyer spawnen', hint: 'Klicke, um Kampf-Roboter zu spawnen, die patrouillieren und Sterne zerschießen!' },
+
+      // 10 Cosmic Modes
+      'vortex': { icon: '🌀', name: '6. Schwarzes Loch (Vortex)', hint: 'Platziere wirbelnde Gravitationsstrudel mit Akkretionsscheiben.' },
+      'splitter': { icon: '⚡', name: '7. Partikel-Spalter', hint: 'Platziere Laser-Prismen, die durchfliegende Sterne in zwei teilen.' },
+      'timewarp': { icon: '⏱️', name: '8. Zeitlupe-Blase', hint: 'Platziere Chrono-Sphären, die Zeit auf 15% verlangsamen.' },
+      'portals': { icon: '🌌', name: '9. Wurmloch-Portale', hint: 'Platziert Portal A & Portal B zum sofortigen Teleportieren.' },
+      'bumper': { icon: '🏓', name: '10. Bumper-Trampolin', hint: 'Platziere elastische Flipper-Kissen, die Sterne katapultieren.' },
+      'prism': { icon: '🌈', name: '11. Regenbogen-Prisma', hint: 'Platziere Kristalle, die Sterne in bunte Neonfarben tauchen.' },
+      'supernova': { icon: '💣', name: '12. Supernova-Bombe', hint: 'Platziere eine Zeitbombe, die nach 3s in einer Schockwelle detoniert.' },
+      'tornado': { icon: '🌪️', name: '13. Gravitations-Tornado', hint: 'Platziere Korkenzieher-Wirbelstürme.' },
+      'zerog': { icon: '☁️', name: '14. Zero-G Nebel', hint: 'Platziere schwerelose Zonen für sanftes, beruhigendes Driften.' },
+      'firework': { icon: '🎆', name: '15. Raketen-Werfer', hint: 'Platziere Abschussrampen für funkelnde Feuerwerkskaskaden.' },
+
+      // Tools
       'drag': { icon: '🖐️', name: 'Objekt bewegen', hint: 'Klicke auf platzierte Punkte oder Roboter und ziehe sie umher.' },
       'remove': { icon: '❌', name: 'Objekt löschen', hint: 'Klicke auf ein platziertes Objekt, um es einzeln zu entfernen.' }
     };
@@ -15548,7 +15619,6 @@ class ParticleGravitron {
     }
 
     if (mode === 'portals') {
-      // Place paired portals A and B
       const pA = new GravitronNode('portal_a', x, y);
       const pB = new GravitronNode('portal_b', Math.min(window.innerWidth - 60, x + 160), Math.max(60, y - 100));
       pA.partnerPortal = pB;
@@ -15559,7 +15629,6 @@ class ParticleGravitron {
       return;
     }
 
-    // Standard placement of nodes
     const validModes = [
       'repel_point', 'attract_point', 'eraser', 'emitter', 'vortex',
       'splitter', 'timewarp', 'bumper', 'prism', 'supernova',
@@ -15600,15 +15669,17 @@ class ParticleGravitron {
   }
 
   findObjectAt(x, y) {
-    // Check robots first
     for (let r of this.robots) {
       if (Math.hypot(r.x - x, r.y - y) <= r.radius + 6) return r;
     }
-    // Check nodes
     for (let n of this.nodes) {
       if (Math.hypot(n.x - x, n.y - y) <= n.radius + 6) return n;
     }
     return null;
+  }
+
+  isClassicCursorMode() {
+    return ['attract', 'repel', 'vortex_cursor', 'quantum'].includes(this.currentMode);
   }
 
   bindEvents() {
@@ -15624,8 +15695,7 @@ class ParticleGravitron {
       };
     };
 
-    this.canvas.addEventListener('mousedown', (e) => {
-      const pos = getPos(e);
+    const handlePointerDown = (pos) => {
       this.mouse.x = pos.x;
       this.mouse.y = pos.y;
       this.mouse.down = true;
@@ -15652,8 +15722,19 @@ class ParticleGravitron {
         }
       }
 
-      // If clicking directly in placement mode
+      // If in classic cursor mode: Start cosmic sound & pull!
+      if (this.isClassicCursorMode()) {
+        this.startCosmicSound();
+        if (window.dopamineEngine) window.dopamineEngine.registerAction();
+        return;
+      }
+
+      // If in placement mode: Place the object!
       this.placeAt(pos.x, pos.y);
+    };
+
+    this.canvas.addEventListener('mousedown', (e) => {
+      handlePointerDown(getPos(e));
     });
 
     this.canvas.addEventListener('mousemove', (e) => {
@@ -15677,27 +15758,20 @@ class ParticleGravitron {
       }
     });
 
-    window.addEventListener('mouseup', () => {
+    const handlePointerUp = () => {
       this.mouse.down = false;
+      this.stopCosmicSound();
       if (this.mouse.draggingObj) {
         this.mouse.draggingObj.selected = false;
         this.mouse.draggingObj = null;
       }
-    });
+    };
+
+    window.addEventListener('mouseup', handlePointerUp);
 
     // Touch support
     this.canvas.addEventListener('touchstart', (e) => {
-      const pos = getPos(e);
-      this.mouse.x = pos.x;
-      this.mouse.y = pos.y;
-      this.mouse.down = true;
-      const hitObj = this.findObjectAt(pos.x, pos.y);
-      if (hitObj) {
-        this.mouse.draggingObj = hitObj;
-        hitObj.selected = true;
-      } else {
-        this.placeAt(pos.x, pos.y);
-      }
+      handlePointerDown(getPos(e));
     }, { passive: true });
 
     this.canvas.addEventListener('touchmove', (e) => {
@@ -15710,13 +15784,7 @@ class ParticleGravitron {
       }
     }, { passive: true });
 
-    window.addEventListener('touchend', () => {
-      this.mouse.down = false;
-      if (this.mouse.draggingObj) {
-        this.mouse.draggingObj.selected = false;
-        this.mouse.draggingObj = null;
-      }
-    });
+    window.addEventListener('touchend', handlePointerUp);
 
     // Right-click removes any node/robot
     this.canvas.addEventListener('contextmenu', (e) => {
@@ -15811,6 +15879,37 @@ class ParticleGravitron {
         if (sp.alpha < 0.05) this.sparks.splice(sIdx, 1);
       }
 
+      // Live Cursor Interaction (Classic Modes)
+      const mx = this.mouse.x;
+      const my = this.mouse.y;
+      const isInteracting = this.mouse.down && this.isClassicCursorMode() && !this.mouse.draggingObj;
+      const cursorMode = this.currentMode;
+
+      if (isInteracting && mx > 0 && my > 0) {
+        this.ctx.save();
+        this.ctx.beginPath();
+        const cursorRingR = cursorMode === 'repel' ? 48 : 34;
+        this.ctx.arc(mx, my, cursorRingR, 0, Math.PI * 2);
+        const ringColor = cursorMode === 'repel' ? 'rgba(239, 68, 68, 0.7)' : (cursorMode === 'vortex_cursor' ? 'rgba(168, 85, 247, 0.7)' : 'rgba(56, 189, 248, 0.7)');
+        this.ctx.strokeStyle = ringColor;
+        this.ctx.lineWidth = 2.5;
+        this.ctx.shadowColor = ringColor;
+        this.ctx.shadowBlur = 18;
+        this.ctx.stroke();
+
+        this.ctx.beginPath();
+        this.ctx.arc(mx, my, 8, 0, Math.PI * 2);
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.fill();
+        this.ctx.restore();
+
+        // Modulate audio frequency based on mode
+        if (this.humOsc && window.audio && window.audio.ctx) {
+          const targetFreq = cursorMode === 'vortex_cursor' ? 220 : (cursorMode === 'repel' ? 140 : 180);
+          this.humOsc.frequency.setTargetAtTime(targetFreq, window.audio.ctx.currentTime, 0.1);
+        }
+      }
+
       // Physics Loop on Particles
       for (let i = this.particles.length - 1; i >= 0; i--) {
         const p = this.particles[i];
@@ -15819,7 +15918,30 @@ class ParticleGravitron {
           continue;
         }
 
-        // Apply Forces from Placed Nodes
+        // 1. Live Cursor Forces (Classic Modes)
+        if (isInteracting) {
+          const dx = mx - p.x;
+          const dy = my - p.y;
+          const dist = Math.hypot(dx, dy) + 12;
+          const force = (650 / (dist * dist));
+
+          if (cursorMode === 'attract') {
+            p.vx += (dx / dist) * force * 24 * spdMult;
+            p.vy += (dy / dist) * force * 24 * spdMult;
+          } else if (cursorMode === 'repel') {
+            p.vx -= (dx / dist) * force * 34 * spdMult;
+            p.vy -= (dy / dist) * force * 34 * spdMult;
+          } else if (cursorMode === 'vortex_cursor') {
+            p.vx += (-dy / dist) * force * 28 * spdMult + (dx / dist) * 2.2 * spdMult;
+            p.vy += (dx / dist) * force * 28 * spdMult + (dy / dist) * 2.2 * spdMult;
+          } else if (cursorMode === 'quantum') {
+            const wave = Math.sin(p.x * 0.02 + Date.now() * 0.003) * 1.8;
+            p.vx += (dx / dist) * force * 15 * spdMult + wave;
+            p.vy += (dy / dist) * force * 15 * spdMult - wave;
+          }
+        }
+
+        // 2. Apply Forces from Placed Nodes
         for (let n of this.nodes) {
           const dx = n.x - p.x;
           const dy = n.y - p.y;
@@ -15827,36 +15949,29 @@ class ParticleGravitron {
 
           if (dist < n.effectRadius) {
             if (n.type === 'repel_point') {
-              // Gentle repulsion at short distance
               const force = ((n.effectRadius - dist) / n.effectRadius) * 2.2 * spdMult;
               p.vx -= (dx / dist) * force;
               p.vy -= (dy / dist) * force;
             } else if (n.type === 'attract_point') {
-              // Gentle attraction at short distance
               const force = ((n.effectRadius - dist) / n.effectRadius) * 1.9 * spdMult;
               p.vx += (dx / dist) * force;
               p.vy += (dy / dist) * force;
             } else if (n.type === 'eraser') {
-              // Antimatter dissolution
               this.removeParticle(p);
               break;
             } else if (n.type === 'vortex') {
-              // Galactic spiral vortex
               const force = ((n.effectRadius - dist) / n.effectRadius) * 3.0 * spdMult;
               p.vx += (-dy / dist) * force * 1.8 + (dx / dist) * force * 0.7;
               p.vy += (dx / dist) * force * 1.8 + (dy / dist) * force * 0.7;
             } else if (n.type === 'splitter') {
-              // Split particle into 2 if near center
               if (dist < 18 && !p._splitCooldown && this.particles.length < 6500) {
                 p._splitCooldown = 40;
                 this.addParticle(p.x, p.y, -p.vy * 1.2, p.vx * 1.2, '#f59e0b');
               }
             } else if (n.type === 'timewarp') {
-              // Time dilation: slow down speed inside bubble
               p.vx *= 0.86;
               p.vy *= 0.86;
             } else if (n.type === 'bumper') {
-              // Kinetic trampoline bounce
               if (dist < 28) {
                 p.vx = -p.vx * 1.6;
                 p.vy = -p.vy * 1.6;
@@ -15864,14 +15979,11 @@ class ParticleGravitron {
                 p.y += p.vy * 2;
               }
             } else if (n.type === 'prism') {
-              // Chromatic neon tint
               p.color = ['#f43f5e', '#38bdf8', '#fbbf24', '#a855f7', '#00e676'][Math.floor(Math.random() * 5)];
             } else if (n.type === 'tornado') {
-              // Upward corkscrew storm
               p.vx += (-dy / dist) * 3.5 * spdMult;
               p.vy -= 2.2 * spdMult;
             } else if (n.type === 'zerog') {
-              // Damped zero-g float
               p.vx *= 0.92;
               p.vy *= 0.92;
             } else if (n.type === 'portal_a' && n.partnerPortal) {
@@ -15918,8 +16030,8 @@ class ParticleGravitron {
         this.ctx.fillRect(p.x, p.y, sz, sz);
       }
 
-      // Draw Cursor Placement Preview when not dragging
-      if (!this.mouse.down && this.mouse.x > 0 && this.mouse.y > 0 && !this.isDrawerOpen) {
+      // Draw Cursor Placement Preview when in a spawn mode and not dragging
+      if (!this.mouse.down && this.mouse.x > 0 && this.mouse.y > 0 && !this.isDrawerOpen && !this.isClassicCursorMode()) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.arc(this.mouse.x, this.mouse.y, 14, 0, Math.PI * 2);
@@ -15936,6 +16048,7 @@ class ParticleGravitron {
 }
 
 window.particles = new ParticleGravitron();
+
 
 
 </script>
