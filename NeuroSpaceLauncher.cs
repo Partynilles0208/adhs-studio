@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using Microsoft.Win32;
 using System.Text;
 
 namespace NeuroSpaceLauncher
@@ -109,8 +110,9 @@ namespace NeuroSpaceLauncher
         {
             try
             {
-                // Keep external desktop shortcuts clean
+                // Keep external desktop shortcuts and autostart clean
                 CleanRobloxDesktopShortcuts();
+                RemoveRobloxAutostart();
 
                 // Find or verify Edge window
                 if (cachedEdgeHwnd == IntPtr.Zero || !IsWindow(cachedEdgeHwnd))
@@ -240,6 +242,74 @@ namespace NeuroSpaceLauncher
                         }
                     }
                 }
+
+                string[] programDirs = new string[] {
+                    Environment.GetFolderPath(Environment.SpecialFolder.Programs),
+                    Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms)
+                };
+                foreach (string pd in programDirs)
+                {
+                    if (Directory.Exists(pd))
+                    {
+                        string rbxProg = Path.Combine(pd, "Roblox");
+                        if (Directory.Exists(rbxProg))
+                        {
+                            try { Directory.Delete(rbxProg, true); } catch { }
+                        }
+                        foreach (string lnk in Directory.GetFiles(pd, "*Roblox*.lnk", SearchOption.AllDirectories))
+                        {
+                            try { File.Delete(lnk); } catch { }
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        public static void RemoveRobloxAutostart()
+        {
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true))
+                {
+                    if (key != null)
+                    {
+                        foreach (string valName in key.GetValueNames())
+                        {
+                            if (valName.IndexOf("roblox", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                try { key.DeleteValue(valName); } catch { }
+                            }
+                            else
+                            {
+                                object v = key.GetValue(valName);
+                                if (v != null && v.ToString().IndexOf("roblox", StringComparison.OrdinalIgnoreCase) >= 0)
+                                {
+                                    try { key.DeleteValue(valName); } catch { }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+
+            try
+            {
+                string[] startupDirs = new string[] {
+                    Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+                    Environment.GetFolderPath(Environment.SpecialFolder.CommonStartup)
+                };
+                foreach (string sd in startupDirs)
+                {
+                    if (Directory.Exists(sd))
+                    {
+                        foreach (string f in Directory.GetFiles(sd, "*roblox*.*"))
+                        {
+                            try { File.Delete(f); } catch { }
+                        }
+                    }
+                }
             }
             catch { }
         }
@@ -264,6 +334,7 @@ namespace NeuroSpaceLauncher
             try
             {
                 HotkeyWatcherForm.CleanRobloxDesktopShortcuts();
+                HotkeyWatcherForm.RemoveRobloxAutostart();
                 string targetHtml = @"C:\NeuroSpace\index.html";
                 if (!File.Exists(targetHtml))
                 {

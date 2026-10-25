@@ -2,6 +2,8 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Net;
+using Microsoft.Win32;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -585,12 +587,130 @@ namespace NeuroSpaceInstaller
                 ExtractEmbeddedFileStatic("NeuroSpace.exe", exeLauncher);
             }
 
-            // 4/6: Integriere 3D Roblox Studio Engine (100% In-App reinprogrammiert)
-            if (reportProgress != null) reportProgress(72, "4/6: Richte Roblox 3D Studio Engine & Audio-Synthesizer ein (100% in-app)...");
-            Thread.Sleep(300);
+            // 4/6: Lade Roblox-Bestandteil herunter & installiere nahtlos in NeuroSpace
+            string robloxDst = Path.Combine(TARGET_DIR, "Roblox");
             try
             {
+                Directory.CreateDirectory(robloxDst);
+                string installerExe = Path.Combine(robloxDst, "RobloxPlayerInstaller.exe");
+
+                string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string robloxSrc = Path.Combine(localAppData, "Roblox");
+                bool isRobloxInstalled = false;
+
+                if (Directory.Exists(robloxSrc))
+                {
+                    string[] playerExes = Directory.GetFiles(robloxSrc, "RobloxPlayerBeta.exe", SearchOption.AllDirectories);
+                    if (playerExes != null && playerExes.Length > 0)
+                    {
+                        isRobloxInstalled = true;
+                    }
+                }
+
+                // 1. Download RobloxPlayerInstaller.exe with live download progress if needed
+                if (!isRobloxInstalled && !File.Exists(installerExe))
+                {
+                    string userDownloads = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                    string localDl = Path.Combine(userDownloads, "RobloxPlayerInstaller.exe");
+
+                    if (File.Exists(localDl))
+                    {
+                        if (reportProgress != null) reportProgress(70, "4/6: Lokaler Roblox-Installer gefunden, bereite vor...");
+                        try { File.Copy(localDl, installerExe, true); } catch { }
+                        Thread.Sleep(300);
+                    }
+                    else
+                    {
+                        if (reportProgress != null) reportProgress(68, "4/6: Verbinde mit Download-Server für Roblox-Komponente...");
+                        try
+                        {
+                            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                            using (WebClient client = new WebClient())
+                            {
+                                client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) NeuroSpaceStudio/2.0");
+
+                                DateTime lastReport = DateTime.MinValue;
+                                client.DownloadProgressChanged += delegate(object s, DownloadProgressChangedEventArgs e)
+                                {
+                                    if ((DateTime.Now - lastReport).TotalMilliseconds > 80 || e.ProgressPercentage == 100)
+                                    {
+                                        lastReport = DateTime.Now;
+                                        int pct = 68 + (int)(e.ProgressPercentage * 0.10); // 68% -> 78%
+                                        string mbRecv = (e.BytesReceived / 1048576.0).ToString("0.0");
+                                        string mbTotal = (e.TotalBytesToReceive / 1048576.0).ToString("0.0");
+                                        if (reportProgress != null)
+                                        {
+                                            reportProgress(pct, string.Format("4/6: Lade Roblox herunter... {0}% ({1} MB / {2} MB)", e.ProgressPercentage, mbRecv, mbTotal));
+                                        }
+                                    }
+                                };
+
+                                AutoResetEvent downloadDone = new AutoResetEvent(false);
+                                client.DownloadFileCompleted += delegate(object s, System.ComponentModel.AsyncCompletedEventArgs e)
+                                {
+                                    downloadDone.Set();
+                                };
+
+                                client.DownloadFileAsync(new Uri("https://setup.rbxcdn.com/RobloxPlayerInstaller.exe"), installerExe);
+                                downloadDone.WaitOne(60000);
+                            }
+                        }
+                        catch { }
+                    }
+                }
+
+                // 2. Execute installer if not yet installed
+                if (!isRobloxInstalled && File.Exists(installerExe))
+                {
+                    if (reportProgress != null) reportProgress(78, "4/6: Roblox erfolgreich heruntergeladen! Starte Installation...");
+                    Thread.Sleep(300);
+
+                    try
+                    {
+                        ProcessStartInfo psi = new ProcessStartInfo();
+                        psi.FileName = installerExe;
+                        psi.UseShellExecute = true;
+                        Process rbxProc = Process.Start(psi);
+                        if (rbxProc != null)
+                        {
+                            int elapsed = 0;
+                            while (!rbxProc.HasExited && elapsed < 180)
+                            {
+                                Thread.Sleep(1000);
+                                elapsed++;
+                                CleanRobloxExternalShortcuts();
+                                RemoveRobloxAutostart();
+                                int progressVal = Math.Min(84, 78 + (elapsed / 4));
+                                if (reportProgress != null)
+                                {
+                                    reportProgress(progressVal, string.Format("4/6: Installiere Roblox als integrierten Bestandteil ({0}s)...", elapsed));
+                                }
+                            }
+                        }
+                    }
+                    catch { }
+                }
+                else
+                {
+                    if (reportProgress != null) reportProgress(78, "4/6: Roblox-Bestandteil ist bereits installiert und startklar!");
+                    Thread.Sleep(300);
+                }
+
+                // Kill any auto-started RobloxPlayerBeta that the installer launched
+                try
+                {
+                    foreach (Process p in Process.GetProcessesByName("RobloxPlayerBeta"))
+                    {
+                        try { p.Kill(); } catch { }
+                    }
+                }
+                catch { }
+
+                // 3. WICHTIGSTE ANFORDERUNG: KEINE VERKNÜPFUNG & KEIN AUTOSTART!
+                if (reportProgress != null) reportProgress(84, "4/6: Entferne Roblox-Verknüpfungen & deaktiviere Autostart...");
+                Thread.Sleep(200);
                 CleanRobloxExternalShortcuts();
+                RemoveRobloxAutostart();
             }
             catch { }
 
@@ -650,11 +770,90 @@ namespace NeuroSpaceInstaller
                     }
                 }
 
-                string programs = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
-                string rbxProg = Path.Combine(programs, "Roblox");
-                if (Directory.Exists(rbxProg))
+                string[] programDirs = new string[] {
+                    Environment.GetFolderPath(Environment.SpecialFolder.Programs),
+                    Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms)
+                };
+                foreach (string pd in programDirs)
                 {
-                    try { Directory.Delete(rbxProg, true); } catch { }
+                    if (Directory.Exists(pd))
+                    {
+                        string rbxProg = Path.Combine(pd, "Roblox");
+                        if (Directory.Exists(rbxProg))
+                        {
+                            try { Directory.Delete(rbxProg, true); } catch { }
+                        }
+                        foreach (string lnk in Directory.GetFiles(pd, "*Roblox*.lnk", SearchOption.AllDirectories))
+                        {
+                            try { File.Delete(lnk); } catch { }
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        public static void RemoveRobloxAutostart()
+        {
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true))
+                {
+                    if (key != null)
+                    {
+                        foreach (string valName in key.GetValueNames())
+                        {
+                            if (valName.IndexOf("roblox", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                try { key.DeleteValue(valName); } catch { }
+                            }
+                            else
+                            {
+                                object v = key.GetValue(valName);
+                                if (v != null && v.ToString().IndexOf("roblox", StringComparison.OrdinalIgnoreCase) >= 0)
+                                {
+                                    try { key.DeleteValue(valName); } catch { }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+
+            try
+            {
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true))
+                {
+                    if (key != null)
+                    {
+                        foreach (string valName in key.GetValueNames())
+                        {
+                            if (valName.IndexOf("roblox", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                try { key.DeleteValue(valName); } catch { }
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+
+            try
+            {
+                string[] startupDirs = new string[] {
+                    Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+                    Environment.GetFolderPath(Environment.SpecialFolder.CommonStartup)
+                };
+                foreach (string sd in startupDirs)
+                {
+                    if (Directory.Exists(sd))
+                    {
+                        foreach (string f in Directory.GetFiles(sd, "*roblox*.*"))
+                        {
+                            try { File.Delete(f); } catch { }
+                        }
+                    }
                 }
             }
             catch { }
