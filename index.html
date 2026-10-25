@@ -6714,6 +6714,11 @@
 
 <!-- Auth & Supabase modals removed for clean direct entry -->
 
+<!-- CINEMATIC BLACK APP PORTAL TRANSITION (EXPANDS TO COVER SCREEN, SHRINKS SMALL & VANISHES) -->
+<div id="cinematic-portal-transition" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:9999999; display:none; overflow:hidden;">
+  <div id="cinematic-portal-disc" style="position:absolute; width:280vmax; height:280vmax; border-radius:50%; background:#000000; top:50%; left:50%; transform:translate(-50%, -50%) scale(0); box-shadow:0 0 100px rgba(0,0,0,1); will-change:transform, opacity;"></div>
+</div>
+
 <!-- GLOBAL AMBIENT SILENT BACKGROUND VIDEO & AUTUMN LEAVES (backround.mp4) FOR ALL APPS -->
 <div class="neuro-bg-video-wrap" id="neuro-global-bg-video-wrap">
   <video id="neuro-bg-video" class="neuro-bg-video" autoplay loop muted playsinline preload="auto">
@@ -8629,7 +8634,9 @@ window.audio = audio;
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const views = document.querySelectorAll('.app-view');
-  function switchView(targetId) {
+  let isTransitioningView = false;
+
+  function executeActualSwitch(targetId) {
     document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
     const target = document.getElementById(targetId);
     if (target) {
@@ -8673,6 +8680,96 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { window.chimesApp.resize(); window.chimesApp.initChimes(); }, 50);
       }
     }
+  }
+
+  function switchView(targetId, clickEvent) {
+    if (isTransitioningView) return;
+
+    const currentHub = document.getElementById('view-hub');
+    const isLeavingHub = currentHub && currentHub.classList.contains('active') && targetId !== 'view-hub';
+
+    if (!isLeavingHub) {
+      executeActualSwitch(targetId);
+      return;
+    }
+
+    // CINEMATIC BLACK APP LAUNCH TRANSITION:
+    // 1. Grows huge from clicked card & covers the whole screen in black
+    // 2. Switches app underneath
+    // 3. Shrinks small into center & dissolves away into the new app
+    isTransitioningView = true;
+
+    const portalWrap = document.getElementById('cinematic-portal-transition');
+    const portalDisc = document.getElementById('cinematic-portal-disc');
+
+    if (!portalWrap || !portalDisc) {
+      executeActualSwitch(targetId);
+      isTransitioningView = false;
+      return;
+    }
+
+    // Determine launch origin: from mouse click, or center of the clicked card
+    let originX = window.innerWidth / 2;
+    let originY = window.innerHeight / 2;
+
+    const ev = clickEvent || window.event;
+    if (ev && typeof ev.clientX === 'number' && ev.clientX > 0) {
+      originX = ev.clientX;
+      originY = ev.clientY;
+    } else {
+      const card = document.querySelector(`.neuro-card[data-target="${targetId}"]`);
+      if (card) {
+        const rect = card.getBoundingClientRect();
+        originX = rect.left + rect.width / 2;
+        originY = rect.top + rect.height / 2;
+      }
+    }
+
+    // Subtle audio feedback pop
+    if (window.audio && typeof window.audio.playPop === 'function') {
+      try { window.audio.playPop(180); } catch(e) {}
+    }
+
+    // Phase 1: Expand from click point to 100% full screen black
+    portalDisc.style.transition = 'none';
+    portalDisc.style.left = originX + 'px';
+    portalDisc.style.top = originY + 'px';
+    portalDisc.style.transform = 'translate(-50%, -50%) scale(0)';
+    portalDisc.style.opacity = '1';
+    portalWrap.style.display = 'block';
+    portalWrap.style.pointerEvents = 'all';
+
+    portalDisc.offsetHeight; // force reflow
+
+    portalDisc.style.transition = 'transform 0.28s cubic-bezier(0.22, 1, 0.36, 1)';
+    portalDisc.style.transform = 'translate(-50%, -50%) scale(1)';
+
+    // Phase 2: At peak coverage, switch view and shrink down to small point & vanish
+    setTimeout(() => {
+      executeActualSwitch(targetId);
+
+      portalDisc.style.transition = 'none';
+      portalDisc.style.left = '50%';
+      portalDisc.style.top = '50%';
+      portalDisc.style.transform = 'translate(-50%, -50%) scale(1)';
+      portalDisc.offsetHeight; // force reflow
+
+      // "dann klein und dann verschwindet es"
+      portalDisc.style.transition = 'transform 0.32s cubic-bezier(0.4, 0, 0.15, 1), opacity 0.26s cubic-bezier(0.4, 0, 0.2, 1) 0.05s';
+      portalDisc.style.transform = 'translate(-50%, -50%) scale(0)';
+      portalDisc.style.opacity = '0';
+
+      if (window.audio && typeof window.audio.playPop === 'function') {
+        try { window.audio.playPop(340); } catch(e) {}
+      }
+
+      setTimeout(() => {
+        portalWrap.style.display = 'none';
+        portalWrap.style.pointerEvents = 'none';
+        portalDisc.style.transition = 'none';
+        isTransitioningView = false;
+      }, 340);
+    }, 280);
   }
   window.switchView = switchView;
 
