@@ -13,6 +13,28 @@
       window.console.warn('[NeuroSpace SafeGuard] Handled rejection:', e && e.reason ? e.reason : e);
     }
   });
+  // Immer im Vollbild starten
+  function requestAppFullscreen() {
+    if (!document.fullscreenElement) {
+      const docEl = document.documentElement;
+      try {
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen().catch(() => {});
+        } else if (docEl.webkitRequestFullscreen) {
+          docEl.webkitRequestFullscreen();
+        } else if (docEl.msRequestFullscreen) {
+          docEl.msRequestFullscreen();
+        }
+      } catch(e) {}
+    }
+  }
+
+  // Sofort versuchen und bei erster Benutzer-Interaktion (Klick, Taste, Berührung) verankern
+  requestAppFullscreen();
+  ['pointerdown', 'keydown', 'touchstart'].forEach(evt => {
+    document.addEventListener(evt, requestAppFullscreen, { once: true, passive: true });
+  });
+
   (function() {
     try {
       if (localStorage.getItem('neurospace_site_access_granted') === '020818' && sessionStorage.getItem('neurospace_gate_entered')) {

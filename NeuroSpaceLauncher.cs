@@ -573,7 +573,7 @@ namespace NeuroSpaceLauncher
                 else if (File.Exists(chromePath)) browserExe = chromePath;
 
                 string flags = string.Format(
-                    "--app=\"{0}\" --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check",
+                    "--app=\"{0}\" --start-fullscreen --start-maximized --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check",
                     htmlUri
                 );
 

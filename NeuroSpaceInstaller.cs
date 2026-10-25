@@ -731,7 +731,7 @@ namespace NeuroSpaceInstaller
                                 "    set \"EDGE=%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
                                 "    if not exist \"%EDGE%\" set \"EDGE=%ProgramFiles%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
                                 "    if exist \"%EDGE%\" (\r\n" +
-                                "        start \"\" \"%EDGE%\" --app=\"file:///C:/NeuroSpace/index.html?app=desktop\" --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check\r\n" +
+                                "        start \"\" \"%EDGE%\" --app=\"file:///C:/NeuroSpace/index.html?app=desktop\" --start-fullscreen --start-maximized --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check\r\n" +
                                 "    ) else (\r\n" +
                                 "        start \"\" \"C:\\NeuroSpace\\index.html?app=desktop\"\r\n" +
                                 "    )\r\n" +
