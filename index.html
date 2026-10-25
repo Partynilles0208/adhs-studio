@@ -7613,11 +7613,12 @@
   }
 
   /* === ENVIRONMENT EXCLUSIVITY RULES === */
-  /* In Desktop App: Hide the download button & modal because the app is already installed */
-  body.is-desktop-app #btn-header-offline-dl,
-  body.is-desktop-app #card-offline-app-dl,
-  body.is-desktop-app #offline-app-install-modal {
-    display: none !important;
+  /* Download button & modal always accessible so users can download fresh Setup.exe anytime */
+  #btn-header-offline-dl {
+    display: inline-flex !important;
+  }
+  #card-fresh-exe-dl {
+    display: flex !important;
   }
 
   /* In Web Browser: Roblox does NOT exist at all! */
@@ -8230,8 +8231,8 @@
         </div>
 
         <div class="neuro-header-actions">
-          <button class="header-pill-btn" id="btn-header-offline-dl" onclick="openOfflineAppModal()" title="Windows Offline-App herunterladen (Tab-Taste)" style="background:rgba(245,158,11,0.22); border-color:rgba(245,158,11,0.5); color:#fde047; font-weight:800;">
-            <span>📥</span> Offline-App
+          <button class="header-pill-btn" id="btn-header-offline-dl" onclick="openOfflineAppModal()" title="Frische Windows Offline-App herunterladen (Setup.exe)" style="background:linear-gradient(135deg, rgba(245,158,11,0.3), rgba(234,88,12,0.3)); border:1.5px solid rgba(245,158,11,0.65); color:#fde047; font-weight:800; box-shadow:0 0 16px rgba(245,158,11,0.3);">
+            <span>📥</span> Frische Setup.exe (7.4 MB)
           </button>
           <button class="header-pill-btn" id="btn-header-zen" onclick="toggleZenDeck(true)" title="Zen Command Deck & Stift-Modus (Tab-Taste)" style="background:rgba(245,158,11,0.18); border-color:rgba(245,158,11,0.45); color:#fde047;">
             <span>✨</span> Zen (Tab)
@@ -8275,6 +8276,28 @@
           <button onclick="const s = document.getElementById('hub-search'); if (s) { s.value=''; s.dispatchEvent(new Event('input')); }" style="background:linear-gradient(135deg, #d97706, #b45309); border:1px solid #fbbf24; color:#fff; padding:8px 20px; border-radius:12px; font-weight:800; font-size:12px; cursor:pointer;">
             Suche zurücksetzen ✕
           </button>
+        </div>
+
+        <!-- NEUROSPACE DESKTOP APP (FRISCHE SETUP.EXE) CARD -->
+        <div class="neuro-card" id="card-fresh-exe-dl" data-category="focus tactile fluid games audio" onclick="openOfflineAppModal();" style="border:1.5px solid rgba(245,158,11,0.65); box-shadow:0 0 24px rgba(245,158,11,0.3); background:radial-gradient(circle at 10% 20%, rgba(245,158,11,0.2) 0%, rgba(24,16,12,0.92) 80%);">
+          <div class="card-hero-thumb" style="background:radial-gradient(circle at 50% 30%, #f59e0b 0%, #b45309 60%, #451a03 100%);">
+            <span class="card-hero-icon">🍁</span>
+            <span class="card-neu-badge" style="background:linear-gradient(135deg, #f59e0b, #ea580c); color:#ffffff; font-weight:900;">⭐ FRISCHE WINDOWS-APP</span>
+          </div>
+          <div class="card-body-content">
+            <div class="card-title-row">
+              <span class="card-title-text" style="color:#fbbf24;">NeuroSpace Desktop (Setup.exe)</span>
+            </div>
+            <p class="card-desc-text">Frische Version: Starte alle 30 Apps &amp; 3D-Simulationen als eigenständige Windows-App ohne Browserleiste mit automatischer Desktop-Verknüpfung.</p>
+            <div class="card-bottom-row">
+              <div class="card-tags-wrap">
+                <span class="card-pill-tag" style="background:rgba(245,158,11,0.25); color:#fde047; font-weight:800;">⬇️ Setup.exe (7.4 MB)</span>
+                <span class="card-pill-tag">⚡ Vollbild</span>
+                <span class="card-pill-tag">🎮 30 Apps</span>
+              </div>
+              <div class="card-arrow-btn">➜</div>
+            </div>
+          </div>
         </div>
         <div class="neuro-card" data-target="view-magnets" data-category="tactile sensory focus" onclick="if(window.switchView) window.switchView('view-magnets');">
           <div class="card-hero-thumb thumb-magnets">
@@ -19936,10 +19959,10 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- Download Hero Action Button -->
     <div style="text-align:center; margin-bottom:24px; padding:20px; background:radial-gradient(circle at 50% 30%, rgba(245,158,11,0.2) 0%, rgba(20,12,8,0.7) 100%); border:1px solid rgba(245, 158, 11, 0.35); border-radius:18px;">
       <a href="NeuroSpace-Setup.exe" download="NeuroSpace-Setup.exe" id="btn-dl-exe" onclick="showInstallTutorial()" style="display:inline-flex; align-items:center; justify-content:center; gap:12px; background:linear-gradient(135deg, #f59e0b, #ea580c); color:#ffffff; font-size:16px; font-weight:800; text-decoration:none; padding:14px 32px; border-radius:16px; box-shadow:0 8px 30px rgba(245,158,11,0.5); transition:transform 0.2s, box-shadow 0.2s; cursor:pointer;">
-        <span>⬇️</span> NeuroSpace-Setup.exe herunterladen
+        <span>⬇️</span> Frische NeuroSpace-Setup.exe herunterladen (7.4 MB)
       </a>
-      <div style="font-size:11px; color:#fed7aa; margin-top:8px; font-weight:600;">
-        Dateigröße: ca. 710 KB • Windows 10/11 • Digital geprüft
+      <div style="font-size:11.5px; color:#fed7aa; margin-top:8px; font-weight:600;">
+        Dateigröße: 7.4 MB • Windows 10 &amp; 11 • 100% Offline-fähig • Stand: Frisch kompiliert
       </div>
     </div>
 
@@ -22663,16 +22686,13 @@ console.log("Roblox3DStudioEngine class loaded");
     document.body.classList.toggle('is-desktop-app', isDesktop);
     document.body.classList.toggle('is-web-browser', !isDesktop);
 
-    // IN THE DESKTOP APP: Do NOT offer downloading the desktop app!
+    // Setup.exe download button is always accessible on the page
     const dlBtn = document.getElementById('btn-header-offline-dl');
     const dlCard = document.getElementById('card-offline-app-dl');
-    if (isDesktop) {
-      if (dlBtn) dlBtn.style.display = 'none';
-      if (dlCard) dlCard.style.display = 'none';
-    } else {
-      if (dlBtn) dlBtn.style.display = 'inline-flex';
-      if (dlCard) dlCard.style.display = 'flex';
-    }
+    const freshCard = document.getElementById('card-fresh-exe-dl');
+    if (dlBtn) dlBtn.style.display = 'inline-flex';
+    if (dlCard) dlCard.style.display = 'flex';
+    if (freshCard) freshCard.style.display = 'flex';
 
     renderDesktopRobloxCard();
   }
