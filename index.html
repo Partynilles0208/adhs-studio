@@ -5880,6 +5880,9 @@
     pointer-events: auto !important;
   }
   .nav-music-toggle-btn {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
     background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -6250,12 +6253,12 @@
     position: fixed !important;
     top: 14px !important;
     left: 18px !important;
-    right: 18px !important;
+    right: auto !important;
     height: 52px !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
     padding: 0 !important;
     background: transparent !important;
     backdrop-filter: none !important;
@@ -8853,7 +8856,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🌊</span> Fluid WebGL Simulation</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div id="fluid-canvas-container">
     <canvas id="fluid-canvas"></canvas>
@@ -8906,7 +8908,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🪔</span> Lava-Lampe & Metaballs</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="lavalamp-canvas"></canvas>
   <div id="particles-click-hint" style="position:absolute; bottom:84px; left:50%; transform:translateX(-50%); background:rgba(8, 12, 24, 0.88); border:1px solid rgba(56, 189, 248, 0.45); color:#38bdf8; padding:6px 18px; border-radius:20px; font-size:12px; font-weight:800; pointer-events:none; box-shadow:0 0 20px rgba(56,189,248,0.25); z-index:10; transition:opacity 0.4s ease;">👆 Klicke oder halte gedrückt für Gravitationskraft 🪐</div>
@@ -8928,7 +8929,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🏖️</span> Zen-Garten & Kinetischer Sand</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="zensand-canvas"></canvas>
   <div class="floating-dock">
@@ -8950,7 +8950,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🫧</span> Seifenblasen-Labor</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="bubbles-canvas"></canvas>
   <div class="floating-dock">
@@ -8967,7 +8966,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🎐</span> Kristall- & Windspiele (432 Hz)</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="chimes-canvas"></canvas>
   <div class="floating-dock">
@@ -8986,7 +8984,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🌀</span> Hypno-Tunnel & Spiralen</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="hypno-canvas"></canvas>
   <div class="floating-dock">
@@ -9006,7 +9003,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🥁</span> Stahl-Zungentrommel (Handpan D-Moll)</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="tongue-drum-body" id="tongue-drum">
     <!-- 8 Tuned Tongues -->
@@ -9020,7 +9016,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🧪</span> Therapie-Knete & Schleim ASMR</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="slime-canvas"></canvas>
   <div class="floating-dock">
@@ -9040,7 +9035,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>💫</span> Präzisions-Fidget-Spinner</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="spinner-container">
     <div class="spinner-svg-wrap" id="spinner-svg-wrap">
@@ -9076,7 +9070,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🔮</span> Tesla Plasma-Kugel</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="plasma-canvas"></canvas>
   <div class="floating-dock">
@@ -9094,7 +9087,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>⌨️</span> Schalter- & Taster-Matrix</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="switch-grid-board">
     <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -9112,7 +9104,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🔥</span> Gedanken-Tresor & Sorgen-Verbrenner</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="shredder-box" id="worry-ui-container" style="position:relative; z-index:10; margin:auto;">
     <div>
@@ -9139,7 +9130,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🎧</span> Binaural Beats (Alpha & Theta Flow)</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="binaural-card">
     <div>
@@ -9170,7 +9160,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>💎</span> Edelstein-Sortierstation</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="sorting-workspace">
     <div class="sorting-target-trays" id="sorting-trays">
@@ -9199,7 +9188,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>✨</span> Bernstein Glitzer-Beruhigungsglas</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="glitterjar-canvas"></canvas>
   <div class="floating-dock">
@@ -9217,7 +9205,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>📿</span> Zedernholz-Perlenkette & Mala</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="abacus-frame" id="abacus-frame">
     <!-- 4 Wires with sliding beads -->
@@ -9231,7 +9218,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🎆</span> Sanftes Zen-Feuerwerk</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="fireworks-canvas"></canvas>
   <div class="floating-dock">
@@ -9247,7 +9233,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>📐</span> Harmonograph & Lissajous-Kurven</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <canvas class="canvas-fullscreen" id="harmonograph-canvas"></canvas>
   <div class="floating-dock">
@@ -9267,7 +9252,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🌸</span> Lotus Muster-Flow & Mandala</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div style="display:flex; flex-direction:column; align-items:center; gap:24px;">
     <div style="font-size:16px; font-weight:700; color:var(--text-secondary);" id="pattern-status">Tippe auf Start für sanfte Klangblüten</div>
@@ -9294,7 +9278,6 @@
       <button class="action-btn" id="btn-pg-clear" title="Sandbox leeren" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">🧹 Leeren</button>
       <button class="action-btn" id="btn-pg-pause" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">⏸️ Pause</button>
       <button class="action-btn" id="btn-pg-fullscreen" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">⛶ Vollbild</button>
-      <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus" style="padding:6px 12px; font-size:12px; border-radius:10px; white-space:nowrap;"><span>🎵</span> Musik: AN</button>
     </div>
   </div>
 
@@ -9446,7 +9429,6 @@
         <div style="display:flex; flex-direction:column; gap:6px;">
           <button class="action-btn danger" id="btn-thisissand-clear" style="padding:8px 12px; border-radius:10px; width:100%; justify-content:center;">🧹 Sand leeren</button>
           <button class="action-btn primary" id="btn-thisissand-save" style="padding:8px 12px; border-radius:10px; width:100%; justify-content:center;">📸 Kunstwerk speichern</button>
-          <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" style="padding:8px 12px; border-radius:10px; width:100%; justify-content:center;">🎵 Musik an/aus</button>
         </div>
       </div>
     </div>
@@ -9461,7 +9443,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>⏳</span> Flüssige Sanduhr & Flow-Timer</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div style="display:flex; flex-direction:column; align-items:center; gap:20px;">
     <canvas id="hourglass-canvas" width="220" height="340" style="background:rgba(255,255,255,0.03); border:2px solid var(--border); border-radius:30px;"></canvas>
@@ -9485,7 +9466,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🎨</span> Kreatives Zeichenstudio & Mandala</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div id="draw-top-bar">
     <span style="font-size:11.5px; font-weight:700; color:var(--text-secondary);">🌸 Mandala:</span>
@@ -9529,7 +9509,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🫧</span> Pop-It & Taktiles Fidget-Pad</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="popit-board">
     <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
@@ -9557,7 +9536,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>⚡</span> Partikel-Gravitron (Deep Black Arena)</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
 
 
@@ -9777,7 +9755,6 @@
       <button class="tool-pill-btn" id="btn-random-game" style="background:transparent; color:#fef3c7; border:none; box-shadow:none; text-shadow:0 1px 4px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8); cursor:pointer;">
         🎲 Zufälliges Spiel
       </button>
-      <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
     </div>
   </div>
 
@@ -9877,7 +9854,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🎧</span> Focus Soundscape (Kamin & Regen)</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="soundscape-card">
     <div>
@@ -9921,7 +9897,6 @@
     <div style="display:flex; align-items:center; gap:10px;">
       <button class="tool-pill-btn" id="btn-breath-sound-toggle" style="background:transparent; border:1px solid rgba(245,158,11,0.35); color:#fef3c7; border-radius:999px; padding:6px 14px; font-weight:700; cursor:pointer;">🔔 Klang: AN</button>
       <button class="tool-pill-btn" id="btn-breath-theme-toggle" style="background:transparent; border:1px solid rgba(245,158,11,0.35); color:#fef3c7; border-radius:999px; padding:6px 14px; font-weight:700; cursor:pointer;">🍂 Herbst-Gold</button>
-      <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
     </div>
   </div>
 
@@ -9975,7 +9950,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🎵</span> Harmonische Kalimba (Pentatonik)</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   <div class="kalimba-body">
     <div style="text-align:center;">
@@ -9993,7 +9967,6 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>🧲</span> Neodym Magnet-Kugeln 3D</div>
-    <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
   </div>
   
   <canvas id="buckyballs-canvas" class="canvas-fullscreen" style="width:100%; height:100%; display:block; touch-action:none;"></canvas>
