@@ -9408,7 +9408,8 @@ document.addEventListener('DOMContentLoaded', () => {
       target.classList.add('active');
       document.body.classList.toggle('in-roblox-view', targetId === 'view-roblox');
       if (targetId === 'view-roblox') {
-        document.title = 'NeuroSpace Studio — Roblox Active';
+        const isOpen = window.utilityDrawerEngine ? window.utilityDrawerEngine.isOpen : true;
+        document.title = isOpen ? 'NeuroSpace Studio — Roblox Active — Tools Open' : 'NeuroSpace Studio — Roblox Active';
       } else {
         document.title = 'NeuroSpace Studio — Herbst-Edition';
       }
@@ -18103,19 +18104,29 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- ============================================================== -->
 <div class="app-view" id="view-roblox" style="padding:0; overflow:hidden; position:relative; width:100vw; height:100vh; background:#0f0907;">
 
-  <!-- Floating Minimal Auto-Hiding Top Navigation -->
-  <div id="roblox-nav-bar" class="roblox-floating-nav" style="background:rgba(18,12,8,0.95); border:1px solid rgba(245,158,11,0.4); border-radius:18px; padding:6px 14px; display:flex; align-items:center; gap:10px; z-index:99999;">
-    <button class="nav-back-btn" onclick="exitRobloxToHub();" style="background:rgba(20,14,10,0.85); color:#fef3c7; border:1px solid rgba(245,158,11,0.4); border-radius:12px; padding:6px 14px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
-      <span>←</span> Zentrale (<kbd>Esc</kbd>)
-    </button>
+  <!-- Pinned Top Navigation Bar with Back Button on Top-Left -->
+  <div id="roblox-nav-bar" class="roblox-floating-nav" style="position:fixed; top:8px; left:50%; transform:translateX(-50%); background:rgba(18,12,8,0.96); border:1.5px solid rgba(245,158,11,0.45); border-radius:18px; padding:6px 14px; display:flex; align-items:center; justify-content:space-between; gap:12px; z-index:99999; box-shadow:0 6px 25px rgba(0,0,0,0.7); width:calc(100% - 32px); max-width:1400px; box-sizing:border-box;">
+    
+    <!-- Top-Left Prominent Zurück Button -->
     <div style="display:flex; align-items:center; gap:8px;">
-      <div style="width:22px; height:22px; border-radius:6px; background:#ef4444; display:flex; align-items:center; justify-content:center; font-size:12px; box-shadow:0 0 10px rgba(239,68,68,0.6);">
-        🟥
+      <button class="nav-back-btn" onclick="exitRobloxToHub();" style="background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(217,119,6,0.35)); color:#fef3c7; border:1.5px solid rgba(245,158,11,0.6); border-radius:12px; padding:6px 16px; font-weight:900; font-size:12.5px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 14px rgba(245,158,11,0.25); transition:transform 0.15s;">
+        <span style="font-size:15px;">←</span> Zurück (<kbd style="background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.3); padding:1px 5px; border-radius:4px; font-size:10.5px;">Esc</kbd>)
+      </button>
+
+      <div style="display:flex; align-items:center; gap:8px; margin-left:6px;">
+        <div style="width:22px; height:22px; border-radius:6px; background:#ef4444; display:flex; align-items:center; justify-content:center; font-size:12px; box-shadow:0 0 10px rgba(239,68,68,0.6);">
+          🟥
+        </div>
+        <span style="font-size:13px; font-weight:900; color:#fef3c7; letter-spacing:0.3px;">NORMALES ROBLOX</span>
+        <span style="font-size:9.5px; font-weight:800; background:rgba(34,197,94,0.25); border:1px solid rgba(34,197,94,0.5); color:#86efac; padding:2px 6px; border-radius:8px;">🟢 SERVER-VERBINDUNG AKTIV</span>
       </div>
-      <span style="font-size:13px; font-weight:900; color:#fef3c7; letter-spacing:0.3px;">NORMALES ROBLOX</span>
-      <span style="font-size:9.5px; font-weight:800; background:rgba(34,197,94,0.25); border:1px solid rgba(34,197,94,0.5); color:#86efac; padding:2px 6px; border-radius:8px;">🟢 SERVER-VERBINDUNG AKTIV</span>
     </div>
+
+    <!-- Quick Actions & Tools Toggle on Top-Right -->
     <div style="display:flex; align-items:center; gap:6px;">
+      <button class="tool-pill-btn" onclick="toggleUtilityDrawer()" style="background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(217,119,6,0.3)); color:#fde047; border:1.5px solid rgba(245,158,11,0.55); padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; box-shadow:0 0 12px rgba(245,158,11,0.2);" title="Autoklicker Pro &amp; Studio-Werkzeuge links anzeigen">
+        ⚡ Werkzeuge
+      </button>
       <button class="tool-pill-btn active" onclick="launchRobloxInAppEngine('')" style="background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; border:none; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800; box-shadow:0 0 10px rgba(239,68,68,0.4);">
         ▶ App Starten
       </button>
@@ -18128,7 +18139,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <button class="tool-pill-btn" onclick="launchRobloxInAppEngine('1962086868')" style="background:rgba(255,255,255,0.1); color:#fef3c7; border:1px solid rgba(255,255,255,0.2); padding:6px 10px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;" title="Tower of Hell">
         ⚡ Tower of Hell
       </button>
-      <button class="tool-pill-btn" onclick="toggleRobloxFullscreen()" style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.45); color:#fde047; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;">
+      <button class="tool-pill-btn" onclick="toggleRobloxFullscreen()" style="background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.45); color:#fde047; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:11px; font-weight:800;" title="Vollbild umschalten (F11)">
         ⛶ Vollbild (<kbd>F11</kbd>)
       </button>
     </div>
@@ -18186,14 +18197,14 @@ document.addEventListener('DOMContentLoaded', () => {
           <button onclick="joinCustomRobloxPlace()" style="background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; border:none; border-radius:10px; padding:8px 16px; font-weight:800; font-size:12px; cursor:pointer;">Beitreten</button>
         </div>
       </div>
-
-      <div class="roblox-info-pill-row" style="margin-top:20px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-        <span class="roblox-info-pill" style="font-size:11px; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:8px; color:#cbd5e1;">⚡ Autoklicker links bereit</span>
-        <span class="roblox-info-pill" style="font-size:11px; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:8px; color:#cbd5e1;">⛶ Taste <kbd>F11</kbd> für Vollbild</span>
-        <span class="roblox-info-pill" style="font-size:11px; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:8px; color:#cbd5e1;">💨 Taste <kbd>Alt+B</kbd> für Blitz-Desktop</span>
-        <span class="roblox-info-pill" style="font-size:11px; background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:8px; color:#cbd5e1;">← Taste <kbd>Esc</kbd> für Zentrale</span>
-      </div>
     </div>
+  </div>
+
+  <!-- Sleek Bottom Controls & Status Bar -->
+  <div id="roblox-bottom-bar" style="position:fixed; bottom:0; left:0; width:100%; height:26px; background:rgba(18,12,8,0.96); border-top:1px solid rgba(245,158,11,0.3); display:flex; align-items:center; justify-content:space-between; padding:0 16px; font-size:11px; color:#cbd5e1; z-index:99990; box-sizing:border-box;">
+    <span>🎮 <b>Normales Roblox</b> in NeuroSpace • Taste <kbd style="background:#261810; border:1px solid rgba(245,158,11,0.4); padding:1px 5px; border-radius:4px; color:#fde047;">Esc</kbd>: Zurück zur Zentrale</span>
+    <span>⚡ <b style="color:#fbbf24;">Werkzeuge links:</b> Autoklicker Pro &amp; Gaming-Tools</span>
+    <span>Taste <kbd style="background:#261810; border:1px solid rgba(245,158,11,0.4); padding:1px 5px; border-radius:4px; color:#fde047;">F11</kbd>: Vollbild an/aus • Taste <kbd style="background:#261810; border:1px solid rgba(245,158,11,0.4); padding:1px 5px; border-radius:4px; color:#fde047;">Alt+B</kbd>: Blitz-Desktop</span>
   </div>
 
 </div>
@@ -18348,6 +18359,9 @@ document.addEventListener('DOMContentLoaded', () => {
         drawer.classList.toggle('is-open', this.isOpen);
       }
       document.body.classList.toggle('utility-drawer-open', this.isOpen);
+      if (document.body.classList.contains('in-roblox-view')) {
+        document.title = this.isOpen ? 'NeuroSpace Studio — Roblox Active — Tools Open' : 'NeuroSpace Studio — Roblox Active';
+      }
     }
 
     toggleReticle(active) {
@@ -19618,9 +19632,14 @@ console.log("Roblox3DStudioEngine class loaded");
   };
 
   function enterRobloxFullscreenView() {
-    document.title = 'NeuroSpace Studio — Roblox Active';
     if (window.switchView) {
       window.switchView('view-roblox');
+    }
+    // Werkzeuge beim Roblox-Spielen standardmäßig aktiv bereitstellen
+    if (window.utilityDrawerEngine) {
+      window.utilityDrawerEngine.toggle(true);
+    } else {
+      document.title = 'NeuroSpace Studio — Roblox Active — Tools Open';
     }
     if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen().catch(() => {});

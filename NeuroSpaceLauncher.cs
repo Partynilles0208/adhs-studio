@@ -51,6 +51,12 @@ namespace NeuroSpaceLauncher
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(int vKey);
+
+        [DllImport("user32.dll")]
+        public static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
         public static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
@@ -158,14 +164,30 @@ namespace NeuroSpaceLauncher
                 int h = edgeRect.Bottom - edgeRect.Top;
                 if (w <= 0 || h <= 0) return;
 
+                bool isToolsOpen = title.IndexOf("Tools Open", StringComparison.OrdinalIgnoreCase) >= 0;
+
+                // F11 global toggle forwarding to Edge
+                short f11State = GetAsyncKeyState(0x7A); // VK_F11
+                if ((f11State & 1) != 0)
+                {
+                    PostMessage(cachedEdgeHwnd, 0x0100, (IntPtr)0x7A, IntPtr.Zero);
+                    PostMessage(cachedEdgeHwnd, 0x0101, (IntPtr)0x7A, IntPtr.Zero);
+                }
+
                 if (isRobloxActive)
                 {
-                    // Show and position seamlessly inside NeuroSpace under top nav bar (48px)
+                    // Show and position seamlessly inside NeuroSpace between top nav bar (46px) and bottom bar (26px)
                     ShowWindow(rbxHwnd, SW_SHOW);
                     int targetTop = 46;
-                    int targetHeight = Math.Max(100, h - targetTop);
-                    MoveWindow(rbxHwnd, 0, targetTop, w, targetHeight, true);
-                    SetWindowPos(rbxHwnd, IntPtr.Zero, 0, targetTop, w, targetHeight, SWP_SHOWWINDOW);
+                    int targetBottom = 26;
+                    int targetHeight = Math.Max(100, h - targetTop - targetBottom);
+
+                    // If Tools Drawer is open on the left, offset Roblox by 340px so tools are 100% visible and interactive!
+                    int leftOffset = isToolsOpen ? 340 : 0;
+                    int targetWidth = Math.Max(100, w - leftOffset);
+
+                    MoveWindow(rbxHwnd, leftOffset, targetTop, targetWidth, targetHeight, true);
+                    SetWindowPos(rbxHwnd, IntPtr.Zero, leftOffset, targetTop, targetWidth, targetHeight, SWP_SHOWWINDOW);
                 }
                 else
                 {
