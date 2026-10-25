@@ -565,14 +565,28 @@
     cursor: crosshair; z-index: 1; touch-action: none;
   }
   #draw-top-bar {
-    position: absolute; top: 14px; left: 50%;
-    transform: translateX(-50%); z-index: 10;
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(22, 27, 34, 0.92);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--border);
-    padding: 6px 14px; border-radius: 30px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    position: absolute !important;
+    top: 74px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 50 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(22, 14, 10, 0.88) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(245, 158, 11, 0.35) !important;
+    padding: 6px 16px !important;
+    border-radius: 999px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+    white-space: nowrap !important;
+    max-width: calc(100vw - 32px) !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+  #draw-top-bar::-webkit-scrollbar {
+    display: none !important;
   }
   .color-swatch {
     width: 24px; height: 24px;
@@ -3909,7 +3923,7 @@
   .games-hub-wrapper {
     max-width: 1380px;
     margin: 0 auto;
-    padding: 20px 24px 60px;
+    padding: 84px 24px 60px;
   }
 
   /* HERO BANNER */
@@ -5762,7 +5776,7 @@
     flex-direction: column !important;
   }
 
-  /* Sleek Floating Glass Nav Bar (Background-free pills) */
+  /* Sleek Floating Glass Nav Bar - Zero Collision & Guaranteed Separation */
   .view-nav {
     position: absolute !important;
     top: 14px !important;
@@ -5772,6 +5786,7 @@
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
+    gap: 12px !important;
     padding: 0 !important;
     background: transparent !important;
     backdrop-filter: none !important;
@@ -5788,6 +5803,8 @@
   }
 
   .nav-back-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 7px !important;
@@ -5812,8 +5829,18 @@
   }
 
   .view-title-pill {
+    position: static !important;
+    transform: none !important;
+    margin: 0 auto !important;
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+    max-width: 44vw !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
     display: inline-flex !important;
     align-items: center !important;
+    justify-content: center !important;
     gap: 8px !important;
     background: rgba(245, 158, 11, 0.12) !important;
     backdrop-filter: blur(12px) !important;
@@ -5828,6 +5855,8 @@
   }
 
   .nav-music-toggle-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 6px !important;
@@ -5850,10 +5879,31 @@
     box-shadow: 0 0 16px rgba(245, 158, 11, 0.45) !important;
   }
 
+  /* Safe Top & Bottom Padding for App Views */
+  #view-soundscape,
+  #view-popit,
+  #view-kalimba,
+  #view-tonguedrum,
+  #view-switches,
+  #view-worryshredder,
+  #view-binaural,
+  #view-sorting,
+  #view-abacus,
+  #view-spinner,
+  #view-zenhourglass,
+  #view-patternzen,
+  #view-breathing {
+    justify-content: flex-start !important;
+    align-items: center !important;
+    padding-top: 84px !important;
+    padding-bottom: 40px !important;
+    overflow-y: auto !important;
+  }
+
   /* Fresh & Clear App Workspaces */
   .soundscape-card, .binaural-card, .switch-grid-board, .popit-board,
   .shredder-box, .tongue-drum-body, .kalimba-body, .abacus-frame, .sorting-workspace, .spinner-container {
-    margin-top: 84px !important;
+    margin-top: 14px !important;
     margin-bottom: 30px !important;
     background: rgba(22, 14, 10, 0.8) !important;
     backdrop-filter: blur(28px) saturate(180%) !important;
@@ -5867,30 +5917,37 @@
   #view-breathing > div:nth-child(2),
   #view-zenhourglass > div:nth-child(2),
   #view-patternzen > div:nth-child(2) {
-    margin-top: 84px !important;
+    margin-top: 14px !important;
   }
 
-  /* Fresh & Clear Floating Bottom Docks (Background-free across every app) */
+  /* Fresh & Clear Floating Bottom Docks (Background-free & Single-Row Never Cut-off) */
   .floating-dock {
     position: absolute !important;
-    bottom: 22px !important;
+    bottom: 16px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 100 !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
+    background: rgba(18, 12, 8, 0.8) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(245, 158, 11, 0.32) !important;
+    border-radius: 999px !important;
+    padding: 6px 14px !important;
     display: flex !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     gap: 8px !important;
-    max-width: 95vw !important;
-    box-shadow: none !important;
+    max-width: calc(100vw - 32px) !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6) !important;
+    scrollbar-width: none !important;
+    box-sizing: border-box !important;
     pointer-events: none !important;
+  }
+  .floating-dock::-webkit-scrollbar {
+    display: none !important;
   }
   .floating-dock > *,
   .floating-dock button,
@@ -6408,11 +6465,12 @@
   }
 
   .pen-mode-indicator {
-    position: fixed;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9999;
+    position: fixed !important;
+    top: 74px !important;
+    right: 20px !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 9999 !important;
     background: linear-gradient(135deg, #f59e0b, #ea580c);
     border: 1px solid #fbbf24;
     color: #ffffff;
@@ -7689,67 +7747,59 @@
   <div class="view-nav">
     <button class="nav-back-btn" onclick="window.switchView('view-hub');"><span>←</span> Zentrale</button>
     <div class="view-title-pill"><span>⏳</span> Pixel-Gravitation</div>
-    <div style="display:flex; align-items:center; gap:8px;">
-      <button class="action-btn" id="btn-pg-sound" title="Audio an/aus">🔊 Sound</button>
-      <button class="action-btn" id="btn-pg-clear" title="Sandbox leeren">🧹 Leeren</button>
-      <button class="action-btn" id="btn-pg-pause">⏸️ Pause</button>
-      <button class="action-btn" id="btn-pg-fullscreen">⛶ Vollbild</button>
-      <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus"><span>🎵</span> Musik: AN</button>
+    <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+      <button class="action-btn" id="btn-pg-sound" title="Audio an/aus" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">🔊 Sound</button>
+      <button class="action-btn" id="btn-pg-clear" title="Sandbox leeren" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">🧹 Leeren</button>
+      <button class="action-btn" id="btn-pg-pause" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">⏸️ Pause</button>
+      <button class="action-btn" id="btn-pg-fullscreen" style="padding:6px 10px; font-size:12px; border-radius:10px; white-space:nowrap;">⛶ Vollbild</button>
+      <button class="nav-music-toggle-btn" onclick="if(window.bgMusicController) window.bgMusicController.toggle();" title="Hintergrundmusik an/aus" style="padding:6px 12px; font-size:12px; border-radius:10px; white-space:nowrap;"><span>🎵</span> Musik: AN</button>
     </div>
   </div>
 
   <!-- Fullscreen Edge-to-Edge Canvas (100% Screen Coverage) -->
   <canvas id="pixelgravity-canvas" class="canvas-fullscreen" style="position:absolute; top:0; left:0; width:100%; height:100%; image-rendering:pixelated; cursor:crosshair; touch-action:none; z-index:1;"></canvas>
 
-  <!-- Bottom Floating Toolbar (Background-free pills) -->
-  <div class="floating-dock" style="z-index:25; bottom:16px; max-width:98vw; flex-wrap:wrap; justify-content:center; gap:8px;">
-    <!-- Elements -->
-    <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;" id="pg-elements-wrap">
-      <button class="pill-btn active" data-pg-el="sand" style="color:#fbbf24; border-color:rgba(245,158,11,0.5);">⏳ Sand</button>
-      <button class="pill-btn" data-pg-el="water" style="color:#38bdf8; border-color:rgba(56,189,248,0.5);">💧 Wasser</button>
-      <button class="pill-btn" data-pg-el="fire" style="color:#f97316; border-color:rgba(249,115,22,0.5);">🔥 Feuer</button>
-      <button class="pill-btn" data-pg-el="gunpowder" style="color:#94a3b8; border-color:rgba(148,163,184,0.5);">💣 Schwarzpulver</button>
-      <button class="pill-btn" data-pg-el="oil" style="color:#d97706; border-color:rgba(217,119,6,0.5);">🛢️ Öl</button>
-      <button class="pill-btn" data-pg-el="wood" style="color:#22c55e; border-color:rgba(34,197,94,0.5);">🌿 Pflanze</button>
-      <button class="pill-btn" data-pg-el="stone" style="color:#64748b; border-color:rgba(100,116,139,0.5);">🧱 Stein</button>
-      <button class="pill-btn" data-pg-el="acid" style="color:#a3e635; border-color:rgba(163,230,53,0.5);">🧪 Säure</button>
-      <button class="pill-btn" data-pg-el="lava" style="color:#ef4444; border-color:rgba(239,68,68,0.5);">🌋 Lava</button>
-      <button class="pill-btn" data-pg-el="leaf" style="color:#f59e0b; border-color:rgba(245,158,11,0.5);">🍁 Herbstlaub</button>
-      <button class="pill-btn" data-pg-el="ember" style="color:#ea580c; border-color:rgba(234,88,12,0.5);">🔥 Kamin-Glut</button>
-      <button class="pill-btn" data-pg-el="vortex" style="color:#c084fc; border-color:rgba(192,132,252,0.5);">🌀 Wirbel</button>
-      <button class="pill-btn" data-pg-el="eraser" style="color:#cbd5e1;">🧹 Radierer</button>
+  <!-- Bottom Floating Toolbar: 2 Sleek Organized Rows (Zero Cut-Off) -->
+  <div class="floating-dock pg-floating-dock" style="z-index:25; bottom:12px; max-width:96vw; display:flex !important; flex-direction:column !important; align-items:center !important; gap:6px !important; border-radius:22px !important; padding:8px 14px !important;">
+    <!-- Elements (Horizontal Smooth Scroll) -->
+    <div style="display:flex; align-items:center; gap:6px; overflow-x:auto; max-width:100%; scrollbar-width:none; padding:2px 4px;" id="pg-elements-wrap">
+      <button class="pill-btn active" data-pg-el="sand" style="color:#fbbf24; border-color:rgba(245,158,11,0.5); flex-shrink:0;">⏳ Sand</button>
+      <button class="pill-btn" data-pg-el="water" style="color:#38bdf8; border-color:rgba(56,189,248,0.5); flex-shrink:0;">💧 Wasser</button>
+      <button class="pill-btn" data-pg-el="fire" style="color:#f97316; border-color:rgba(249,115,22,0.5); flex-shrink:0;">🔥 Feuer</button>
+      <button class="pill-btn" data-pg-el="gunpowder" style="color:#94a3b8; border-color:rgba(148,163,184,0.5); flex-shrink:0;">💣 Schwarzpulver</button>
+      <button class="pill-btn" data-pg-el="oil" style="color:#d97706; border-color:rgba(217,119,6,0.5); flex-shrink:0;">🛢️ Öl</button>
+      <button class="pill-btn" data-pg-el="wood" style="color:#22c55e; border-color:rgba(34,197,94,0.5); flex-shrink:0;">🌿 Pflanze</button>
+      <button class="pill-btn" data-pg-el="stone" style="color:#64748b; border-color:rgba(100,116,139,0.5); flex-shrink:0;">🧱 Stein</button>
+      <button class="pill-btn" data-pg-el="acid" style="color:#a3e635; border-color:rgba(163,230,53,0.5); flex-shrink:0;">🧪 Säure</button>
+      <button class="pill-btn" data-pg-el="lava" style="color:#ef4444; border-color:rgba(239,68,68,0.5); flex-shrink:0;">🌋 Lava</button>
+      <button class="pill-btn" data-pg-el="leaf" style="color:#f59e0b; border-color:rgba(245,158,11,0.5); flex-shrink:0;">🍁 Herbstlaub</button>
+      <button class="pill-btn" data-pg-el="ember" style="color:#ea580c; border-color:rgba(234,88,12,0.5); flex-shrink:0;">🔥 Kamin-Glut</button>
+      <button class="pill-btn" data-pg-el="vortex" style="color:#c084fc; border-color:rgba(192,132,252,0.5); flex-shrink:0;">🌀 Wirbel</button>
+      <button class="pill-btn" data-pg-el="eraser" style="color:#cbd5e1; flex-shrink:0;">🧹 Radierer</button>
     </div>
 
-    <div class="dock-divider"></div>
+    <!-- Controls: Gravity, Brush, Presets -->
+    <div style="display:flex; align-items:center; gap:8px; overflow-x:auto; max-width:100%; scrollbar-width:none; padding:2px 4px; flex-wrap:nowrap;">
+      <span class="dock-label" style="font-size:11px; flex-shrink:0;">Gravitation:</span>
+      <button class="pill-btn active" data-pg-grav="down" title="Schwerkraft nach unten" style="flex-shrink:0;">⬇️</button>
+      <button class="pill-btn" data-pg-grav="up" title="Invertierte Schwerkraft" style="flex-shrink:0;">⬆️</button>
+      <button class="pill-btn" data-pg-grav="left" title="Schwerkraft nach links" style="flex-shrink:0;">⬅️</button>
+      <button class="pill-btn" data-pg-grav="right" title="Schwerkraft nach rechts" style="flex-shrink:0;">➡️</button>
+      <button class="pill-btn" data-pg-grav="zero" title="Schwerelosigkeit (Zero-G)" style="flex-shrink:0;">🌌</button>
 
-    <!-- Gravity Direction -->
-    <div style="display:flex; align-items:center; gap:6px;">
-      <span class="dock-label" style="font-size:11px;">Gravitation:</span>
-      <button class="pill-btn active" data-pg-grav="down" title="Schwerkraft nach unten">⬇️</button>
-      <button class="pill-btn" data-pg-grav="up" title="Invertierte Schwerkraft">⬆️</button>
-      <button class="pill-btn" data-pg-grav="left" title="Schwerkraft nach links">⬅️</button>
-      <button class="pill-btn" data-pg-grav="right" title="Schwerkraft nach rechts">➡️</button>
-      <button class="pill-btn" data-pg-grav="zero" title="Schwerelosigkeit (Zero-G)">🌌</button>
-    </div>
+      <div class="dock-divider"></div>
 
-    <div class="dock-divider"></div>
+      <span class="dock-label" style="font-size:11px; flex-shrink:0;">Pinsel:</span>
+      <button class="pill-btn" data-pg-brush="2" style="flex-shrink:0;">2px</button>
+      <button class="pill-btn active" data-pg-brush="5" style="flex-shrink:0;">5px</button>
+      <button class="pill-btn" data-pg-brush="10" style="flex-shrink:0;">10px</button>
+      <button class="pill-btn" data-pg-brush="18" style="flex-shrink:0;">18px</button>
 
-    <!-- Brush Size -->
-    <div style="display:flex; align-items:center; gap:6px;">
-      <span class="dock-label" style="font-size:11px;">Pinsel:</span>
-      <button class="pill-btn" data-pg-brush="2">2px</button>
-      <button class="pill-btn active" data-pg-brush="5">5px</button>
-      <button class="pill-btn" data-pg-brush="10">10px</button>
-      <button class="pill-btn" data-pg-brush="18">18px</button>
-    </div>
+      <div class="dock-divider"></div>
 
-    <div class="dock-divider"></div>
-
-    <!-- Presets -->
-    <div style="display:flex; align-items:center; gap:6px;">
-      <button class="pill-btn" id="btn-pg-preset-volcano" title="Vulkan & Lava-Fluss">🌋 Vulkan</button>
-      <button class="pill-btn" id="btn-pg-preset-hourglass" title="Sanduhr">⏳ Sanduhr</button>
-      <button class="pill-btn" id="btn-pg-preset-rain" title="Automatischer Partikel-Regen">🌧️ Regen</button>
+      <button class="pill-btn" id="btn-pg-preset-volcano" title="Vulkan & Lava-Fluss" style="flex-shrink:0;">🌋 Vulkan</button>
+      <button class="pill-btn" id="btn-pg-preset-hourglass" title="Sanduhr" style="flex-shrink:0;">⏳ Sanduhr</button>
+      <button class="pill-btn" id="btn-pg-preset-rain" title="Automatischer Partikel-Regen" style="flex-shrink:0;">🌧️ Regen</button>
     </div>
   </div>
 </div>
