@@ -6715,12 +6715,12 @@
 <!-- Auth & Supabase modals removed for clean direct entry -->
 
 <!-- CINEMATIC EXPANDING APP CARD OVERLAY (EXPANDS FROM CARD WITH EMBEDDED VIDEO BACKGROUND, WAITS 3s, SHRINKS & DISSOLVES) -->
-<div id="app-card-expansion-overlay" style="position:fixed; z-index:9999999; display:none; overflow:hidden; background:#080b12; border:1px solid rgba(245, 158, 11, 0.35); box-shadow:0 25px 80px rgba(0,0,0,0.95); will-change:top, left, width, height, transform, opacity, border-radius;">
+<div id="app-card-expansion-overlay" style="position:fixed; z-index:9999999; display:none; overflow:hidden; background:rgba(12, 8, 6, 0.3); backdrop-filter:blur(1px); border:1px solid rgba(245, 158, 11, 0.35); box-shadow:0 25px 80px rgba(0,0,0,0.95); will-change:top, left, width, height, transform, opacity, border-radius;">
   <!-- Autumn Video Background Playing Inside the Expanding Card -->
-  <video id="expansion-card-video" class="neuro-bg-video" autoplay loop muted playsinline preload="auto" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; transform:scale(1.02); opacity:0.92;">
+  <video id="expansion-card-video" class="neuro-bg-video" autoplay loop muted playsinline preload="auto" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:0; transform:scale(1.02); opacity:1;">
     <source src="backround.mp4" type="video/mp4">
   </video>
-  <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle at 50% 35%, rgba(245, 158, 11, 0.12) 0%, rgba(30, 15, 10, 0.42) 65%, rgba(10, 6, 4, 0.75) 100%); z-index:1; pointer-events:none;"></div>
+  <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle at 50% 35%, rgba(245, 158, 11, 0.08) 0%, rgba(30, 15, 10, 0.22) 65%, rgba(10, 6, 4, 0.40) 100%); z-index:1; pointer-events:none;"></div>
 
   <div id="expansion-card-content" style="position:relative; z-index:2; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px; box-sizing:border-box; user-select:none; cursor:pointer;">
     <div id="expansion-card-badge" style="font-size:11px; font-weight:800; color:#f59e0b; background:rgba(245,158,11,0.22); backdrop-filter:blur(8px); border:1px solid rgba(245,158,11,0.4); padding:5px 14px; border-radius:999px; margin-bottom:20px; letter-spacing:0.5px; text-transform:uppercase;"></div>
@@ -7852,7 +7852,7 @@
         <div style="display:flex; flex-direction:column; gap:6px;">
           <button class="pill-btn" id="btn-pg-preset-volcano" title="Vulkan & Lava-Fluss" style="text-align:left; justify-content:flex-start; padding:8px 12px;">🌋 Vulkan-Ausbruch</button>
           <button class="pill-btn" id="btn-pg-preset-rain" title="Automatischer Partikel-Regen" style="text-align:left; justify-content:flex-start; padding:8px 12px;">🌧️ Regen & Glut</button>
-          <button class="pill-btn" id="btn-pg-preset-hourglass" title="Sand-Formation" style="text-align:left; justify-content:flex-start; padding:8px 12px;">🏔️ Sand-Formation</button>
+          <button class="pill-btn" id="btn-pg-preset-oasis" title="Oase & Wasser-Becken" style="text-align:left; justify-content:flex-start; padding:8px 12px;">🌊 Wasserfall & Oase</button>
         </div>
       </div>
 
@@ -8793,8 +8793,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Play expansion background video
     const expVid = document.getElementById('expansion-card-video');
     if (expVid) {
-      expVid.currentTime = 0;
-      expVid.play().catch(() => {});
+      if (expVid.paused) expVid.play().catch(() => {});
     }
 
     // Phase 1: Position overlay EXACTLY on top of the clicked card
@@ -14480,7 +14479,7 @@ class PixelGravityEngine {
   init() {
     this.bindControls();
     this.bindCanvasEvents();
-    this.loadPresetHourglass();
+    this.clear();
     this.startLoop();
   }
 
@@ -15074,8 +15073,8 @@ class PixelGravityEngine {
     const volcanoBtn = document.getElementById('btn-pg-preset-volcano');
     if (volcanoBtn) volcanoBtn.addEventListener('click', () => this.loadPresetVolcano());
 
-    const hourglassBtn = document.getElementById('btn-pg-preset-hourglass');
-    if (hourglassBtn) hourglassBtn.addEventListener('click', () => this.loadPresetHourglass());
+    const oasisBtn = document.getElementById('btn-pg-preset-oasis');
+    if (oasisBtn) oasisBtn.addEventListener('click', () => this.loadPresetOasis());
 
     const rainBtn = document.getElementById('btn-pg-preset-rain');
     if (rainBtn) {
@@ -15091,49 +15090,42 @@ class PixelGravityEngine {
     this.colors.fill(0);
   }
 
-  loadPresetHourglass() {
+  loadPresetOasis() {
     this.clear();
     const W = this.w;
     const H = this.h;
     const midX = Math.floor(W / 2);
-    const midY = Math.floor(H / 2);
 
-    // Draw Stone Hourglass Funnel
-    for (let y = 15; y < H - 15; y++) {
-      const distFromMid = Math.abs(y - midY);
-      const span = Math.floor(distFromMid * 0.7) + 6;
-
-      const leftStone = midX - span;
-      const rightStone = midX + span;
-
-      if (leftStone >= 0 && leftStone < W) {
-        this.grid[leftStone + y * W] = this.TYPES.STONE;
-        this.colors[leftStone + y * W] = this.getRandomColor(this.TYPES.STONE);
-      }
-      if (rightStone >= 0 && rightStone < W) {
-        this.grid[rightStone + y * W] = this.TYPES.STONE;
-        this.colors[rightStone + y * W] = this.getRandomColor(this.TYPES.STONE);
-      }
+    // Natural stone cliffs and basin at bottom
+    for (let x = 12; x < W - 12; x++) {
+      this.grid[x + (H - 8) * W] = this.TYPES.STONE;
+      this.colors[x + (H - 8) * W] = this.getRandomColor(this.TYPES.STONE);
+    }
+    for (let y = H - 24; y < H - 8; y++) {
+      this.grid[12 + y * W] = this.TYPES.STONE;
+      this.colors[12 + y * W] = this.getRandomColor(this.TYPES.STONE);
+      this.grid[(W - 13) + y * W] = this.TYPES.STONE;
+      this.colors[(W - 13) + y * W] = this.getRandomColor(this.TYPES.STONE);
     }
 
-    // Base and top platforms
-    for (let x = midX - 60; x <= midX + 60; x++) {
-      this.grid[x + (H - 16) * W] = this.TYPES.STONE;
-      this.colors[x + (H - 16) * W] = this.getRandomColor(this.TYPES.STONE);
-      this.grid[x + 14 * W] = this.TYPES.STONE;
-      this.colors[x + 14 * W] = this.getRandomColor(this.TYPES.STONE);
-    }
-
-    // Fill top chamber with warm sand
-    for (let y = 18; y < midY - 6; y++) {
-      const distFromMid = Math.abs(y - midY);
-      const span = Math.floor(distFromMid * 0.7) + 3;
-      for (let x = midX - span + 2; x <= midX + span - 2; x++) {
-        if (Math.random() > 0.15) {
-          this.grid[x + y * W] = this.TYPES.SAND;
-          this.colors[x + y * W] = this.getRandomColor(this.TYPES.SAND);
+    // Peaceful pool of water
+    for (let y = H - 20; y < H - 8; y++) {
+      for (let x = 14; x < W - 14; x++) {
+        if (Math.random() > 0.05) {
+          this.grid[x + y * W] = this.TYPES.WATER;
+          this.colors[x + y * W] = this.getRandomColor(this.TYPES.WATER);
         }
       }
+    }
+
+    // Natural vegetation on cliffs
+    for (let x = 10; x < 28; x++) {
+      this.grid[x + (H - 25) * W] = this.TYPES.WOOD;
+      this.colors[x + (H - 25) * W] = this.getRandomColor(this.TYPES.WOOD);
+    }
+    for (let x = W - 28; x < W - 10; x++) {
+      this.grid[x + (H - 25) * W] = this.TYPES.WOOD;
+      this.colors[x + (H - 25) * W] = this.getRandomColor(this.TYPES.WOOD);
     }
   }
 
