@@ -1793,7 +1793,7 @@
     grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
     row-gap: 52px;
     column-gap: 30px;
-    perspective: 1200px;
+    perspective: 850px; /* Enhanced 3D perspective foreshortening */
     perspective-origin: 50% 25%;
     padding: 16px 8px 70px 8px;
   }
@@ -1801,9 +1801,9 @@
   .neuro-card {
     background: linear-gradient(165deg, rgba(34, 25, 20, 0.94) 0%, rgba(16, 12, 10, 0.98) 100%);
     border-radius: 24px;
-    border: 1px solid rgba(245, 158, 11, 0.18);
-    border-top: 1px solid rgba(251, 191, 36, 0.32);
-    border-bottom: 3px solid rgba(8, 5, 4, 0.9);
+    border: 1px solid rgba(245, 158, 11, 0.22);
+    border-top: 1px solid rgba(251, 191, 36, 0.42);
+    border-bottom: 3px solid rgba(8, 5, 4, 0.95);
     position: relative;
     cursor: pointer;
     overflow: visible;
@@ -1815,10 +1815,10 @@
     transform: translateY(0) translateZ(0);
     z-index: 1;
     box-shadow:
-      0 6px 14px -2px rgba(0, 0, 0, 0.55),
-      0 18px 34px -4px rgba(0, 0, 0, 0.7),
-      0 34px 58px -10px rgba(0, 0, 0, 0.85),
-      inset 0 1px 0 rgba(254, 243, 199, 0.22),
+      0 8px 18px -2px rgba(0, 0, 0, 0.6),
+      0 20px 38px -4px rgba(0, 0, 0, 0.75),
+      0 38px 65px -10px rgba(0, 0, 0, 0.88),
+      inset 0 1px 0 rgba(254, 243, 199, 0.25),
       inset 0 -2px 4px rgba(0, 0, 0, 0.5);
     transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
                 box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -1835,35 +1835,35 @@
     width: 84%;
     height: 22px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 75%);
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0) 75%);
     pointer-events: none;
     z-index: -1;
-    transform: translateZ(-25px);
+    transform: translateZ(-35px);
     transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
                 opacity 0.28s ease,
                 filter 0.28s ease;
-    filter: blur(5px);
-    opacity: 0.85;
+    filter: blur(6px);
+    opacity: 0.88;
   }
 
   .neuro-card:hover {
     z-index: 15;
-    transform: translateY(-8px) translateZ(20px) scale(1.018);
-    border-color: rgba(245, 158, 11, 0.6);
-    border-top-color: rgba(254, 240, 138, 0.9);
+    transform: translateY(-8px) translateZ(28px) scale(1.025);
+    border-color: rgba(245, 158, 11, 0.65);
+    border-top-color: rgba(254, 240, 138, 0.95);
     box-shadow:
-      0 10px 20px -2px rgba(0, 0, 0, 0.5),
-      0 24px 44px -6px rgba(0, 0, 0, 0.72),
-      0 38px 64px -10px rgba(0, 0, 0, 0.86),
-      0 0 24px rgba(245, 158, 11, 0.22),
-      inset 0 1px 0 rgba(254, 243, 199, 0.4),
+      0 14px 26px -2px rgba(0, 0, 0, 0.55),
+      0 32px 58px -6px rgba(0, 0, 0, 0.78),
+      0 44px 78px -10px rgba(0, 0, 0, 0.92),
+      0 0 28px rgba(245, 158, 11, 0.3),
+      inset 0 1px 0 rgba(254, 243, 199, 0.45),
       inset 0 -2px 5px rgba(0, 0, 0, 0.6);
   }
 
   .neuro-card:hover::after {
-    transform: translateY(6px) translateZ(-30px) scale(1.08);
-    opacity: 0.6;
-    filter: blur(8px);
+    transform: translateY(8px) translateZ(-45px) scale(1.15);
+    opacity: 0.7;
+    filter: blur(9px);
   }
 
   .card-hero-thumb {
@@ -1875,23 +1875,24 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transform: translateZ(12px);
+    transform: translateZ(16px);
     transition: transform 0.28s ease;
     box-shadow: inset 0 -12px 20px -6px rgba(10, 15, 27, 0.9);
   }
   .neuro-card:hover .card-hero-thumb {
-    transform: translateZ(16px);
+    transform: translateZ(28px);
   }
 
   .card-hero-icon {
     font-size: 54px;
     z-index: 2;
-    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.65));
-    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
-    transform: translateZ(26px);
+    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.75));
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.28s ease;
+    transform: translateZ(32px);
   }
   .neuro-card:hover .card-hero-icon {
-    transform: translateZ(28px) scale(1.08);
+    transform: translateZ(54px) scale(1.16);
+    filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.95));
   }
 
   .card-neu-badge {
@@ -1906,8 +1907,12 @@
     background: rgba(0, 0, 0, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(6px);
-    transform: translateZ(24px);
+    transform: translateZ(28px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.28s ease;
+  }
+  .neuro-card:hover .card-neu-badge {
+    transform: translateZ(48px) scale(1.06);
   }
 
   .card-body-content {
@@ -1969,13 +1974,13 @@
     color: #fde047;
     font-size: 12px;
     transition: all 0.25s ease;
-    transform: translateZ(18px);
+    transform: translateZ(24px);
   }
   .neuro-card:hover .card-arrow-btn {
     background: #f59e0b;
     color: #1c1917;
-    box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
-    transform: translateZ(26px) scale(1.1);
+    box-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
+    transform: translateZ(42px) scale(1.15);
   }
 
       /* AUTUMN THEME NAVIGATION & INNER APP CARDS UPGRADE */
@@ -2106,8 +2111,8 @@
   .neuro-card:hover .card-arrow-btn {
     background: #f59e0b;
     color: #1c1917;
-    box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
-    transform: translateZ(22px) scale(1.08);
+    box-shadow: 0 0 18px rgba(245, 158, 11, 0.7);
+    transform: translateZ(42px) scale(1.15);
   }
 
   /* BOTTOM AMBIENT STATUS DOCK (MATCHING USER SCREENSHOT) */
@@ -8931,7 +8936,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   
-  // 2.5D Interactive Depth & Parallax Tilt on mousemove
+  // 2.5D Interactive Depth & Parallax Tilt on mousemove (Stronger 3D pop)
   const cards25d = document.querySelectorAll('.neuro-card');
   cards25d.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -8940,9 +8945,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const y = e.clientY - rect.top;
       const cx = rect.width / 2;
       const cy = rect.height / 2;
-      const rotX = ((y - cy) / cy) * -3.5;
-      const rotY = ((x - cx) / cx) * 3.5;
-      card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) translateZ(18px) scale(1.018)`;
+      const rotX = ((y - cy) / cy) * -5.0;
+      const rotY = ((x - cx) / cx) * 5.0;
+      card.style.transform = `perspective(850px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) translateZ(28px) scale(1.025)`;
     });
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
@@ -15938,8 +15943,12 @@ class NeodymMagnets3DApp {
     this.envTexture = null;
     this.sphereMaterial = null;
 
-    // Camera orbit controls
-    this.spherical = { radius: 34, theta: 0.1, phi: Math.PI / 2.2 };
+    // Camera orbit controls (Closer & more dynamic 3D perspective)
+    this.spherical = { radius: 26, theta: 0.1, phi: Math.PI / 2.2 };
+    this.baseTheta = 0.1;
+    this.basePhi = Math.PI / 2.2;
+    this.parallax = { x: 0, y: 0 };
+    this.targetParallax = { x: 0, y: 0 };
     this.target = new THREE.Vector3(0, 0, 0);
 
     // Pointer interaction
@@ -16049,7 +16058,8 @@ class NeodymMagnets3DApp {
     const width = this.canvas.clientWidth || window.innerWidth;
     const height = this.canvas.clientHeight || window.innerHeight;
 
-    this.camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    // Wide-angle dynamic 3D perspective (closer foreground spheres pop towards viewer!)
+    this.camera = new THREE.PerspectiveCamera(54, width / height, 0.1, 1000);
     this.updateCamera();
 
     this.renderer = new THREE.WebGLRenderer({
@@ -16061,7 +16071,7 @@ class NeodymMagnets3DApp {
     this.renderer.setSize(width, height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.15;
+    this.renderer.toneMappingExposure = 1.25;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -16069,42 +16079,54 @@ class NeodymMagnets3DApp {
     this.envTexture = this.createProceduralEnvironment();
     this.scene.environment = this.envTexture;
 
-    // Studio lights for shiny specular glints
-    const ambLight = new THREE.AmbientLight(0xffffff, 0.65);
+    // 1. Ambient fill
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.55);
     this.scene.add(ambLight);
 
-    const keyLight = new THREE.DirectionalLight(0xfef3c7, 1.8);
-    keyLight.position.set(15, 25, 20);
+    // 2. High-intensity Key Light with deep crisp shadows
+    const keyLight = new THREE.DirectionalLight(0xfef3c7, 2.2);
+    keyLight.position.set(16, 26, 22);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 1024;
     keyLight.shadow.mapSize.height = 1024;
-    keyLight.shadow.bias = -0.0005;
+    keyLight.shadow.bias = -0.0004;
     this.scene.add(keyLight);
 
+    // 3. Camera-mounted Front Specular Gleam PointLight (glints dynamically as spheres move!)
+    this.camLight = new THREE.PointLight(0xfffbeb, 2.0, 50);
+    this.camera.add(this.camLight);
+    this.scene.add(this.camera);
+
+    // 4. Fill Light
     const fillLight = new THREE.DirectionalLight(0x94a3b8, 0.7);
-    fillLight.position.set(-15, -8, 15);
+    fillLight.position.set(-16, -10, 14);
     this.scene.add(fillLight);
 
-    const rimLight = new THREE.PointLight(0xf59e0b, 1.2, 80);
-    rimLight.position.set(0, 20, -18);
-    this.scene.add(rimLight);
+    // 5. Warm Glowing Autumn Rim Lights for dramatic 3D silhouette contour
+    const rimLight1 = new THREE.PointLight(0xf59e0b, 2.4, 75);
+    rimLight1.position.set(0, 18, -18);
+    this.scene.add(rimLight1);
 
-    // Soft grounded shadow floor disc
-    const floorGeo = new THREE.PlaneGeometry(60, 60);
-    const floorMat = new THREE.ShadowMaterial({ opacity: 0.38 });
+    const rimLight2 = new THREE.PointLight(0xea580c, 1.8, 65);
+    rimLight2.position.set(-12, -12, -15);
+    this.scene.add(rimLight2);
+
+    // 6. Grounded Contact Shadow Disc (closer to cluster for tangible 3D floor grounding)
+    const floorGeo = new THREE.PlaneGeometry(65, 65);
+    const floorMat = new THREE.ShadowMaterial({ opacity: 0.52 });
     const floorMesh = new THREE.Mesh(floorGeo, floorMat);
     floorMesh.rotation.x = -Math.PI / 2;
-    floorMesh.position.y = -9.0;
+    floorMesh.position.y = -6.8;
     floorMesh.receiveShadow = true;
     this.scene.add(floorMesh);
 
-    // Sphere material: ultra-smooth mirror finish with autumn gold default
+    // 7. Ultra-reflective high-gloss mirror finish (Maximum 3D specular shine & depth)
     this.sphereMaterial = new THREE.MeshStandardMaterial({
       color: 0xfbbf24,       // Warm 24k polished autumn gold
-      metalness: 0.98,       // Pure metal
-      roughness: 0.032,      // Ultra-smooth mirror glass finish
+      metalness: 0.99,       // Pure mirror metal
+      roughness: 0.02,       // Liquid mirror reflection
       envMap: this.envTexture,
-      envMapIntensity: 1.45
+      envMapIntensity: 2.3   // Vibrant high-contrast reflection curves
     });
   }
 
@@ -16347,9 +16369,9 @@ class NeodymMagnets3DApp {
           s.pos.y += s.vel.y * subDt;
           s.pos.z += s.vel.z * subDt;
 
-          // Soft floor boundary at y = -8.5
-          if (s.pos.y < -8.5 + this.radius) {
-            s.pos.y = -8.5 + this.radius;
+          // Grounded contact boundary at y = -6.5 (tight 3D floor interaction)
+          if (s.pos.y < -6.5 + this.radius) {
+            s.pos.y = -6.5 + this.radius;
             if (s.vel.y < 0) s.vel.y = -s.vel.y * 0.35;
           }
         }
@@ -16364,10 +16386,17 @@ class NeodymMagnets3DApp {
 
   updateCamera() {
     if (!this.camera) return;
+    // Smooth holographic parallax tilt
+    this.parallax.x += (this.targetParallax.x - this.parallax.x) * 0.08;
+    this.parallax.y += (this.targetParallax.y - this.parallax.y) * 0.08;
+
     const { radius, theta, phi } = this.spherical;
-    this.camera.position.x = radius * Math.sin(phi) * Math.sin(theta);
-    this.camera.position.y = radius * Math.cos(phi);
-    this.camera.position.z = radius * Math.sin(phi) * Math.cos(theta);
+    const curTheta = theta + this.parallax.x;
+    const curPhi = Math.max(0.15, Math.min(Math.PI - 0.15, phi + this.parallax.y));
+
+    this.camera.position.x = radius * Math.sin(curPhi) * Math.sin(curTheta);
+    this.camera.position.y = radius * Math.cos(curPhi);
+    this.camera.position.z = radius * Math.sin(curPhi) * Math.cos(curTheta);
     this.camera.lookAt(this.target);
   }
 
@@ -16435,9 +16464,13 @@ class NeodymMagnets3DApp {
 
     window.addEventListener('pointermove', (e) => {
       if (!this.isActive || !this.isPointerDown) {
-        // Just hover check for cursor
         if (this.isActive) {
           const p = getPointerPos(e);
+          // Holographic 3D parallax tilt follows cursor across canvas
+          this.targetParallax.x = p.x * 0.24;
+          this.targetParallax.y = -p.y * 0.18;
+          this.updateCamera();
+
           this.pointer.x = p.x;
           this.pointer.y = p.y;
           this.raycaster.setFromCamera(this.pointer, this.camera);
