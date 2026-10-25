@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Text;
 
 namespace NeuroSpaceLauncher
 {
@@ -15,12 +16,69 @@ namespace NeuroSpaceLauncher
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        [DllImport("user32.dll")]
+        public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        public static extern bool IsWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        public static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetParent(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        public static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        private const int GWL_STYLE = -16;
+        private const int WS_VISIBLE = 0x10000000;
+        private const int WS_CHILD = 0x40000000;
+        private const int WS_POPUP = unchecked((int)0x80000000);
+        private const int WS_CAPTION = 0x00C00000;
+        private const int WS_THICKFRAME = 0x00040000;
+        private const uint SWP_SHOWWINDOW = 0x0040;
+
         private const int MOD_ALT = 0x0001;
         private const int VK_B = 0x42;
         private const int WM_HOTKEY = 0x0312;
         private const int HOTKEY_ID = 9920;
 
         private Process browserProcess;
+        private System.Windows.Forms.Timer embedTimer;
+        private IntPtr cachedEdgeHwnd = IntPtr.Zero;
 
         public HotkeyWatcherForm(Process proc)
         {
@@ -33,6 +91,12 @@ namespace NeuroSpaceLauncher
             // Register system-wide Alt+B hotkey for instant minimize to desktop
             RegisterHotKey(this.Handle, HOTKEY_ID, MOD_ALT, VK_B);
 
+            // In-App Roblox seamless window embedder timer
+            embedTimer = new System.Windows.Forms.Timer();
+            embedTimer.Interval = 150;
+            embedTimer.Tick += OnEmbedTimerTick;
+            embedTimer.Start();
+
             if (proc != null)
             {
                 proc.EnableRaisingEvents = true;
@@ -42,6 +106,7 @@ namespace NeuroSpaceLauncher
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
+                            embedTimer.Stop();
                             UnregisterHotKey(this.Handle, HOTKEY_ID);
                             Application.Exit();
                         });
@@ -49,6 +114,68 @@ namespace NeuroSpaceLauncher
                     catch { }
                 };
             }
+        }
+
+        private void OnEmbedTimerTick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Keep external desktop shortcuts clean
+                CleanRobloxDesktopShortcuts();
+
+                // Find or verify Edge window
+                if (cachedEdgeHwnd == IntPtr.Zero || !IsWindow(cachedEdgeHwnd))
+                {
+                    cachedEdgeHwnd = FindEdgeWindow();
+                }
+
+                if (cachedEdgeHwnd == IntPtr.Zero) return;
+
+                // Find Roblox window (Class: WINDOWCLIENT, Title: Roblox)
+                IntPtr rbxHwnd = FindWindow("WINDOWSCLIENT", "Roblox");
+                if (rbxHwnd == IntPtr.Zero) return;
+
+                RECT edgeRect;
+                GetClientRect(cachedEdgeHwnd, out edgeRect);
+                int w = edgeRect.Right - edgeRect.Left;
+                int h = edgeRect.Bottom - edgeRect.Top;
+                if (w <= 0 || h <= 0) return;
+
+                // If not yet reparented, embed Roblox directly inside NeuroSpace window!
+                if (GetParent(rbxHwnd) != cachedEdgeHwnd)
+                {
+                    SetParent(rbxHwnd, cachedEdgeHwnd);
+                    int oldStyle = GetWindowLong(rbxHwnd, GWL_STYLE);
+                    int newStyle = (oldStyle & ~WS_POPUP & ~WS_CAPTION & ~WS_THICKFRAME) | WS_CHILD | WS_VISIBLE;
+                    SetWindowLong(rbxHwnd, GWL_STYLE, newStyle);
+                }
+
+                // Keep Roblox perfectly positioned inside NeuroSpace under top nav bar
+                MoveWindow(rbxHwnd, 0, 48, w, h - 48, true);
+                SetWindowPos(rbxHwnd, IntPtr.Zero, 0, 48, w, h - 48, SWP_SHOWWINDOW);
+            }
+            catch { }
+        }
+
+        private IntPtr FindEdgeWindow()
+        {
+            IntPtr found = IntPtr.Zero;
+            EnumWindows(delegate(IntPtr hWnd, IntPtr lParam)
+            {
+                if (IsWindowVisible(hWnd))
+                {
+                    StringBuilder sb = new StringBuilder(512);
+                    GetWindowText(hWnd, sb, 512);
+                    string title = sb.ToString();
+                    if (title.IndexOf("NeuroSpace", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        found = hWnd;
+                        return false;
+                    }
+                }
+                return true;
+            }, IntPtr.Zero);
+            return found;
         }
 
         protected override void WndProc(ref Message m)
@@ -97,7 +224,12 @@ namespace NeuroSpaceLauncher
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            try { UnregisterHotKey(this.Handle, HOTKEY_ID); } catch { }
+            try
+            {
+                if (embedTimer != null) embedTimer.Stop();
+                UnregisterHotKey(this.Handle, HOTKEY_ID);
+            }
+            catch { }
             base.OnFormClosing(e);
         }
     }
@@ -136,7 +268,7 @@ namespace NeuroSpaceLauncher
                 else if (File.Exists(chromePath)) browserExe = chromePath;
 
                 string flags = string.Format(
-                    "--app=\"{0}\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check",
+                    "--app=\"{0}\" --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check",
                     htmlUri
                 );
 
@@ -158,7 +290,7 @@ namespace NeuroSpaceLauncher
                     });
                 }
 
-                // Run lightweight background watcher for Alt+B Boss-Key Minimize
+                // Run in-app embedder & hotkey watcher form
                 Application.Run(new HotkeyWatcherForm(browserProc));
             }
             catch (Exception ex)
