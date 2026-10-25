@@ -7207,6 +7207,11 @@
     background: radial-gradient(circle at 50% 30%, #1c0e09 0%, #0a0604 100%);
     position: relative;
   }
+  body.in-roblox-view .roblox-stage-fullscreen {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
   .roblox-clean-hero {
     text-align: center;
     max-width: 600px;
@@ -19779,25 +19784,6 @@ console.log("Roblox3DStudioEngine class loaded");
       btn.innerHTML = isRobloxFS ? '🗗 Minimieren (<kbd>F11</kbd>)' : '⛶ Vollbild (<kbd>F11</kbd>)';
     });
   };
-
-  // Synchronisiere Fullscreen-Zustand zwischen externem F11-Klick und UI-Buttons in Echtzeit
-  setInterval(() => {
-    if (!document.body.classList.contains('in-roblox-view')) return;
-    const title = document.title;
-    if (title.indexOf('Fullscreen') >= 0 && !isRobloxFS) {
-      isRobloxFS = true;
-      const currentView = document.getElementById('view-roblox');
-      if (currentView) currentView.classList.add('is-fullscreen-mode');
-      const btns = document.querySelectorAll('.roblox-fs-toggle-btn');
-      btns.forEach(btn => { btn.innerHTML = '🗗 Minimieren (<kbd>F11</kbd>)'; });
-    } else if (title.indexOf('Windowed') >= 0 && isRobloxFS) {
-      isRobloxFS = false;
-      const currentView = document.getElementById('view-roblox');
-      if (currentView) currentView.classList.remove('is-fullscreen-mode');
-      const btns = document.querySelectorAll('.roblox-fs-toggle-btn');
-      btns.forEach(btn => { btn.innerHTML = '⛶ Vollbild (<kbd>F11</kbd>)'; });
-    }
-  }, 100);
 
   function updateRobloxAppTitle() {
     if (!document.body.classList.contains('in-roblox-view')) return;

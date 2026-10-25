@@ -115,6 +115,9 @@ namespace NeuroSpaceLauncher
         private const int WS_EX_APPWINDOW = 0x00040000;
 
         private const uint SWP_SHOWWINDOW = 0x0040;
+        private const uint SWP_NOACTIVATE = 0x0010;
+        private const uint SWP_NOCOPYBITS = 0x0100;
+        private const uint SWP_ASYNCWINDOWPOS = 0x4000;
         private const int SW_HIDE = 0;
         private const int SW_SHOW = 5;
 
@@ -130,6 +133,13 @@ namespace NeuroSpaceLauncher
         private bool prevF11Down = false;
         private string lastObservedTitle = "";
 
+        private IntPtr lastOwnerSet = IntPtr.Zero;
+        private int lastAppliedX = -99999;
+        private int lastAppliedY = -99999;
+        private int lastAppliedW = -99999;
+        private int lastAppliedH = -99999;
+        private bool lastAppliedVisible = false;
+
         public HotkeyWatcherForm()
         {
             this.ShowInTaskbar = false;
@@ -140,9 +150,9 @@ namespace NeuroSpaceLauncher
             // Register system-wide Alt+B hotkey for instant minimize to desktop
             RegisterHotKey(this.Handle, HOTKEY_ID, MOD_ALT, VK_B);
 
-            // High-frequency in-app Roblox seamless window embedder timer (50ms for instant docking)
+            // Smooth flicker-free embedder timer (100ms interval)
             embedTimer = new System.Windows.Forms.Timer();
-            embedTimer.Interval = 50;
+            embedTimer.Interval = 100;
             embedTimer.Tick += OnEmbedTimerTick;
             embedTimer.Start();
         }
@@ -184,18 +194,20 @@ namespace NeuroSpaceLauncher
                 string title = sb.ToString();
                 bool isRobloxActive = title.IndexOf("Roblox Active", StringComparison.OrdinalIgnoreCase) >= 0;
 
-                // Detach from Edge if previously reparented as WS_CHILD.
-                // A foreign WS_CHILD inside Chromium has all mouse clicks eaten by Edge's message loop!
-                // Instead, Roblox MUST be a top-level borderless POPUP window owned by Edge.
+                // 1. Detach from Edge if previously reparented as WS_CHILD
                 if (GetParent(rbxHwnd) != IntPtr.Zero)
                 {
                     SetParent(rbxHwnd, IntPtr.Zero);
                 }
 
-                // Set Edge as the OWNER of the Roblox window so it moves, minimizes, and stays unified with Edge
-                SetWindowLongPtr(rbxHwnd, GWLP_HWNDPARENT, cachedEdgeHwnd);
+                // 2. Set Edge as OWNER ONCE per window instance (never call in an unconditional loop!)
+                if (lastOwnerSet != cachedEdgeHwnd)
+                {
+                    SetWindowLongPtr(rbxHwnd, GWLP_HWNDPARENT, cachedEdgeHwnd);
+                    lastOwnerSet = cachedEdgeHwnd;
+                }
 
-                // Ensure borderless popup window style (WS_POPUP, NOT WS_CHILD) so all mouse clicks hit Roblox directly
+                // 3. Ensure borderless popup window style (WS_POPUP, NOT WS_CHILD) only if styles differ
                 int curStyle = GetWindowLong(rbxHwnd, GWL_STYLE);
                 int targetStyle = (curStyle & ~WS_CHILD & ~WS_CAPTION & ~WS_THICKFRAME & ~WS_MINIMIZEBOX & ~WS_MAXIMIZEBOX & ~WS_SYSMENU) | WS_POPUP | WS_VISIBLE;
                 if (curStyle != targetStyle)
@@ -203,7 +215,7 @@ namespace NeuroSpaceLauncher
                     SetWindowLong(rbxHwnd, GWL_STYLE, targetStyle);
                 }
 
-                // Hide from Windows taskbar so it is not a separate application window
+                // 4. Hide from taskbar only if styles differ
                 int curExStyle = GetWindowLong(rbxHwnd, GWL_EXSTYLE);
                 int targetExStyle = (curExStyle & ~WS_EX_APPWINDOW) | WS_EX_TOOLWINDOW;
                 if (curExStyle != targetExStyle)
@@ -238,47 +250,64 @@ namespace NeuroSpaceLauncher
                 if (f11Down && !prevF11Down)
                 {
                     isRobloxFullscreen = !isRobloxFullscreen;
-
-                    // Update title so both Edge UI and launcher stay synchronized
-                    string updatedTitle = isRobloxFullscreen
+                    lastObservedTitle = isRobloxFullscreen
                         ? "NeuroSpace Studio — Roblox Active — Fullscreen"
                         : (isToolsOpen ? "NeuroSpace Studio — Roblox Active — Tools Open — Windowed" : "NeuroSpace Studio — Roblox Active — Windowed");
-                    lastObservedTitle = updatedTitle;
-                    SetWindowText(cachedEdgeHwnd, updatedTitle);
                 }
                 prevF11Down = f11Down;
 
                 if (isRobloxActive)
                 {
-                    ShowWindow(rbxHwnd, SW_SHOW);
+                    int targetX, targetY, targetWidth, targetHeight;
 
                     if (isRobloxFullscreen)
                     {
                         // VOLLBILD: Roblox covers entire screen
-                        MoveWindow(rbxHwnd, edgeRect.Left, edgeRect.Top, w, h, true);
-                        SetWindowPos(rbxHwnd, (IntPtr)0, edgeRect.Left, edgeRect.Top, w, h, SWP_SHOWWINDOW);
+                        targetX = edgeRect.Left;
+                        targetY = edgeRect.Top;
+                        targetWidth = w;
+                        targetHeight = h;
                     }
                     else
                     {
                         // MINIMIERT / STUDIO-MODUS: Roblox docked below NeuroSpace options bar (48px) and above bottom bar (26px)
                         int targetTop = 48;
                         int targetBottom = 26;
-                        int targetHeight = Math.Max(100, h - targetTop - targetBottom);
-
-                        // If Tools Drawer is open on the left, offset Roblox by 340px so tools are 100% visible and interactive!
                         int leftOffset = isToolsOpen ? 340 : 0;
-                        int targetWidth = Math.Max(100, w - leftOffset);
-                        int targetX = edgeRect.Left + leftOffset;
-                        int targetY = edgeRect.Top + targetTop;
 
-                        MoveWindow(rbxHwnd, targetX, targetY, targetWidth, targetHeight, true);
-                        SetWindowPos(rbxHwnd, (IntPtr)0, targetX, targetY, targetWidth, targetHeight, SWP_SHOWWINDOW);
+                        targetX = edgeRect.Left + leftOffset;
+                        targetY = edgeRect.Top + targetTop;
+                        targetWidth = Math.Max(100, w - leftOffset);
+                        targetHeight = Math.Max(100, h - targetTop - targetBottom);
+                    }
+
+                    // ZERO-FLICKER: Only touch window position if dimensions or visibility changed!
+                    if (targetX != lastAppliedX || targetY != lastAppliedY ||
+                        targetWidth != lastAppliedW || targetHeight != lastAppliedH ||
+                        !lastAppliedVisible)
+                    {
+                        lastAppliedX = targetX;
+                        lastAppliedY = targetY;
+                        lastAppliedW = targetWidth;
+                        lastAppliedH = targetHeight;
+                        lastAppliedVisible = true;
+
+                        ShowWindow(rbxHwnd, SW_SHOW);
+                        SetWindowPos(rbxHwnd, (IntPtr)0, targetX, targetY, targetWidth, targetHeight,
+                            SWP_NOACTIVATE | SWP_NOCOPYBITS | SWP_ASYNCWINDOWPOS | SWP_SHOWWINDOW);
                     }
                 }
                 else
                 {
-                    // User is in Hub or another view -> hide Roblox window
-                    ShowWindow(rbxHwnd, SW_HIDE);
+                    if (lastAppliedVisible)
+                    {
+                        lastAppliedVisible = false;
+                        lastAppliedX = -99999;
+                        lastAppliedY = -99999;
+                        lastAppliedW = -99999;
+                        lastAppliedH = -99999;
+                        ShowWindow(rbxHwnd, SW_HIDE);
+                    }
                 }
             }
             catch { }
