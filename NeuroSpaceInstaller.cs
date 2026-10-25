@@ -725,17 +725,26 @@ namespace NeuroSpaceInstaller
             // Launcher with autoplay policy bypassed & dedicated app mode
             string batPath = Path.Combine(TARGET_DIR, "NeuroSpace.bat");
             string batContent = "@echo off\r\n" +
+                                "cd /d \"C:\\NeuroSpace\"\r\n" +
                                 "if exist \"C:\\NeuroSpace\\NeuroSpace.exe\" (\r\n" +
                                 "    start \"\" \"C:\\NeuroSpace\\NeuroSpace.exe\"\r\n" +
-                                ") else (\r\n" +
-                                "    set \"EDGE=%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
-                                "    if not exist \"%EDGE%\" set \"EDGE=%ProgramFiles%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
-                                "    if exist \"%EDGE%\" (\r\n" +
-                                "        start \"\" \"%EDGE%\" --app=\"file:///C:/NeuroSpace/index.html?app=desktop\" --start-fullscreen --start-maximized --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check\r\n" +
-                                "    ) else (\r\n" +
-                                "        start \"\" \"C:\\NeuroSpace\\index.html?app=desktop\"\r\n" +
-                                "    )\r\n" +
+                                "    exit\r\n" +
                                 ")\r\n" +
+                                "set \"EDGE=%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
+                                "if not exist \"%EDGE%\" set \"EDGE=%ProgramFiles%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
+                                "if not exist \"%EDGE%\" set \"EDGE=%LOCALAPPDATA%\\Microsoft\\Edge\\Application\\msedge.exe\"\r\n" +
+                                "if exist \"%EDGE%\" (\r\n" +
+                                "    start \"\" \"%EDGE%\" --app=\"file:///C:/NeuroSpace/index.html?app=desktop\" --start-fullscreen --start-maximized --user-data-dir=\"C:\\NeuroSpace\\EdgeData\" --autoplay-policy=no-user-gesture-required --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio --no-first-run --no-default-browser-check\r\n" +
+                                "    exit\r\n" +
+                                ")\r\n" +
+                                "set \"CHROME=%ProgramFiles%\\Google\\Chrome\\Application\\chrome.exe\"\r\n" +
+                                "if not exist \"%CHROME%\" set \"CHROME=%ProgramFiles(x86)%\\Google\\Chrome\\Application\\chrome.exe\"\r\n" +
+                                "if not exist \"%CHROME%\" set \"CHROME=%LOCALAPPDATA%\\Google\\Chrome\\Application\\chrome.exe\"\r\n" +
+                                "if exist \"%CHROME%\" (\r\n" +
+                                "    start \"\" \"%CHROME%\" --app=\"file:///C:/NeuroSpace/index.html?app=desktop\" --start-fullscreen --start-maximized --user-data-dir=\"C:\\NeuroSpace\\ChromeData\" --autoplay-policy=no-user-gesture-required --no-first-run --no-default-browser-check\r\n" +
+                                "    exit\r\n" +
+                                ")\r\n" +
+                                "start \"\" \"file:///C:/NeuroSpace/index.html?app=desktop\"\r\n" +
                                 "exit\r\n";
             File.WriteAllText(batPath, batContent);
 
@@ -932,15 +941,30 @@ namespace NeuroSpaceInstaller
                 string vbs = Path.Combine(TARGET_DIR, "NeuroSpace.vbs");
                 if (File.Exists(exeLauncher))
                 {
-                    Process.Start(exeLauncher);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = exeLauncher,
+                        WorkingDirectory = TARGET_DIR,
+                        UseShellExecute = true
+                    });
                 }
                 else if (File.Exists(vbs))
                 {
-                    Process.Start("wscript.exe", "\"" + vbs + "\"");
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "wscript.exe",
+                        Arguments = "\"" + vbs + "\"",
+                        WorkingDirectory = TARGET_DIR,
+                        UseShellExecute = true
+                    });
                 }
                 else
                 {
-                    Process.Start(Path.Combine(TARGET_DIR, "index.html"));
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "file:///C:/NeuroSpace/index.html?app=desktop",
+                        UseShellExecute = true
+                    });
                 }
             }
             catch { }
