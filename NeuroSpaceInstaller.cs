@@ -216,7 +216,7 @@ namespace NeuroSpaceInstaller
             lblHiText.Text = "🍁 Highlights dieser Version:\n" +
                             "• 30 Sensorische Apps: Pixel-Gravitation, Sand-Kaskade, Buckyballs 3D, uvm.\n" +
                             "• Autoklicker & Live-FPS Werkzeuge: Anpassbar auf der linken Bildschirmseite\n" +
-                            "• Eigene Spiele einbinden: Starte Roblox, Fortnite oder Steam direkt aus dem Studio\n" +
+                            "• Integrierter Roblox-Emulator: Starte Roblox direkt im Studio im Vollbildmodus (F11)\n" +
                             "• Autoplay ohne Klicks: Musik und Videos starten automatisch ohne Browser-Restriktionen\n" +
                             "• Privatsphäre garantiert: Daten verbleiben lokal in C:\\NeuroSpace";
             pnlHighlights.Controls.Add(lblHiText);
@@ -250,7 +250,7 @@ namespace NeuroSpaceInstaller
                 "===========================================\r\n" +
                 "• NeuroSpace Studio respektiert Ihre Privatsphäre zu 100%.\r\n" +
                 "• Es werden KEINE personenbezogenen Daten, Surf-Gewohnheiten oder Passwörter erfasst oder an Server übermittelt.\r\n" +
-                "• Alle Konfigurationen, Spielstände und eingebundene Apps werden ausschließlich lokal auf Ihrem Rechner (unter C:\\NeuroSpace) gespeichert.\r\n" +
+                "• Alle Konfigurationen und Spielstände werden ausschließlich lokal auf Ihrem Rechner (unter C:\\NeuroSpace) gespeichert.\r\n" +
                 "• Die integrierte Spiele-Arcade ruft im Online-Modus öffentliche Spielefeeds ab. Wenn keine Internetverbindung vorhanden ist, bleibt die App voll funktionsfähig im Offline-Modus.\r\n\r\n" +
                 "2. NUTZUNGSBEDINGUNGEN (TERMS OF USE)\r\n" +
                 "=====================================\r\n" +
@@ -621,15 +621,8 @@ namespace NeuroSpaceInstaller
             }
             catch { }
 
-            // Create initial custom apps storage file (Roblox only - Fortnite removed)
-            string appsJsonPath = Path.Combine(TARGET_DIR, "neurospace_apps.json");
-            if (!File.Exists(appsJsonPath))
-            {
-                string defaultAppsJson = "[\r\n" +
-                                         "  {\"id\":\"roblox\",\"name\":\"Roblox\",\"command\":\"view-roblox\",\"icon\":\"🟥\",\"mode\":\"in-app\",\"tags\":[\"In-App Spiel\",\"Gaming\"]}\r\n" +
-                                         "]";
-                try { File.WriteAllText(appsJsonPath, defaultAppsJson); } catch { }
-            }
+            // Clean up any legacy custom apps file
+            try { string legacy = Path.Combine(TARGET_DIR, "neurospace_apps.json"); if (File.Exists(legacy)) File.Delete(legacy); } catch { }
 
             if (reportProgress != null) reportProgress(85, "5/6: Erstelle randlosen Launcher (ohne Browser-Leiste)...");
             Thread.Sleep(200);
