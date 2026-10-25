@@ -1837,6 +1837,19 @@
     padding: 16px 8px 70px 8px;
   }
 
+  .card-3d-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    mix-blend-mode: screen;
+    transform: translateZ(32px);
+    border: 1px solid rgba(254, 240, 138, 0.22);
+    transition: opacity 0.3s ease;
+  }
+
   .neuro-card {
     background: linear-gradient(165deg, rgba(34, 25, 20, 0.94) 0%, rgba(16, 12, 10, 0.98) 100%);
     border-radius: 24px;
@@ -1851,6 +1864,7 @@
     height: 100%;
     min-height: 295px;
     transform-style: preserve-3d;
+    perspective: 950px;
     transform: translateY(0) translateZ(0);
     z-index: 1;
     box-shadow:
@@ -5536,10 +5550,10 @@
 
   /* REIZARM-MODUS & GESUNDHEITSSCHUTZ (Schonend für Augen, Nervensystem & Herz-Kreislauf) */
   body:not(.sensory-overdrive-active) .neuro-card {
-    transition: transform 0.22s ease, box-shadow 0.22s ease !important;
+    box-shadow: 0 8px 18px -2px rgba(0, 0, 0, 0.6), 0 20px 38px -4px rgba(0, 0, 0, 0.75);
   }
   body:not(.sensory-overdrive-active) .neuro-card:hover {
-    transform: translateY(-4px) scale(1.015) !important;
+    border-color: rgba(245, 158, 11, 0.65);
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -6438,7 +6452,7 @@
     border: 1px solid rgba(245, 158, 11, 0.22) !important;
     border-radius: 20px !important;
     box-shadow: 0 14px 36px -6px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(245, 158, 11, 0.1) !important;
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s ease !important;
+    transition: box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s ease;
   }
   .neuro-card:hover {
     z-index: 15 !important;
@@ -11167,56 +11181,149 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   
-  // 2.5D Interactive Depth & Parallax Tilt on mousemove (Stronger 3D pop)
+  // ==============================================================
+  // 3D INTERACTIVE DEPTH, PARALLAX TILT & SPECULAR GLARE ENGINE
+  // ==============================================================
   function applyCard3DTilt(card) {
     if (!card || card._tiltBound) return;
     card._tiltBound = true;
-    card.style.transformStyle = 'preserve-3d';
-    card.addEventListener('mousemove', (e) => {
+    card.style.setProperty('transform-style', 'preserve-3d', 'important');
+
+    // Create or find dynamic specular glare overlay
+    let glare = card.querySelector('.card-3d-glare');
+    if (!glare) {
+      glare = document.createElement('div');
+      glare.className = 'card-3d-glare';
+      card.appendChild(glare);
+    }
+
+    const heroIcon = card.querySelector('.card-hero-icon, .roblox-hero-icon');
+    const arrowBtn = card.querySelector('.card-arrow-btn');
+    const neuBadge = card.querySelector('.card-neu-badge');
+
+    let rafId = null;
+    let targetRotX = 0, targetRotY = 0;
+    let currentRotX = 0, currentRotY = 0;
+    let targetX = 0, targetY = 0;
+    let isHovering = false;
+
+    function renderTilt() {
+      if (!isHovering) {
+        currentRotX += (0 - currentRotX) * 0.16;
+        currentRotY += (0 - currentRotY) * 0.16;
+        if (Math.abs(currentRotX) < 0.05 && Math.abs(currentRotY) < 0.05) {
+          card.style.removeProperty('transform');
+          card.style.removeProperty('transition');
+          if (heroIcon) heroIcon.style.removeProperty('transform');
+          if (arrowBtn) arrowBtn.style.removeProperty('transform');
+          if (neuBadge) neuBadge.style.removeProperty('transform');
+          if (glare) glare.style.opacity = '0';
+          rafId = null;
+          return;
+        }
+      } else {
+        currentRotX += (targetRotX - currentRotX) * 0.22;
+        currentRotY += (targetRotY - currentRotY) * 0.22;
+      }
+
+      const normX = currentRotY / 15;
+      const normY = -currentRotX / 15;
+
+      card.style.setProperty(
+        'transform',
+        `perspective(950px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateY(-10px) translateZ(35px) scale3d(1.035, 1.035, 1.035)`,
+        'important'
+      );
+
+      if (heroIcon) {
+        heroIcon.style.setProperty(
+          'transform',
+          `translateZ(58px) translateX(${(normX * 10).toFixed(1)}px) translateY(${(normY * 10).toFixed(1)}px) scale(1.16)`,
+          'important'
+        );
+      }
+
+      if (arrowBtn) {
+        arrowBtn.style.setProperty(
+          'transform',
+          `translateZ(46px) translateX(${(normX * 6).toFixed(1)}px) translateY(${(normY * 6).toFixed(1)}px) scale(1.14)`,
+          'important'
+        );
+      }
+
+      if (neuBadge) {
+        neuBadge.style.setProperty(
+          'transform',
+          `translateZ(38px) translateX(${(normX * 4).toFixed(1)}px) translateY(${(normY * 4).toFixed(1)}px)`,
+          'important'
+        );
+      }
+
+      if (glare && isHovering) {
+        glare.style.opacity = '1';
+        glare.style.background = `radial-gradient(circle 320px at ${targetX}px ${targetY}px, rgba(254, 240, 138, 0.32) 0%, rgba(245, 158, 11, 0.12) 40%, transparent 75%)`;
+      }
+
+      rafId = requestAnimationFrame(renderTilt);
+    }
+
+    card.addEventListener('mouseenter', (e) => {
+      isHovering = true;
+      card.style.setProperty('transition', 'none', 'important');
+      if (heroIcon) heroIcon.style.setProperty('transition', 'none', 'important');
+      if (arrowBtn) arrowBtn.style.setProperty('transition', 'none', 'important');
+      if (neuBadge) neuBadge.style.setProperty('transition', 'none', 'important');
       const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
       const cx = rect.width / 2;
       const cy = rect.height / 2;
-      const rotX = ((y - cy) / cy) * -5.0;
-      const rotY = ((x - cx) / cx) * 5.0;
-      card.style.transform = `perspective(850px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) translateZ(28px) scale(1.025)`;
+      targetRotX = ((targetY - cy) / cy) * -15;
+      targetRotY = ((targetX - cx) / cx) * 15;
+      if (!rafId) rafId = requestAnimationFrame(renderTilt);
     });
+
+    card.addEventListener('mousemove', (e) => {
+      isHovering = true;
+      const rect = card.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      targetRotX = ((targetY - cy) / cy) * -15;
+      targetRotY = ((targetX - cx) / cx) * 15;
+      if (!rafId) rafId = requestAnimationFrame(renderTilt);
+    });
+
     card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
+      isHovering = false;
+      targetRotX = 0;
+      targetRotY = 0;
+      card.style.setProperty('transition', 'transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease', 'important');
+      if (heroIcon) heroIcon.style.setProperty('transition', 'transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)', 'important');
+      if (arrowBtn) arrowBtn.style.setProperty('transition', 'transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)', 'important');
+      if (neuBadge) neuBadge.style.setProperty('transition', 'transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)', 'important');
+      if (glare) {
+        glare.style.transition = 'opacity 0.4s ease';
+        glare.style.opacity = '0';
+      }
+      if (!rafId) rafId = requestAnimationFrame(renderTilt);
     });
   }
   window.applyCard3DTilt = applyCard3DTilt;
 
-  const cards25d = document.querySelectorAll('.neuro-card');
-  cards25d.forEach(applyCard3DTilt);
+  // Initialize all existing cards
+  document.querySelectorAll('.neuro-card').forEach(applyCard3DTilt);
 
-  // Delegated fallback on grid so ANY dynamically injected card (such as Roblox) tilts seamlessly
+  // Delegated capture listener so ANY dynamically added card (such as Roblox) gets 3D tilt instantly
   const appsGridEl = document.getElementById('apps-grid');
   if (appsGridEl) {
-    appsGridEl.addEventListener('mousemove', (e) => {
+    appsGridEl.addEventListener('mouseenter', (e) => {
       const card = e.target.closest('.neuro-card');
-      if (!card || !appsGridEl.contains(card)) return;
-      if (!card._tiltBound) {
+      if (card && !card._tiltBound) {
         applyCard3DTilt(card);
       }
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      const rotX = ((y - cy) / cy) * -5.0;
-      const rotY = ((x - cx) / cx) * 5.0;
-      card.style.transform = `perspective(850px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) translateZ(28px) scale(1.025)`;
-    });
-    appsGridEl.addEventListener('mouseout', (e) => {
-      const card = e.target.closest('.neuro-card');
-      if (!card) return;
-      const related = e.relatedTarget;
-      if (!related || !card.contains(related)) {
-        card.style.transform = '';
-      }
-    });
+    }, true);
   }
 
   window.addEventListener('keydown', (e) => {
