@@ -124,7 +124,6 @@ namespace NeuroSpaceLauncher
         private const int MOD_ALT = 0x0001;
         private const int VK_B = 0x42;
         private const int WM_HOTKEY = 0x0312;
-        private const uint WM_CLOSE = 0x0010;
         private const int HOTKEY_ID = 9920;
 
         private System.Windows.Forms.Timer embedTimer;
@@ -190,19 +189,6 @@ namespace NeuroSpaceLauncher
                 StringBuilder sb = new StringBuilder(512);
                 GetWindowText(cachedEdgeHwnd, sb, 512);
                 string title = sb.ToString();
-
-                // If user held Escape or requested full exit, close Edge and terminate launcher
-                if (title.IndexOf("Close Studio", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    title.IndexOf("Exit App — Close", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    KillRobloxProcess();
-                    if (cachedEdgeHwnd != IntPtr.Zero && IsWindow(cachedEdgeHwnd))
-                    {
-                        PostMessage(cachedEdgeHwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                    }
-                    Application.Exit();
-                    return;
-                }
 
                 if (title.IndexOf("Close Roblox", StringComparison.OrdinalIgnoreCase) >= 0 ||
                     title.IndexOf("Exit App", StringComparison.OrdinalIgnoreCase) >= 0)
