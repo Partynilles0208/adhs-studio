@@ -4430,43 +4430,51 @@
   #trust-privacy-modal {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(4, 8, 18, 0.88);
-    backdrop-filter: blur(16px);
+    background: rgba(6, 10, 18, 0.84);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000000;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), backdrop-filter 1.4s ease;
+    transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 1.6s ease;
   }
   #trust-privacy-modal.active {
     opacity: 1;
     pointer-events: auto;
   }
+  #trust-privacy-modal.active .trust-modal-card {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
   #trust-privacy-modal.fading-out {
     opacity: 0 !important;
     backdrop-filter: blur(0px) !important;
     pointer-events: none !important;
+    transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 1.8s ease !important;
   }
   #trust-privacy-modal.fading-out .trust-modal-card {
     opacity: 0 !important;
-    transform: scale(0.95) translateY(12px) !important;
+    transform: scale(0.97) translateY(8px) !important;
+    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.8s ease !important;
   }
 
   .trust-modal-card {
-    background: radial-gradient(circle at 50% 0%, rgba(30, 45, 65, 0.98), rgba(10, 16, 28, 0.99));
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 50px rgba(16, 185, 129, 0.2);
+    background: radial-gradient(circle at 50% 0%, rgba(32, 22, 14, 0.98), rgba(12, 8, 6, 0.99));
+    border: 1.5px solid rgba(245, 158, 11, 0.55);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(245, 158, 11, 0.25);
     border-radius: 28px;
     width: 92vw;
-    max-width: 640px;
+    max-width: 680px;
     max-height: 85vh;
     overflow-y: auto;
     padding: 32px 30px;
     position: relative;
-    transform: scale(0.94);
-    transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease;
+    transform: scale(0.96) translateY(12px);
+    opacity: 0;
+    transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.6s ease;
   }
 
   /* === SERENE FLOATING AUTUMN LEAF LOADER & MOVING DOTS === */
@@ -4523,23 +4531,25 @@
     pointer-events: none !important;
   }
 
-  /* Animated entrance of hub and apps after 3-minute load */
+  /* Fluid entrance of hub and apps after 3-minute load */
   @keyframes autumnAppsCascadeEntrance {
     0% {
       opacity: 0;
-      transform: translateY(40px) scale(0.96);
+      transform: translateY(32px) scale(0.98);
+      filter: blur(6px);
     }
-    60% {
-      opacity: 0.85;
+    40% {
+      filter: blur(2px);
     }
     100% {
       opacity: 1;
       transform: translateY(0) scale(1);
+      filter: blur(0px);
     }
   }
 
   .autumn-apps-entrance {
-    animation: autumnAppsCascadeEntrance 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    animation: autumnAppsCascadeEntrance 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
   }
   #trust-privacy-modal.active .trust-modal-card {
     transform: scale(1);
@@ -5345,7 +5355,7 @@
     justify-content: center;
     overflow: hidden;
     opacity: 1;
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .cinematic-slide {
     position: absolute;
@@ -5358,7 +5368,7 @@
     justify-content: center;
     background: #000000;
     opacity: 0;
-    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     pointer-events: none;
   }
   .cinematic-slide.active {
@@ -16415,7 +16425,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <!-- ============================================================== -->
   <!-- INITIAL TRANQUIL 3-MINUTE AUTUMN DEEP LOADER                   -->
   <!-- ============================================================== -->
-  <div id="initial-autumn-deep-loader" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:90000; flex-direction:column; align-items:center; justify-content:center; pointer-events:all; opacity:0; transition:opacity 1.2s ease;">
+  <div id="initial-autumn-deep-loader" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:90000; flex-direction:column; align-items:center; justify-content:center; pointer-events:all; opacity:0; transition:opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1);">
     
     <!-- Floating & Swaying Autumn Leaf (clickable 5x for dev test bypass) -->
     <div class="autumn-serene-leaf-icon" style="font-size:78px; user-select:none; cursor:default; animation:sereneAutumnLeafFloat 4.2s ease-in-out infinite;">
@@ -16498,13 +16508,19 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
-      <div style="margin-top:22px; display:flex; flex-direction:column; gap:8px;">
-        <button class="trust-accept-btn" onclick="if(window.trustEngine) window.trustEngine.acceptAndClose();" style="width:100%; padding:15px; border-radius:16px; background:linear-gradient(135deg, #d97706, #10b981); border:none; color:#fff; font-size:15px; font-weight:900; cursor:pointer; box-shadow:0 0 25px rgba(245,158,11,0.4); display:flex; align-items:center; justify-content:center; gap:8px; transition:transform 0.15s;">
-          <span>🍁</span> Ich habe die Bestimmungen gelesen &amp; stimme zu
-        </button>
-        <button onclick="if(window.trustEngine) window.trustEngine.closeModal();" style="width:100%; padding:10px; border-radius:12px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#cbd5e1; font-size:12px; font-weight:700; cursor:pointer;">
-          Später im Hub erneut nachlesen
-        </button>
+      <!-- Subtiler beruhigender Fortschritt & dezentes Schließen (Kein Bestätigen-Button!) -->
+      <div style="margin-top:24px; padding-top:14px; border-top:1px solid rgba(245,158,11,0.22); display:flex; flex-direction:column; gap:10px;">
+        <div id="terms-reading-progress" style="width:100%; height:3px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden;">
+          <div id="terms-reading-bar" style="height:100%; width:0%; background:linear-gradient(90deg, #f59e0b, #10b981);"></div>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; font-size:11.5px; color:#cbd5e1;">
+          <span style="display:inline-flex; align-items:center; gap:6px; opacity:0.85;">
+            <span>🍁</span> <i>Hinweise werden automatisch übernommen</i>
+          </span>
+          <button onclick="if(window.trustEngine) window.trustEngine.closeModal();" style="background:rgba(255,255,255,0.08); border:1px solid rgba(245,158,11,0.3); color:#fef3c7; padding:5px 14px; border-radius:10px; font-weight:700; font-size:11px; cursor:pointer;" title="Fenster schließen">
+            Schließen
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -16517,30 +16533,66 @@ document.addEventListener('DOMContentLoaded', () => {
 class TrustAndWarmthEngine {
   constructor() {
     this.modal = document.getElementById('trust-privacy-modal');
+    this.autoTimer = null;
+    this.isStartupMode = false;
   }
 
-  openModal() {
+  openModal(isStartup = false) {
+    this.isStartupMode = isStartup;
+    clearTimeout(this.autoTimer);
+
     if (this.modal) {
       this.modal.style.display = 'flex';
       this.modal.classList.remove('fading-out');
       void this.modal.offsetWidth;
       this.modal.classList.add('active');
+
+      const progressBar = document.getElementById('terms-reading-bar');
+      if (progressBar) {
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        if (isStartup) {
+          void progressBar.offsetWidth;
+          progressBar.style.transition = 'width 10s linear';
+          progressBar.style.width = '100%';
+        }
+      }
     }
+
     if (window.audio && typeof window.audio.playPop === 'function') {
       window.audio.playPop(520);
+    }
+
+    if (isStartup) {
+      // Flüssiger automatischer Übergang nach Lesezeit (10s) GANZ OHNE Bestätigen-Button!
+      this.autoTimer = setTimeout(() => {
+        this.acceptAndClose();
+      }, 10000);
+
+      // Sanfter Klick oder Tastendruck erlaubt sofortiges Weiterschalten
+      const advanceHandler = () => {
+        if (!this.modal || !this.modal.classList.contains('active')) return;
+        clearTimeout(this.autoTimer);
+        this.acceptAndClose();
+      };
+      if (this.modal) {
+        this.modal.addEventListener('click', advanceHandler, { once: true });
+      }
+      window.addEventListener('keydown', advanceHandler, { once: true });
     }
   }
 
   openStartupModal() {
-    this.openModal();
+    this.openModal(true);
   }
 
   acceptAndClose() {
+    clearTimeout(this.autoTimer);
     try {
       localStorage.setItem('neurospace_terms_update_accepted_v2', 'true');
     } catch(e) {}
 
-    // Nach Klick auf Bestimmungen: Modal wird langsam komplett transparent und geht dann weg
+    // Flüssiger Übergang: Modal wird langsam komplett transparent (1.8s) und geht dann
     if (this.modal) {
       this.modal.classList.add('fading-out');
       this.modal.classList.remove('active');
@@ -16550,20 +16602,21 @@ class TrustAndWarmthEngine {
       window.audio.playChime();
     }
 
+    // Während das Modal transparent wird, startet der Deep Loader bereits flüssig im Hintergrund
+    if (window.deepLoaderEngine) {
+      window.deepLoaderEngine.onTermsAccepted();
+    }
+
     setTimeout(() => {
       if (this.modal) {
         this.modal.style.display = 'none';
         this.modal.classList.remove('fading-out');
       }
-      // Erstes Mal: 3-Minuten-Ladezyklus mit Blatt & wandernden Punkten
-      // Danach: Nie wieder, Apps sofort da!
-      if (window.deepLoaderEngine) {
-        window.deepLoaderEngine.onTermsAccepted();
-      }
-    }, 1400);
+    }, 1800);
   }
 
   closeModal() {
+    clearTimeout(this.autoTimer);
     if (this.modal) {
       this.modal.classList.add('fading-out');
       this.modal.classList.remove('active');
@@ -16602,9 +16655,8 @@ class DeepLoaderEngine {
   }
 
   prepareHubStateBeforeTerms() {
-    // Wenn der 3-Minuten-Ladezyklus noch nie absolviert wurde,
-    // halten wir die Apps und Hub-Elemente im Hintergrund unsichtbar,
-    // damit zunächst nur Hintergrund, Musik und Blatt sichtbar sind.
+    // Wenn der 3-Minuten-Ladezyklus noch nie absolviert wurde:
+    // Apps im Hintergrund unsichtbar halten, damit zunächst nur Hintergrund, Musik und Blatt sichtbar sind
     if (!this.hasCompletedInitialLoad()) {
       document.body.classList.add('is-initial-deep-loading');
     }
@@ -16612,7 +16664,7 @@ class DeepLoaderEngine {
 
   onTermsAccepted() {
     if (this.hasCompletedInitialLoad()) {
-      // Wurde bereits einmal absolviert: Direkt Apps einblenden, nie wieder 3 Minuten warten!
+      // Wurde bereits einmal absolviert: Apps direkt mit flüssiger Animation einblenden, nie wieder 3 Minuten warten!
       document.body.classList.remove('is-initial-deep-loading');
       const shell = document.querySelector('#view-hub .neuro-app-shell');
       if (shell) {
@@ -16636,7 +16688,7 @@ class DeepLoaderEngine {
       window.bgMusicController.startWithFadeIn();
     }
 
-    // Loader anzeigen
+    // Flüssige Einblendung des Loaders
     if (this.loader) {
       this.loader.style.display = 'flex';
       void this.loader.offsetWidth;
@@ -16658,15 +16710,15 @@ class DeepLoaderEngine {
       localStorage.setItem(this.storageKey, 'true');
     } catch(e) {}
 
-    // Loader sanft ausblenden
+    // Flüssiges Ausblenden des Loaders
     if (this.loader) {
       this.loader.style.opacity = '0';
       setTimeout(() => {
         this.loader.style.display = 'none';
-      }, 1300);
+      }, 1600);
     }
 
-    // Nach 3 Minuten: Apps tauchen nun animiert auf!
+    // Flüssiges Erscheinen der Apps (weiche Aufwärts- und Entfaltungsanimation)
     setTimeout(() => {
       document.body.classList.remove('is-initial-deep-loading');
       const shell = document.querySelector('#view-hub .neuro-app-shell');
@@ -16679,7 +16731,7 @@ class DeepLoaderEngine {
       if (window.audio && typeof window.audio.playChime === 'function') {
         window.audio.playChime();
       }
-    }, 400);
+    }, 500);
   }
 
   initLeafBypass() {
@@ -16688,7 +16740,8 @@ class DeepLoaderEngine {
       const leaf = document.querySelector('.autumn-serene-leaf-icon');
       let clickCount = 0;
       if (leaf) {
-        leaf.addEventListener('click', () => {
+        leaf.addEventListener('click', (e) => {
+          e.stopPropagation();
           clickCount++;
           if (clickCount >= 5) {
             this.finishDeepLoad();
